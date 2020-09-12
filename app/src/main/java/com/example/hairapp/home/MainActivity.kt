@@ -1,5 +1,6 @@
 package com.example.hairapp.home
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -7,46 +8,54 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.hairapp.R
 import com.example.hairapp.bind
+import com.example.hairapp.databinding.ActivityMainBinding
+import com.example.hairapp.new_product.NewProductActivity
 import com.example.hairapp.setNavigationColor
 import com.example.hairapp.setStatusBarColor
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    fun addNew() {
+        val targetActivity = when (HomeTab.byPosition(tabs.selectedTabPosition)) {
+            HomeTab.CARE -> NewProductActivity::class.java
+            HomeTab.PRODUCTS -> NewProductActivity::class.java
+        }
+        startActivity(Intent(this, targetActivity))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bind(R.layout.activity_main)
+        bind<ActivityMainBinding>(R.layout.activity_main, viewModel = null)
         setStatusBarColor(R.color.color_primary)
         setNavigationColor(R.color.color_white)
         setupTabs()
     }
 
-    fun setupTabs() {
+    private fun setupTabs() {
         tabs_pager.adapter = TabsAdapter()
         tabs.setupWithViewPager(tabs_pager)
 
-        val careTab = tabs.getTabAt(TAB_CARE)
+        val careTab = tabs.getTabAt(HomeTab.CARE.position)
         careTab?.icon = ContextCompat.getDrawable(this, R.drawable.ic_round_bathtub_24)
 
-        val productsTab = tabs.getTabAt(TAB_PRODUCTS)
+        val productsTab = tabs.getTabAt(HomeTab.PRODUCTS.position)
         productsTab?.icon = ContextCompat.getDrawable(this, R.drawable.ic_round_list_24)
     }
 
     inner class TabsAdapter : FragmentStatePagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         override fun getPageTitle(position: Int): CharSequence? {
-            return when (position) {
-                TAB_CARE -> "Pielęgnacje"
-                TAB_PRODUCTS -> "Produkty"
-                else -> throw IllegalStateException("Tab index outside range (0, 1)")
+            return when (HomeTab.byPosition(position)) {
+                HomeTab.CARE -> "Pielęgnacje"
+                HomeTab.PRODUCTS -> "Produkty"
             }
         }
 
         override fun getItem(position: Int): Fragment {
-            return when (position) {
-                TAB_CARE -> CareFragment()
-                TAB_PRODUCTS -> ProductsFragment()
-                else -> throw IllegalStateException("Tab index outside range (0, 1)")
+            return when (HomeTab.byPosition(position)) {
+                HomeTab.CARE -> CareFragment()
+                HomeTab.PRODUCTS -> ProductsFragment()
             }
         }
 
@@ -55,8 +64,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
-        private const val TAB_CARE = 0
-        private const val TAB_PRODUCTS = 1
+    private enum class HomeTab(val position: Int) {
+        CARE(0),
+        PRODUCTS(1);
+
+        companion object {
+            fun byPosition(position: Int) = when (position) {
+                0 -> CARE
+                1 -> PRODUCTS
+                else -> throw IllegalStateException("Tab number has to be 0 (care) or 1 (products)")
+            }
+        }
     }
 }
