@@ -1,4 +1,4 @@
-package com.example.hairapp.home
+package com.example.hairapp.presentation.home
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,15 +9,19 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.hairapp.R
 import com.example.hairapp.bind
 import com.example.hairapp.databinding.ActivityMainBinding
-import com.example.hairapp.new_product.NewProductActivity
+import com.example.hairapp.presentation.new_product.NewProductActivity
 import com.example.hairapp.setNavigationColor
 import com.example.hairapp.setStatusBarColor
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     fun addNew() {
-        val targetActivity = when (HomeTab.byPosition(tabs.selectedTabPosition)) {
+        val targetActivity = when (HomeTab.byPosition(
+            tabs.selectedTabPosition
+        )) {
             HomeTab.CARE -> NewProductActivity::class.java
             HomeTab.PRODUCTS -> NewProductActivity::class.java
         }
@@ -46,14 +50,18 @@ class MainActivity : AppCompatActivity() {
     inner class TabsAdapter : FragmentStatePagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         override fun getPageTitle(position: Int): CharSequence? {
-            return when (HomeTab.byPosition(position)) {
+            return when (HomeTab.byPosition(
+                position
+            )) {
                 HomeTab.CARE -> "Pielęgnacje"
                 HomeTab.PRODUCTS -> "Produkty"
             }
         }
 
         override fun getItem(position: Int): Fragment {
-            return when (HomeTab.byPosition(position)) {
+            return when (HomeTab.byPosition(
+                position
+            )) {
                 HomeTab.CARE -> CareFragment()
                 HomeTab.PRODUCTS -> ProductsFragment()
             }

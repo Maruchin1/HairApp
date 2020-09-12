@@ -5,26 +5,27 @@
 
         <variable
             name="controller"
-            type="com.example.hairapp.new_product.NewProductActivity" />
+            type="com.example.hairapp.presentation.new_product.NewProductActivity" />
 
         <variable
             name="viewModel"
-            type="com.example.hairapp.new_product.NewProductViewModel" />
+            type="com.example.hairapp.presentation.new_product.NewProductViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".new_product.NewProductActivity">
+        tools:context=".presentation.new_product.NewProductActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.example.hairapp.common.ToolbarView
+            <com.example.hairapp.presentation.common.ToolbarView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
@@ -49,33 +50,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Nazwa"
+                    android:hint="@string/name"
                     app:startIconDrawable="@drawable/ic_round_title_24">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textCapSentences" />
+                        android:inputType="textCapSentences"
+                        android:text="@={viewModel.productName}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:hint="Producent"
+                    android:hint="@string/manufacturer"
                     app:startIconDrawable="@drawable/ic_round_local_offer_24">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textCapSentences" />
+                        android:inputType="textCapSentences"
+                        android:text="@={viewModel.productManufacturer}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="48dp"
-                    android:text="Typ"
+                    android:text="@string/type"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                 <com.google.android.material.chip.ChipGroup
@@ -87,31 +90,36 @@
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Emolient" />
+                        android:checked="@={viewModel.emollient}"
+                        android:text="@string/emollient" />
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Humektant" />
+                        android:checked="@={viewModel.humectant}"
+                        android:text="@string/humectant" />
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Proteiny" />
+                        android:checked="@={viewModel.protein}"
+                        android:text="@string/proteins" />
                 </com.google.android.material.chip.ChipGroup>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:text="Zastosowanie"
+                    android:text="@string/application"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                 <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group_application"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    app:items="@{viewModel.productApplications}"
+                    app:items="@{viewModel.productApplicationOptions}"
+                    app:selectedItems="@={viewModel.productApplication}"
                     app:singleSelection="false">
 
                 </com.google.android.material.chip.ChipGroup>
@@ -122,7 +130,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="zapisz"
+            android:onClick="@{() -> controller.saveProduct()}"
+            android:text="@string/save"
             app:icon="@drawable/ic_round_save_24"
             app:layout_anchor="@id/content"
             app:layout_anchorGravity="bottom|center" />

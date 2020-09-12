@@ -1,16 +1,21 @@
 package com.example.hairapp.use_case
 
+import android.util.Log
 import com.example.hairapp.model.Product
 import com.example.hairapp.model.ProductType
 import com.example.hairapp.repository.ProductRepo
+import javax.inject.Inject
 
-class AddNewProductUseCase(
+class NewProductUseCase @Inject constructor(
     private val productRepo: ProductRepo
-) : UseCase<AddNewProductUseCase.Input, Unit>() {
+) : UseCase<NewProductUseCase.Input, Unit>() {
+    private val TAG = "NewProductUseCase"
 
     private lateinit var input: Input
 
     override suspend fun doWork(input: Input) {
+        Log.d(TAG, "doWork")
+        Log.d(TAG, "$input")
         this.input = input
         if (alreadyExists())
             throw ProductAlreadyExistsException()
@@ -27,9 +32,9 @@ class AddNewProductUseCase(
             name = input.productName,
             manufacturer = input.productManufacturer,
             type = ProductType(
-                emollient = input.isEmollient,
-                humectant = input.isHumectant,
-                protein = input.isProtein
+                emollient = input.emollient,
+                humectant = input.humectant,
+                protein = input.protein
             ),
             application = input.productApplications.toMutableSet()
         )
@@ -42,9 +47,9 @@ class AddNewProductUseCase(
     data class Input(
         val productName: String,
         val productManufacturer: String,
-        val isEmollient: Boolean,
-        val isHumectant: Boolean,
-        val isProtein: Boolean,
+        val emollient: Boolean,
+        val humectant: Boolean,
+        val protein: Boolean,
         val productApplications: Set<String>
     )
 

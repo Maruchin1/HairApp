@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">HairApp</string>
+
+    <string name="care">Pielęgnacje</string>
+    <string name="products">Produkty</string>
+    <string name="statistics">Statystyki</string>
+    <string name="settings">Ustawienia</string>
+
+    <string name="name">Nazwa</string>
+    <string name="manufacturer">Producent</string>
+    <string name="type">Typ</string>
+    <string name="emollient">Emolient</string>
+    <string name="humectant">Humektant</string>
+    <string name="proteins">Proteiny</string>
+    <string name="application">Zastosowanie</string>
+    <string name="save">Zapisz</string>
+
 </resources>

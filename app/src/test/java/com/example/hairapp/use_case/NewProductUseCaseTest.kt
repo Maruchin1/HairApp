@@ -10,15 +10,15 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
-class AddNewProductUseCaseTest {
+class NewProductUseCaseTest {
     private val productRepo: ProductRepo = mockk()
 
-    private lateinit var useCase: AddNewProductUseCase
+    private lateinit var useCase: NewProductUseCase
 
     @Before
     fun before() {
         coJustRun { productRepo.addNewProduct(any()) }
-        useCase = AddNewProductUseCase(productRepo)
+        useCase = NewProductUseCase(productRepo)
     }
 
     @Test
@@ -27,12 +27,12 @@ class AddNewProductUseCaseTest {
         coEvery { productRepo.existsByName(any()) } returns true
 
         // Act
-        val input = AddNewProductUseCase.Input(
+        val input = NewProductUseCase.Input(
             productName = "Shauma",
             productManufacturer = "Schwarzkopf",
-            isEmollient = false,
-            isHumectant = true,
-            isProtein = false,
+            emollient = false,
+            humectant = true,
+            protein = false,
             productApplications = setOf("Mocny szampon")
         )
         val result = useCase.execute(input)
@@ -40,7 +40,7 @@ class AddNewProductUseCaseTest {
         // Assert
         assertThat(result).isInstanceOf(UseCaseResult.Error::class)
         val errorResult = result as UseCaseResult.Error
-        assertThat(errorResult.exception).isInstanceOf(AddNewProductUseCase.ProductAlreadyExistsException::class)
+        assertThat(errorResult.exception).isInstanceOf(NewProductUseCase.ProductAlreadyExistsException::class)
         Unit
     }
 
@@ -50,12 +50,12 @@ class AddNewProductUseCaseTest {
         coEvery { productRepo.existsByName(any()) } returns false
 
         // Act
-        val input = AddNewProductUseCase.Input(
+        val input = NewProductUseCase.Input(
             productName = "Shauma",
             productManufacturer = "Schwarzkopf",
-            isEmollient = false,
-            isHumectant = true,
-            isProtein = false,
+            emollient = false,
+            humectant = true,
+            protein = false,
             productApplications = setOf("Mocny szampon")
         )
         val result = useCase.execute(input)

@@ -1,4 +1,4 @@
-package com.example.hairapp.common
+package com.example.hairapp.presentation.common
 
 import android.content.Context
 import android.util.AttributeSet

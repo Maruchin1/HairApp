@@ -5,7 +5,7 @@
 
         <variable
             name="controller"
-            type="com.example.hairapp.home.MainActivity" />
+            type="com.example.hairapp.presentation.home.MainActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        tools:context=".home.MainActivity">
+        tools:context=".presentation.home.MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -23,10 +23,10 @@
             android:background="@color/color_primary"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.example.hairapp.common.ToolbarView
+            <com.example.hairapp.presentation.common.ToolbarView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title="HairApp" />
+                app:title="@string/app_name" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
@@ -41,13 +41,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:icon="@drawable/ic_round_bathtub_24"
-                    android:text="Pielęgnacje" />
+                    android:text="@string/care" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:icon="@drawable/ic_round_list_24"
-                    android:text="Produkty" />
+                    android:text="@string/products" />
             </com.google.android.material.tabs.TabLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -91,7 +91,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Statystyki"
+                    android:text="@string/statistics"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                     android:textColor="@color/color_primary" />
             </LinearLayout>
@@ -135,7 +135,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ustawienia"
+                    android:text="@string/settings"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                     android:textColor="@color/color_primary" />
             </LinearLayout>
