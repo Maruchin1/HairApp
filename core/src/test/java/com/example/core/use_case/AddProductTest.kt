@@ -40,7 +40,8 @@ class AddProductTest {
             emollient = false,
             humectant = true,
             protein = false,
-            productApplications = setOf("Mocny szampon")
+            productApplications = setOf("Mocny szampon"),
+            productPhotoData = null
         )
         val result = useCase(input)
 
@@ -63,7 +64,8 @@ class AddProductTest {
             emollient = false,
             humectant = true,
             protein = false,
-            productApplications = setOf("Mocny szampon")
+            productApplications = setOf("Mocny szampon"),
+            productPhotoData = null
         )
         val result = useCase(input)
 

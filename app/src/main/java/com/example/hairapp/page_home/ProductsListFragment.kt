@@ -31,7 +31,7 @@ class ProductsListFragment : Fragment() {
             fragment = this,
             layoutResId = R.layout.item_product,
             source = viewModel.products,
-            compareItemsBy = { it.name }
+            compareItemsBy = { it.productName }
         )
     }
 }

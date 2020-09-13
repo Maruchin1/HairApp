@@ -5,7 +5,7 @@
 
         <variable
             name="item"
-            type="com.example.core.domain.Product" />
+            type="com.example.hairapp.page_home.ProductItem" />
 
         <variable
             name="controller"
@@ -33,7 +33,8 @@
                 <ImageView
                     android:id="@+id/item_product_image"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    app:srcUri="@{item.productPhoto}" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -43,7 +44,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text='@{item.name, default="Nazwa produktu"}'
+                android:text='@{item.productName, default="Nazwa produktu"}'
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +56,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:text='@{item.manufacturer, default="Producent"}'
+                android:text='@{item.productManufacturer, default="Producent"}'
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

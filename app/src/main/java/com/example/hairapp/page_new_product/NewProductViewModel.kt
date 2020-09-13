@@ -45,7 +45,8 @@ class NewProductViewModel @ViewModelInject constructor(
         emollient = emollient.value!!,
         humectant = humectant.value!!,
         protein = protein.value!!,
-        productApplications = productApplication.value!!
+        productApplications = productApplication.value!!,
+        productPhotoData = productPhoto.value!!.toString()
     )
 
     private fun UseCaseResult.Error.toMessage(): String = when (exception) {

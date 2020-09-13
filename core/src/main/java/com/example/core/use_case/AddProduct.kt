@@ -34,7 +34,7 @@ class AddProduct @Inject constructor(
                 protein = input.protein
             ),
             application = input.productApplications.toMutableSet(),
-            photoData = null
+            photoData = input.productPhotoData
         )
     }
 
@@ -48,7 +48,8 @@ class AddProduct @Inject constructor(
         val emollient: Boolean,
         val humectant: Boolean,
         val protein: Boolean,
-        val productApplications: Set<String>
+        val productApplications: Set<String>,
+        val productPhotoData: String?
     )
 
     class ProductAlreadyExistsException : IllegalStateException()
