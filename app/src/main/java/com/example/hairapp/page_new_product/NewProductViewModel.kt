@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import com.example.core.base.UseCaseResult
 import com.example.core.domain.PRODUCT_APPLICATIONS
 import com.example.core.use_case.AddProduct
+import com.example.hairapp.R
 
 class NewProductViewModel @ViewModelInject constructor(
     private val addProduct: AddProduct
@@ -24,6 +25,11 @@ class NewProductViewModel @ViewModelInject constructor(
     val productApplication = MutableLiveData(setOf<String>())
 
     val productPhoto = MutableLiveData<Uri?>(null)
+
+    val photoPlaceholderId: LiveData<Int> = liveData {
+        val id = R.drawable.ic_round_add_a_photo_24
+        emit(id)
+    }
 
     val productApplicationOptions: LiveData<List<String>> = liveData {
         emit(PRODUCT_APPLICATIONS.toList())

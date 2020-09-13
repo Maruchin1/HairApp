@@ -51,9 +51,13 @@ fun setSelectedItemsChangedListener(view: ChipGroup, attrChange: InverseBindingL
     }
 }
 
-@BindingAdapter("app:srcUri")
-fun setSourceUri(view: ImageView, uri: Uri?) {
-    view.load(uri)
+@BindingAdapter("app:srcUri", "app:defaultResource", requireAll = false)
+fun setSourceUri(view: ImageView, uri: Uri?, defaultResourceId: Int?) {
+    if (uri == null && defaultResourceId != null) {
+        view.load(defaultResourceId)
+    } else {
+        view.load(uri)
+    }
 }
 
 @BindingAdapter("app:onNavigationClick")
