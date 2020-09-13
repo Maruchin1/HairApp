@@ -118,20 +118,26 @@
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="@={viewModel.emollient}"
-                        android:text="@string/emollient" />
+                        android:checked="@={viewModel.humectant}"
+                        android:text="@string/humectant"
+                        app:chipBackgroundColor="@color/chip_humectant_bg"
+                        app:chipStrokeColor="@color/color_humectant" />
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="@={viewModel.humectant}"
-                        android:text="@string/humectant" />
+                        android:checked="@={viewModel.emollient}"
+                        android:text="@string/emollient"
+                        app:chipBackgroundColor="@color/chip_emollient_bg"
+                        app:chipStrokeColor="@color/color_emollient" />
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="@={viewModel.protein}"
-                        android:text="@string/proteins" />
+                        android:text="@string/proteins"
+                        app:chipBackgroundColor="@color/chip_protein_bg"
+                        app:chipStrokeColor="@color/color_protein" />
                 </com.google.android.material.chip.ChipGroup>
 
                 <TextView
