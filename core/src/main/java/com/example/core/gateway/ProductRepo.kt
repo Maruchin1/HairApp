@@ -9,5 +9,7 @@ interface ProductRepo {
 
     suspend fun existsByName(productName: String): Boolean
 
+    fun findByNameFlow(productName: String): Flow<Product>
+
     fun findAllFlow(): Flow<List<Product>>
 }

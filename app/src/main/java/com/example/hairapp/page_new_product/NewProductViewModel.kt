@@ -50,7 +50,7 @@ class NewProductViewModel @ViewModelInject constructor(
     )
 
     private fun UseCaseResult.Error.toMessage(): String = when (exception) {
-        is AddProduct.ProductAlreadyExistsException -> "Produkt o podanej nazwie już istnieje"
+        is AddProduct.ProductAlreadyExists -> "Produkt o podanej nazwie już istnieje"
         else -> "Nieoczekiwany błąd. Spróbuj ponownie"
     }
 

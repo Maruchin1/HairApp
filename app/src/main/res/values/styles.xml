@@ -4,14 +4,15 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorOnPrimary">@color/color_white</item>
-        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorPrimaryDark">@color/color_primary</item>
         <item name="colorAccent">@color/color_accent</item>
 
-        <item name="android:colorBackground">@color/color_gray_background</item>
+        <item name="android:colorBackground">@color/color_background</item>
         <item name="materialCardViewStyle">@style/Widget.App.Card</item>
         <item name="chipStyle">@style/Widget.App.Chip.Choice</item>
         <item name="textInputStyle">@style/Widget.App.TextInput</item>
         <item name="extendedFloatingActionButtonStyle">@style/Widget.App.ExtendedFab</item>
+        <item name="toolbarNavigationButtonStyle">@style/Widget.App.ToolbarButton</item>
 
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
@@ -42,6 +43,26 @@
         <item name="iconTint">@color/color_white</item>
         <item name="android:textColor">@color/color_white</item>
         <item name="iconGravity">textStart</item>
+    </style>
+
+    <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Toolbar</item>
+        <item name="titleTextAppearance">@style/TextAppearance.App.ToolbarTitle</item>
+    </style>
+
+    <style name="TextAppearance.App.ToolbarTitle" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/color_primary_light</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Toolbar" parent="">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryVariant">@color/color_primary_dark</item>
+        <item name="colorOnPrimary">@color/color_white</item>
+    </style>
+
+    <style name="Widget.App.ToolbarButton" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="tint">@color/color_primary_light</item>
     </style>
 
 </resources>

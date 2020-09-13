@@ -48,7 +48,7 @@ class AddProductTest {
         // Assert
         assertk.assertThat(result).isInstanceOf(UseCaseResult.Error::class)
         val errorResult = result as UseCaseResult.Error
-        assertk.assertThat(errorResult.exception).isInstanceOf(AddProduct.ProductAlreadyExistsException::class)
+        assertk.assertThat(errorResult.exception).isInstanceOf(AddProduct.ProductAlreadyExists::class)
         Unit
     }
 

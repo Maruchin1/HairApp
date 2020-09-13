@@ -64,8 +64,13 @@ class MockProductRepo @Inject constructor() : ProductRepo {
     }
 
     override suspend fun existsByName(productName: String): Boolean {
-        val state = collection.value
-        return state.find { it.name == productName } != null
+        return collection.value.find { it.name == productName } != null
+    }
+
+    override fun findByNameFlow(productName: String): Flow<Product> {
+        return collection.asFlow().map { collection ->
+            collection.find { it.name == productName }!!
+        }
     }
 
     override fun findAllFlow(): Flow<List<Product>> {

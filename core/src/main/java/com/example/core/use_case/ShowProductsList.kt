@@ -10,7 +10,7 @@ class ShowProductsList @Inject constructor(
     private val productRepo: ProductRepo
 ) : FlowUseCase<Unit, List<Product>>() {
 
-    override fun invoke(input: Unit): Flow<List<Product>> {
+    override fun execute(input: Unit): Flow<List<Product>> {
         return productRepo.findAllFlow()
     }
 }

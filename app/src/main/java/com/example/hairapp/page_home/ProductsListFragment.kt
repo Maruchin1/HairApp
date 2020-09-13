@@ -1,5 +1,6 @@
 package com.example.hairapp.page_home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.hairapp.R
 import com.example.hairapp.framework.RecyclerLiveAdapter
 import com.example.hairapp.page_home.HomeViewModel
+import com.example.hairapp.page_product.ProductActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_products_list.*
 
@@ -16,6 +18,12 @@ import kotlinx.android.synthetic.main.fragment_products_list.*
 class ProductsListFragment : Fragment() {
 
     private val viewModel: HomeViewModel by activityViewModels()
+
+    fun openProduct(productName: String) {
+        val intent = Intent(requireContext(), ProductActivity::class.java)
+            .putExtra(ProductActivity.EXTRA_PRODUCT_NAME, productName)
+        startActivity(intent)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

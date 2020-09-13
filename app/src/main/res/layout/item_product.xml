@@ -16,6 +16,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground"
+        android:onClick="@{() -> controller.openProduct(item.productName)}"
         app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

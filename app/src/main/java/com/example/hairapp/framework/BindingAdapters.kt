@@ -8,6 +8,7 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import coil.load
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -53,4 +54,9 @@ fun setSelectedItemsChangedListener(view: ChipGroup, attrChange: InverseBindingL
 @BindingAdapter("app:srcUri")
 fun setSourceUri(view: ImageView, uri: Uri?) {
     view.load(uri)
+}
+
+@BindingAdapter("app:onNavigationClick")
+fun setOnNavigationClick(view: MaterialToolbar, action: (() -> Unit)?) {
+    view.setNavigationOnClickListener { action?.invoke() }
 }

@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".page_product.ProductActivity"></activity>
+        <activity
+            android:name=".page_product.ProductActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".page_new_product.NewProductActivity"
             android:screenOrientation="portrait"

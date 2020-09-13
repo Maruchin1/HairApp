@@ -5,7 +5,7 @@
     <color name="color_primary_light">#ffebee</color>
     <color name="color_accent">#03DAC5</color>
 
-    <color name="color_gray_background">#eeeeee</color>
+    <color name="color_background">#eeeeee</color>
 
     <color name="color_white">#ffffff</color>
     <color name="color_transparent">@android:color/transparent</color>

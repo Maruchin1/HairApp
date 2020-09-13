@@ -41,7 +41,7 @@ class NewProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         bind<ActivityNewProductBinding>(R.layout.activity_new_product, viewModel)
         setStatusBarColor(R.color.color_primary)
-        setNavigationColor(R.color.color_gray_background)
+        setNavigationColor(R.color.color_background)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
