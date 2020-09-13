@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 position
             )) {
                 HomeTab.CARE -> CareFragment()
-                HomeTab.PRODUCTS -> ProductsFragment()
+                HomeTab.PRODUCTS -> ProductsListFragment()
             }
         }
 

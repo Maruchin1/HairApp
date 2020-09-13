@@ -1,10 +1,13 @@
-package com.example.hairapp
+package com.example.hairapp.presentation.framework
 
+import android.net.Uri
 import android.view.View
+import android.widget.ImageView
 import androidx.core.view.children
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import coil.load
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -45,4 +48,9 @@ fun setSelectedItemsChangedListener(view: ChipGroup, attrChange: InverseBindingL
             attrChange.onChange()
         }
     }
+}
+
+@BindingAdapter("app:srcUri")
+fun setSourceUri(view: ImageView, uri: Uri?) {
+    view.load(uri)
 }

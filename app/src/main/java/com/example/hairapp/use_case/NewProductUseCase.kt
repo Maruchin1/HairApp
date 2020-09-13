@@ -36,7 +36,8 @@ class NewProductUseCase @Inject constructor(
                 humectant = input.humectant,
                 protein = input.protein
             ),
-            application = input.productApplications.toMutableSet()
+            application = input.productApplications.toMutableSet(),
+            photo = null
         )
     }
 

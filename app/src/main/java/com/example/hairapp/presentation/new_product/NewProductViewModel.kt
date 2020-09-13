@@ -1,5 +1,6 @@
 package com.example.hairapp.presentation.new_product
 
+import android.net.Uri
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.hairapp.model.PRODUCT_APPLICATIONS
@@ -21,6 +22,8 @@ class NewProductViewModel @ViewModelInject constructor(
     val protein = MutableLiveData(false)
 
     val productApplication = MutableLiveData(setOf<String>())
+
+    val productPhoto = MutableLiveData<Uri?>(null)
 
     val productApplicationOptions: LiveData<List<String>> = liveData {
         emit(PRODUCT_APPLICATIONS.toList())
