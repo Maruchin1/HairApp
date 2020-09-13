@@ -19,5 +19,9 @@
     <string name="application_not_specified">Nie określono zastosowania</string>
     <string name="select_application">Wybierz zastosowanie</string>
     <string name="select_type">Wybierz typ</string>
+    <string name="confirm_delete">Potwierdź usunięcie</string>
+
+    <!--ProductActivity-->
+    <string name="product_activity_confirm_delete_message">Wybrany produkt zostanie usunięty z aplikacji. Czy chcesz kontynuować?</string>
 
 </resources>

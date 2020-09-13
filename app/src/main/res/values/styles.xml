@@ -70,4 +70,12 @@
         <item name="tint">@color/color_primary_light</item>
     </style>
 
+    <style name="Widget.App.Button.Secondary" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@color/color_primary</item>
+        <item name="android:textColor">@color/color_primary</item>
+        <item name="iconTint">@color/color_primary</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
 </resources>

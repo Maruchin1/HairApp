@@ -1,7 +1,8 @@
 package com.example.core.use_case
 
+import assertk.assertThat
 import assertk.assertions.isInstanceOf
-import com.example.core.base.UseCaseResult
+import assertk.assertions.isTrue
 import com.example.core.domain.Product
 import com.example.core.domain.ProductType
 import com.example.core.gateway.ProductRepo
@@ -18,7 +19,7 @@ class AddProductTest {
 
     @Before
     fun before() {
-        coJustRun { productRepo.addNewProduct(any()) }
+        coJustRun { productRepo.addNew(any()) }
         useCase = AddProduct(productRepo)
     }
 
@@ -46,9 +47,8 @@ class AddProductTest {
         val result = useCase(input)
 
         // Assert
-        assertk.assertThat(result).isInstanceOf(UseCaseResult.Error::class)
-        val errorResult = result as UseCaseResult.Error
-        assertk.assertThat(errorResult.exception).isInstanceOf(AddProduct.ProductAlreadyExists::class)
+        assertThat(result.isFailure).isTrue()
+        assertThat(result.exceptionOrNull()!!).isInstanceOf(ProductException.AlreadyExists::class)
         Unit
     }
 
@@ -70,7 +70,7 @@ class AddProductTest {
         val result = useCase(input)
 
         // Assert
-        assertk.assertThat(result).isInstanceOf(UseCaseResult.Success::class)
+        assertThat(result.isSuccess).isTrue()
         val expectedNewProduct = Product(
             name = "Shauma",
             manufacturer = "Schwarzkopf",
@@ -78,7 +78,7 @@ class AddProductTest {
             application = mutableSetOf("Mocny szampon"),
             photoData = null
         )
-        coVerify { productRepo.addNewProduct(expectedNewProduct) }
+        coVerify { productRepo.addNew(expectedNewProduct) }
         Unit
     }
 }

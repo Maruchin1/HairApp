@@ -1,4 +1,4 @@
-package com.example.hairapp.page_new_product
+package com.example.hairapp.page_product_form
 
 import android.app.Activity
 import android.content.Intent
@@ -7,20 +7,19 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.R
+import com.example.hairapp.databinding.ActivityProductFormBinding
 import com.example.hairapp.framework.bind
-import com.example.hairapp.databinding.ActivityNewProductBinding
 import com.example.hairapp.framework.setNavigationColor
 import com.example.hairapp.framework.setStatusBarColor
+import com.example.hairapp.framework.showErrorSnackbar
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_new_product.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class NewProductActivity : AppCompatActivity() {
+class ProductFormActivity : AppCompatActivity() {
 
-    private val viewModel: NewProductViewModel by viewModels()
+    private val viewModel: ProductFormViewModel by viewModels()
 
     fun takePhoto() {
         ImagePicker.with(this)
@@ -32,16 +31,20 @@ class NewProductActivity : AppCompatActivity() {
 
     fun saveProduct() {
         lifecycleScope.launch {
-            val error = viewModel.saveProduct()
-            if (error == null) finish() else showError(error)
+            viewModel.saveProduct()
+                .onSuccess { finish() }
+                .onFailure { showErrorSnackbar(it.message) }
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bind<ActivityNewProductBinding>(R.layout.activity_new_product, viewModel)
+        bind<ActivityProductFormBinding>(R.layout.activity_product_form, viewModel)
         setStatusBarColor(R.color.color_primary)
         setNavigationColor(R.color.color_background)
+        intent.getStringExtra(EXTRA_EDIT_PRODUCT_NAME)?.let {
+            setEditProduct(it)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -52,8 +55,13 @@ class NewProductActivity : AppCompatActivity() {
         }
     }
 
-    private fun showError(message: String) {
-        Snackbar.make(coordinator, message, Snackbar.LENGTH_SHORT).show()
+    private fun setEditProduct(productName: String) = lifecycleScope.launch {
+        viewModel.setEditProductAsync(productName)
+            .await()
+            .onFailure { showErrorSnackbar(it.message) }
     }
 
+    companion object {
+        const val EXTRA_EDIT_PRODUCT_NAME = "extra-edit-product-name"
+    }
 }

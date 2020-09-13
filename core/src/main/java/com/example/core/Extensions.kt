@@ -2,10 +2,9 @@ package com.example.core
 
 import com.example.core.base.FlowUseCase
 import com.example.core.base.UseCase
-import com.example.core.base.UseCaseResult
 import kotlinx.coroutines.flow.Flow
 
-suspend operator fun <O : Any> UseCase<Unit, O>.invoke(): UseCaseResult<O> {
+suspend operator fun <O : Any> UseCase<Unit, O>.invoke(): Result<O> {
     return invoke(Unit)
 }
 

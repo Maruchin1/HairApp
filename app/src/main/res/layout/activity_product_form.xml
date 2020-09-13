@@ -5,11 +5,11 @@
 
         <variable
             name="controller"
-            type="com.example.hairapp.page_new_product.NewProductActivity" />
+            type="com.example.hairapp.page_product_form.ProductFormActivity" />
 
         <variable
             name="viewModel"
-            type="com.example.hairapp.page_new_product.NewProductViewModel" />
+            type="com.example.hairapp.page_product_form.ProductFormViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,7 +18,7 @@
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".page_new_product.NewProductActivity">
+        tools:context=".page_product_form.ProductFormActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -119,7 +119,7 @@
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="@={viewModel.humectant}"
+                        android:checked="@={viewModel.humectants}"
                         android:text="@string/humectants"
                         app:chipBackgroundColor="@color/chip_humectant_bg"
                         app:chipStrokeColor="@color/color_humectants" />
@@ -127,7 +127,7 @@
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="@={viewModel.emollient}"
+                        android:checked="@={viewModel.emollients}"
                         android:text="@string/emollients"
                         app:chipBackgroundColor="@color/chip_emollient_bg"
                         app:chipStrokeColor="@color/color_emollients" />
@@ -135,7 +135,7 @@
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="@={viewModel.protein}"
+                        android:checked="@={viewModel.proteins}"
                         android:text="@string/proteins"
                         app:chipBackgroundColor="@color/chip_protein_bg"
                         app:chipStrokeColor="@color/color_proteins" />

@@ -2,11 +2,11 @@ package com.example.core.base
 
 abstract class UseCase<in I : Any, out O : Any> {
 
-    suspend operator fun invoke(input: I): UseCaseResult<O> = try {
+    suspend operator fun invoke(input: I): Result<O> = try {
         val result = execute(input)
-        UseCaseResult.Success(result)
+        Result.success(result)
     } catch (e: Exception) {
-        UseCaseResult.Error(e)
+        Result.failure(e)
     }
 
     protected abstract suspend fun execute(input: I): O

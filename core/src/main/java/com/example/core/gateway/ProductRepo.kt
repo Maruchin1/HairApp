@@ -5,11 +5,13 @@ import kotlinx.coroutines.flow.Flow
 
 interface ProductRepo {
 
-    suspend fun addNewProduct(product: Product)
+    suspend fun addNew(product: Product)
+
+    suspend fun delete(product: Product)
 
     suspend fun existsByName(productName: String): Boolean
 
-    fun findByNameFlow(productName: String): Flow<Product>
+    fun findByName(productName: String): Flow<Product>
 
-    fun findAllFlow(): Flow<List<Product>>
+    fun findAll(): Flow<List<Product>>
 }

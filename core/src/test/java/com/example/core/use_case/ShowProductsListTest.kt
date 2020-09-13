@@ -37,7 +37,7 @@ class ShowProductsListTest {
     fun returnAllProductsFromRepo() = runBlocking {
         // Arrange
         val products = listOf<Product>(mockk(), mockk())
-        every { productRepo.findAllFlow() } returns flowOf(products)
+        every { productRepo.findAll() } returns flowOf(products)
 
         // Act
         val result = useCase().first()
@@ -51,7 +51,7 @@ class ShowProductsListTest {
         // Arrange
         val products = listOf<Product>(mockk(), mockk())
         val changedProducts = listOf<Product>(mockk())
-        every { productRepo.findAllFlow() } returns flow {
+        every { productRepo.findAll() } returns flow {
             emit(products)
             delay(100)
             emit(changedProducts)

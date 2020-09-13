@@ -4,10 +4,12 @@ import android.net.Uri
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.core.domain.Product
+import com.example.core.use_case.DeleteProduct
 import com.example.core.use_case.ShowSelectedProduct
 
 class ProductViewModel @ViewModelInject constructor(
-    private val showSelectedProduct: ShowSelectedProduct
+    private val showSelectedProduct: ShowSelectedProduct,
+    private val deleteProduct: DeleteProduct
 ) : ViewModel() {
     private val selectedProductName = MutableLiveData<String>()
     private val selectedProduct: LiveData<Product> = selectedProductName.switchMap {
@@ -29,5 +31,10 @@ class ProductViewModel @ViewModelInject constructor(
 
     fun selectProduct(productName: String) {
         selectedProductName.value = productName
+    }
+
+    suspend fun deleteProduct(): Result<Unit> {
+        val input = DeleteProduct.Input(productName = selectedProductName.value!!)
+        return deleteProduct(input)
     }
 }

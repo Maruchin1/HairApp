@@ -15,7 +15,7 @@ class AddProduct @Inject constructor(
     override suspend fun execute(input: Input) {
         this.input = input
         if (alreadyExists())
-            throw ProductAlreadyExists()
+            throw ProductException.AlreadyExists(input.productName)
         val newProduct = makeNewProduct()
         saveNewProduct(newProduct)
     }
@@ -39,7 +39,7 @@ class AddProduct @Inject constructor(
     }
 
     private suspend fun saveNewProduct(product: Product) {
-        productRepo.addNewProduct(product)
+        productRepo.addNew(product)
     }
 
     data class Input(
@@ -51,6 +51,4 @@ class AddProduct @Inject constructor(
         val productApplications: Set<String>,
         val productPhotoData: String?
     )
-
-    class ProductAlreadyExists : IllegalStateException()
 }

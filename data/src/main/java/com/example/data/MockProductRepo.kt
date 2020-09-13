@@ -6,9 +6,7 @@ import com.example.core.gateway.ProductRepo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -60,9 +58,15 @@ class MockProductRepo @Inject constructor() : ProductRepo {
         )
     )
 
-    override suspend fun addNewProduct(product: Product) {
+    override suspend fun addNew(product: Product) {
         val state = collection.value
         state.add(product)
+        collection.send(state)
+    }
+
+    override suspend fun delete(product: Product) {
+        val state = collection.value
+        state.remove(product)
         collection.send(state)
     }
 
@@ -70,13 +74,14 @@ class MockProductRepo @Inject constructor() : ProductRepo {
         return collection.value.find { it.name == productName } != null
     }
 
-    override fun findByNameFlow(productName: String): Flow<Product> {
-        return collection.asFlow().map { collection ->
-            collection.find { it.name == productName }!!
-        }
+    override fun findByName(productName: String): Flow<Product> {
+        return collection.asFlow()
+            .map { collection ->
+                collection.find { it.name == productName }
+            }.filterNotNull()
     }
 
-    override fun findAllFlow(): Flow<List<Product>> {
+    override fun findAll(): Flow<List<Product>> {
         return collection.asFlow().map { it.toList() }
     }
 }

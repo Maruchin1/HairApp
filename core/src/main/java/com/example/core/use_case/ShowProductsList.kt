@@ -11,6 +11,6 @@ class ShowProductsList @Inject constructor(
 ) : FlowUseCase<Unit, List<Product>>() {
 
     override fun execute(input: Unit): Flow<List<Product>> {
-        return productRepo.findAllFlow()
+        return productRepo.findAll()
     }
 }

@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.hairapp.R
 import com.example.hairapp.framework.bind
 import com.example.hairapp.databinding.ActivityMainBinding
-import com.example.hairapp.page_new_product.NewProductActivity
+import com.example.hairapp.page_product_form.ProductFormActivity
 import com.example.hairapp.framework.setNavigationColor
 import com.example.hairapp.framework.setStatusBarColor
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,8 +22,8 @@ class MainActivity : AppCompatActivity() {
         val targetActivity = when (HomeTab.byPosition(
             tabs.selectedTabPosition
         )) {
-            HomeTab.CARE -> NewProductActivity::class.java
-            HomeTab.PRODUCTS -> NewProductActivity::class.java
+            HomeTab.CARE -> ProductFormActivity::class.java
+            HomeTab.PRODUCTS -> ProductFormActivity::class.java
         }
         startActivity(Intent(this, targetActivity))
     }

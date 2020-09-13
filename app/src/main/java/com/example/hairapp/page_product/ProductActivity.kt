@@ -3,15 +3,14 @@ package com.example.hairapp.page_product
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat.setAlpha
+import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityProductBinding
-import com.example.hairapp.framework.bind
-import com.example.hairapp.framework.setNavigationColor
-import com.example.hairapp.framework.setStatusBarColor
+import com.example.hairapp.framework.*
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_product.*
+import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 
@@ -19,6 +18,17 @@ import kotlin.math.abs
 class ProductActivity : AppCompatActivity() {
 
     private val viewModel: ProductViewModel by viewModels()
+
+    fun deleteProduct() = withConfirmDialog(
+        getString(R.string.confirm_delete),
+        getString(R.string.product_activity_confirm_delete_message)
+    ) {
+        lifecycleScope.launch {
+            viewModel.deleteProduct()
+                .onSuccess { finish() }
+                .onFailure { showErrorSnackbar(it.message) }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
