@@ -5,11 +5,11 @@
 
         <variable
             name="item"
-            type="com.example.hairapp.model.Product" />
+            type="com.example.core.domain.Product" />
 
         <variable
             name="controller"
-            type="com.example.hairapp.presentation.home.ProductsListFragment" />
+            type="com.example.hairapp.page_home.ProductsListFragment" />
     </data>
 
     <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -33,8 +33,7 @@
                 <ImageView
                     android:id="@+id/item_product_image"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:srcUri="@{item.photo}" />
+                    android:layout_height="match_parent" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView

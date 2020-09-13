@@ -5,11 +5,11 @@
 
         <variable
             name="controller"
-            type="com.example.hairapp.presentation.new_product.NewProductActivity" />
+            type="com.example.hairapp.page_new_product.NewProductActivity" />
 
         <variable
             name="viewModel"
-            type="com.example.hairapp.presentation.new_product.NewProductViewModel" />
+            type="com.example.hairapp.page_new_product.NewProductViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,14 +18,14 @@
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.new_product.NewProductActivity">
+        tools:context=".page_new_product.NewProductActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.example.hairapp.presentation.common.ToolbarView
+            <com.example.hairapp.common.ToolbarView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"

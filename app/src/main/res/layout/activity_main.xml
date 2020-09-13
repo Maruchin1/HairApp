@@ -5,7 +5,7 @@
 
         <variable
             name="controller"
-            type="com.example.hairapp.presentation.home.MainActivity" />
+            type="com.example.hairapp.page_home.MainActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        tools:context=".presentation.home.MainActivity">
+        tools:context=".page_home.MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -23,7 +23,7 @@
             android:background="@color/color_primary"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.example.hairapp.presentation.common.ToolbarView
+            <com.example.hairapp.common.ToolbarView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="@string/app_name" />
