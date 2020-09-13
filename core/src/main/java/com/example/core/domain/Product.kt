@@ -6,4 +6,11 @@ data class Product(
     val type: ProductType,
     val application: MutableSet<String>,
     var photoData: String?
-)
+) {
+
+    val typeNotSpecified: Boolean
+        get() = arrayOf(type.humectants, type.emollients, type.proteins).all { !it }
+
+    val applicationNotSpecified: Boolean
+        get() = application.isEmpty()
+}

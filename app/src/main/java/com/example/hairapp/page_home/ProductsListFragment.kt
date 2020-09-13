@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.hairapp.R
 import com.example.hairapp.framework.RecyclerLiveAdapter
-import com.example.hairapp.page_home.HomeViewModel
 import com.example.hairapp.page_product.ProductActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_products_list.*

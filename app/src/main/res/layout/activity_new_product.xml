@@ -107,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="48dp"
-                    android:text="@string/type"
+                    android:text="@string/select_type"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                 <com.google.android.material.chip.ChipGroup
@@ -120,17 +120,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="@={viewModel.humectant}"
-                        android:text="@string/humectant"
+                        android:text="@string/humectants"
                         app:chipBackgroundColor="@color/chip_humectant_bg"
-                        app:chipStrokeColor="@color/color_humectant" />
+                        app:chipStrokeColor="@color/color_humectants" />
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="@={viewModel.emollient}"
-                        android:text="@string/emollient"
+                        android:text="@string/emollients"
                         app:chipBackgroundColor="@color/chip_emollient_bg"
-                        app:chipStrokeColor="@color/color_emollient" />
+                        app:chipStrokeColor="@color/color_emollients" />
 
                     <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
@@ -138,14 +138,14 @@
                         android:checked="@={viewModel.protein}"
                         android:text="@string/proteins"
                         app:chipBackgroundColor="@color/chip_protein_bg"
-                        app:chipStrokeColor="@color/color_protein" />
+                        app:chipStrokeColor="@color/color_proteins" />
                 </com.google.android.material.chip.ChipGroup>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
-                    android:text="@string/application"
+                    android:text="@string/select_application"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                 <com.google.android.material.chip.ChipGroup
@@ -155,9 +155,7 @@
                     android:layout_marginTop="8dp"
                     app:items="@{viewModel.productApplicationOptions}"
                     app:selectedItems="@={viewModel.productApplication}"
-                    app:singleSelection="false">
-
-                </com.google.android.material.chip.ChipGroup>
+                    app:singleSelection="false" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

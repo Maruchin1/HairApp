@@ -22,8 +22,11 @@ class MockProductRepo @Inject constructor() : ProductRepo {
             Product(
                 name = "Shauma1",
                 manufacturer = "Kret sp z.o.o.",
-                type = ProductType(),
-                application = mutableSetOf(),
+                type = ProductType(
+                    humectants = true,
+                    proteins = true
+                ),
+                application = mutableSetOf("Mocny szampon", "Inny"),
                 photoData = null
             ),
             Product(

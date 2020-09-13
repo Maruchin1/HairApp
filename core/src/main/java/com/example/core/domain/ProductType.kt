@@ -1,7 +1,7 @@
 package com.example.core.domain
 
 data class ProductType(
-    var humectant: Boolean = false,
-    var emollient: Boolean = false,
-    var protein: Boolean = false
+    var humectants: Boolean = false,
+    var emollients: Boolean = false,
+    var proteins: Boolean = false
 )

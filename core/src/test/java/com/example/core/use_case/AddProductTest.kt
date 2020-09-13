@@ -74,7 +74,7 @@ class AddProductTest {
         val expectedNewProduct = Product(
             name = "Shauma",
             manufacturer = "Schwarzkopf",
-            type = ProductType(emollient = false, humectant = true, protein = false),
+            type = ProductType(emollients = false, humectants = true, proteins = false),
             application = mutableSetOf("Mocny szampon"),
             photoData = null
         )

@@ -29,9 +29,9 @@ class AddProduct @Inject constructor(
             name = input.productName,
             manufacturer = input.productManufacturer,
             type = ProductType(
-                emollient = input.emollient,
-                humectant = input.humectant,
-                protein = input.protein
+                emollients = input.emollient,
+                humectants = input.humectant,
+                proteins = input.protein
             ),
             application = input.productApplications.toMutableSet(),
             photoData = input.productPhotoData

@@ -31,6 +31,11 @@
         <item name="boxCornerRadiusTopEnd">8dp</item>
     </style>
 
+    <style name="Widget.App.Chip" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="chipBackgroundColor">@color/color_primary</item>
+        <item name="android:textColor">@color/color_white</item>
+    </style>
+
     <style name="Widget.App.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/chip_bg</item>
         <item name="chipStrokeWidth">2dp</item>
