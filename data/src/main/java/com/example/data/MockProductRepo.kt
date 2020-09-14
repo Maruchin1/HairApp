@@ -1,5 +1,6 @@
 package com.example.data
 
+import android.util.Log
 import com.example.core.domain.Product
 import com.example.core.domain.ProductType
 import com.example.core.gateway.ProductRepo
@@ -16,8 +17,9 @@ import javax.inject.Singleton
 class MockProductRepo @Inject constructor() : ProductRepo {
 
     private val collection = ConflatedBroadcastChannel(
-        mutableSetOf<Product>(
+        mutableListOf<Product>(
             Product(
+                1,
                 name = "Shauma1",
                 manufacturer = "Kret sp z.o.o.",
                 type = ProductType(
@@ -28,6 +30,7 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 photoData = null
             ),
             Product(
+                2,
                 name = "Shauma2",
                 manufacturer = "Kret sp z.o.o.",
                 type = ProductType(),
@@ -35,6 +38,7 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 photoData = null
             ),
             Product(
+                3,
                 name = "Shauma3",
                 manufacturer = "Kret sp z.o.o.",
                 type = ProductType(),
@@ -42,6 +46,7 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 photoData = null
             ),
             Product(
+                4,
                 name = "Shauma4",
                 manufacturer = "Kret sp z.o.o.",
                 type = ProductType(),
@@ -49,6 +54,7 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 photoData = null
             ),
             Product(
+                5,
                 name = "Shauma5",
                 manufacturer = "Kret sp z.o.o.",
                 type = ProductType(),
@@ -60,6 +66,13 @@ class MockProductRepo @Inject constructor() : ProductRepo {
 
     override suspend fun addNew(product: Product) {
         val state = collection.value
+        state.add(product)
+        collection.send(state)
+    }
+
+    override suspend fun update(product: Product) {
+        val state = collection.value
+        state.removeIf { it.id == product.id }
         state.add(product)
         collection.send(state)
     }
@@ -82,6 +95,6 @@ class MockProductRepo @Inject constructor() : ProductRepo {
     }
 
     override fun findAll(): Flow<List<Product>> {
-        return collection.asFlow().map { it.toList() }
+        return collection.asFlow()
     }
 }

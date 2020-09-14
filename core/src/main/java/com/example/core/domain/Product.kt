@@ -1,10 +1,11 @@
 package com.example.core.domain
 
 data class Product(
+    val id: Int,
     var name: String,
     var manufacturer: String,
     val type: ProductType,
-    val application: MutableSet<String>,
+    var application: Set<String>,
     var photoData: String?
 ) {
 

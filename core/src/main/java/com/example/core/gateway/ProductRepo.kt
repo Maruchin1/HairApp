@@ -7,6 +7,8 @@ interface ProductRepo {
 
     suspend fun addNew(product: Product)
 
+    suspend fun update(product: Product)
+
     suspend fun delete(product: Product)
 
     suspend fun existsByName(productName: String): Boolean

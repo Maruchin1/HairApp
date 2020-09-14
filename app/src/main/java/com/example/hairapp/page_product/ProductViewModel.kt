@@ -33,6 +33,8 @@ class ProductViewModel @ViewModelInject constructor(
         selectedProductName.value = productName
     }
 
+    fun getProductName(): String? = selectedProductName.value
+
     suspend fun deleteProduct(): Result<Unit> {
         val input = DeleteProduct.Input(productName = selectedProductName.value!!)
         return deleteProduct(input)

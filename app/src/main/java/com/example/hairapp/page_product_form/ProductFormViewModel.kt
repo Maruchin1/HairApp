@@ -13,8 +13,11 @@ import kotlinx.coroutines.flow.first
 
 class ProductFormViewModel @ViewModelInject constructor(
     private val showSelectedProduct: ShowSelectedProduct,
-    private val addProduct: AddProduct
+    private val addProduct: AddProduct,
+    private val updateProduct: UpdateProduct
 ) : ViewModel() {
+
+    private var editMode = false
 
     val photoPlaceholderId: LiveData<Int> = liveData {
         val id = R.drawable.ic_round_add_a_photo_24
@@ -33,6 +36,7 @@ class ProductFormViewModel @ViewModelInject constructor(
     val productApplication = MutableLiveData(setOf<String>())
 
     fun setEditProductAsync(productName: String): Deferred<Result<Unit>> = viewModelScope.async {
+        editMode = true
         val input = ShowSelectedProduct.Input(productName)
         showSelectedProduct(input).runCatching {
             val product = this.first()
@@ -41,16 +45,31 @@ class ProductFormViewModel @ViewModelInject constructor(
     }
 
     suspend fun saveProduct(): Result<Unit> {
-        val input = makeInput()
-        return addProduct(input)
+        return if (editMode) {
+            val input = makeUpdateInput()
+            updateProduct(input)
+        } else {
+            val input = makeAddInput()
+            addProduct(input)
+        }
     }
 
-    private fun makeInput() = AddProduct.Input(
+    private fun makeAddInput() = AddProduct.Input(
         productName = productName.value!!,
         productManufacturer = productManufacturer.value!!,
-        emollient = emollients.value!!,
-        humectant = humectants.value!!,
-        protein = proteins.value!!,
+        emollients = emollients.value!!,
+        humectants = humectants.value!!,
+        proteins = proteins.value!!,
+        productApplications = productApplication.value!!,
+        productPhotoData = productPhoto.value!!.toString()
+    )
+
+    private fun makeUpdateInput() = UpdateProduct.Input(
+        productName = productName.value!!,
+        productManufacturer = productManufacturer.value!!,
+        emollients = emollients.value!!,
+        humectants = humectants.value!!,
+        proteins = proteins.value!!,
         productApplications = productApplication.value!!,
         productPhotoData = productPhoto.value!!.toString()
     )

@@ -1,5 +1,6 @@
 package com.example.hairapp.page_product
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityProductBinding
 import com.example.hairapp.framework.*
+import com.example.hairapp.page_product_form.ProductFormActivity
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_product.*
@@ -18,6 +20,14 @@ import kotlin.math.abs
 class ProductActivity : AppCompatActivity() {
 
     private val viewModel: ProductViewModel by viewModels()
+
+    fun editProduct() {
+        viewModel.getProductName()?.let { productName ->
+            val intent = Intent(this, ProductFormActivity::class.java)
+                .putExtra(ProductFormActivity.EXTRA_EDIT_PRODUCT_NAME, productName)
+            startActivity(intent)
+        }
+    }
 
     fun deleteProduct() = withConfirmDialog(
         getString(R.string.confirm_delete),

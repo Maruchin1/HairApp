@@ -26,12 +26,13 @@ class AddProduct @Inject constructor(
 
     private fun makeNewProduct(): Product {
         return Product(
+            id = 0,
             name = input.productName,
             manufacturer = input.productManufacturer,
             type = ProductType(
-                emollients = input.emollient,
-                humectants = input.humectant,
-                proteins = input.protein
+                emollients = input.emollients,
+                humectants = input.humectants,
+                proteins = input.proteins
             ),
             application = input.productApplications.toMutableSet(),
             photoData = input.productPhotoData
@@ -45,9 +46,9 @@ class AddProduct @Inject constructor(
     data class Input(
         val productName: String,
         val productManufacturer: String,
-        val emollient: Boolean,
-        val humectant: Boolean,
-        val protein: Boolean,
+        val humectants: Boolean,
+        val emollients: Boolean,
+        val proteins: Boolean,
         val productApplications: Set<String>,
         val productPhotoData: String?
     )

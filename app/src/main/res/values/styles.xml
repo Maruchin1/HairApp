@@ -11,6 +11,7 @@
         <item name="materialCardViewStyle">@style/Widget.App.Card</item>
         <item name="chipStyle">@style/Widget.App.Chip.Choice</item>
         <item name="textInputStyle">@style/Widget.App.TextInput</item>
+        <item name="floatingActionButtonStyle">@style/Widget.App.Fab</item>
         <item name="extendedFloatingActionButtonStyle">@style/Widget.App.ExtendedFab</item>
         <item name="toolbarNavigationButtonStyle">@style/Widget.App.ToolbarButton</item>
 
@@ -34,6 +35,7 @@
     <style name="Widget.App.Chip" parent="Widget.MaterialComponents.Chip.Action">
         <item name="chipBackgroundColor">@color/color_primary</item>
         <item name="android:textColor">@color/color_white</item>
+        <item name="chipCornerRadius">8dp</item>
     </style>
 
     <style name="Widget.App.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
@@ -41,13 +43,26 @@
         <item name="chipStrokeWidth">2dp</item>
         <item name="chipStrokeColor">@color/color_primary</item>
         <item name="android:textColor">@color/chip_text</item>
+        <item name="chipCornerRadius">8dp</item>
+    </style>
+
+    <style name="Widget.App.Fab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/ShapeOverlay.Fab</item>
+        <item name="backgroundTint">@color/color_primary</item>
+        <item name="tint">@color/color_white</item>
     </style>
 
     <style name="Widget.App.ExtendedFab" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/ShapeOverlay.Fab</item>
         <item name="backgroundTint">@color/color_primary</item>
         <item name="iconTint">@color/color_white</item>
         <item name="android:textColor">@color/color_white</item>
         <item name="iconGravity">textStart</item>
+    </style>
+
+    <style name="ShapeOverlay.Fab" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
     </style>
 
     <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">

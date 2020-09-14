@@ -38,9 +38,9 @@ class AddProductTest {
         val input = AddProduct.Input(
             productName = "Shauma",
             productManufacturer = "Schwarzkopf",
-            emollient = false,
-            humectant = true,
-            protein = false,
+            emollients = false,
+            humectants = true,
+            proteins = false,
             productApplications = setOf("Mocny szampon"),
             productPhotoData = null
         )
@@ -61,9 +61,9 @@ class AddProductTest {
         val input = AddProduct.Input(
             productName = "Shauma",
             productManufacturer = "Schwarzkopf",
-            emollient = false,
-            humectant = true,
-            protein = false,
+            emollients = false,
+            humectants = true,
+            proteins = false,
             productApplications = setOf("Mocny szampon"),
             productPhotoData = null
         )
@@ -72,6 +72,7 @@ class AddProductTest {
         // Assert
         assertThat(result.isSuccess).isTrue()
         val expectedNewProduct = Product(
+            id = 0,
             name = "Shauma",
             manufacturer = "Schwarzkopf",
             type = ProductType(emollients = false, humectants = true, proteins = false),

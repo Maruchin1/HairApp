@@ -17,7 +17,6 @@
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_primary"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -35,7 +34,7 @@
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleMarginEnd="64dp"
                 app:expandedTitleMarginStart="48dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:titleEnabled="false">
 
                 <ImageView
@@ -73,9 +72,10 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/color_background"
+            android:background="@drawable/bg_overlapping_content"
             android:clipToPadding="false"
             android:fillViewport="true"
+            app:behavior_overlapTop="16dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -213,6 +213,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
+                android:onClick="@{() -> controller.editProduct()}"
                 android:text="Edytuj"
                 app:icon="@drawable/ic_round_edit_24" />
 

@@ -19,6 +19,7 @@ class HomeViewModel @ViewModelInject constructor(
         .asLiveData()
 
     private fun Product.toProductItem() = ProductItem(
+        productId = id,
         productPhoto = photoData?.let { Uri.parse(it) },
         productName = name,
         productManufacturer = manufacturer

@@ -14,6 +14,7 @@ import com.example.hairapp.framework.setStatusBarColor
 import com.example.hairapp.framework.showErrorSnackbar
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_product_form.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -56,6 +57,7 @@ class ProductFormActivity : AppCompatActivity() {
     }
 
     private fun setEditProduct(productName: String) = lifecycleScope.launch {
+        toolbar.title = "Edytuj produkt"
         viewModel.setEditProductAsync(productName)
             .await()
             .onFailure { showErrorSnackbar(it.message) }

@@ -26,6 +26,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.example.hairapp.common.ToolbarView
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
@@ -167,7 +168,7 @@
             android:text="@string/save"
             app:icon="@drawable/ic_round_save_24"
             app:layout_anchor="@id/content"
-            app:layout_anchorGravity="bottom|center" />
+            app:layout_anchorGravity="bottom|center"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
