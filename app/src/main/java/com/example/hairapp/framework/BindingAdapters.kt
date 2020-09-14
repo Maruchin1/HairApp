@@ -3,6 +3,8 @@ package com.example.hairapp.framework
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
@@ -76,4 +78,10 @@ fun setOnNavigationClick(view: MaterialToolbar, action: (() -> Unit)?) {
 @BindingAdapter("app:visibleOrGone")
 fun setVisibleOrGone(view: View, visible: Boolean?) {
     view.visibility = if (visible == true) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("app:menuOptions")
+fun setMenuOptions(view: AutoCompleteTextView, options: Array<String>) {
+    val adapter = ArrayAdapter(view.context, R.layout.item_menu, options)
+    view.setAdapter(adapter)
 }

@@ -12,6 +12,7 @@ import com.example.hairapp.databinding.ActivityMainBinding
 import com.example.hairapp.page_product_form.ProductFormActivity
 import com.example.hairapp.framework.setNavigationColor
 import com.example.hairapp.framework.setStatusBarColor
+import com.example.hairapp.page_care_form.CareFormActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val targetActivity = when (HomeTab.byPosition(
             tabs.selectedTabPosition
         )) {
-            HomeTab.CARE -> ProductFormActivity::class.java
+            HomeTab.CARE -> CareFormActivity::class.java
             HomeTab.PRODUCTS -> ProductFormActivity::class.java
         }
         startActivity(Intent(this, targetActivity))

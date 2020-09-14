@@ -7,12 +7,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hairapp.BR
 
-class RecyclerLiveAdapter<T : Any> private constructor(
+open class RecyclerLiveAdapter<T : Any> constructor(
     private val controller: Any,
     private val lifecycleOwner: LifecycleOwner,
     private val layoutResId: Int,
@@ -20,7 +19,7 @@ class RecyclerLiveAdapter<T : Any> private constructor(
     compareItemsBy: ((item: T) -> Any)?
 ) : RecyclerView.Adapter<RecyclerViewHolder>() {
 
-    private val itemsList = mutableListOf<T>()
+    protected val itemsList = mutableListOf<T>()
     private val diffCallback = compareItemsBy?.let { CustomDiffCallback(it) }
 
     init {
