@@ -5,25 +5,39 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.core.domain.Care
+import com.example.core.domain.CareProduct
 import javax.inject.Inject
 
 class CareFormViewModel @Inject constructor() : ViewModel() {
 
     val careOptions: LiveData<Array<String>> = liveData {
-        val options =  arrayOf(
-            Care.OMO().methodName,
-            Care.CG().methodName,
-            Care.Custom().methodName
-        )
+        val options =  arrayOf("OMO", "CG", "Własne")
         emit(options)
     }
+
+    val defaultCare = Care(
+        before = mutableListOf(
+            CareProduct.Extra(null),
+            CareProduct.Extra(null),
+            CareProduct.Extra(null)
+        ),
+        main = listOf(
+            CareProduct.Main.Conditioner(null),
+            CareProduct.Main.Shampoo(null)
+        ),
+        after = mutableListOf(
+            CareProduct.Extra(null),
+            CareProduct.Extra(null),
+            CareProduct.Extra(null),
+            CareProduct.Extra(null)
+        )
+    )
 
     val date = MutableLiveData<String>()
     val careMethod = MutableLiveData<String>()
 
     init {
-        val defaultCare = Care.OMO()
         date.value = defaultCare.date.toString()
-        careMethod.value = defaultCare.methodName
+        careMethod.value = "OMO"
     }
 }
