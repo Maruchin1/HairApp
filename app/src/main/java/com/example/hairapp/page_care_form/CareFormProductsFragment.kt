@@ -43,6 +43,10 @@ class CareFormProductsFragment : Fragment() {
         adapter.addItem(newCareProduct)
     }
 
+    fun getCareProducts(): List<CareProduct> {
+        return adapter.getAllItems()
+    }
+
     fun selectProduct(careProduct: CareProduct) {
         selectProductRequest.launch(careProduct)
     }

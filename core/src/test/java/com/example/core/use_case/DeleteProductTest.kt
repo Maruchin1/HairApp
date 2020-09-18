@@ -4,6 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isTrue
 import com.example.core.domain.Product
+import com.example.core.errors.ProductException
 import com.example.core.gateway.ProductRepo
 import io.mockk.*
 import kotlinx.coroutines.flow.flowOf
@@ -28,30 +29,15 @@ class DeleteProductTest {
         unmockkAll()
     }
 
-    @Test
-    fun productNotFound() = runBlocking {
-        // Arrange
-        coEvery { productRepo.findByName(any()) } returns flowOf()
-
-        // Act
-        val input = DeleteProduct.Input(productName = "test")
-        val result = useCase(input)
-
-        // Assert
-        assertThat(result.isFailure).isTrue()
-        assertThat(result.exceptionOrNull()!!).isInstanceOf(ProductException.NotFound::class)
-        Unit
-    }
 
     @Test
     fun productDeleteFromRepo() = runBlocking {
         // Arrange
         val product: Product = mockk()
-        coEvery { productRepo.findByName(any()) } returns flowOf(product)
         coJustRun { productRepo.delete(any()) }
 
         // Act
-        val input = DeleteProduct.Input(productName = "test")
+        val input = DeleteProduct.Input(productId = 1)
         val result = useCase(input)
 
         // Assert

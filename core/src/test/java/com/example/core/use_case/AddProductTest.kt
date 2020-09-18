@@ -4,7 +4,9 @@ import assertk.assertThat
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isTrue
 import com.example.core.domain.Product
+import com.example.core.domain.ProductApplication
 import com.example.core.domain.ProductType
+import com.example.core.errors.ProductException
 import com.example.core.gateway.ProductRepo
 import io.mockk.*
 import kotlinx.coroutines.runBlocking
@@ -30,29 +32,6 @@ class AddProductTest {
     }
 
     @Test
-    fun productWithSameName_AlreadyExists() = runBlocking {
-        // Arrange
-        coEvery { productRepo.existsByName(any()) } returns true
-
-        // Act
-        val input = AddProduct.Input(
-            productName = "Shauma",
-            productManufacturer = "Schwarzkopf",
-            emollients = false,
-            humectants = true,
-            proteins = false,
-            productApplications = setOf("Mocny szampon"),
-            productPhotoData = null
-        )
-        val result = useCase(input)
-
-        // Assert
-        assertThat(result.isFailure).isTrue()
-        assertThat(result.exceptionOrNull()!!).isInstanceOf(ProductException.AlreadyExists::class)
-        Unit
-    }
-
-    @Test
     fun newProductSaved() = runBlocking {
         // Arrange
         coEvery { productRepo.existsByName(any()) } returns false
@@ -64,7 +43,9 @@ class AddProductTest {
             emollients = false,
             humectants = true,
             proteins = false,
-            productApplications = setOf("Mocny szampon"),
+            productApplications = setOf(
+                ProductApplication("Mocny szampon", ProductApplication.Type.SHAMPOO)
+            ),
             productPhotoData = null
         )
         val result = useCase(input)
@@ -76,7 +57,9 @@ class AddProductTest {
             name = "Shauma",
             manufacturer = "Schwarzkopf",
             type = ProductType(emollients = false, humectants = true, proteins = false),
-            application = mutableSetOf("Mocny szampon"),
+            applications = mutableSetOf(
+                ProductApplication("Mocny szampon", ProductApplication.Type.SHAMPOO)
+            ),
             photoData = null
         )
         coVerify { productRepo.add(expectedNewProduct) }

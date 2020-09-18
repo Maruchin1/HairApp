@@ -1,7 +1,9 @@
 package com.example.hairapp.di
 
+import com.example.core.gateway.CareRepo
 import com.example.core.gateway.ProductApplicationRepo
 import com.example.core.gateway.ProductRepo
+import com.example.data.MockCareRepo
 import com.example.data.MockProductApplicationRepo
 import com.example.data.MockProductRepo
 import dagger.Binds
@@ -24,4 +26,9 @@ abstract class MockDataModule {
     abstract fun bindProductApplicationRepo(
         mockProductApplicationRepo: MockProductApplicationRepo
     ): ProductApplicationRepo
+
+    @Binds
+    abstract fun bindCareRepo(
+        mockCareRepo: MockCareRepo
+    ): CareRepo
 }

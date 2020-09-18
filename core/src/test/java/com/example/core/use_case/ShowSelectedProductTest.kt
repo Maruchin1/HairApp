@@ -6,6 +6,7 @@ import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
 import assertk.assertions.isTrue
 import com.example.core.domain.Product
+import com.example.core.errors.ProductException
 import com.example.core.gateway.ProductRepo
 import io.mockk.*
 import kotlinx.coroutines.flow.*
@@ -34,10 +35,10 @@ class ShowSelectedProductTest {
     fun returnFoundProduct() = runBlocking {
         // Arrange
         val product: Product = mockk()
-        coEvery { productRepo.findByName(any()) } returns flowOf(product)
+        coEvery { productRepo.findById(any()) } returns flowOf(product)
 
         // Act
-        val input = ShowSelectedProduct.Input(productName = "test")
+        val input = ShowSelectedProduct.Input(productId = 1)
         val result = useCase(input).firstOrNull()
 
         // Assert
@@ -48,10 +49,10 @@ class ShowSelectedProductTest {
     @Test
     fun productNotFound() = runBlocking {
         // Arrange
-        coEvery { productRepo.findByName(any()) } returns flowOf()
+        coEvery { productRepo.findById(any()) } returns flowOf()
 
         // Act
-        val input = ShowSelectedProduct.Input(productName = "test")
+        val input = ShowSelectedProduct.Input(productId = 1)
         val result = useCase(input).runCatching { collect() }
 
         // Assert

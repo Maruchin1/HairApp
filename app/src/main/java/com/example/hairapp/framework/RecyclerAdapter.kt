@@ -40,6 +40,10 @@ open class RecyclerAdapter<T : Any>(
         return itemsList.indexOf(item)
     }
 
+    fun getAllItems(): List<T> {
+        return itemsList
+    }
+
     fun moveItem(fromPosition: Int, toPosition: Int) {
         if (fromPosition < toPosition) {
             for (i in fromPosition until toPosition) {

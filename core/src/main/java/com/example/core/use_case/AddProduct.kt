@@ -4,6 +4,7 @@ import com.example.core.base.UseCase
 import com.example.core.domain.Product
 import com.example.core.domain.ProductApplication
 import com.example.core.domain.ProductType
+import com.example.core.errors.ProductException
 import com.example.core.gateway.ProductRepo
 import javax.inject.Inject
 
@@ -15,14 +16,8 @@ class AddProduct @Inject constructor(
 
     override suspend fun execute(input: Input) {
         this.input = input
-        if (alreadyExists())
-            throw ProductException.AlreadyExists(input.productName)
         val newProduct = makeNewProduct()
         saveNewProduct(newProduct)
-    }
-
-    private suspend fun alreadyExists(): Boolean {
-        return productRepo.existsByName(input.productName)
     }
 
     private fun makeNewProduct(): Product {

@@ -5,17 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.core.domain.CareProduct
+import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityCareFormBinding
 import com.example.hairapp.framework.bind
 import com.example.hairapp.framework.datePickerDialog
-import com.google.android.material.datepicker.MaterialDatePicker
+import com.example.hairapp.framework.showErrorSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_care_form.*
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CareFormActivity : AppCompatActivity() {
@@ -27,12 +25,20 @@ class CareFormActivity : AppCompatActivity() {
     }
 
     fun addProduct() {
-        val fragment = fragment_products as CareFormProductsFragment
-        fragment.addProduct()
+        val productsFragment = fragment_products as CareFormProductsFragment
+        productsFragment.addProduct()
     }
 
     fun saveCare() {
-
+        val productsFragment = fragment_products as CareFormProductsFragment
+        val steps = productsFragment.getCareProducts()
+        lifecycleScope.launch {
+            viewModel.saveCare(steps).onFailure {
+                showErrorSnackbar(it.message)
+            }.onSuccess {
+                finish()
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

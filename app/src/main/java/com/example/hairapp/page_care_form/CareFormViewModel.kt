@@ -5,12 +5,14 @@ import androidx.lifecycle.*
 import com.example.core.domain.Care
 import com.example.core.domain.CareProduct
 import com.example.core.domain.Product
+import com.example.core.use_case.AddCare
 import com.example.core.use_case.ShowSelectedProduct
 import kotlinx.coroutines.flow.firstOrNull
 import java.time.LocalDate
 
 class CareFormViewModel @ViewModelInject constructor(
-    private val showSelectedProduct: ShowSelectedProduct
+    private val showSelectedProduct: ShowSelectedProduct,
+    private val addCare: AddCare
 ) : ViewModel() {
     companion object {
         private const val OMO = "OMO"
@@ -44,5 +46,28 @@ class CareFormViewModel @ViewModelInject constructor(
     suspend fun findProduct(productId: Int): Product? {
         val input = ShowSelectedProduct.Input(productId)
         return showSelectedProduct(input).firstOrNull()
+    }
+
+    suspend fun saveCare(steps: List<CareProduct>): Result<Unit> {
+        val selectedDate = date.value?.let { LocalDate.parse(it) }
+        if (selectedDate == null) {
+            val exception = IllegalStateException("Nie wybrano daty pielęgnacji")
+            return Result.failure(exception)
+        }
+
+        val selectedCareMethod = careMethod.value
+        if (selectedCareMethod == null) {
+            val exception = IllegalStateException("Nie wybrano metody pielęgnacji")
+            return Result.failure(exception)
+        }
+
+        val input = when (selectedCareMethod) {
+            OMO -> AddCare.Input.OMO(selectedDate, steps)
+            CG -> AddCare.Input.CG(selectedDate, steps)
+            CUSTOM -> AddCare.Input.Custom(selectedDate, steps)
+            else -> throw IllegalStateException("Not matching careMethod: $careMethod")
+        }
+
+        return addCare(input)
     }
 }

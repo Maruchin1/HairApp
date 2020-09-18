@@ -3,11 +3,14 @@ package com.example.core.domain
 import java.time.LocalDate
 
 sealed class Care {
+    abstract val id: Int
+
     abstract var date: LocalDate
 
     abstract var steps: List<CareProduct>
 
     data class OMO(
+        override val id: Int = 0,
         override var date: LocalDate = LocalDate.now(),
         private val firstConditioner: CareProduct = CareProduct(ProductApplication.Type.CONDITIONER),
         private val shampoo: CareProduct = CareProduct(ProductApplication.Type.SHAMPOO),
@@ -49,6 +52,7 @@ sealed class Care {
     }
 
     data class CG(
+        override val id: Int = 0,
         override var date: LocalDate = LocalDate.now(),
         private val firstConditioner: CareProduct = CareProduct(ProductApplication.Type.CONDITIONER),
         private val secondConditioner: CareProduct = CareProduct(ProductApplication.Type.CONDITIONER),
@@ -85,6 +89,7 @@ sealed class Care {
     }
 
     data class Custom(
+        override val id: Int = 0,
         override var date: LocalDate = LocalDate.now(),
         override var steps: List<CareProduct> = listOf()
     ) : Care()
