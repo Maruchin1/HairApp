@@ -12,9 +12,9 @@ class ShowSelectedProduct @Inject constructor(
 ) : FlowUseCase<ShowSelectedProduct.Input, Product>() {
 
     override fun execute(input: Input): Flow<Product> {
-        return productRepo.findByName(input.productName)
-            .onEmpty { throw ProductException.NotFound(input.productName) }
+        return productRepo.findById(input.productId)
+            .onEmpty { throw ProductException.NotFound(input.productId) }
     }
 
-    data class Input(val productName: String)
+    data class Input(val productId: Int)
 }

@@ -87,10 +87,10 @@ class MockProductRepo @Inject constructor() : ProductRepo {
         return collection.value.find { it.name == productName } != null
     }
 
-    override fun findByName(productName: String): Flow<Product> {
+    override fun findById(productId: Int): Flow<Product> {
         return collection.asFlow()
             .map { collection ->
-                collection.find { it.name == productName }
+                collection.find { it.id == productId }
             }.filterNotNull()
     }
 

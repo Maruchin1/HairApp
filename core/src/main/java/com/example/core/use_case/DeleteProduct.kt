@@ -14,13 +14,13 @@ class DeleteProduct @Inject constructor(
 
     override suspend fun execute(input: Input) {
         this.input = input
-        val productToDelete = findProduct() ?: throw ProductException.NotFound(input.productName)
+        val productToDelete = findProduct() ?: throw ProductException.NotFound(input.productId)
         deleteProduct(productToDelete)
     }
 
-    private suspend fun findProduct() = productRepo.findByName(input.productName).firstOrNull()
+    private suspend fun findProduct() = productRepo.findById(input.productId).firstOrNull()
 
     private suspend fun deleteProduct(product: Product) = productRepo.delete(product)
 
-    class Input(val productName: String)
+    class Input(val productId: Int)
 }

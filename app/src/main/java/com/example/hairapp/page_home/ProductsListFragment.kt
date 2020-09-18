@@ -7,22 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.core.domain.Product
 import com.example.hairapp.R
+import com.example.hairapp.common.ProductItemController
 import com.example.hairapp.framework.RecyclerLiveAdapter
 import com.example.hairapp.page_product.ProductActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_products_list.*
 
 @AndroidEntryPoint
-class ProductsListFragment : Fragment() {
+class ProductsListFragment : Fragment(), ProductItemController {
 
     private val viewModel: HomeViewModel by activityViewModels()
-
-    fun openProduct(productName: String) {
-        val intent = Intent(requireContext(), ProductActivity::class.java)
-            .putExtra(ProductActivity.EXTRA_PRODUCT_NAME, productName)
-        startActivity(intent)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,10 +30,15 @@ class ProductsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recycler.adapter = RecyclerLiveAdapter.build(
+        recycler.adapter = RecyclerLiveAdapter.build<Product>(
             fragment = this,
             layoutResId = R.layout.item_product,
             source = viewModel.products
-        ).withItemComparator { it.productId }
+        ).withItemComparator { it.id }
+    }
+
+    override fun onProductSelected(product: Product) {
+        val intent = ProductActivity.makeIntent(requireContext(), product.id)
+        startActivity(intent)
     }
 }

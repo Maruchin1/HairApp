@@ -1,6 +1,7 @@
 package com.example.hairapp.page_product_form
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -43,9 +44,9 @@ class ProductFormActivity : AppCompatActivity() {
         bind<ActivityProductFormBinding>(R.layout.activity_product_form, viewModel)
         setStatusBarColor(R.color.color_primary)
         setNavigationColor(R.color.color_background)
-        intent.getStringExtra(EXTRA_EDIT_PRODUCT_NAME)?.let {
-            setEditProduct(it)
-        }
+        val editProductId = intent.getIntExtra(IN_EDIT_PRODUCT_ID, -1)
+        if (editProductId != -1)
+            setEditProduct(editProductId)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -56,14 +57,19 @@ class ProductFormActivity : AppCompatActivity() {
         }
     }
 
-    private fun setEditProduct(productName: String) = lifecycleScope.launch {
+    private fun setEditProduct(productId: Int) = lifecycleScope.launch {
         toolbar.title = "Edytuj produkt"
-        viewModel.setEditProductAsync(productName)
+        viewModel.setEditProductAsync(productId)
             .await()
             .onFailure { showErrorSnackbar(it.message) }
     }
 
     companion object {
-        const val EXTRA_EDIT_PRODUCT_NAME = "extra-edit-product-name"
+        private const val IN_EDIT_PRODUCT_ID = "in-edit-product-id"
+
+        fun makeIntent(context: Context, editProductId: Int?): Intent {
+            return Intent(context, ProductFormActivity::class.java)
+                .putExtra(IN_EDIT_PRODUCT_ID, editProductId)
+        }
     }
 }

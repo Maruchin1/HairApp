@@ -25,6 +25,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?selectableItemBackground"
+        android:onClick="@{() -> controller.selectProduct(item)}"
         app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -67,7 +68,6 @@
                     android:id="@+id/item_care_product_extra_edit_photo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:defaultResource="@{controller.defaultPhotoId}"
                     app:srcUri="@{Converter.photo(item.product.photoData)}" />
             </com.google.android.material.card.MaterialCardView>
 
@@ -79,10 +79,12 @@
                 android:text='@{item.product.name, default="Nazwa produktu"}'
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:textColor="@color/text_color_secondary"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/item_care_product_edit_manufacturer"
                 app:layout_constraintEnd_toStartOf="@id/item_care_product_edit_drag_handle"
                 app:layout_constraintStart_toEndOf="@id/item_care_product_edit_photo_box"
-                app:layout_constraintTop_toBottomOf="@id/item_care_product_edit_main_box" />
+                app:layout_constraintTop_toBottomOf="@id/item_care_product_edit_main_box"
+                app:visibleOrGone="@{item.product != null}" />
 
             <TextView
                 android:id="@+id/item_care_product_edit_manufacturer"
@@ -90,10 +92,25 @@
                 android:layout_height="wrap_content"
                 android:text='@{item.product.manufacturer, default="Productent"}'
                 android:textColor="@color/text_color_tertiary"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/item_care_product_edit_name"
                 app:layout_constraintStart_toStartOf="@id/item_care_product_edit_name"
-                app:layout_constraintTop_toBottomOf="@id/item_care_product_edit_name" />
+                app:layout_constraintTop_toBottomOf="@id/item_care_product_edit_name"
+                app:visibleOrGone="@{item.product != null}" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:text="Wybierz produkt"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textColor="@color/text_color_tertiary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/item_care_product_edit_drag_handle"
+                app:layout_constraintStart_toEndOf="@id/item_care_product_edit_photo_box"
+                app:layout_constraintTop_toBottomOf="@id/item_care_product_edit_main_box"
+                app:visibleOrGone="@{item.product == null}" />
 
             <ImageButton
                 android:id="@+id/item_care_product_edit_drag_handle"

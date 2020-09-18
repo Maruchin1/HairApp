@@ -1,14 +1,17 @@
 package com.example.hairapp.page_care_form
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.core.domain.Care
 import com.example.core.domain.CareProduct
-import com.example.hairapp.R
-import com.example.hairapp.framework.updateState
+import com.example.core.domain.Product
+import com.example.core.use_case.ShowSelectedProduct
+import kotlinx.coroutines.flow.firstOrNull
 import java.time.LocalDate
-import javax.inject.Inject
 
-class CareFormViewModel @Inject constructor() : ViewModel() {
+class CareFormViewModel @ViewModelInject constructor(
+    private val showSelectedProduct: ShowSelectedProduct
+) : ViewModel() {
     companion object {
         private const val OMO = "OMO"
         private const val CG = "CG"
@@ -36,5 +39,10 @@ class CareFormViewModel @Inject constructor() : ViewModel() {
     init {
         date.value = LocalDate.now().toString()
         careMethod.value = OMO
+    }
+
+    suspend fun findProduct(productId: Int): Product? {
+        val input = ShowSelectedProduct.Input(productId)
+        return showSelectedProduct(input).firstOrNull()
     }
 }

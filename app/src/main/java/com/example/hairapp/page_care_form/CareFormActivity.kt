@@ -1,5 +1,7 @@
 package com.example.hairapp.page_care_form
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -36,5 +38,11 @@ class CareFormActivity : AppCompatActivity() {
         input_date.inputType = 0
         input_care_method.inputType = 0
 
+    }
+
+    companion object {
+        fun makeIntent(context: Context): Intent {
+            return Intent(context, CareFormActivity::class.java)
+        }
     }
 }

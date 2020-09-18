@@ -20,13 +20,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     fun addNew() {
-        val targetActivity = when (HomeTab.byPosition(
-            tabs.selectedTabPosition
-        )) {
-            HomeTab.CARE -> CareFormActivity::class.java
-            HomeTab.PRODUCTS -> ProductFormActivity::class.java
+        val intent = when (HomeTab.byPosition(tabs.selectedTabPosition)) {
+            HomeTab.CARE -> CareFormActivity.makeIntent(this)
+            HomeTab.PRODUCTS -> ProductFormActivity.makeIntent(this, null)
         }
-        startActivity(Intent(this, targetActivity))
+        startActivity(intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

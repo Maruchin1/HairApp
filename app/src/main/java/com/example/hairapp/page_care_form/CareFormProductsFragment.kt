@@ -1,6 +1,7 @@
 package com.example.hairapp.page_care_form
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -16,20 +18,33 @@ import com.example.core.domain.CareProduct
 import com.example.core.domain.ProductApplication
 import com.example.hairapp.R
 import com.example.hairapp.framework.RecyclerAdapter
+import com.example.hairapp.page_select_product.SelectProductActivity
+import com.example.hairapp.page_select_product.SelectProductContract
 import kotlinx.android.synthetic.main.fragment_products_list.recycler
 import kotlinx.android.synthetic.main.item_care_product_edit.view.*
+import kotlinx.coroutines.launch
 import java.util.*
 
 class CareFormProductsFragment : Fragment() {
+
     private val viewModel: CareFormViewModel by activityViewModels()
 
-    val defaultPhotoId: LiveData<Int> = liveData {
-        emit(R.drawable.ic_round_photo_24)
+    private val selectProductRequest = registerForActivityResult(SelectProductContract()) {
+        val requestedCareProduct = it.first
+        val selectedProductId = it.second
+        if (selectedProductId != null) {
+            setSelectedProduct(requestedCareProduct, 1)
+        }
     }
+
 
     fun addProduct() {
         val newCareProduct = CareProduct()
         adapter.addItem(newCareProduct)
+    }
+
+    fun selectProduct(careProduct: CareProduct) {
+        selectProductRequest.launch(careProduct)
     }
 
     override fun onCreateView(
@@ -120,4 +135,17 @@ class CareFormProductsFragment : Fragment() {
             }
         }
     })
+
+    private fun setSelectedProduct(
+        careProduct: CareProduct,
+        selectedProductId: Int
+    ) = lifecycleScope.launch {
+
+        val selectedProduct = viewModel.findProduct(selectedProductId)
+        val itemPosition = adapter.getItemPosition(careProduct)
+
+        careProduct.product = selectedProduct
+        adapter.updateSingleItem(careProduct, itemPosition)
+    }
+
 }

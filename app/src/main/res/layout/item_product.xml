@@ -3,13 +3,15 @@
 
     <data>
 
+        <import type="com.example.hairapp.framework.Converter" />
+
         <variable
             name="item"
-            type="com.example.hairapp.page_home.ProductItem" />
+            type="com.example.core.domain.Product" />
 
         <variable
             name="controller"
-            type="com.example.hairapp.page_home.ProductsListFragment" />
+            type="com.example.hairapp.common.ProductItemController" />
     </data>
 
     <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,7 +21,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?selectableItemBackground"
-        android:onClick="@{() -> controller.openProduct(item.productName)}"
+        android:onClick="@{() -> controller.onProductSelected(item)}"
         app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +40,7 @@
                     android:id="@+id/item_product_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcUri="@{item.productPhoto}" />
+                    app:srcUri="@{Converter.photo(item.photoData)}" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -48,7 +50,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text='@{item.productName, default="Nazwa produktu"}'
+                android:text='@{item.name, default="Nazwa produktu"}'
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +62,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:text='@{item.productManufacturer, default="Producent"}'
+                android:text='@{item.manufacturer, default="Producent"}'
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -1,5 +1,6 @@
 package com.example.hairapp.page_product
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -22,9 +23,8 @@ class ProductActivity : AppCompatActivity() {
     private val viewModel: ProductViewModel by viewModels()
 
     fun editProduct() {
-        viewModel.getProductName()?.let { productName ->
-            val intent = Intent(this, ProductFormActivity::class.java)
-                .putExtra(ProductFormActivity.EXTRA_EDIT_PRODUCT_NAME, productName)
+        viewModel.getProductId()?.let { productId ->
+            val intent = ProductFormActivity.makeIntent(this, productId)
             startActivity(intent)
         }
     }
@@ -51,8 +51,9 @@ class ProductActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        val productName = intent.getStringExtra(EXTRA_PRODUCT_NAME)!!
-        viewModel.selectProduct(productName)
+        val productId = intent.getIntExtra(IN_PRODUCT_ID, -1)
+        if (productId != -1)
+            viewModel.selectProduct(productId)
     }
 
     private fun setupCollapsingToolbar() {
@@ -62,6 +63,11 @@ class ProductActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_PRODUCT_NAME = "extra-product-name"
+        private const val IN_PRODUCT_ID = "in-product-id"
+
+        fun makeIntent(context: Context, productId: Int): Intent {
+            return Intent(context, ProductActivity::class.java)
+                .putExtra(IN_PRODUCT_ID, productId)
+        }
     }
 }

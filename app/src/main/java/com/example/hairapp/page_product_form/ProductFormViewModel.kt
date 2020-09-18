@@ -18,7 +18,7 @@ class ProductFormViewModel @ViewModelInject constructor(
     private val updateProduct: UpdateProduct
 ) : ViewModel() {
 
-    private var editMode = false
+    private var editProductId: Int? = null
 
     val photoPlaceholderId: LiveData<Int> = liveData {
         val id = R.drawable.ic_round_add_a_photo_24
@@ -38,9 +38,9 @@ class ProductFormViewModel @ViewModelInject constructor(
     val proteins = MutableLiveData(false)
     val productApplication = MutableLiveData(setOf<String>())
 
-    fun setEditProductAsync(productName: String): Deferred<Result<Unit>> = viewModelScope.async {
-        editMode = true
-        val input = ShowSelectedProduct.Input(productName)
+    fun setEditProductAsync(productId: Int): Deferred<Result<Unit>> = viewModelScope.async {
+        editProductId = productId
+        val input = ShowSelectedProduct.Input(productId)
         showSelectedProduct(input).runCatching {
             val product = this.first()
             dispatchProductToEdit(product)
@@ -48,12 +48,12 @@ class ProductFormViewModel @ViewModelInject constructor(
     }
 
     suspend fun saveProduct(): Result<Unit> {
-        return if (editMode) {
-            val input = makeUpdateInput()
-            updateProduct(input)
-        } else {
+        return if (editProductId == null) {
             val input = makeAddInput()
             addProduct(input)
+        } else {
+            val input = makeUpdateInput()
+            updateProduct(input)
         }
     }
 
@@ -68,6 +68,7 @@ class ProductFormViewModel @ViewModelInject constructor(
     )
 
     private fun makeUpdateInput() = UpdateProduct.Input(
+        productId = editProductId!!,
         productName = productName.value!!,
         productManufacturer = productManufacturer.value!!,
         emollients = emollients.value!!,

@@ -11,9 +11,9 @@ class ProductViewModel @ViewModelInject constructor(
     private val showSelectedProduct: ShowSelectedProduct,
     private val deleteProduct: DeleteProduct
 ) : ViewModel() {
-    private val selectedProductName = MutableLiveData<String>()
-    private val selectedProduct: LiveData<Product> = selectedProductName.switchMap {
-        val input = ShowSelectedProduct.Input(productName = it)
+    private val selectedProductId = MutableLiveData<Int>()
+    private val selectedProduct: LiveData<Product> = selectedProductId.switchMap {
+        val input = ShowSelectedProduct.Input(productId = it)
         showSelectedProduct(input).asLiveData()
     }
 
@@ -29,14 +29,14 @@ class ProductViewModel @ViewModelInject constructor(
     val applicationNotSpecified: LiveData<Boolean> = selectedProduct.map { it.applicationNotSpecified }
     val application: LiveData<List<String>> = selectedProduct.map { it.application.toList() }
 
-    fun selectProduct(productName: String) {
-        selectedProductName.value = productName
+    fun selectProduct(productId: Int) {
+        selectedProductId.value = productId
     }
 
-    fun getProductName(): String? = selectedProductName.value
+    fun getProductId(): Int? = selectedProductId.value
 
     suspend fun deleteProduct(): Result<Unit> {
-        val input = DeleteProduct.Input(productName = selectedProductName.value!!)
+        val input = DeleteProduct.Input(productId = selectedProductId.value!!)
         return deleteProduct(input)
     }
 }

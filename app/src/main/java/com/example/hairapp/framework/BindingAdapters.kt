@@ -63,10 +63,12 @@ fun setSelectedItemsChangedListener(view: ChipGroup, attrChange: InverseBindingL
 
 @BindingAdapter("app:srcUri", "app:defaultResource", requireAll = false)
 fun setSourceUri(view: ImageView, uri: Uri?, defaultResourceId: Int?) {
-    if (uri == null && defaultResourceId != null) {
+    if (uri != null) {
+        view.load(uri)
+    } else if (defaultResourceId != null) {
         view.load(defaultResourceId)
     } else {
-        view.load(uri)
+        view.load(R.drawable.ic_round_photo_24)
     }
 }
 

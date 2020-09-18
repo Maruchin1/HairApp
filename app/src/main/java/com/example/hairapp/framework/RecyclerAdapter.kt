@@ -36,6 +36,10 @@ open class RecyclerAdapter<T : Any>(
         return if (itemsList.indices.contains(position)) itemsList[position] else null
     }
 
+    fun getItemPosition(item: T): Int {
+        return itemsList.indexOf(item)
+    }
+
     fun moveItem(fromPosition: Int, toPosition: Int) {
         if (fromPosition < toPosition) {
             for (i in fromPosition until toPosition) {
@@ -57,6 +61,10 @@ open class RecyclerAdapter<T : Any>(
     fun removeItem(position: Int) {
         itemsList.removeAt(position)
         notifyItemRemoved(position)
+    }
+
+    fun updateSingleItem(item: T, position: Int) {
+
     }
 
     fun updateItems(newList: List<T>?) {
