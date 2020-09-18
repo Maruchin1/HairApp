@@ -10,25 +10,56 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hairapp.BR
+import java.util.*
 
-open class RecyclerLiveAdapter<T : Any> constructor(
+open class RecyclerAdapter<T : Any>(
     private val controller: Any,
-    private val lifecycleOwner: LifecycleOwner,
-    private val layoutResId: Int,
-    source: LiveData<List<T>>,
-    compareItemsBy: ((item: T) -> Any)?
-) : RecyclerView.Adapter<RecyclerViewHolder>() {
+    private val layoutResId: Int
+) : RecyclerView.Adapter<BindingViewHolder>() {
 
-    protected val itemsList = mutableListOf<T>()
-    private val diffCallback = compareItemsBy?.let { CustomDiffCallback(it) }
+    private val itemsList = mutableListOf<T>()
 
-    init {
-        source.observe(lifecycleOwner) {
-            updateItemsList(it)
-        }
+    private var diffCallback: CustomDiffCallback<T>? = null
+    private var setupItem: ((RecyclerView.ViewHolder, T) -> Unit)? = null
+
+    fun withItemComparator(compareBy: (item: T) -> Any): RecyclerAdapter<T> {
+        diffCallback = CustomDiffCallback(compareBy)
+        return this
     }
 
-    private fun updateItemsList(newList: List<T>?) {
+    fun withItemSetup(setup: (RecyclerView.ViewHolder, T) -> Unit): RecyclerAdapter<T> {
+        setupItem = setup
+        return this
+    }
+
+    fun getItem(position: Int): T? {
+        return if (itemsList.indices.contains(position)) itemsList[position] else null
+    }
+
+    fun moveItem(fromPosition: Int, toPosition: Int) {
+        if (fromPosition < toPosition) {
+            for (i in fromPosition until toPosition) {
+                Collections.swap(itemsList, i, i + 1)
+            }
+        } else {
+            for (i in fromPosition downTo toPosition + 1) {
+                Collections.swap(itemsList, i, i - 1)
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    fun addItem(item: T, position: Int = 0) {
+        itemsList.add(position, item)
+        notifyItemInserted(position)
+    }
+
+    fun removeItem(position: Int) {
+        itemsList.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    fun updateItems(newList: List<T>?) {
         when {
             newList == null -> {
                 itemsList.clear()
@@ -40,8 +71,8 @@ open class RecyclerLiveAdapter<T : Any> constructor(
                 notifyDataSetChanged()
             }
             else -> {
-                diffCallback.setLists(oldList = itemsList, newList = newList)
-                val diffResult = DiffUtil.calculateDiff(diffCallback)
+                diffCallback!!.setLists(oldList = itemsList, newList = newList)
+                val diffResult = DiffUtil.calculateDiff(diffCallback!!)
                 itemsList.clear()
                 itemsList.addAll(newList)
                 diffResult.dispatchUpdatesTo(this)
@@ -49,15 +80,16 @@ open class RecyclerLiveAdapter<T : Any> constructor(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
         val binding: ViewDataBinding =
             DataBindingUtil.inflate(LayoutInflater.from(parent.context), layoutResId, parent, false)
-        return RecyclerViewHolder(binding)
+        return BindingViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
         val item = itemsList[position]
         holder.bind(item = item, handler = controller)
+        setupItem?.invoke(holder, item)
     }
 
     override fun getItemCount(): Int {
@@ -65,23 +97,44 @@ open class RecyclerLiveAdapter<T : Any> constructor(
     }
 
     companion object {
-
         fun <T : Any> build(
             fragment: Fragment,
-            layoutResId: Int,
-            source: LiveData<List<T>>,
-            compareItemsBy: ((item: T) -> Any)? = null
-        ) = RecyclerLiveAdapter(
+            layoutResId: Int
+        ) = RecyclerAdapter<T>(
             controller = fragment,
-            lifecycleOwner = fragment.viewLifecycleOwner,
-            layoutResId = layoutResId,
-            source = source,
-            compareItemsBy = compareItemsBy
+            layoutResId = layoutResId
         )
     }
 }
 
-class RecyclerViewHolder(private val binding: ViewDataBinding) :
+class RecyclerLiveAdapter<T : Any> constructor(
+    private val controller: Any,
+    private val lifecycleOwner: LifecycleOwner,
+    private val layoutResId: Int,
+    source: LiveData<List<T>>,
+) : RecyclerAdapter<T>(controller, layoutResId) {
+
+    init {
+        source.observe(lifecycleOwner) {
+            updateItems(it)
+        }
+    }
+
+    companion object {
+        fun <T : Any> build(
+            fragment: Fragment,
+            layoutResId: Int,
+            source: LiveData<List<T>>
+        ) = RecyclerLiveAdapter(
+            controller = fragment,
+            lifecycleOwner = fragment.viewLifecycleOwner,
+            layoutResId = layoutResId,
+            source = source
+        )
+    }
+}
+
+class BindingViewHolder(private val binding: ViewDataBinding) :
     RecyclerView.ViewHolder(binding.root) {
     val view = binding.root
 

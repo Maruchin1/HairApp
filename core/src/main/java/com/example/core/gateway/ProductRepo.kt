@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ProductRepo {
 
-    suspend fun addNew(product: Product)
+    suspend fun add(product: Product)
 
     suspend fun update(product: Product)
 

@@ -64,7 +64,7 @@ class MockProductRepo @Inject constructor() : ProductRepo {
         )
     )
 
-    override suspend fun addNew(product: Product) {
+    override suspend fun add(product: Product) {
         val state = collection.value
         state.add(product)
         collection.send(state)

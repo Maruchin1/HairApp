@@ -37,8 +37,7 @@ class ProductsListFragment : Fragment() {
         recycler.adapter = RecyclerLiveAdapter.build(
             fragment = this,
             layoutResId = R.layout.item_product,
-            source = viewModel.products,
-            compareItemsBy = { it.productId }
-        )
+            source = viewModel.products
+        ).withItemComparator { it.productId }
     }
 }

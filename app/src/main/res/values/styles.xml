@@ -91,6 +91,14 @@
         <item name="android:textColor">@color/color_primary</item>
         <item name="iconTint">@color/color_primary</item>
         <item name="cornerRadius">8dp</item>
+        <item name="iconPadding">8dp</item>
+    </style>
+
+    <style name="Widget.App.Button.Secondary.Dark" parent="Widget.App.Button.Secondary">
+        <item name="strokeColor">@color/color_primary_light</item>
+        <item name="iconTint">@color/color_primary_light</item>
+        <item name="android:textColor">@color/color_primary_light</item>
+        <item name="rippleColor">@color/color_primary_light</item>
     </style>
 
 </resources>

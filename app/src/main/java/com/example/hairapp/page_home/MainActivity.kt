@@ -45,24 +45,22 @@ class MainActivity : AppCompatActivity() {
         careTab?.icon = ContextCompat.getDrawable(this, R.drawable.ic_round_bathtub_24)
 
         val productsTab = tabs.getTabAt(HomeTab.PRODUCTS.position)
-        productsTab?.icon = ContextCompat.getDrawable(this, R.drawable.ic_round_list_24)
+        productsTab?.icon = ContextCompat.getDrawable(this, R.drawable.ic_round_shopping_basket_24)
     }
 
-    inner class TabsAdapter : FragmentStatePagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-
+    inner class TabsAdapter : FragmentStatePagerAdapter(
+        supportFragmentManager,
+        BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+    ) {
         override fun getPageTitle(position: Int): CharSequence? {
-            return when (HomeTab.byPosition(
-                position
-            )) {
+            return when (HomeTab.byPosition(position)) {
                 HomeTab.CARE -> "Pielęgnacje"
                 HomeTab.PRODUCTS -> "Produkty"
             }
         }
 
         override fun getItem(position: Int): Fragment {
-            return when (HomeTab.byPosition(
-                position
-            )) {
+            return when (HomeTab.byPosition(position)) {
                 HomeTab.CARE -> CareFragment()
                 HomeTab.PRODUCTS -> ProductsListFragment()
             }

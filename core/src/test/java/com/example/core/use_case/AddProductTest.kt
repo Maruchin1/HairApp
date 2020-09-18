@@ -19,7 +19,7 @@ class AddProductTest {
 
     @Before
     fun before() {
-        coJustRun { productRepo.addNew(any()) }
+        coJustRun { productRepo.add(any()) }
         useCase = AddProduct(productRepo)
     }
 
@@ -79,7 +79,7 @@ class AddProductTest {
             application = mutableSetOf("Mocny szampon"),
             photoData = null
         )
-        coVerify { productRepo.addNew(expectedNewProduct) }
+        coVerify { productRepo.add(expectedNewProduct) }
         Unit
     }
 }

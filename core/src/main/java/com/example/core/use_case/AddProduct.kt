@@ -40,7 +40,7 @@ class AddProduct @Inject constructor(
     }
 
     private suspend fun saveNewProduct(product: Product) {
-        productRepo.addNew(product)
+        productRepo.add(product)
     }
 
     data class Input(

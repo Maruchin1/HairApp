@@ -1,6 +1,8 @@
 package com.example.hairapp.di
 
+import com.example.core.gateway.ProductApplicationRepo
 import com.example.core.gateway.ProductRepo
+import com.example.data.MockProductApplicationRepo
 import com.example.data.MockProductRepo
 import dagger.Binds
 import dagger.Module
@@ -14,5 +16,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 abstract class MockDataModule {
 
     @Binds
-    abstract fun bindProductRepo(mockProductRepo: MockProductRepo): ProductRepo
+    abstract fun bindProductRepo(
+        mockProductRepo: MockProductRepo
+    ): ProductRepo
+
+    @Binds
+    abstract fun bindProductApplicationRepo(
+        mockProductApplicationRepo: MockProductApplicationRepo
+    ): ProductApplicationRepo
 }

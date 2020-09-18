@@ -29,7 +29,7 @@ class ProductActivity : AppCompatActivity() {
         }
     }
 
-    fun deleteProduct() = withConfirmDialog(
+    fun deleteProduct() = confirmDialog(
         getString(R.string.confirm_delete),
         getString(R.string.product_activity_confirm_delete_message)
     ) {

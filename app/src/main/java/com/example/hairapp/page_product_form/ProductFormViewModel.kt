@@ -3,8 +3,8 @@ package com.example.hairapp.page_product_form
 import android.net.Uri
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.example.core.domain.PRODUCT_APPLICATIONS
 import com.example.core.domain.Product
+import com.example.core.invoke
 import com.example.core.use_case.*
 import com.example.hairapp.R
 import kotlinx.coroutines.Deferred
@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.first
 
 class ProductFormViewModel @ViewModelInject constructor(
     private val showSelectedProduct: ShowSelectedProduct,
+    private val showProductApplicationOptions: ShowProductApplicationOptions,
     private val addProduct: AddProduct,
     private val updateProduct: UpdateProduct
 ) : ViewModel() {
@@ -24,7 +25,9 @@ class ProductFormViewModel @ViewModelInject constructor(
         emit(id)
     }
     val productApplicationOptions: LiveData<List<String>> = liveData {
-        emit(PRODUCT_APPLICATIONS.toList())
+        val options = showProductApplicationOptions().first()
+        val optionsNames = options.map { it.name }
+        emit(optionsNames)
     }
 
     val productPhoto = MutableLiveData<Uri?>(null)

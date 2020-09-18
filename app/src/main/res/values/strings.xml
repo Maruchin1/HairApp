@@ -23,5 +23,6 @@
 
     <!--ProductActivity-->
     <string name="product_activity_confirm_delete_message">Wybrany produkt zostanie usunięty z aplikacji. Czy chcesz kontynuować?</string>
+    <string name="photos">Zdjęcia</string>
 
 </resources>
