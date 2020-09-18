@@ -1,7 +1,7 @@
 package com.example.data
 
-import android.util.Log
 import com.example.core.domain.Product
+import com.example.core.domain.ProductApplication
 import com.example.core.domain.ProductType
 import com.example.core.gateway.ProductRepo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,7 +26,10 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                     humectants = true,
                     proteins = true
                 ),
-                application = mutableSetOf("Mocny szampon", "Inny"),
+                applications = mutableSetOf(
+                    ProductApplication("Mocny szampon", type = ProductApplication.Type.SHAMPOO),
+                    ProductApplication("Olej", type = ProductApplication.Type.OTHER)
+                ),
                 photoData = null
             ),
             Product(
@@ -34,7 +37,7 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 name = "Shauma2",
                 manufacturer = "Kret sp z.o.o.",
                 type = ProductType(),
-                application = mutableSetOf(),
+                applications = mutableSetOf(),
                 photoData = null
             ),
             Product(
@@ -42,7 +45,7 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 name = "Shauma3",
                 manufacturer = "Kret sp z.o.o.",
                 type = ProductType(),
-                application = mutableSetOf(),
+                applications = mutableSetOf(),
                 photoData = null
             ),
             Product(
@@ -50,7 +53,7 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 name = "Shauma4",
                 manufacturer = "Kret sp z.o.o.",
                 type = ProductType(),
-                application = mutableSetOf(),
+                applications = mutableSetOf(),
                 photoData = null
             ),
             Product(
@@ -58,7 +61,7 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 name = "Shauma5",
                 manufacturer = "Kret sp z.o.o.",
                 type = ProductType(),
-                application = mutableSetOf(),
+                applications = mutableSetOf(),
                 photoData = null
             )
         )
@@ -89,12 +92,22 @@ class MockProductRepo @Inject constructor() : ProductRepo {
 
     override fun findById(productId: Int): Flow<Product> {
         return collection.asFlow()
-            .map { collection ->
-                collection.find { it.id == productId }
+            .map { list ->
+                list.find { it.id == productId }
             }.filterNotNull()
     }
 
     override fun findAll(): Flow<List<Product>> {
         return collection.asFlow()
+    }
+
+    override fun findByApplicationType(type: ProductApplication.Type): Flow<List<Product>> {
+        return collection.asFlow().map { list ->
+            list.filter { product ->
+                product.applications.any { productApplication ->
+                    productApplication.type == type
+                }
+            }
+        }
     }
 }

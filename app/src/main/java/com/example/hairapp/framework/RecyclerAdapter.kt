@@ -115,7 +115,7 @@ open class RecyclerAdapter<T : Any>(
     }
 }
 
-class RecyclerLiveAdapter<T : Any> constructor(
+class RecyclerLiveAdapter<T : Any>(
     private val controller: Any,
     private val lifecycleOwner: LifecycleOwner,
     private val layoutResId: Int,

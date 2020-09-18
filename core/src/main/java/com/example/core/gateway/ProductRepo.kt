@@ -1,6 +1,7 @@
 package com.example.core.gateway
 
 import com.example.core.domain.Product
+import com.example.core.domain.ProductApplication
 import kotlinx.coroutines.flow.Flow
 
 interface ProductRepo {
@@ -16,4 +17,6 @@ interface ProductRepo {
     fun findById(productId: Int): Flow<Product>
 
     fun findAll(): Flow<List<Product>>
+
+    fun findByApplicationType(type: ProductApplication.Type): Flow<List<Product>>
 }

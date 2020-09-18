@@ -5,7 +5,7 @@ data class Product(
     var name: String,
     var manufacturer: String,
     val type: ProductType,
-    var application: Set<String>,
+    var applications: Set<ProductApplication>,
     var photoData: String?
 ) {
 
@@ -13,5 +13,5 @@ data class Product(
         get() = arrayOf(type.humectants, type.emollients, type.proteins).all { !it }
 
     val applicationNotSpecified: Boolean
-        get() = application.isEmpty()
+        get() = applications.isEmpty()
 }

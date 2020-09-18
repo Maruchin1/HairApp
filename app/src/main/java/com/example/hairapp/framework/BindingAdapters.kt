@@ -23,7 +23,8 @@ fun setChipGroupItems(view: ChipGroup, items: Collection<String>?, itemsSelectab
     items?.forEach {
         val chip = Chip(view.context)
         if (itemsSelectable == false) {
-            chip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.color_primary))
+            chip.chipBackgroundColor =
+                ColorStateList.valueOf(ContextCompat.getColor(view.context, R.color.color_primary))
             chip.setTextColor(ContextCompat.getColor(view.context, R.color.color_white))
         }
         chip.id = View.generateViewId()
@@ -63,12 +64,10 @@ fun setSelectedItemsChangedListener(view: ChipGroup, attrChange: InverseBindingL
 
 @BindingAdapter("app:srcUri", "app:defaultResource", requireAll = false)
 fun setSourceUri(view: ImageView, uri: Uri?, defaultResourceId: Int?) {
-    if (uri != null) {
-        view.load(uri)
-    } else if (defaultResourceId != null) {
-        view.load(defaultResourceId)
-    } else {
-        view.load(R.drawable.ic_round_photo_24)
+    when {
+        uri != null -> view.load(uri)
+        defaultResourceId != null -> view.load(defaultResourceId)
+        else -> view.load(R.drawable.ic_round_photo_24)
     }
 }
 

@@ -4,12 +4,14 @@ import android.net.Uri
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.core.domain.Product
+import com.example.core.domain.ProductApplication
 import com.example.core.invoke
 import com.example.core.use_case.*
 import com.example.hairapp.R
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 
 class ProductFormViewModel @ViewModelInject constructor(
     private val showSelectedProduct: ShowSelectedProduct,
@@ -36,7 +38,7 @@ class ProductFormViewModel @ViewModelInject constructor(
     val humectants = MutableLiveData(false)
     val emollients = MutableLiveData(false)
     val proteins = MutableLiveData(false)
-    val productApplication = MutableLiveData(setOf<String>())
+    val productApplications = MutableLiveData(setOf<String>())
 
     fun setEditProductAsync(productId: Int): Deferred<Result<Unit>> = viewModelScope.async {
         editProductId = productId
@@ -57,25 +59,25 @@ class ProductFormViewModel @ViewModelInject constructor(
         }
     }
 
-    private fun makeAddInput() = AddProduct.Input(
+    private suspend fun makeAddInput() = AddProduct.Input(
         productName = productName.value!!,
         productManufacturer = productManufacturer.value!!,
         emollients = emollients.value!!,
         humectants = humectants.value!!,
         proteins = proteins.value!!,
-        productApplications = productApplication.value!!,
-        productPhotoData = productPhoto.value!!.toString()
+        productApplications = getSelectedApplications(),
+        productPhotoData = productPhoto.value?.toString()
     )
 
-    private fun makeUpdateInput() = UpdateProduct.Input(
+    private suspend fun makeUpdateInput() = UpdateProduct.Input(
         productId = editProductId!!,
         productName = productName.value!!,
         productManufacturer = productManufacturer.value!!,
         emollients = emollients.value!!,
         humectants = humectants.value!!,
         proteins = proteins.value!!,
-        productApplications = productApplication.value!!,
-        productPhotoData = productPhoto.value!!.toString()
+        productApplications = getSelectedApplications(),
+        productPhotoData = productPhoto.value?.toString()
     )
 
     private fun dispatchProductToEdit(product: Product) {
@@ -85,6 +87,13 @@ class ProductFormViewModel @ViewModelInject constructor(
         emollients.postValue(product.type.emollients)
         humectants.postValue(product.type.humectants)
         proteins.postValue(product.type.proteins)
-        productApplication.postValue(product.application)
+        productApplications.postValue(product.applications.map { it.name }.toSet())
+    }
+
+    private suspend fun getSelectedApplications(): Set<ProductApplication> {
+        val selectedNames = productApplications.value ?: return emptySet()
+        val possibleApplications = showProductApplicationOptions().first()
+        val selectedApplications = possibleApplications.filter { selectedNames.contains(it.name) }
+        return selectedApplications.toSet()
     }
 }

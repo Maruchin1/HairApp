@@ -26,8 +26,11 @@ class ProductViewModel @ViewModelInject constructor(
     val humectants: LiveData<Boolean> = selectedProduct.map { it.type.humectants }
     val emollients: LiveData<Boolean> = selectedProduct.map { it.type.emollients }
     val proteins: LiveData<Boolean> = selectedProduct.map { it.type.proteins }
-    val applicationNotSpecified: LiveData<Boolean> = selectedProduct.map { it.applicationNotSpecified }
-    val application: LiveData<List<String>> = selectedProduct.map { it.application.toList() }
+    val applicationNotSpecified: LiveData<Boolean> =
+        selectedProduct.map { it.applicationNotSpecified }
+    val applications: LiveData<List<String>> = selectedProduct.map { product ->
+        product.applications.map { it.name }
+    }
 
     fun selectProduct(productId: Int) {
         selectedProductId.value = productId
