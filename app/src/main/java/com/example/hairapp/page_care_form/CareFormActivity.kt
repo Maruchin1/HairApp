@@ -31,6 +31,10 @@ class CareFormActivity : AppCompatActivity() {
         fragment.addProduct()
     }
 
+    fun saveCare() {
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind<ActivityCareFormBinding>(R.layout.activity_care_form, viewModel)

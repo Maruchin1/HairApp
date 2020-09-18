@@ -29,9 +29,11 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:actionIcon="@drawable/ic_round_save_24"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:onBackClick="@{() -> controller.finish()}"
+                app:onBackClick="@{controller::finish}"
+                app:onActionClick="@{controller::saveProduct}"
                 app:title="Nowy produkt" />
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -159,16 +161,6 @@
                     app:singleSelection="false" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:onClick="@{() -> controller.saveProduct()}"
-            android:text="@string/save"
-            app:icon="@drawable/ic_round_save_24"
-            app:layout_anchor="@id/content"
-            app:layout_anchorGravity="bottom|center"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

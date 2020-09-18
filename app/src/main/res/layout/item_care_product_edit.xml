@@ -79,7 +79,6 @@
                 android:text='@{item.product.name, default="Nazwa produktu"}'
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:textColor="@color/text_color_secondary"
-                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/item_care_product_edit_manufacturer"
                 app:layout_constraintEnd_toStartOf="@id/item_care_product_edit_drag_handle"
                 app:layout_constraintStart_toEndOf="@id/item_care_product_edit_photo_box"
@@ -92,25 +91,50 @@
                 android:layout_height="wrap_content"
                 android:text='@{item.product.manufacturer, default="Productent"}'
                 android:textColor="@color/text_color_tertiary"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/item_care_product_edit_name"
                 app:layout_constraintStart_toStartOf="@id/item_care_product_edit_name"
                 app:layout_constraintTop_toBottomOf="@id/item_care_product_edit_name"
                 app:visibleOrGone="@{item.product != null}" />
 
-            <TextView
-                android:layout_width="0dp"
+            <FrameLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:text="Wybierz produkt"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:textColor="@color/text_color_tertiary"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="48dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/item_care_product_edit_drag_handle"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/item_care_product_edit_photo_box"
                 app:layout_constraintTop_toBottomOf="@id/item_care_product_edit_main_box"
-                app:visibleOrGone="@{item.product == null}" />
+                app:visibleOrGone="@{item.product == null}">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wybierz produkt"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textColor="@color/text_color_tertiary"
+                    android:visibility="gone"
+                    app:visibleOrGone="@{item.specificApplicationType == null}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wybierz odżywkę"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textColor="@color/text_color_tertiary"
+                    android:visibility="gone"
+                    app:visibleOrGone="@{item.specificApplicationType == Type.CONDITIONER}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wybierz szampon"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textColor="@color/text_color_tertiary"
+                    android:visibility="gone"
+                    app:visibleOrGone="@{item.specificApplicationType == Type.SHAMPOO}" />
+            </FrameLayout>
 
             <ImageButton
                 android:id="@+id/item_care_product_edit_drag_handle"

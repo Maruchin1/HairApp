@@ -22,7 +22,7 @@ class SelectProductActivity : AppCompatActivity(), ProductItemController {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bind<ActivitySelectProductBinding>(R.layout.activity_select_product, null)
+        bind<ActivitySelectProductBinding>(R.layout.activity_select_product, viewModel)
         setupAdapter()
         selectProductApplicationType()
     }
@@ -43,7 +43,7 @@ class SelectProductActivity : AppCompatActivity(), ProductItemController {
     }
 
     private fun selectProductApplicationType() {
-        val type = intent.getSerializableExtra(SelectProductContract.IN_APPLICATION_TYPE) as ProductApplication.Type
+        val type = intent.getSerializableExtra(SelectProductContract.IN_APPLICATION_TYPE) as ProductApplication.Type?
         viewModel.selectProductApplicationType(type)
     }
 }

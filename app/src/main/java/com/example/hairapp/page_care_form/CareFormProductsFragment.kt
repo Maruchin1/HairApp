@@ -33,7 +33,7 @@ class CareFormProductsFragment : Fragment() {
         val requestedCareProduct = it.first
         val selectedProductId = it.second
         if (selectedProductId != null) {
-            setSelectedProduct(requestedCareProduct, 1)
+            setSelectedProduct(requestedCareProduct, selectedProductId)
         }
     }
 

@@ -12,12 +12,20 @@ class SelectProductViewModel @ViewModelInject constructor(
 
     private val productApplicationType = MutableLiveData<ProductApplication.Type?>(null)
 
+    val title: LiveData<String> = productApplicationType.map {
+        when (it) {
+            ProductApplication.Type.CONDITIONER -> "Wybierz odżywkę"
+            ProductApplication.Type.SHAMPOO -> "Wybierz szampon"
+            else -> "Wybierz produkt"
+        }
+    }
+
     val products: LiveData<List<Product>> = productApplicationType.switchMap {
         val input = ShowProductsToSelect.Input(it)
         showProductsToSelect(input).asLiveData()
     }
 
-    fun selectProductApplicationType(type: ProductApplication.Type) {
+    fun selectProductApplicationType(type: ProductApplication.Type?) {
         productApplicationType.value = type
     }
 }

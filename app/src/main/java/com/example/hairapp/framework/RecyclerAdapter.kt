@@ -64,7 +64,9 @@ open class RecyclerAdapter<T : Any>(
     }
 
     fun updateSingleItem(item: T, position: Int) {
-
+        itemsList.removeAt(position)
+        itemsList.add(position, item)
+        notifyItemChanged(position)
     }
 
     fun updateItems(newList: List<T>?) {

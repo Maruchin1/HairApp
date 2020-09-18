@@ -37,7 +37,9 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 name = "Shauma2",
                 manufacturer = "Kret sp z.o.o.",
                 type = ProductType(),
-                applications = mutableSetOf(),
+                applications = mutableSetOf(
+                    ProductApplication("Odżywka", ProductApplication.Type.CONDITIONER)
+                ),
                 photoData = null
             ),
             Product(
@@ -45,7 +47,9 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 name = "Shauma3",
                 manufacturer = "Kret sp z.o.o.",
                 type = ProductType(),
-                applications = mutableSetOf(),
+                applications = mutableSetOf(
+                    ProductApplication("Odżywka", ProductApplication.Type.CONDITIONER)
+                ),
                 photoData = null
             ),
             Product(
@@ -53,7 +57,9 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 name = "Shauma4",
                 manufacturer = "Kret sp z.o.o.",
                 type = ProductType(),
-                applications = mutableSetOf(),
+                applications = mutableSetOf(
+                    ProductApplication("Odżywka", ProductApplication.Type.CONDITIONER)
+                ),
                 photoData = null
             ),
             Product(

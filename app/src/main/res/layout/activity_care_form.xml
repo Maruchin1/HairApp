@@ -26,8 +26,10 @@
             <com.example.hairapp.common.ToolbarView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:actionIcon="@drawable/ic_round_save_24"
                 app:layout_scrollFlags="scroll"
-                app:onBackClick="@{() -> controller.finish()}"
+                app:onBackClick="@{controller::finish}"
+                app:onActionClick="@{controller::saveCare}"
                 app:title="Dodaj pielęgnację" />
 
             <LinearLayout
