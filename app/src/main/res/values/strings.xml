@@ -47,5 +47,6 @@
     <string name="method">Metoda</string>
     <string name="add_photo">Dodaj zdjęcie</string>
     <string name="add_product">Dodaj produkt</string>
+    <string name="no_products_selected">Nie wybrano produktów</string>
 
 </resources>

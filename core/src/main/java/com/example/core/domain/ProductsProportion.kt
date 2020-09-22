@@ -23,4 +23,8 @@ class ProductsProportion(steps: List<CareProduct>) {
             proteins = numOfProteins / numOfAll
         }
     }
+
+    fun isEmpty(): Boolean {
+        return humectants == 0f && emollients == 0f && proteins == 0f
+    }
 }

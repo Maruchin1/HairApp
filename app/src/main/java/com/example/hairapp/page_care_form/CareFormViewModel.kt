@@ -22,7 +22,7 @@ class CareFormViewModel @ViewModelInject constructor(
     companion object {
         private const val OMO = "OMO"
         private const val CG = "CG"
-        private const val CUSTOM = "Własne"
+        private const val CUSTOM = "Własna"
     }
 
     private val _productsProportion = MediatorLiveData<ProductsProportion>()

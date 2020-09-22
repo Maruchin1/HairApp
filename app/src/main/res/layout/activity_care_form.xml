@@ -35,11 +35,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:baselineAligned="false"
                 android:gravity="center"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="24dp"
-                app:layout_scrollFlags="scroll"
-                android:baselineAligned="false">
+                app:layout_scrollFlags="scroll">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
@@ -157,7 +157,7 @@
             android:elevation="8dp"
             android:orientation="vertical"
             android:paddingHorizontal="8dp"
-            android:paddingVertical="16dp"
+            android:paddingVertical="8dp"
             app:layout_anchor="@id/content"
             app:layout_anchorGravity="bottom">
 
@@ -165,6 +165,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:productsProportion="@{viewModel.productsProportion}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:text="Proporcje produktów"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
         </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
