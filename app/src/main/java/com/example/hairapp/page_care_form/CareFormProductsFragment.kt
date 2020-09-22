@@ -1,7 +1,6 @@
 package com.example.hairapp.page_care_form
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -9,76 +8,42 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core.domain.CareProduct
-import com.example.core.domain.ProductApplication
 import com.example.hairapp.R
-import com.example.hairapp.framework.RecyclerAdapter
-import com.example.hairapp.page_select_product.SelectProductActivity
 import com.example.hairapp.page_select_product.SelectProductContract
 import kotlinx.android.synthetic.main.fragment_products_list.recycler
 import kotlinx.android.synthetic.main.item_care_product_edit.view.*
 import kotlinx.coroutines.launch
-import java.util.*
 
 class CareFormProductsFragment : Fragment() {
 
     private val viewModel: CareFormViewModel by activityViewModels()
 
     private val selectProductRequest = registerForActivityResult(SelectProductContract()) {
-        val requestedCareProduct = it.first
-        val selectedProductId = it.second
-        if (selectedProductId != null) {
-            setSelectedProduct(requestedCareProduct, selectedProductId)
+        val (requestedCareProduct, selectedProductId) = it
+        lifecycleScope.launch {
+            selectedProductId?.let { selectedProductId ->
+                viewModel.findProduct(selectedProductId)
+            }?.let { selectedProduct ->
+                adapter.setProduct(requestedCareProduct, selectedProduct)
+            }
         }
-    }
-
-
-    fun addProduct() {
-        val newCareProduct = CareProduct()
-        adapter.addItem(newCareProduct)
-    }
-
-    fun getCareProducts(): List<CareProduct> {
-        return adapter.getAllItems()
-    }
-
-    fun selectProduct(careProduct: CareProduct) {
-        selectProductRequest.launch(careProduct)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_care_form_products, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        viewModel.steps.observe(viewLifecycleOwner) {
-            adapter.updateItems(it)
-        }
-
-        recycler.adapter = adapter
-        touchHelper.attachToRecyclerView(recycler)
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private val adapter: RecyclerAdapter<CareProduct> = RecyclerAdapter.build<CareProduct>(
-        fragment = this,
-        layoutResId = R.layout.item_care_product_edit
-    ).withItemSetup { viewHolder, _ ->
-        viewHolder.itemView.item_care_product_edit_drag_handle.setOnTouchListener { v, event ->
-            if (event.action == MotionEvent.ACTION_DOWN)
-                touchHelper.startDrag(viewHolder)
-            false
+    private val adapter: CareFormProductsAdapter = CareFormProductsAdapter(
+        controller = this,
+        layoutResId = R.layout.item_care_product_edit,
+    ).apply {
+        withItemSetup { viewHolder, _ ->
+            viewHolder.itemView.item_care_product_edit_drag_handle.setOnTouchListener { v, event ->
+                if (event.action == MotionEvent.ACTION_DOWN)
+                    touchHelper.startDrag(viewHolder)
+                false
+            }
         }
     }
 
@@ -95,7 +60,7 @@ class CareFormProductsFragment : Fragment() {
             recyclerView: RecyclerView,
             viewHolder: RecyclerView.ViewHolder
         ): Int {
-            val careProduct = adapter.getItem(viewHolder.adapterPosition)
+            val careProduct = adapter.getCareProduct(viewHolder.adapterPosition)
             if (careProduct == null || careProduct.specificApplicationType != null)
                 return 0
             val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
@@ -109,12 +74,12 @@ class CareFormProductsFragment : Fragment() {
         ): Boolean {
             val fromPosition = viewHolder.adapterPosition
             val toPosition = target.adapterPosition
-            adapter.moveItem(fromPosition, toPosition)
+            adapter.moveCareProduct(fromPosition, toPosition)
             return true
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            adapter.removeItem(viewHolder.adapterPosition)
+            adapter.removeCareProduct(viewHolder.adapterPosition)
         }
 
         override fun canDropOver(
@@ -122,7 +87,7 @@ class CareFormProductsFragment : Fragment() {
             current: RecyclerView.ViewHolder,
             target: RecyclerView.ViewHolder
         ): Boolean {
-            val targetItem = adapter.getItem(target.adapterPosition)
+            val targetItem = adapter.getCareProduct(target.adapterPosition)
             if (targetItem?.specificApplicationType == null) {
                 return true
             }
@@ -131,25 +96,44 @@ class CareFormProductsFragment : Fragment() {
             val targetPosition = target.adapterPosition
 
             return if (currentPosition < targetPosition) {
-                val nextItem = adapter.getItem(targetPosition + 1)
+                val nextItem = adapter.getCareProduct(targetPosition + 1)
                 nextItem?.specificApplicationType == null
             } else {
-                val previousItem = adapter.getItem(targetPosition - 1)
+                val previousItem = adapter.getCareProduct(targetPosition - 1)
                 previousItem?.specificApplicationType == null
             }
         }
     })
 
-    private fun setSelectedProduct(
-        careProduct: CareProduct,
-        selectedProductId: Int
-    ) = lifecycleScope.launch {
+    fun addProduct() {
+        adapter.addCareProduct()
+    }
 
-        val selectedProduct = viewModel.findProduct(selectedProductId)
-        val itemPosition = adapter.getItemPosition(careProduct)
+    fun selectProduct(careProduct: CareProduct) {
+        selectProductRequest.launch(careProduct)
+    }
 
-        careProduct.product = selectedProduct
-        adapter.updateSingleItem(careProduct, itemPosition)
+    fun getCareProducts(): List<CareProduct> {
+        return adapter.getAllCareProducts()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_care_form_products, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recycler.adapter = adapter
+        touchHelper.attachToRecyclerView(recycler)
+
+        viewModel.steps.observe(viewLifecycleOwner) {
+            adapter.updateItems(it)
+        }
+        viewModel.addProductsProportionSource(adapter.productsProportion)
     }
 
 }

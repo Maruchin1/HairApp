@@ -12,48 +12,26 @@ class AddCare @Inject constructor(
 ) : UseCase<AddCare.Input, Unit>() {
 
     override suspend fun execute(input: Input) {
-        val newCare = when (input) {
-            is Input.OMO -> makeOMO(input)
-            is Input.CG -> makeCG(input)
-            is Input.Custom -> makeCustom(input)
-        }
-        newCare.steps = input.steps
+        val newCare = makeNewCare(input)
         saveCare(newCare)
     }
 
-    private fun makeOMO(input: Input.OMO): Care {
-        return Care.OMO(id = 0, input.date)
-    }
-
-    private fun makeCG(input: Input.CG): Care {
-        return Care.CG(id = 0, input.date)
-    }
-
-    private fun makeCustom(input: Input.Custom): Care {
-        return Care.Custom(id = 0, input.date)
+    private fun makeNewCare(input: Input): Care {
+        return Care(
+            id = 0,
+            type = input.type,
+            date = input.date,
+            steps = input.steps
+        )
     }
 
     private suspend fun saveCare(care: Care) {
         careRepo.add(care)
     }
 
-    sealed class Input {
-        abstract val date: LocalDate
-        abstract val steps: List<CareProduct>
-
-        data class OMO(
-            override val date: LocalDate,
-            override val steps: List<CareProduct>
-        ) : Input()
-
-        data class CG(
-            override val date: LocalDate,
-            override val steps: List<CareProduct>
-        ) : Input()
-
-        data class Custom(
-            override val date: LocalDate,
-            override val steps: List<CareProduct>
-        ) : Input()
-    }
+    data class Input(
+        val date: LocalDate,
+        val type: Care.Type,
+        val steps: List<CareProduct>
+    )
 }

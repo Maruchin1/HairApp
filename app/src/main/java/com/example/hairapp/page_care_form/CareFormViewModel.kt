@@ -5,10 +5,15 @@ import androidx.lifecycle.*
 import com.example.core.domain.Care
 import com.example.core.domain.CareProduct
 import com.example.core.domain.Product
+import com.example.core.domain.ProductsProportion
 import com.example.core.use_case.AddCare
 import com.example.core.use_case.ShowSelectedProduct
+import com.example.hairapp.framework.RecyclerLiveAdapter
+import com.example.hairapp.framework.updateState
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.util.*
 
 class CareFormViewModel @ViewModelInject constructor(
     private val showSelectedProduct: ShowSelectedProduct,
@@ -20,6 +25,8 @@ class CareFormViewModel @ViewModelInject constructor(
         private const val CUSTOM = "Własne"
     }
 
+    private val _productsProportion = MediatorLiveData<ProductsProportion>()
+
     val careOptions: LiveData<Array<String>> = liveData {
         emit(arrayOf(OMO, CG, CUSTOM))
     }
@@ -29,18 +36,25 @@ class CareFormViewModel @ViewModelInject constructor(
     val careMethod = MutableLiveData<String>()
 
     val steps: LiveData<List<CareProduct>> = careMethod.map {
-        val care = when (it) {
-            OMO -> Care.OMO()
-            CG -> Care.CG()
-            CUSTOM -> Care.Custom()
+        when (it) {
+            OMO -> Care.Type.OMO.makeSteps()
+            CG -> Care.Type.CG.makeSteps()
+            CUSTOM -> Care.Type.CUSTOM.makeSteps()
             else -> throw IllegalStateException("Not matching careMethod: $careMethod")
         }
-        care.steps
     }
+
+    val productsProportion: LiveData<ProductsProportion> = _productsProportion
 
     init {
         date.value = LocalDate.now().toString()
         careMethod.value = OMO
+    }
+
+    fun addProductsProportionSource(source: LiveData<ProductsProportion>) {
+        _productsProportion.addSource(source) {
+            _productsProportion.value = it
+        }
     }
 
     suspend fun findProduct(productId: Int): Product? {
@@ -49,6 +63,11 @@ class CareFormViewModel @ViewModelInject constructor(
     }
 
     suspend fun saveCare(steps: List<CareProduct>): Result<Unit> {
+        if (steps.isEmpty()) {
+            val exception = IllegalStateException("Nie zdefiniowano żadnych korków")
+            return Result.failure(exception)
+        }
+
         val selectedDate = date.value?.let { LocalDate.parse(it) }
         if (selectedDate == null) {
             val exception = IllegalStateException("Nie wybrano daty pielęgnacji")
@@ -62,9 +81,9 @@ class CareFormViewModel @ViewModelInject constructor(
         }
 
         val input = when (selectedCareMethod) {
-            OMO -> AddCare.Input.OMO(selectedDate, steps)
-            CG -> AddCare.Input.CG(selectedDate, steps)
-            CUSTOM -> AddCare.Input.Custom(selectedDate, steps)
+            OMO -> AddCare.Input(selectedDate, Care.Type.OMO, steps)
+            CG -> AddCare.Input(selectedDate, Care.Type.CG, steps)
+            CUSTOM -> AddCare.Input(selectedDate, Care.Type.CUSTOM, steps)
             else -> throw IllegalStateException("Not matching careMethod: $careMethod")
         }
 

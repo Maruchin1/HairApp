@@ -40,5 +40,12 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="letter_h">H</string>
+    <string name="letter_e">E</string>
+    <string name="letter_p">P</string>
+    <string name="date">Data</string>
+    <string name="method">Metoda</string>
+    <string name="add_photo">Dodaj zdjęcie</string>
+    <string name="add_product">Dodaj produkt</string>
 
 </resources>

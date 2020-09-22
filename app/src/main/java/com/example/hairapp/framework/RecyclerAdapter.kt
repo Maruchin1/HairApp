@@ -17,7 +17,7 @@ open class RecyclerAdapter<T : Any>(
     private val layoutResId: Int
 ) : RecyclerView.Adapter<BindingViewHolder>() {
 
-    private val itemsList = mutableListOf<T>()
+    protected val itemsList = mutableListOf<T>()
 
     private var diffCallback: CustomDiffCallback<T>? = null
     private var setupItem: ((RecyclerView.ViewHolder, T) -> Unit)? = null
@@ -32,48 +32,7 @@ open class RecyclerAdapter<T : Any>(
         return this
     }
 
-    fun getItem(position: Int): T? {
-        return if (itemsList.indices.contains(position)) itemsList[position] else null
-    }
-
-    fun getItemPosition(item: T): Int {
-        return itemsList.indexOf(item)
-    }
-
-    fun getAllItems(): List<T> {
-        return itemsList
-    }
-
-    fun moveItem(fromPosition: Int, toPosition: Int) {
-        if (fromPosition < toPosition) {
-            for (i in fromPosition until toPosition) {
-                Collections.swap(itemsList, i, i + 1)
-            }
-        } else {
-            for (i in fromPosition downTo toPosition + 1) {
-                Collections.swap(itemsList, i, i - 1)
-            }
-        }
-        notifyItemMoved(fromPosition, toPosition)
-    }
-
-    fun addItem(item: T, position: Int = 0) {
-        itemsList.add(position, item)
-        notifyItemInserted(position)
-    }
-
-    fun removeItem(position: Int) {
-        itemsList.removeAt(position)
-        notifyItemRemoved(position)
-    }
-
-    fun updateSingleItem(item: T, position: Int) {
-        itemsList.removeAt(position)
-        itemsList.add(position, item)
-        notifyItemChanged(position)
-    }
-
-    fun updateItems(newList: List<T>?) {
+    open fun updateItems(newList: List<T>?) {
         when {
             newList == null -> {
                 itemsList.clear()
@@ -121,7 +80,7 @@ open class RecyclerAdapter<T : Any>(
     }
 }
 
-class RecyclerLiveAdapter<T : Any>(
+open class RecyclerLiveAdapter<T : Any>(
     private val controller: Any,
     private val lifecycleOwner: LifecycleOwner,
     private val layoutResId: Int,

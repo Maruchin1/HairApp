@@ -12,4 +12,7 @@
         <attr name="title" />
     </declare-styleable>
 
+    <declare-styleable name="ProductsProportionView">
+    </declare-styleable>
+
 </resources>

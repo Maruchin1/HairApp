@@ -6,16 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.core.domain.Product
+import com.example.core.domain.Care
 import com.example.hairapp.R
-import com.example.hairapp.common.ProductItemController
 import com.example.hairapp.framework.RecyclerLiveAdapter
-import com.example.hairapp.page_product.ProductActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_products_list.*
+import kotlinx.android.synthetic.main.fragment_care_list.*
 
 @AndroidEntryPoint
-class ProductsListFragment : Fragment(), ProductItemController {
+class CareListFragment : Fragment() {
 
     private val viewModel: HomeViewModel by activityViewModels()
 
@@ -24,20 +22,16 @@ class ProductsListFragment : Fragment(), ProductItemController {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_products_list, container, false)
+        return inflater.inflate(R.layout.fragment_care_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recycler.adapter = RecyclerLiveAdapter.build<Product>(
-            fragment = this,
-            layoutResId = R.layout.item_product,
-            source = viewModel.products
+        recycler.adapter = RecyclerLiveAdapter<Care>(
+            controller = this,
+            lifecycleOwner = this,
+            layoutResId = R.layout.item_care,
+            source = viewModel.cares
         ).withItemComparator { it.id }
-    }
-
-    override fun onProductSelected(product: Product) {
-        val intent = ProductActivity.makeIntent(requireContext(), product.id)
-        startActivity(intent)
     }
 }

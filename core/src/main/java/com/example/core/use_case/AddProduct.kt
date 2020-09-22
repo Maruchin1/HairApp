@@ -3,8 +3,6 @@ package com.example.core.use_case
 import com.example.core.base.UseCase
 import com.example.core.domain.Product
 import com.example.core.domain.ProductApplication
-import com.example.core.domain.ProductType
-import com.example.core.errors.ProductException
 import com.example.core.gateway.ProductRepo
 import javax.inject.Inject
 
@@ -25,7 +23,7 @@ class AddProduct @Inject constructor(
             id = 0,
             name = input.productName,
             manufacturer = input.productManufacturer,
-            type = ProductType(
+            type = Product.Type(
                 emollients = input.emollients,
                 humectants = input.humectants,
                 proteins = input.proteins

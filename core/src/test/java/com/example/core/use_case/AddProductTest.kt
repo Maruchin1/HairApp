@@ -1,12 +1,9 @@
 package com.example.core.use_case
 
 import assertk.assertThat
-import assertk.assertions.isInstanceOf
 import assertk.assertions.isTrue
 import com.example.core.domain.Product
 import com.example.core.domain.ProductApplication
-import com.example.core.domain.ProductType
-import com.example.core.errors.ProductException
 import com.example.core.gateway.ProductRepo
 import io.mockk.*
 import kotlinx.coroutines.runBlocking
@@ -56,7 +53,7 @@ class AddProductTest {
             id = 0,
             name = "Shauma",
             manufacturer = "Schwarzkopf",
-            type = ProductType(emollients = false, humectants = true, proteins = false),
+            type = Product.Type(emollients = false, humectants = true, proteins = false),
             applications = mutableSetOf(
                 ProductApplication("Mocny szampon", ProductApplication.Type.SHAMPOO)
             ),

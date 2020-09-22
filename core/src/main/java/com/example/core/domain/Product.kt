@@ -4,7 +4,7 @@ data class Product(
     val id: Int,
     var name: String,
     var manufacturer: String,
-    val type: ProductType,
+    val type: Type,
     var applications: Set<ProductApplication>,
     var photoData: String?
 ) {
@@ -14,4 +14,10 @@ data class Product(
 
     val applicationNotSpecified: Boolean
         get() = applications.isEmpty()
+
+    data class Type(
+        var humectants: Boolean = false,
+        var emollients: Boolean = false,
+        var proteins: Boolean = false
+    )
 }

@@ -2,7 +2,6 @@ package com.example.data
 
 import com.example.core.domain.Product
 import com.example.core.domain.ProductApplication
-import com.example.core.domain.ProductType
 import com.example.core.gateway.ProductRepo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -22,7 +21,7 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 1,
                 name = "Shauma1",
                 manufacturer = "Kret sp z.o.o.",
-                type = ProductType(
+                type = Product.Type(
                     humectants = true,
                     proteins = true
                 ),
@@ -36,7 +35,10 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 2,
                 name = "Shauma2",
                 manufacturer = "Kret sp z.o.o.",
-                type = ProductType(),
+                type = Product.Type(
+                    humectants = true,
+                    proteins = true
+                ),
                 applications = mutableSetOf(
                     ProductApplication("Odżywka", ProductApplication.Type.CONDITIONER)
                 ),
@@ -46,7 +48,9 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 3,
                 name = "Shauma3",
                 manufacturer = "Kret sp z.o.o.",
-                type = ProductType(),
+                type = Product.Type(
+                    emollients = true
+                ),
                 applications = mutableSetOf(
                     ProductApplication("Odżywka", ProductApplication.Type.CONDITIONER)
                 ),
@@ -56,7 +60,10 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 4,
                 name = "Shauma4",
                 manufacturer = "Kret sp z.o.o.",
-                type = ProductType(),
+                type = Product.Type(
+                    emollients = true,
+                    proteins = true
+                ),
                 applications = mutableSetOf(
                     ProductApplication("Odżywka", ProductApplication.Type.CONDITIONER)
                 ),
@@ -66,7 +73,9 @@ class MockProductRepo @Inject constructor() : ProductRepo {
                 5,
                 name = "Shauma5",
                 manufacturer = "Kret sp z.o.o.",
-                type = ProductType(),
+                type = Product.Type(
+                    humectants = true
+                ),
                 applications = mutableSetOf(),
                 photoData = null
             )
@@ -75,7 +84,10 @@ class MockProductRepo @Inject constructor() : ProductRepo {
 
     override suspend fun add(product: Product) {
         val state = collection.value
-        state.add(product)
+        val newProduct = product.copy(
+            id = state.size + 1
+        )
+        state.add(newProduct)
         collection.send(state)
     }
 

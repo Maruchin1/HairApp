@@ -30,9 +30,9 @@ class CareFormActivity : AppCompatActivity() {
     }
 
     fun saveCare() {
-        val productsFragment = fragment_products as CareFormProductsFragment
-        val steps = productsFragment.getCareProducts()
         lifecycleScope.launch {
+            val fragment = fragment_products as CareFormProductsFragment
+            val steps = fragment.getCareProducts()
             viewModel.saveCare(steps).onFailure {
                 showErrorSnackbar(it.message)
             }.onSuccess {

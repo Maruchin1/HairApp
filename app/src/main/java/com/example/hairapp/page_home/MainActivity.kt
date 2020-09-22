@@ -1,6 +1,5 @@
 package com.example.hairapp.page_home
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -59,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun getItem(position: Int): Fragment {
             return when (HomeTab.byPosition(position)) {
-                HomeTab.CARE -> CareFragment()
+                HomeTab.CARE -> CareListFragment()
                 HomeTab.PRODUCTS -> ProductsListFragment()
             }
         }

@@ -28,8 +28,8 @@
                 android:layout_height="wrap_content"
                 app:actionIcon="@drawable/ic_round_save_24"
                 app:layout_scrollFlags="scroll"
-                app:onBackClick="@{controller::finish}"
                 app:onActionClick="@{controller::saveCare}"
+                app:onBackClick="@{controller::finish}"
                 app:title="Dodaj pielęgnację" />
 
             <LinearLayout
@@ -38,14 +38,15 @@
                 android:gravity="center"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="24dp"
-                app:layout_scrollFlags="scroll">
+                app:layout_scrollFlags="scroll"
+                android:baselineAligned="false">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:layout_weight="1"
-                    android:hint="Data"
+                    android:hint="@string/date"
                     app:boxBackgroundColor="@color/color_white"
                     app:endIconTint="@color/color_primary"
                     app:startIconDrawable="@drawable/ic_round_event_24"
@@ -69,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_weight="1"
-                    android:hint="Metoda"
+                    android:hint="@string/method"
                     app:boxBackgroundColor="@color/color_white"
                     app:endIconTint="@color/color_primary"
                     app:startIconDrawable="@drawable/ic_round_label_24"
@@ -99,7 +100,7 @@
                     android:layout_marginEnd="4dp"
                     android:layout_weight="1"
                     android:onClick="@{() -> controller.addProduct()}"
-                    android:text="Dodaj produkt"
+                    android:text="@string/add_product"
                     app:icon="@drawable/ic_round_playlist_add_24" />
 
                 <com.google.android.material.button.MaterialButton
@@ -109,7 +110,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="4dp"
                     android:layout_weight="1"
-                    android:text="Dodaj zdjęcie"
+                    android:text="@string/add_photo"
                     app:icon="@drawable/ic_round_add_a_photo_24"
                     app:layout_scrollFlags="scroll" />
 
@@ -148,6 +149,23 @@
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_bottom_bar"
+            android:elevation="8dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="16dp"
+            app:layout_anchor="@id/content"
+            app:layout_anchorGravity="bottom">
+
+            <com.example.hairapp.common.ProductsProportionView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:productsProportion="@{viewModel.productsProportion}" />
+        </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
