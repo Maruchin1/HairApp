@@ -6,6 +6,10 @@
         <import type="com.example.hairapp.framework.Converter" />
 
         <variable
+            name="controller"
+            type="com.example.hairapp.common.CareItemController" />
+
+        <variable
             name="item"
             type="com.example.core.domain.Care" />
     </data>
@@ -14,6 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="82dp"
         android:layout_margin="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground"
+        android:onClick="@{() -> controller.onCareSelected(item)}"
         app:strokeWidth="0dp">
 
         <LinearLayout
@@ -56,7 +64,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="4dp"
-                        android:text='@{Converter.careMethod(item), default="Metoda OMO"}'
+                        android:text='@{Converter.careType(item.type), default="Metoda OMO"}'
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
                         app:layout_constraintBottom_toTopOf="@id/item_care_products_proportion"

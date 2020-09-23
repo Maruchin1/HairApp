@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="com.example.hairapp.framework.Converter" />
+
         <variable
             name="controller"
             type="com.example.hairapp.page_care_form.CareFormActivity" />
@@ -24,6 +26,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <com.example.hairapp.common.ToolbarView
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:actionIcon="@drawable/ic_round_save_24"
@@ -60,8 +63,8 @@
                         android:focusable="false"
                         android:focusableInTouchMode="false"
                         android:onClick="@{() -> controller.selectDate()}"
-                        android:text="@={viewModel.date}"
-                        android:textColor="@color/text_color_primary" />
+                        android:textColor="@color/text_color_primary"
+                        app:date="@{viewModel.date}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -77,12 +80,12 @@
                     app:startIconTint="@color/color_primary">
 
                     <AutoCompleteTextView
-                        android:id="@+id/input_care_method"
+                        android:id="@+id/input_care_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@={viewModel.careMethod}"
                         android:textColor="@color/text_color_primary"
-                        app:menuOptions="@{viewModel.careOptions}" />
+                        app:careType="@{viewModel.careType}"
+                        app:careTypeOptions="@{viewModel.careOptions}" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -171,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4dp"
-                android:text="Proporcje produktów"
+                android:text="@string/products_proportion"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
         </LinearLayout>
 

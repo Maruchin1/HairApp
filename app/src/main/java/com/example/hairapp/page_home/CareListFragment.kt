@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.core.domain.Care
 import com.example.hairapp.R
+import com.example.hairapp.common.CareItemController
 import com.example.hairapp.framework.RecyclerLiveAdapter
+import com.example.hairapp.page_care_form.CareFormActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_care_list.*
 
 @AndroidEntryPoint
-class CareListFragment : Fragment() {
+class CareListFragment : Fragment(), CareItemController {
 
     private val viewModel: HomeViewModel by activityViewModels()
 
@@ -33,5 +35,10 @@ class CareListFragment : Fragment() {
             layoutResId = R.layout.item_care,
             source = viewModel.cares
         ).withItemComparator { it.id }
+    }
+
+    override fun onCareSelected(care: Care) {
+        val intent = CareFormActivity.makeIntent(requireContext(), care.id)
+        startActivity(intent)
     }
 }

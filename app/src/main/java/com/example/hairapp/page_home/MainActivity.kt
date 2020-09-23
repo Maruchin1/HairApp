@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     fun addNew() {
         val intent = when (HomeTab.byPosition(tabs.selectedTabPosition)) {
-            HomeTab.CARE -> CareFormActivity.makeIntent(this)
+            HomeTab.CARE -> CareFormActivity.makeIntent(this, null)
             HomeTab.PRODUCTS -> ProductFormActivity.makeIntent(this, null)
         }
         startActivity(intent)

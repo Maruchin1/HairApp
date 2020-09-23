@@ -44,6 +44,7 @@ class ProductFormActivity : AppCompatActivity() {
         bind<ActivityProductFormBinding>(R.layout.activity_product_form, viewModel)
         setStatusBarColor(R.color.color_primary)
         setNavigationColor(R.color.color_background)
+
         val editProductId = intent.getIntExtra(IN_EDIT_PRODUCT_ID, -1)
         if (editProductId != -1)
             setEditProduct(editProductId)
