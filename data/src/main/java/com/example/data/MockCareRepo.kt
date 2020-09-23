@@ -25,6 +25,7 @@ class MockCareRepo @Inject constructor() : CareRepo {
                 id = 1,
                 type = Care.Type.OMO,
                 date = LocalDate.now(),
+                photos = listOf(),
                 steps = listOf(
                     CareProduct(ProductApplication.Type.CONDITIONER),
                     CareProduct(ProductApplication.Type.SHAMPOO),

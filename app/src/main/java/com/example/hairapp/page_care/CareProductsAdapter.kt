@@ -1,15 +1,14 @@
-package com.example.hairapp.page_care_form
+package com.example.hairapp.page_care
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.core.domain.CareProduct
 import com.example.core.domain.Product
 import com.example.core.domain.ProductsProportion
-import com.example.core.use_case.ShowSelectedProduct
 import com.example.hairapp.framework.RecyclerAdapter
 import java.util.*
 
-class CareFormProductsAdapter(
+class CareProductsAdapter(
     controller: Any,
     layoutResId: Int,
 ) : RecyclerAdapter<CareProduct>(controller, layoutResId) {

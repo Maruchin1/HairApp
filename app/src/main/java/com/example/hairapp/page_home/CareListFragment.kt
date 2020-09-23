@@ -10,7 +10,7 @@ import com.example.core.domain.Care
 import com.example.hairapp.R
 import com.example.hairapp.common.CareItemController
 import com.example.hairapp.framework.RecyclerLiveAdapter
-import com.example.hairapp.page_care_form.CareFormActivity
+import com.example.hairapp.page_care.CareActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_care_list.*
 
@@ -38,7 +38,7 @@ class CareListFragment : Fragment(), CareItemController {
     }
 
     override fun onCareSelected(care: Care) {
-        val intent = CareFormActivity.makeIntent(requireContext(), care.id)
+        val intent = CareActivity.makeIntent(requireContext(), care.id)
         startActivity(intent)
     }
 }

@@ -21,6 +21,7 @@ class AddCare @Inject constructor(
             id = 0,
             type = input.type,
             date = input.date,
+            photos = input.photos,
             steps = input.steps
         )
     }
@@ -32,6 +33,7 @@ class AddCare @Inject constructor(
     data class Input(
         val date: LocalDate,
         val type: Care.Type,
+        val photos: List<String>,
         val steps: List<CareProduct>
     )
 }

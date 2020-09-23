@@ -7,18 +7,18 @@
 
         <variable
             name="controller"
-            type="com.example.hairapp.page_care_form.CareFormActivity" />
+            type="com.example.hairapp.page_care.CareActivity" />
 
         <variable
             name="viewModel"
-            type="com.example.hairapp.page_care_form.CareFormViewModel" />
+            type="com.example.hairapp.page_care.CareViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".page_care_form.CareFormActivity">
+        tools:context=".page_care.CareActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -134,21 +134,19 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
+                <fragment
+                    android:id="@+id/fragment_photos"
+                    android:name="com.example.hairapp.page_care.CarePhotosFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="16dp"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/products"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+                    tools:layout="@layout/fragment_care_photos" />
 
                 <fragment
                     android:id="@+id/fragment_products"
-                    android:name="com.example.hairapp.page_care_form.CareFormProductsFragment"
+                    android:name="com.example.hairapp.page_care.CareProductsFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:layout="@layout/fragment_care_form_products" />
+                    tools:layout="@layout/fragment_care_products" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

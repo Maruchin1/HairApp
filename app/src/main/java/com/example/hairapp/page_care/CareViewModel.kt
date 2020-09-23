@@ -1,4 +1,4 @@
-package com.example.hairapp.page_care_form
+package com.example.hairapp.page_care
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
@@ -9,13 +9,14 @@ import com.example.core.domain.ProductsProportion
 import com.example.core.use_case.AddCare
 import com.example.core.use_case.ShowSelectedCare
 import com.example.core.use_case.ShowSelectedProduct
+import com.example.hairapp.framework.resultFailure
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import java.time.LocalDate
 
-class CareFormViewModel @ViewModelInject constructor(
+class CareViewModel @ViewModelInject constructor(
     private val showSelectedProduct: ShowSelectedProduct,
     private val showSelectedCare: ShowSelectedCare,
     private val addCare: AddCare
@@ -24,13 +25,17 @@ class CareFormViewModel @ViewModelInject constructor(
     private val _date = MutableLiveData(LocalDate.now())
     private val _careType = MutableLiveData(Care.Type.OMO)
     private val _steps = MediatorLiveData<List<CareProduct>>()
+    private val _photos = MutableLiveData<List<String>>(emptyList())
     private val _productsProportion = MediatorLiveData<ProductsProportion>()
     private var editCareId: Int? = null
 
     val careOptions: LiveData<Array<Care.Type>> = liveData { emit(Care.Type.values()) }
     val date: LiveData<LocalDate> = _date
     val careType: LiveData<Care.Type> = _careType
+    val photos: LiveData<List<String>> = _photos
+    val photosAvailable: LiveData<Boolean> = photos.map { it.isNotEmpty() }
     val steps: LiveData<List<CareProduct>> = _steps
+    val stepsAvailable: LiveData<Boolean> = steps.map { it.isNotEmpty() }
     val productsProportion: LiveData<ProductsProportion> = _productsProportion
 
     init {
@@ -68,24 +73,10 @@ class CareFormViewModel @ViewModelInject constructor(
     }
 
     suspend fun saveCare(steps: List<CareProduct>): Result<Unit> {
-        val selectedDate = date.value
-        if (selectedDate == null) {
-            val exception = IllegalStateException("Nie wybrano daty pielęgnacji")
-            return Result.failure(exception)
-        }
-
-        val selectedCareType = careType.value
-        if (selectedCareType == null) {
-            val exception = IllegalStateException("Nie wybrano metody pielęgnacji")
-            return Result.failure(exception)
-        }
-
-        if (steps.isEmpty()) {
-            val exception = IllegalStateException("Nie zdefiniowano żadnych korków")
-            return Result.failure(exception)
-        }
-
-        val input = AddCare.Input(selectedDate, selectedCareType, steps)
+        val selectedDate = date.value ?: return resultFailure("Nie wybrano daty pielęgnacji")
+        val selectedCareType = careType.value ?: return resultFailure("Nie wybrano metody pielęgnacji")
+        val photos = _photos.value ?: emptyList()
+        val input = AddCare.Input(selectedDate, selectedCareType, photos, steps)
         return addCare(input)
     }
 

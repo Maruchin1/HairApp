@@ -9,13 +9,14 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.example.hairapp.BR
 import com.example.hairapp.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
-fun <T : ViewDataBinding> DialogFragment.bind(
+fun <T : ViewDataBinding> Fragment.bind(
     inflater: LayoutInflater,
     container: ViewGroup?,
     layoutId: Int,

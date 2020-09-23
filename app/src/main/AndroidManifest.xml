@@ -15,7 +15,7 @@
             android:name=".page_select_product.SelectProductActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".page_care_form.CareFormActivity"
+            android:name=".page_care.CareActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".page_product.ProductActivity"

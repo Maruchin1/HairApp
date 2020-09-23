@@ -6,6 +6,7 @@ data class Care(
     val id: Int,
     val type: Type,
     var date: LocalDate,
+    var photos: List<String>,
     var steps: List<CareProduct>
 ) {
 

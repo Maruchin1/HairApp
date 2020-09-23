@@ -1,4 +1,4 @@
-package com.example.hairapp.page_care_form
+package com.example.hairapp.page_care
 
 import android.content.Context
 import android.content.Intent
@@ -8,29 +8,29 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.R
-import com.example.hairapp.databinding.ActivityCareFormBinding
+import com.example.hairapp.databinding.ActivityCareBinding
 import com.example.hairapp.framework.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_care_form.*
+import kotlinx.android.synthetic.main.activity_care.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CareFormActivity : AppCompatActivity() {
+class CareActivity : AppCompatActivity() {
 
-    private val viewModel: CareFormViewModel by viewModels()
+    private val viewModel: CareViewModel by viewModels()
 
     fun selectDate() = datePickerDialog {
         viewModel.setDate(it)
     }
 
     fun addProduct() {
-        val productsFragment = fragment_products as CareFormProductsFragment
+        val productsFragment = fragment_products as CareProductsFragment
         productsFragment.addProduct()
     }
 
     fun saveCare() {
         lifecycleScope.launch {
-            val fragment = fragment_products as CareFormProductsFragment
+            val fragment = fragment_products as CareProductsFragment
             val steps = fragment.getCareProducts()
             viewModel.saveCare(steps).onFailure {
                 showErrorSnackbar(it.message)
@@ -42,7 +42,7 @@ class CareFormActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bind<ActivityCareFormBinding>(R.layout.activity_care_form, viewModel)
+        bind<ActivityCareBinding>(R.layout.activity_care, viewModel)
         setStatusBarColor(R.color.color_primary)
         setNavigationColor(R.color.color_white)
 
@@ -78,7 +78,7 @@ class CareFormActivity : AppCompatActivity() {
         private const val IN_EDIT_CARE_ID = "in-edit-care-id"
 
         fun makeIntent(context: Context, editCareId: Int?): Intent {
-            return Intent(context, CareFormActivity::class.java)
+            return Intent(context, CareActivity::class.java)
                 .putExtra(IN_EDIT_CARE_ID, editCareId)
         }
     }

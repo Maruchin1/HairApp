@@ -9,7 +9,7 @@
 
         <variable
             name="controller"
-            type="com.example.hairapp.page_care_form.CareFormProductsFragment" />
+            type="com.example.hairapp.page_care.CareProductsFragment" />
 
         <variable
             name="item"

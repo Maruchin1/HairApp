@@ -1,4 +1,4 @@
-package com.example.hairapp.page_care_form
+package com.example.hairapp.page_care
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -13,14 +13,16 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core.domain.CareProduct
 import com.example.hairapp.R
+import com.example.hairapp.framework.Binder
 import com.example.hairapp.page_select_product.SelectProductContract
+import kotlinx.android.synthetic.main.fragment_care_products.*
 import kotlinx.android.synthetic.main.fragment_products_list.recycler
 import kotlinx.android.synthetic.main.item_care_product_edit.view.*
 import kotlinx.coroutines.launch
 
-class CareFormProductsFragment : Fragment() {
+class CareProductsFragment : Fragment() {
 
-    private val viewModel: CareFormViewModel by activityViewModels()
+    private val viewModel: CareViewModel by activityViewModels()
 
     private val selectProductRequest = registerForActivityResult(SelectProductContract()) {
         val (requestedCareProduct, selectedProductId) = it
@@ -34,7 +36,7 @@ class CareFormProductsFragment : Fragment() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private val adapter: CareFormProductsAdapter = CareFormProductsAdapter(
+    private val adapter: CareProductsAdapter = CareProductsAdapter(
         controller = this,
         layoutResId = R.layout.item_care_product_edit,
     ).apply {
@@ -122,14 +124,18 @@ class CareFormProductsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_care_form_products, container, false)
+        return inflater.inflate(R.layout.fragment_care_products, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recycler.adapter = adapter
+        care_products_recycler.adapter = adapter
         touchHelper.attachToRecyclerView(recycler)
 
+        viewModel.stepsAvailable.observe(viewLifecycleOwner) {
+            Binder.setVisibleOrGone(care_products_header, it)
+            Binder.setVisibleOrGone(care_products_recycler, it)
+        }
         viewModel.steps.observe(viewLifecycleOwner) {
             adapter.updateItems(it)
         }

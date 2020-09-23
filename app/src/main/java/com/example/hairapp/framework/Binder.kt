@@ -21,7 +21,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import java.time.LocalDate
 
-object BindingAdapters {
+object Binder {
 
     // ChipGroup
 
