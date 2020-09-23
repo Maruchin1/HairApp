@@ -1,5 +1,6 @@
 package com.example.hairapp.page_care
 
+import android.net.Uri
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.core.domain.Care
@@ -10,6 +11,7 @@ import com.example.core.use_case.AddCare
 import com.example.core.use_case.ShowSelectedCare
 import com.example.core.use_case.ShowSelectedProduct
 import com.example.hairapp.framework.resultFailure
+import com.example.hairapp.framework.updateState
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
@@ -25,14 +27,14 @@ class CareViewModel @ViewModelInject constructor(
     private val _date = MutableLiveData(LocalDate.now())
     private val _careType = MutableLiveData(Care.Type.OMO)
     private val _steps = MediatorLiveData<List<CareProduct>>()
-    private val _photos = MutableLiveData<List<String>>(emptyList())
+    private val _photos = MutableLiveData<MutableList<String>>(mutableListOf())
     private val _productsProportion = MediatorLiveData<ProductsProportion>()
     private var editCareId: Int? = null
 
     val careOptions: LiveData<Array<Care.Type>> = liveData { emit(Care.Type.values()) }
     val date: LiveData<LocalDate> = _date
     val careType: LiveData<Care.Type> = _careType
-    val photos: LiveData<List<String>> = _photos
+    val photos: LiveData<List<String>> = _photos.map { it.toList() }
     val photosAvailable: LiveData<Boolean> = photos.map { it.isNotEmpty() }
     val steps: LiveData<List<CareProduct>> = _steps
     val stepsAvailable: LiveData<Boolean> = steps.map { it.isNotEmpty() }
@@ -67,14 +69,21 @@ class CareViewModel @ViewModelInject constructor(
         }
     }
 
+    fun addPhoto(photo: Uri) {
+        val photoData = photo.toString()
+        _photos.updateState { it.add(photoData) }
+    }
+
     suspend fun findProduct(productId: Int): Product? {
         val input = ShowSelectedProduct.Input(productId)
         return showSelectedProduct(input).firstOrNull()
     }
 
     suspend fun saveCare(steps: List<CareProduct>): Result<Unit> {
-        val selectedDate = date.value ?: return resultFailure("Nie wybrano daty pielęgnacji")
-        val selectedCareType = careType.value ?: return resultFailure("Nie wybrano metody pielęgnacji")
+        val selectedDate = date.value
+            ?: return resultFailure("Nie wybrano daty pielęgnacji")
+        val selectedCareType = careType.value
+            ?: return resultFailure("Nie wybrano metody pielęgnacji")
         val photos = _photos.value ?: emptyList()
         val input = AddCare.Input(selectedDate, selectedCareType, photos, steps)
         return addCare(input)

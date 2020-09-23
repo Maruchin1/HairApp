@@ -91,6 +91,13 @@ object Binder {
         }
     }
 
+    @BindingAdapter("app:srcUri", "app:defaultResource", requireAll = false)
+    @JvmStatic
+    fun setSourceUri(view: ImageView, data: String?, defaultResourceId: Int?) {
+        val uri = data?.let { Uri.parse(it) }
+        setSourceUri(view, uri, defaultResourceId)
+    }
+
     // Toolbar
 
     @BindingAdapter("app:onNavigationClick")

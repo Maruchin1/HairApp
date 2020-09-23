@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.hairapp.R
 import com.example.hairapp.framework.Binder
+import com.example.hairapp.framework.RecyclerLiveAdapter
 import kotlinx.android.synthetic.main.fragment_care_photos.*
 
 class CarePhotosFragment : Fragment() {
@@ -28,5 +29,12 @@ class CarePhotosFragment : Fragment() {
             Binder.setVisibleOrGone(care_photos_header, it)
             Binder.setVisibleOrGone(care_photos_recycler, it)
         }
+
+        care_photos_recycler.adapter = RecyclerLiveAdapter(
+            controller = this,
+            lifecycleOwner = viewLifecycleOwner,
+            layoutResId = R.layout.item_care_photo,
+            source = viewModel.photos
+        )
     }
 }

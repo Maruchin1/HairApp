@@ -17,7 +17,7 @@ import com.example.hairapp.framework.Binder
 import com.example.hairapp.page_select_product.SelectProductContract
 import kotlinx.android.synthetic.main.fragment_care_products.*
 import kotlinx.android.synthetic.main.fragment_products_list.recycler
-import kotlinx.android.synthetic.main.item_care_product_edit.view.*
+import kotlinx.android.synthetic.main.item_care_product.view.*
 import kotlinx.coroutines.launch
 
 class CareProductsFragment : Fragment() {
@@ -38,7 +38,7 @@ class CareProductsFragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     private val adapter: CareProductsAdapter = CareProductsAdapter(
         controller = this,
-        layoutResId = R.layout.item_care_product_edit,
+        layoutResId = R.layout.item_care_product,
     ).apply {
         withItemSetup { viewHolder, _ ->
             viewHolder.itemView.item_care_product_edit_drag_handle.setOnTouchListener { v, event ->
@@ -130,7 +130,7 @@ class CareProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         care_products_recycler.adapter = adapter
-        touchHelper.attachToRecyclerView(recycler)
+        touchHelper.attachToRecyclerView(care_products_recycler)
 
         viewModel.stepsAvailable.observe(viewLifecycleOwner) {
             Binder.setVisibleOrGone(care_products_header, it)
