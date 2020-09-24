@@ -15,6 +15,10 @@ class CarePhotosFragment : Fragment() {
 
     private val viewModel: CareViewModel by activityViewModels()
 
+    fun displayPhoto(photo: String) {
+        PhotoPreviewFragment(photo).show(childFragmentManager, "PhotoPreview")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

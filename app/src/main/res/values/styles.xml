@@ -18,6 +18,16 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
 
+    <style name="Theme.App.Dialog.FullScreen" parent="Theme.MaterialComponents.Dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@color/color_transparent</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/enter_slide_up</item>
+        <item name="android:windowExitAnimation">@anim/exit_slide_down</item>
+    </style>
+
     <style name="Widget.App.Card" parent="Widget.MaterialComponents.CardView">
         <item name="cardElevation">4dp</item>
         <item name="cardBackgroundColor">@color/color_white</item>
@@ -70,6 +80,10 @@
         <item name="titleTextAppearance">@style/TextAppearance.App.ToolbarTitle</item>
     </style>
 
+    <style name="Widget.App.Toolbar.Dark" parent="Widget.MaterialComponents.Toolbar">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Toolbar.Dark</item>
+    </style>
+
     <style name="TextAppearance.App.ToolbarTitle" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/color_primary_light</item>
@@ -81,8 +95,18 @@
         <item name="colorOnPrimary">@color/color_white</item>
     </style>
 
+    <style name="ThemeOverlay.App.Toolbar.Dark" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="colorPrimary">@color/color_transparent</item>
+        <item name="colorPrimaryVariant">@color/color_transparent</item>
+        <item name="toolbarNavigationButtonStyle">@style/Widget.App.ToolbarButton.Dark</item>
+    </style>
+
     <style name="Widget.App.ToolbarButton" parent="Widget.AppCompat.Toolbar.Button.Navigation">
         <item name="tint">@color/color_primary_light</item>
+    </style>
+
+    <style name="Widget.App.ToolbarButton.Dark" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="tint">@color/color_white</item>
     </style>
 
     <style name="Widget.App.Button.Secondary" parent="Widget.MaterialComponents.Button.OutlinedButton">
