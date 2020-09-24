@@ -41,7 +41,14 @@ class MockCareRepo @Inject constructor() : CareRepo {
             id = state.size + 1
         )
         state.add(newCare)
-        collection.send(state)
+        collection.offer(state)
+    }
+
+    override suspend fun update(care: Care) {
+        val state = collection.value
+        state.removeIf { it.id == care.id }
+        state.add(care)
+        collection.offer(state)
     }
 
     override suspend fun existsById(careId: Int): Boolean {

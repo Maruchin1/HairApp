@@ -17,13 +17,13 @@ class UpdateProduct @Inject constructor(
     override suspend fun execute(input: Input) {
         this.input = input
         val existingProduct = findProduct() ?: throw ProductException.NotFound(input.productId)
-        dispatchUpdate(existingProduct)
+        applyUpdate(existingProduct)
         saveUpdated(existingProduct)
     }
 
     private suspend fun findProduct() = productRepo.findById(input.productId).firstOrNull()
 
-    private fun dispatchUpdate(product: Product) {
+    private fun applyUpdate(product: Product) {
         product.apply {
             name = input.productName
             manufacturer = input.productManufacturer

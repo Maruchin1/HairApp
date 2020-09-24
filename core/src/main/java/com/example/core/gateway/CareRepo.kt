@@ -7,6 +7,8 @@ interface CareRepo {
 
     suspend fun add(care: Care)
 
+    suspend fun update(care: Care)
+
     suspend fun existsById(careId: Int): Boolean
 
     fun findAll(): Flow<List<Care>>

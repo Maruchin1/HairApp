@@ -9,6 +9,7 @@ import com.example.core.domain.ProductsProportion
 import com.example.core.use_case.AddCare
 import com.example.core.use_case.ShowSelectedCare
 import com.example.core.use_case.ShowSelectedProduct
+import com.example.core.use_case.UpdateCare
 import com.example.hairapp.framework.resultFailure
 import com.example.hairapp.framework.updateState
 import kotlinx.coroutines.Deferred
@@ -20,7 +21,8 @@ import java.time.LocalDate
 class CareViewModel @ViewModelInject constructor(
     private val showSelectedProduct: ShowSelectedProduct,
     private val showSelectedCare: ShowSelectedCare,
-    private val addCare: AddCare
+    private val addCare: AddCare,
+    private val updateCare: UpdateCare
 ) : ViewModel() {
 
     private val _date = MutableLiveData(LocalDate.now())
@@ -87,13 +89,19 @@ class CareViewModel @ViewModelInject constructor(
         val selectedCareType = careType.value
             ?: return resultFailure("Nie wybrano metody pielęgnacji")
         val photos = _photos.value ?: emptyList()
-        val input = AddCare.Input(selectedDate, selectedCareType, photos, steps)
-        return addCare(input)
+        return if (editCareId == null) {
+            val input = AddCare.Input(selectedDate, selectedCareType, photos, steps)
+            addCare(input)
+        } else {
+            val input = UpdateCare.Input(editCareId!!, selectedDate, photos, steps)
+            updateCare(input)
+        }
     }
 
     private fun applyCareToEdit(care: Care) {
         _date.postValue(care.date)
         _careType.postValue(care.type)
+        _photos.postValue(care.photos.toMutableList())
         _steps.postValue(care.steps)
     }
 }
