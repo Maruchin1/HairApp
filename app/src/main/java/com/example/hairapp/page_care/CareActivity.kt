@@ -66,7 +66,7 @@ class CareActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            data?.data?.let { viewModel.addPhoto(it) }
+            data?.data?.let { viewModel.addPhoto(it.toString()) }
         }
     }
 

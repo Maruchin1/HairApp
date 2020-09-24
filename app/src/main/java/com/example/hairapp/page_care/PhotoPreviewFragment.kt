@@ -11,6 +11,8 @@ import androidx.lifecycle.MutableLiveData
 import com.example.hairapp.R
 import com.example.hairapp.databinding.FragmentPhotoPreviewBinding
 import com.example.hairapp.framework.bind
+import com.example.hairapp.framework.confirmDialog
+import kotlinx.android.synthetic.main.fragment_photo_preview.*
 
 class PhotoPreviewFragment(photo: String) : DialogFragment() {
 
@@ -40,5 +42,20 @@ class PhotoPreviewFragment(photo: String) : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireDialog().window?.setWindowAnimations(R.style.DialogAnimation)
+
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.option_delete -> deletePhoto()
+            }
+            true
+        }
+    }
+
+    private fun deletePhoto() = requireActivity().confirmDialog(
+        title = "Usuń zdjęcie",
+        message = "Czy chcesz usunąć wybrane zdjęcie z pielęgnacji? Tej operacji nie będzie można cofnąć."
+    ) {
+        _photo.value?.let { viewModel.deletePhoto(it) }
+        dismiss()
     }
 }

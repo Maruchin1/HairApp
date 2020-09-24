@@ -1,6 +1,5 @@
 package com.example.hairapp.page_care
 
-import android.net.Uri
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.core.domain.Care
@@ -69,9 +68,12 @@ class CareViewModel @ViewModelInject constructor(
         }
     }
 
-    fun addPhoto(photo: Uri) {
-        val photoData = photo.toString()
-        _photos.updateState { it.add(photoData) }
+    fun addPhoto(photo: String) {
+        _photos.updateState { it.add(photo) }
+    }
+
+    fun deletePhoto(photo: String) {
+        _photos.updateState { it.remove(photo) }
     }
 
     suspend fun findProduct(productId: Int): Product? {

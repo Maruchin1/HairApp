@@ -5,6 +5,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import com.example.hairapp.BR
 import com.example.hairapp.R
@@ -39,7 +40,7 @@ fun AppCompatActivity.showErrorSnackbar(message: String?) {
         .show()
 }
 
-inline fun AppCompatActivity.datePickerDialog(crossinline selected: (LocalDate) -> Unit) {
+inline fun FragmentActivity.datePickerDialog(crossinline selected: (LocalDate) -> Unit) {
     val dialog = MaterialDatePicker.Builder
         .datePicker()
         .setTitleText("Wybierz datę")
@@ -54,7 +55,7 @@ inline fun AppCompatActivity.datePickerDialog(crossinline selected: (LocalDate) 
     dialog.show(supportFragmentManager, "DatePicker")
 }
 
-inline fun AppCompatActivity.confirmDialog(
+inline fun FragmentActivity.confirmDialog(
     title: String,
     message: String,
     crossinline onConfirm: () -> Unit
