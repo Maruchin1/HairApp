@@ -1,5 +1,6 @@
 package com.example.hairapp.page_home
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -17,6 +18,7 @@ class HomeViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
     val cares: LiveData<List<Care>> = showCaresList().asLiveData().map {
+        Log.d("MyDebug", "$it")
         it
     }
 

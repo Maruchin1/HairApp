@@ -1,5 +1,6 @@
 package com.example.hairapp.framework
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -33,23 +34,16 @@ open class RecyclerAdapter<T : Any>(
     }
 
     open fun updateItems(newList: List<T>?) {
-        when {
-            newList == null -> {
-                itemsList.clear()
-                notifyDataSetChanged()
-            }
-            diffCallback == null -> {
-                itemsList.clear()
-                itemsList.addAll(newList)
-                notifyDataSetChanged()
-            }
-            else -> {
-                diffCallback!!.setLists(oldList = itemsList, newList = newList)
-                val diffResult = DiffUtil.calculateDiff(diffCallback!!)
-                itemsList.clear()
-                itemsList.addAll(newList)
-                diffResult.dispatchUpdatesTo(this)
-            }
+        if (diffCallback == null) {
+            itemsList.clear()
+            newList?.let { itemsList.addAll(it) }
+            notifyDataSetChanged()
+        } else {
+            diffCallback!!.setLists(oldList = itemsList, newList = newList ?: emptyList())
+            val diffResult = DiffUtil.calculateDiff(diffCallback!!)
+            itemsList.clear()
+            newList?.let { itemsList.addAll(it) }
+            diffResult.dispatchUpdatesTo(this)
         }
     }
 
@@ -61,22 +55,13 @@ open class RecyclerAdapter<T : Any>(
 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
         val item = itemsList[position]
+        Log.d("MyDebug", "bind: $item")
         holder.bind(item = item, handler = controller)
         setupItem?.invoke(holder, item)
     }
 
     override fun getItemCount(): Int {
         return itemsList.size
-    }
-
-    companion object {
-        fun <T : Any> build(
-            fragment: Fragment,
-            layoutResId: Int
-        ) = RecyclerAdapter<T>(
-            controller = fragment,
-            layoutResId = layoutResId
-        )
     }
 }
 
@@ -91,19 +76,6 @@ open class RecyclerLiveAdapter<T : Any>(
         source.observe(lifecycleOwner) {
             updateItems(it)
         }
-    }
-
-    companion object {
-        fun <T : Any> build(
-            fragment: Fragment,
-            layoutResId: Int,
-            source: LiveData<List<T>>
-        ) = RecyclerLiveAdapter(
-            controller = fragment,
-            lifecycleOwner = fragment.viewLifecycleOwner,
-            layoutResId = layoutResId,
-            source = source
-        )
     }
 }
 

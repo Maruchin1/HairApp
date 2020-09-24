@@ -1,5 +1,7 @@
 package com.example.data
 
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asFlow
 import com.example.core.domain.Product
 import com.example.core.domain.ProductApplication
 import com.example.core.gateway.ProductRepo
@@ -10,13 +12,11 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@ExperimentalCoroutinesApi
-@FlowPreview
 @Singleton
 class MockProductRepo @Inject constructor() : ProductRepo {
 
-    private val collection = ConflatedBroadcastChannel(
-        mutableListOf<Product>(
+    private val collection = MutableLiveData(
+        mutableListOf(
             Product(
                 1,
                 name = "Shauma1",
@@ -82,30 +82,24 @@ class MockProductRepo @Inject constructor() : ProductRepo {
         )
     )
 
-    override suspend fun add(product: Product) {
-        val state = collection.value
+    override suspend fun add(product: Product) = collection.updateState {
         val newProduct = product.copy(
-            id = state.size + 1
+            id = it.size + 1
         )
-        state.add(newProduct)
-        collection.send(state)
+        it.add(newProduct)
     }
 
-    override suspend fun update(product: Product) {
-        val state = collection.value
-        state.removeIf { it.id == product.id }
-        state.add(product)
-        collection.send(state)
+    override suspend fun update(product: Product) = collection.updateState {
+        it.removeIf { item -> item.id == product.id }
+        it.add(product)
     }
 
-    override suspend fun delete(product: Product) {
-        val state = collection.value
-        state.remove(product)
-        collection.send(state)
+    override suspend fun delete(product: Product) = collection.updateState {
+        it.remove(product)
     }
 
     override suspend fun existsByName(productName: String): Boolean {
-        return collection.value.find { it.name == productName } != null
+        return collection.value?.find { it.name == productName } != null
     }
 
     override fun findById(productId: Int): Flow<Product> {

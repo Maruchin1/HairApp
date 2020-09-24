@@ -1,26 +1,23 @@
 package com.example.data
 
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asFlow
 import com.example.core.domain.Care
 import com.example.core.domain.CareProduct
 import com.example.core.domain.ProductApplication
 import com.example.core.gateway.CareRepo
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
-import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@ExperimentalCoroutinesApi
 @Singleton
 class MockCareRepo @Inject constructor() : CareRepo {
 
-    private val collection = ConflatedBroadcastChannel(
-        mutableListOf<Care>(
+    private val collection = MutableLiveData(
+        mutableListOf(
             Care(
                 id = 1,
                 type = Care.Type.OMO,
@@ -35,24 +32,20 @@ class MockCareRepo @Inject constructor() : CareRepo {
         )
     )
 
-    override suspend fun add(care: Care) {
-        val state = collection.value
+    override suspend fun add(care: Care) = collection.updateState {
         val newCare = care.copy(
-            id = state.size + 1
+            id = it.size + 1
         )
-        state.add(newCare)
-        collection.offer(state)
+        it.add(newCare)
     }
 
-    override suspend fun update(care: Care) {
-        val state = collection.value
-        state.removeIf { it.id == care.id }
-        state.add(care)
-        collection.offer(state)
+    override suspend fun update(care: Care) = collection.updateState {
+        it.removeIf { item -> item.id == care.id }
+        it.add(care)
     }
 
     override suspend fun existsById(careId: Int): Boolean {
-        return collection.value.find { it.id == careId } != null
+        return collection.value?.find { it.id == careId } != null
     }
 
     override fun findAll(): Flow<List<Care>> {

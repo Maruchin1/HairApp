@@ -29,8 +29,9 @@ class ProductsListFragment : Fragment(), ProductItemController {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recycler.adapter = RecyclerLiveAdapter.build<Product>(
-            fragment = this,
+        recycler.adapter = RecyclerLiveAdapter(
+            controller = this,
+            lifecycleOwner = viewLifecycleOwner,
             layoutResId = R.layout.item_product,
             source = viewModel.products
         ).withItemComparator { it.id }
