@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import com.example.hairapp.R
 import com.example.hairapp.framework.Binder
 import com.example.hairapp.framework.BindingRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_care_photos.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CarePhotosFragment : Fragment() {
 
-    private val viewModel: CareViewModel by activityViewModels()
+    private val viewModel: CareViewModel by sharedViewModel()
 
     fun displayPhoto(photo: String) {
         PhotoPreviewFragment(photo).show(childFragmentManager, "PhotoPreview")

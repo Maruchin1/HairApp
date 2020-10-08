@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-data class CarePhotoEntity(
+internal data class CarePhotoEntity(
 
     @PrimaryKey(autoGenerate = true)
     val photoId: Int,

@@ -5,9 +5,8 @@ import com.example.core.domain.Care
 import com.example.core.domain.CareProduct
 import com.example.core.gateway.CareRepo
 import java.time.LocalDate
-import javax.inject.Inject
 
-class AddCare @Inject constructor(
+class AddCare(
     private val careRepo: CareRepo
 ) : UseCase<AddCare.Input, Unit>() {
 

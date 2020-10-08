@@ -1,7 +1,6 @@
 package com.example.hairapp.page_home
 
 import android.util.Log
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -12,7 +11,7 @@ import com.example.core.invoke
 import com.example.core.use_case.ShowCaresList
 import com.example.core.use_case.ShowProductsList
 
-class HomeViewModel @ViewModelInject constructor(
+class HomeViewModel(
     showProductsList: ShowProductsList,
     showCaresList: ShowCaresList
 ) : ViewModel() {

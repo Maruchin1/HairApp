@@ -5,19 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import com.example.core.domain.Product
 import com.example.hairapp.R
 import com.example.hairapp.common.ProductItemController
 import com.example.hairapp.framework.BindingRecyclerAdapter
 import com.example.hairapp.page_product.ProductActivity
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_products_list.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-@AndroidEntryPoint
 class ProductsListFragment : Fragment(), ProductItemController {
 
-    private val viewModel: HomeViewModel by activityViewModels()
+    private val viewModel: HomeViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

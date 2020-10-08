@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityProductFormBinding
@@ -14,14 +13,13 @@ import com.example.hairapp.framework.setNavigationColor
 import com.example.hairapp.framework.setStatusBarColor
 import com.example.hairapp.framework.showErrorSnackbar
 import com.github.dhaval2404.imagepicker.ImagePicker
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_product_form.*
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class ProductFormActivity : AppCompatActivity() {
 
-    private val viewModel: ProductFormViewModel by viewModels()
+    private val viewModel: ProductFormViewModel by viewModel()
 
     fun takePhoto() {
         ImagePicker.with(this)

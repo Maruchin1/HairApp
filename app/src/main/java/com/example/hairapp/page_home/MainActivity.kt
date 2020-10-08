@@ -12,10 +12,8 @@ import com.example.hairapp.page_product_form.ProductFormActivity
 import com.example.hairapp.framework.setNavigationColor
 import com.example.hairapp.framework.setStatusBarColor
 import com.example.hairapp.page_care.CareActivity
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     fun addNew() {

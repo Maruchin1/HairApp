@@ -7,7 +7,7 @@ import com.example.data.entity.ApplicationEntity
 import com.example.data.entity.ProductEntity
 import com.example.data.entity.ProductApplicationEntity
 
-data class ProductWithApplications(
+internal data class ProductWithApplications(
 
     @Embedded
     val product: ProductEntity,

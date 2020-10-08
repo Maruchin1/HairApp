@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
 import com.example.core.domain.Product
 import com.example.core.domain.Application
 import com.example.hairapp.R
@@ -12,13 +11,12 @@ import com.example.hairapp.common.ProductItemController
 import com.example.hairapp.databinding.ActivitySelectProductBinding
 import com.example.hairapp.framework.BindingRecyclerAdapter
 import com.example.hairapp.framework.bind
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_select_product.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class SelectProductActivity : AppCompatActivity(), ProductItemController {
 
-    private val viewModel: SelectProductViewModel by viewModels()
+    private val viewModel: SelectProductViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

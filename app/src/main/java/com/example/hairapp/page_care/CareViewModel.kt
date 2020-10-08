@@ -1,6 +1,5 @@
 package com.example.hairapp.page_care
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.core.domain.Care
 import com.example.core.domain.CareProduct
@@ -18,7 +17,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import java.time.LocalDate
 
-class CareViewModel @ViewModelInject constructor(
+class CareViewModel(
     private val showSelectedProduct: ShowSelectedProduct,
     private val showSelectedCare: ShowSelectedCare,
     private val addCare: AddCare,

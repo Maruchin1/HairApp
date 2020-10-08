@@ -5,9 +5,8 @@ import com.example.core.domain.Product
 import com.example.core.domain.Application
 import com.example.core.gateway.ProductRepo
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
-class ShowProductsToSelect @Inject constructor(
+class ShowProductsToSelect(
     private val productRepo: ProductRepo
 ) : FlowUseCase<ShowProductsToSelect.Input, List<Product>>() {
 

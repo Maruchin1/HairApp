@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.hairapp.R
@@ -13,10 +12,11 @@ import com.example.hairapp.databinding.FragmentPhotoPreviewBinding
 import com.example.hairapp.framework.bind
 import com.example.hairapp.framework.confirmDialog
 import kotlinx.android.synthetic.main.fragment_photo_preview.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class PhotoPreviewFragment(photo: String) : DialogFragment() {
 
-    private val viewModel: CareViewModel by activityViewModels()
+    private val viewModel: CareViewModel by sharedViewModel()
     private val _photo = MutableLiveData(photo)
 
     val photo: LiveData<String> = _photo

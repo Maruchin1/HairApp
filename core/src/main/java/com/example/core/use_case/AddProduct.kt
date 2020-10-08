@@ -4,9 +4,8 @@ import com.example.core.base.UseCase
 import com.example.core.domain.Product
 import com.example.core.domain.Application
 import com.example.core.gateway.ProductRepo
-import javax.inject.Inject
 
-class AddProduct @Inject constructor(
+class AddProduct(
     private val productRepo: ProductRepo
 ) : UseCase<AddProduct.Input, Unit>() {
 

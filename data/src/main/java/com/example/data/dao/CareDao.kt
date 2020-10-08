@@ -7,7 +7,7 @@ import com.example.data.relations.CareWithPhotosAndProducts
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface CareDao {
+internal interface CareDao {
 
     @Insert
     suspend fun insert(vararg entity: CareEntity)

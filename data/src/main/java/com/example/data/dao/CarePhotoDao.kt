@@ -7,7 +7,7 @@ import androidx.room.Update
 import com.example.data.entity.CarePhotoEntity
 
 @Dao
-interface CarePhotoDao {
+internal interface CarePhotoDao {
 
     @Insert
     suspend fun insert(vararg entity: CarePhotoEntity)

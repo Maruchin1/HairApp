@@ -6,9 +6,8 @@ import com.example.core.domain.Application
 import com.example.core.errors.ProductException
 import com.example.core.gateway.ProductRepo
 import kotlinx.coroutines.flow.firstOrNull
-import javax.inject.Inject
 
-class UpdateProduct @Inject constructor(
+class UpdateProduct(
     private val productRepo: ProductRepo
 ) : UseCase<UpdateProduct.Input, Unit>() {
 

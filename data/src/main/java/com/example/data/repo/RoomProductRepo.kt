@@ -1,4 +1,4 @@
-package com.example.data
+package com.example.data.repo
 
 import android.util.Log
 import com.example.core.domain.Product
@@ -13,9 +13,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import javax.inject.Inject
 
-class RoomProductRepo @Inject constructor(
+internal class RoomProductRepo(
     private val mapper: Mapper,
     private val productDao: ProductDao,
     private val productApplicationDao: ProductApplicationDao

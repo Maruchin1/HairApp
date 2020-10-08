@@ -3,7 +3,6 @@ package com.example.hairapp.page_product
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.R
@@ -11,16 +10,15 @@ import com.example.hairapp.databinding.ActivityProductBinding
 import com.example.hairapp.framework.*
 import com.example.hairapp.page_product_form.ProductFormActivity
 import com.google.android.material.appbar.AppBarLayout
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_product.*
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.abs
 
 
-@AndroidEntryPoint
 class ProductActivity : AppCompatActivity() {
 
-    private val viewModel: ProductViewModel by viewModels()
+    private val viewModel: ProductViewModel by viewModel()
 
     fun editProduct() {
         viewModel.getProductId()?.let { productId ->

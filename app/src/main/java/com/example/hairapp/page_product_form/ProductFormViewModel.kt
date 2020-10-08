@@ -1,7 +1,6 @@
 package com.example.hairapp.page_product_form
 
 import android.net.Uri
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.core.domain.Product
 import com.example.core.domain.Application
@@ -12,7 +11,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
 
-class ProductFormViewModel @ViewModelInject constructor(
+class ProductFormViewModel(
     private val showSelectedProduct: ShowSelectedProduct,
     private val showProductApplicationOptions: ShowProductApplicationOptions,
     private val addProduct: AddProduct,

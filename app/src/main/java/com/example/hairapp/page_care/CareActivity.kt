@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
@@ -12,14 +11,13 @@ import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityCareBinding
 import com.example.hairapp.framework.*
 import com.github.dhaval2404.imagepicker.ImagePicker
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_care.*
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class CareActivity : AppCompatActivity() {
 
-    private val viewModel: CareViewModel by viewModels()
+    private val viewModel: CareViewModel by viewModel()
 
     fun selectDate() = datePickerDialog {
         viewModel.setDate(it)

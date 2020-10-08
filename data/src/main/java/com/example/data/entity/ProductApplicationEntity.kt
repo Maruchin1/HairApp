@@ -16,7 +16,7 @@ import com.example.core.domain.Application
         )
     ]
 )
-data class ProductApplicationEntity(
+internal data class ProductApplicationEntity(
 
     val productId: Int,
 

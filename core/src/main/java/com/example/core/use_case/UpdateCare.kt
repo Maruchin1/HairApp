@@ -7,9 +7,8 @@ import com.example.core.errors.CareException
 import com.example.core.gateway.CareRepo
 import kotlinx.coroutines.flow.firstOrNull
 import java.time.LocalDate
-import javax.inject.Inject
 
-class UpdateCare @Inject constructor(
+class UpdateCare(
     private val careRepo: CareRepo
 ) : UseCase<UpdateCare.Input, Unit>() {
 

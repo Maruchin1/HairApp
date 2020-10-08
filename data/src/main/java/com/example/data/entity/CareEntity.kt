@@ -6,7 +6,7 @@ import com.example.core.domain.Care
 import java.time.LocalDate
 
 @Entity
-data class CareEntity(
+internal data class CareEntity(
 
     @PrimaryKey(autoGenerate = true)
     val careId: Int,

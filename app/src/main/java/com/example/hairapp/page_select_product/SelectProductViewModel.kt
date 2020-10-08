@@ -1,12 +1,11 @@
 package com.example.hairapp.page_select_product
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.core.domain.Product
 import com.example.core.domain.Application
 import com.example.core.use_case.ShowProductsToSelect
 
-class SelectProductViewModel @ViewModelInject constructor(
+class SelectProductViewModel(
     private val showProductsToSelect: ShowProductsToSelect
 ) : ViewModel() {
 

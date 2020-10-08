@@ -5,7 +5,7 @@ import com.example.data.entity.ProductApplicationEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface ProductApplicationDao {
+internal interface ProductApplicationDao {
 
     @Insert
     suspend fun insert(vararg entity: ProductApplicationEntity)

@@ -17,7 +17,7 @@ import com.example.core.domain.CareProduct
         )
     ]
 )
-data class CareProductEntity(
+internal data class CareProductEntity(
 
     @PrimaryKey(autoGenerate = true)
     val careProductId: Int,

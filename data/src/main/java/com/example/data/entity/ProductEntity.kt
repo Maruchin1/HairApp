@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.example.core.domain.Product
 
 @Entity
-data class ProductEntity(
+internal data class ProductEntity(
 
     @PrimaryKey(autoGenerate = true)
     val productId: Int,

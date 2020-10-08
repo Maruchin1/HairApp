@@ -8,15 +8,13 @@ import com.example.data.dao.ApplicationDao
 import com.example.data.dao.CareDao
 import com.example.data.dao.ProductDao
 import com.example.data.entity.ApplicationEntity
-import com.example.data.entity.ProductEntity
 import com.example.data.entity.ProductApplicationEntity
 import com.example.data.relations.CareWithPhotosAndProducts
 import com.example.data.relations.ProductWithApplications
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
-import javax.inject.Inject
 
-class Mapper @Inject constructor(
+internal class Mapper(
     private val applicationDao: ApplicationDao,
     private val careDao: CareDao,
     private val productDao: ProductDao

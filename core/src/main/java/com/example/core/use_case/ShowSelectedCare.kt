@@ -6,9 +6,8 @@ import com.example.core.errors.CareException
 import com.example.core.gateway.CareRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEmpty
-import javax.inject.Inject
 
-class ShowSelectedCare @Inject constructor(
+class ShowSelectedCare(
     private val careRepo: CareRepo
 ) : FlowUseCase<ShowSelectedCare.Input, Care>() {
 

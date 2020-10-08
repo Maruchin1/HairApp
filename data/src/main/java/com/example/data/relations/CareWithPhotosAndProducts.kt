@@ -6,7 +6,7 @@ import com.example.data.entity.CareEntity
 import com.example.data.entity.CarePhotoEntity
 import com.example.data.entity.CareProductEntity
 
-data class CareWithPhotosAndProducts(
+internal data class CareWithPhotosAndProducts(
 
     @Embedded
     val care: CareEntity,

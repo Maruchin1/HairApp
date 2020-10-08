@@ -5,9 +5,8 @@ import com.example.core.domain.Care
 import com.example.core.gateway.CareRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
-class ShowCaresList @Inject constructor(
+class ShowCaresList(
     private val careRepo: CareRepo
 ) : FlowUseCase<Unit, List<Care>>() {
 

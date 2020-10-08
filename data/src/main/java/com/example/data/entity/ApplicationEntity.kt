@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.example.core.domain.Application
 
 @Entity
-data class ApplicationEntity(
+internal data class ApplicationEntity(
 
     @PrimaryKey
     val applicationName: String,

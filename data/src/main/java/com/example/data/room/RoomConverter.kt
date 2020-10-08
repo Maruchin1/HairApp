@@ -5,7 +5,7 @@ import com.example.core.domain.Application
 import com.example.core.domain.Care
 import java.time.LocalDate
 
-class RoomConverter {
+internal class RoomConverter {
 
     @TypeConverter
     fun fromApplicationType(value: Application.Type?): String? {

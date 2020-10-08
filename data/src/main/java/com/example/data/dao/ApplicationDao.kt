@@ -5,7 +5,7 @@ import com.example.data.entity.ApplicationEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface ApplicationDao {
+internal interface ApplicationDao {
 
     @Insert
     suspend fun insert(vararg entity: ApplicationEntity)
@@ -18,4 +18,7 @@ interface ApplicationDao {
 
     @Query("select * from ApplicationEntity where applicationName = :name")
     fun findByName(name: String): Flow<ApplicationEntity>
+
+    @Query("select * from ApplicationEntity")
+    fun findAll(): Flow<List<ApplicationEntity>>
 }

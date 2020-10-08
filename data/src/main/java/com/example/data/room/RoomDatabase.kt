@@ -18,7 +18,7 @@ import com.example.data.entity.*
     version = 1
 )
 @TypeConverters(RoomConverter::class)
-abstract class RoomDatabase : RoomDatabase() {
+internal abstract class RoomDatabase : RoomDatabase() {
 
     abstract fun applicationDao(): ApplicationDao
 
