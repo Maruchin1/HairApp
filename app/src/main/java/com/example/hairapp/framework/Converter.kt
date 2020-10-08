@@ -2,7 +2,7 @@ package com.example.hairapp.framework
 
 import android.net.Uri
 import com.example.core.domain.Care
-import com.example.core.domain.ProductApplication
+import com.example.core.domain.Application
 import com.example.core.domain.ProductsProportion
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -14,11 +14,11 @@ object Converter {
     // ProductApplication.Type
 
     @JvmStatic
-    fun productApplicationType(data: ProductApplication.Type?): String? {
+    fun productApplicationType(data: Application.Type?): String? {
         return when (data) {
-            ProductApplication.Type.CONDITIONER -> "Odżywka"
-            ProductApplication.Type.SHAMPOO -> "Szampon"
-            ProductApplication.Type.OTHER -> "Inny"
+            Application.Type.CONDITIONER -> "Odżywka"
+            Application.Type.SHAMPOO -> "Szampon"
+            Application.Type.OTHER -> "Inny"
             else -> null
         }
     }

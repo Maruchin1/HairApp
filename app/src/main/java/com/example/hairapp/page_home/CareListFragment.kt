@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.core.domain.Care
 import com.example.hairapp.R
 import com.example.hairapp.common.CareItemController
-import com.example.hairapp.framework.RecyclerLiveAdapter
+import com.example.hairapp.framework.BindingRecyclerAdapter
 import com.example.hairapp.page_care.CareActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_care_list.*
@@ -29,12 +29,12 @@ class CareListFragment : Fragment(), CareItemController {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recycler.adapter = RecyclerLiveAdapter<Care>(
+        recycler.adapter = BindingRecyclerAdapter<Care>(
             controller = this,
-            lifecycleOwner = this,
             layoutResId = R.layout.item_care,
-            source = viewModel.cares
-        ).withItemComparator { it.id }
+        ).apply {
+            setItemComparator { it.id }
+        }
     }
 
     override fun onCareSelected(care: Care) {

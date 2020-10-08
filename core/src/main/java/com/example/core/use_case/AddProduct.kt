@@ -2,7 +2,7 @@ package com.example.core.use_case
 
 import com.example.core.base.UseCase
 import com.example.core.domain.Product
-import com.example.core.domain.ProductApplication
+import com.example.core.domain.Application
 import com.example.core.gateway.ProductRepo
 import javax.inject.Inject
 
@@ -28,7 +28,7 @@ class AddProduct @Inject constructor(
                 humectants = input.humectants,
                 proteins = input.proteins
             ),
-            applications = input.productApplications.toMutableSet(),
+            applications = input.applications.toMutableSet(),
             photoData = input.productPhotoData
         )
     }
@@ -43,7 +43,7 @@ class AddProduct @Inject constructor(
         val humectants: Boolean,
         val emollients: Boolean,
         val proteins: Boolean,
-        val productApplications: Set<ProductApplication>,
+        val applications: Set<Application>,
         val productPhotoData: String?
     )
 }

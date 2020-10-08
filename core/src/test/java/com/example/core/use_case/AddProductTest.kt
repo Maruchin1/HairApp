@@ -3,7 +3,7 @@ package com.example.core.use_case
 import assertk.assertThat
 import assertk.assertions.isTrue
 import com.example.core.domain.Product
-import com.example.core.domain.ProductApplication
+import com.example.core.domain.Application
 import com.example.core.gateway.ProductRepo
 import io.mockk.*
 import kotlinx.coroutines.runBlocking
@@ -30,9 +30,6 @@ class AddProductTest {
 
     @Test
     fun newProductSaved() = runBlocking {
-        // Arrange
-        coEvery { productRepo.existsByName(any()) } returns false
-
         // Act
         val input = AddProduct.Input(
             productName = "Shauma",
@@ -40,8 +37,8 @@ class AddProductTest {
             emollients = false,
             humectants = true,
             proteins = false,
-            productApplications = setOf(
-                ProductApplication("Mocny szampon", ProductApplication.Type.SHAMPOO)
+            applications = setOf(
+                Application("Mocny szampon", Application.Type.SHAMPOO)
             ),
             productPhotoData = null
         )
@@ -55,7 +52,7 @@ class AddProductTest {
             manufacturer = "Schwarzkopf",
             type = Product.Type(emollients = false, humectants = true, proteins = false),
             applications = mutableSetOf(
-                ProductApplication("Mocny szampon", ProductApplication.Type.SHAMPOO)
+                Application("Mocny szampon", Application.Type.SHAMPOO)
             ),
             photoData = null
         )

@@ -1,6 +1,6 @@
 package com.example.core.domain
 
-data class ProductApplication(
+data class Application(
     val name: String,
     val type: Type
 ) {

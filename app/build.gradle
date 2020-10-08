@@ -86,4 +86,7 @@ dependencies {
 
     // PhotView
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
+    // Room
+    implementation "androidx.room:room-runtime:2.2.5"
 }

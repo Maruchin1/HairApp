@@ -5,21 +5,19 @@ import com.example.core.gateway.ProductApplicationRepo
 import com.example.core.gateway.ProductRepo
 import com.example.data.MockCareRepo
 import com.example.data.MockProductApplicationRepo
-import com.example.data.MockProductRepo
+import com.example.data.RoomProductRepo
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalCoroutinesApi
 @Module
 @InstallIn(ApplicationComponent::class)
-abstract class MockDataModule {
+abstract class RepoModule {
 
     @Binds
     abstract fun bindProductRepo(
-        mockProductRepo: MockProductRepo
+        roomProductRepo: RoomProductRepo
     ): ProductRepo
 
     @Binds

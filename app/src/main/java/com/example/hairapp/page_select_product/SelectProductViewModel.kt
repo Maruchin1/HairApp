@@ -3,19 +3,19 @@ package com.example.hairapp.page_select_product
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.core.domain.Product
-import com.example.core.domain.ProductApplication
+import com.example.core.domain.Application
 import com.example.core.use_case.ShowProductsToSelect
 
 class SelectProductViewModel @ViewModelInject constructor(
     private val showProductsToSelect: ShowProductsToSelect
 ) : ViewModel() {
 
-    private val productApplicationType = MutableLiveData<ProductApplication.Type?>(null)
+    private val productApplicationType = MutableLiveData<Application.Type?>(null)
 
     val title: LiveData<String> = productApplicationType.map {
         when (it) {
-            ProductApplication.Type.CONDITIONER -> "Wybierz odżywkę"
-            ProductApplication.Type.SHAMPOO -> "Wybierz szampon"
+            Application.Type.CONDITIONER -> "Wybierz odżywkę"
+            Application.Type.SHAMPOO -> "Wybierz szampon"
             else -> "Wybierz produkt"
         }
     }
@@ -25,7 +25,7 @@ class SelectProductViewModel @ViewModelInject constructor(
         showProductsToSelect(input).asLiveData()
     }
 
-    fun selectProductApplicationType(type: ProductApplication.Type?) {
+    fun selectProductApplicationType(type: Application.Type?) {
         productApplicationType.value = type
     }
 }

@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import com.example.core.domain.CareProduct
 import com.example.core.domain.Product
 import com.example.core.domain.ProductsProportion
-import com.example.hairapp.framework.RecyclerAdapter
+import com.example.hairapp.framework.BindingRecyclerAdapter
 import java.util.*
 
 class CareProductsAdapter(
     controller: Any,
     layoutResId: Int,
-) : RecyclerAdapter<CareProduct>(controller, layoutResId) {
+) : BindingRecyclerAdapter<CareProduct>(controller, layoutResId) {
 
     private val _productsProportion = MutableLiveData<ProductsProportion>()
 

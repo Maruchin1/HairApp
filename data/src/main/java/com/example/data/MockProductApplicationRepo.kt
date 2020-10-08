@@ -1,6 +1,6 @@
 package com.example.data
 
-import com.example.core.domain.ProductApplication
+import com.example.core.domain.Application
 import com.example.core.gateway.ProductApplicationRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -11,21 +11,21 @@ import javax.inject.Singleton
 class MockProductApplicationRepo @Inject constructor() : ProductApplicationRepo {
 
     private val applications = listOf(
-        ProductApplication("Łagodny szampon", ProductApplication.Type.SHAMPOO),
-        ProductApplication("Średni szampon", ProductApplication.Type.SHAMPOO),
-        ProductApplication("Mocny szampon", ProductApplication.Type.SHAMPOO),
-        ProductApplication("Odżywka", ProductApplication.Type.CONDITIONER),
-        ProductApplication("Krem", ProductApplication.Type.OTHER),
-        ProductApplication("Maska", ProductApplication.Type.OTHER),
-        ProductApplication("Odżywka b/s", ProductApplication.Type.OTHER),
-        ProductApplication("Olej", ProductApplication.Type.OTHER),
-        ProductApplication("Pianka", ProductApplication.Type.OTHER),
-        ProductApplication("Serum", ProductApplication.Type.OTHER),
-        ProductApplication("Żel", ProductApplication.Type.OTHER),
-        ProductApplication("Inny", ProductApplication.Type.OTHER)
+        Application("Łagodny szampon", Application.Type.SHAMPOO),
+        Application("Średni szampon", Application.Type.SHAMPOO),
+        Application("Mocny szampon", Application.Type.SHAMPOO),
+        Application("Odżywka", Application.Type.CONDITIONER),
+        Application("Krem", Application.Type.OTHER),
+        Application("Maska", Application.Type.OTHER),
+        Application("Odżywka b/s", Application.Type.OTHER),
+        Application("Olej", Application.Type.OTHER),
+        Application("Pianka", Application.Type.OTHER),
+        Application("Serum", Application.Type.OTHER),
+        Application("Żel", Application.Type.OTHER),
+        Application("Inny", Application.Type.OTHER)
     )
 
-    override fun findAll(): Flow<List<ProductApplication>> {
+    override fun findAll(): Flow<List<Application>> {
         return flowOf(applications)
     }
 

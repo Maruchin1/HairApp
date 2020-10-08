@@ -13,15 +13,15 @@ data class Care(
     enum class Type {
         OMO {
             override fun makeSteps(): List<CareProduct> = listOf(
-                CareProduct(ProductApplication.Type.CONDITIONER),
-                CareProduct(ProductApplication.Type.SHAMPOO),
-                CareProduct(ProductApplication.Type.CONDITIONER)
+                CareProduct(Application.Type.CONDITIONER),
+                CareProduct(Application.Type.SHAMPOO),
+                CareProduct(Application.Type.CONDITIONER)
             )
         },
         CG {
             override fun makeSteps(): List<CareProduct> = listOf(
-                CareProduct(ProductApplication.Type.CONDITIONER),
-                CareProduct(ProductApplication.Type.CONDITIONER)
+                CareProduct(Application.Type.CONDITIONER),
+                CareProduct(Application.Type.CONDITIONER)
             )
         },
         CUSTOM {

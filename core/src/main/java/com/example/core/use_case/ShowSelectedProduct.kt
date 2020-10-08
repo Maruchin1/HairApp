@@ -14,7 +14,7 @@ class ShowSelectedProduct @Inject constructor(
 
     override fun execute(input: Input): Flow<Product> {
         return productRepo.findById(input.productId)
-            .onEmpty { throw ProductException.NotFound(input.productId) }
+//            .onEmpty { throw ProductException.NotFound(input.productId) }
     }
 
     data class Input(val productId: Int)

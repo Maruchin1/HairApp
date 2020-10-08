@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import com.example.core.domain.Care
 import com.example.core.domain.CareProduct
-import com.example.core.domain.ProductApplication
+import com.example.core.domain.Application
 import com.example.core.gateway.CareRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
@@ -24,9 +24,9 @@ class MockCareRepo @Inject constructor() : CareRepo {
                 date = LocalDate.now(),
                 photos = listOf(),
                 steps = listOf(
-                    CareProduct(ProductApplication.Type.CONDITIONER),
-                    CareProduct(ProductApplication.Type.SHAMPOO),
-                    CareProduct(ProductApplication.Type.CONDITIONER),
+                    CareProduct(Application.Type.CONDITIONER),
+                    CareProduct(Application.Type.SHAMPOO),
+                    CareProduct(Application.Type.CONDITIONER),
                 )
             )
         )
@@ -42,10 +42,6 @@ class MockCareRepo @Inject constructor() : CareRepo {
     override suspend fun update(care: Care) = collection.updateState {
         it.removeIf { item -> item.id == care.id }
         it.add(care)
-    }
-
-    override suspend fun existsById(careId: Int): Boolean {
-        return collection.value?.find { it.id == careId } != null
     }
 
     override fun findAll(): Flow<List<Care>> {

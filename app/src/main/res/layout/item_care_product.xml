@@ -5,7 +5,7 @@
 
         <import type="com.example.hairapp.framework.Converter" />
 
-        <import type="com.example.core.domain.ProductApplication.Type" />
+        <import type="com.example.core.domain.Application.Type" />
 
         <variable
             name="controller"

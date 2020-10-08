@@ -2,7 +2,7 @@ package com.example.core.use_case
 
 import com.example.core.base.UseCase
 import com.example.core.domain.Product
-import com.example.core.domain.ProductApplication
+import com.example.core.domain.Application
 import com.example.core.errors.ProductException
 import com.example.core.gateway.ProductRepo
 import kotlinx.coroutines.flow.firstOrNull
@@ -32,7 +32,7 @@ class UpdateProduct @Inject constructor(
                 emollients = input.emollients
                 proteins = input.proteins
             }
-            applications = input.productApplications
+            applications = input.applications
             photoData = input.productPhotoData
         }
     }
@@ -46,7 +46,7 @@ class UpdateProduct @Inject constructor(
         val humectants: Boolean,
         val emollients: Boolean,
         val proteins: Boolean,
-        val productApplications: Set<ProductApplication>,
+        val applications: Set<Application>,
         val productPhotoData: String?
     )
 }

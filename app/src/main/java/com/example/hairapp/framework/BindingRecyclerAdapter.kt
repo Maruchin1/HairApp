@@ -5,15 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hairapp.BR
-import java.util.*
 
-open class RecyclerAdapter<T : Any>(
+open class BindingRecyclerAdapter<T : Any>(
     private val controller: Any,
     private val layoutResId: Int
 ) : RecyclerView.Adapter<BindingViewHolder>() {
@@ -23,14 +21,18 @@ open class RecyclerAdapter<T : Any>(
     private var diffCallback: CustomDiffCallback<T>? = null
     private var setupItem: ((RecyclerView.ViewHolder, T) -> Unit)? = null
 
-    fun withItemComparator(compareBy: (item: T) -> Any): RecyclerAdapter<T> {
-        diffCallback = CustomDiffCallback(compareBy)
-        return this
+    fun setSource(source: LiveData<List<T>>, lifecycleOwner: LifecycleOwner) {
+        source.observe(lifecycleOwner) {
+            updateItems(it)
+        }
     }
 
-    fun withItemSetup(setup: (RecyclerView.ViewHolder, T) -> Unit): RecyclerAdapter<T> {
+    fun setItemComparator(compareBy: (item: T) -> Any) {
+        diffCallback = CustomDiffCallback(compareBy)
+    }
+
+    fun setItemSetup(setup: (RecyclerView.ViewHolder, T) -> Unit) {
         setupItem = setup
-        return this
     }
 
     open fun updateItems(newList: List<T>?) {
@@ -62,20 +64,6 @@ open class RecyclerAdapter<T : Any>(
 
     override fun getItemCount(): Int {
         return itemsList.size
-    }
-}
-
-open class RecyclerLiveAdapter<T : Any>(
-    private val controller: Any,
-    private val lifecycleOwner: LifecycleOwner,
-    private val layoutResId: Int,
-    source: LiveData<List<T>>,
-) : RecyclerAdapter<T>(controller, layoutResId) {
-
-    init {
-        source.observe(lifecycleOwner) {
-            updateItems(it)
-        }
     }
 }
 

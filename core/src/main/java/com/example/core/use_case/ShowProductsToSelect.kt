@@ -2,7 +2,7 @@ package com.example.core.use_case
 
 import com.example.core.base.FlowUseCase
 import com.example.core.domain.Product
-import com.example.core.domain.ProductApplication
+import com.example.core.domain.Application
 import com.example.core.gateway.ProductRepo
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -12,12 +12,12 @@ class ShowProductsToSelect @Inject constructor(
 ) : FlowUseCase<ShowProductsToSelect.Input, List<Product>>() {
 
     override fun execute(input: Input): Flow<List<Product>> {
-        return if (input.productApplicationType == null) {
+        return if (input.applicationType == null) {
             productRepo.findAll()
         } else {
-            productRepo.findByApplicationType(input.productApplicationType)
+            productRepo.findByApplicationType(input.applicationType)
         }
     }
 
-    data class Input(val productApplicationType: ProductApplication.Type?)
+    data class Input(val applicationType: Application.Type?)
 }

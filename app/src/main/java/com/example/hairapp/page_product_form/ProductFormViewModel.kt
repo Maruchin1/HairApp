@@ -4,14 +4,13 @@ import android.net.Uri
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.core.domain.Product
-import com.example.core.domain.ProductApplication
+import com.example.core.domain.Application
 import com.example.core.invoke
 import com.example.core.use_case.*
 import com.example.hairapp.R
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 
 class ProductFormViewModel @ViewModelInject constructor(
     private val showSelectedProduct: ShowSelectedProduct,
@@ -65,7 +64,7 @@ class ProductFormViewModel @ViewModelInject constructor(
         emollients = emollients.value!!,
         humectants = humectants.value!!,
         proteins = proteins.value!!,
-        productApplications = getSelectedApplications(),
+        applications = getSelectedApplications(),
         productPhotoData = productPhoto.value?.toString()
     )
 
@@ -76,7 +75,7 @@ class ProductFormViewModel @ViewModelInject constructor(
         emollients = emollients.value!!,
         humectants = humectants.value!!,
         proteins = proteins.value!!,
-        productApplications = getSelectedApplications(),
+        applications = getSelectedApplications(),
         productPhotoData = productPhoto.value?.toString()
     )
 
@@ -90,7 +89,7 @@ class ProductFormViewModel @ViewModelInject constructor(
         productApplications.postValue(product.applications.map { it.name }.toSet())
     }
 
-    private suspend fun getSelectedApplications(): Set<ProductApplication> {
+    private suspend fun getSelectedApplications(): Set<Application> {
         val selectedNames = productApplications.value ?: return emptySet()
         val possibleApplications = showProductApplicationOptions().first()
         val selectedApplications = possibleApplications.filter { selectedNames.contains(it.name) }

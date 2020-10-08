@@ -16,7 +16,6 @@ import com.example.hairapp.R
 import com.example.hairapp.framework.Binder
 import com.example.hairapp.page_select_product.SelectProductContract
 import kotlinx.android.synthetic.main.fragment_care_products.*
-import kotlinx.android.synthetic.main.fragment_products_list.recycler
 import kotlinx.android.synthetic.main.item_care_product.view.*
 import kotlinx.coroutines.launch
 
@@ -40,7 +39,7 @@ class CareProductsFragment : Fragment() {
         controller = this,
         layoutResId = R.layout.item_care_product,
     ).apply {
-        withItemSetup { viewHolder, _ ->
+        setItemSetup { viewHolder, _ ->
             viewHolder.itemView.item_care_product_edit_drag_handle.setOnTouchListener { v, event ->
                 if (event.action == MotionEvent.ACTION_DOWN)
                     touchHelper.startDrag(viewHolder)

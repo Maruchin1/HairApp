@@ -6,11 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.example.core.domain.Product
-import com.example.core.domain.ProductApplication
+import com.example.core.domain.Application
 import com.example.hairapp.R
 import com.example.hairapp.common.ProductItemController
 import com.example.hairapp.databinding.ActivitySelectProductBinding
-import com.example.hairapp.framework.RecyclerLiveAdapter
+import com.example.hairapp.framework.BindingRecyclerAdapter
 import com.example.hairapp.framework.bind
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_select_product.*
@@ -34,16 +34,17 @@ class SelectProductActivity : AppCompatActivity(), ProductItemController {
     }
 
     private fun setupAdapter() {
-        recycler.adapter = RecyclerLiveAdapter(
+        recycler.adapter = BindingRecyclerAdapter<Product>(
             controller = this,
-            lifecycleOwner = this,
             layoutResId = R.layout.item_product,
-            source = viewModel.products
-        ).withItemComparator { it.id }
+        ).apply {
+            setItemComparator { it.id }
+        }
     }
 
     private fun selectProductApplicationType() {
-        val type = intent.getSerializableExtra(SelectProductContract.IN_APPLICATION_TYPE) as ProductApplication.Type?
+        val type =
+            intent.getSerializableExtra(SelectProductContract.IN_APPLICATION_TYPE) as Application.Type?
         viewModel.selectProductApplicationType(type)
     }
 }
