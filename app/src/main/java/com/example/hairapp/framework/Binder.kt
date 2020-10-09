@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import coil.load
@@ -18,21 +19,22 @@ object Binder {
 
     // Photo
 
-    @BindingAdapter("app:srcUri", "app:defaultResource", requireAll = false)
+    @BindingAdapter("app:srcUri")
     @JvmStatic
-    fun setSourceUri(view: ImageView, uri: Uri?, defaultResourceId: Int?) {
-        when {
-            uri != null -> view.load(uri)
-            defaultResourceId != null -> view.load(defaultResourceId)
-            else -> view.load(R.drawable.ic_round_photo_24)
+    fun setSourceUri(view: ImageView, uri: Uri?) {
+        if (uri == null) {
+            val drawable = ContextCompat.getDrawable(view.context, R.drawable.ic_round_photo_24)
+            view.load(drawable)
+        } else {
+            view.load(uri)
         }
     }
 
-    @BindingAdapter("app:srcUri", "app:defaultResource", requireAll = false)
+    @BindingAdapter("app:srcUri")
     @JvmStatic
-    fun setSourceUri(view: ImageView, data: String?, defaultResourceId: Int?) {
+    fun setSourceUri(view: ImageView, data: String?) {
         val uri = data?.let { Uri.parse(it) }
-        setSourceUri(view, uri, defaultResourceId)
+        setSourceUri(view, uri)
     }
 
     // Toolbar
