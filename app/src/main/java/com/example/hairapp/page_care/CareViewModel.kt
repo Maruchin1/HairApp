@@ -5,10 +5,7 @@ import com.example.core.domain.Care
 import com.example.core.domain.CareStep
 import com.example.core.domain.Product
 import com.example.core.domain.ProductsProportion
-import com.example.core.use_case.AddCare
-import com.example.core.use_case.ShowSelectedCare
-import com.example.core.use_case.ShowSelectedProduct
-import com.example.core.use_case.UpdateCare
+import com.example.core.use_case.*
 import com.example.hairapp.framework.resultFailure
 import com.example.hairapp.framework.updateState
 import kotlinx.coroutines.Deferred
@@ -21,16 +18,18 @@ class CareViewModel(
     private val showSelectedProduct: ShowSelectedProduct,
     private val showSelectedCare: ShowSelectedCare,
     private val addCare: AddCare,
-    private val updateCare: UpdateCare
+    private val updateCare: UpdateCare,
+    private val deleteCare: DeleteCare
 ) : ViewModel() {
 
+    private val _editCareId = MutableLiveData<Int?>(null)
     private val _date = MutableLiveData(LocalDate.now())
     private val _careType = MutableLiveData(Care.Type.OMO)
     private val _steps = MediatorLiveData<List<CareStep>>()
     private val _photos = MutableLiveData<MutableList<String>>(mutableListOf())
     private val _productsProportion = MediatorLiveData<ProductsProportion>()
-    private var editCareId: Int? = null
 
+    val editMode: LiveData<Boolean> = _editCareId.map { it != null }
     val careOptions: LiveData<Array<Care.Type>> = liveData { emit(Care.Type.values()) }
     val date: LiveData<LocalDate> = _date
     val careType: LiveData<Care.Type> = _careType
@@ -47,7 +46,7 @@ class CareViewModel(
     }
 
     fun setEditCareAsync(careId: Int): Deferred<Result<Unit>> = viewModelScope.async {
-        editCareId = careId
+        _editCareId.postValue(careId)
         val input = ShowSelectedCare.Input(careId)
         showSelectedCare(input).runCatching {
             val care = this.first()
@@ -88,13 +87,21 @@ class CareViewModel(
         val selectedCareType = careType.value
             ?: return resultFailure("Nie wybrano metody pielęgnacji")
         val photos = _photos.value ?: emptyList()
+        val editCareId = _editCareId.value
         return if (editCareId == null) {
             val input = AddCare.Input(selectedDate, selectedCareType, photos, steps)
             addCare(input)
         } else {
-            val input = UpdateCare.Input(editCareId!!, selectedDate, photos, steps)
+            val input = UpdateCare.Input(editCareId, selectedDate, photos, steps)
             updateCare(input)
         }
+    }
+
+    suspend fun deleteCare(): Result<Unit> {
+        val careId = _editCareId.value
+            ?: return resultFailure("Can't delete when not in edit mode")
+        val input = DeleteCare.Input(careId)
+        return deleteCare(input)
     }
 
     private fun applyCareToEdit(care: Care) {

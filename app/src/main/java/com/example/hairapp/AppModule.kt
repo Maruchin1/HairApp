@@ -15,7 +15,8 @@ val appModule = module {
             showSelectedProduct = get(),
             showSelectedCare = get(),
             addCare = get(),
-            updateCare = get()
+            updateCare = get(),
+            deleteCare = get()
         )
     }
 

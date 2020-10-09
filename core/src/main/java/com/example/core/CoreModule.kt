@@ -14,6 +14,10 @@ val coreModule = module {
     }
 
     factory {
+        DeleteCare(careRepo = get())
+    }
+
+    factory {
         DeleteProduct(productRepo = get())
     }
 

@@ -25,10 +25,11 @@ internal class Mapper(
         type = entity.care.type,
         date = entity.care.date,
         photos = entity.photos.map { it.data },
-        steps = entity.steps.map { careProductEntity ->
+        steps = entity.steps.map { careStepEntity ->
             CareStep(
-                specificApplicationType = careProductEntity.specificApplicationType,
-                product = careProductEntity.productId?.let {
+                specificApplicationType = careStepEntity.specificApplicationType,
+                order = careStepEntity.order,
+                product = careStepEntity.productId?.let {
                     productDao.findById(it).firstOrNull()
                 }?.let {
                     toDomain(it)

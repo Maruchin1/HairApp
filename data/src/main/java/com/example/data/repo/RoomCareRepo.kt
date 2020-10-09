@@ -43,6 +43,10 @@ internal data class RoomCareRepo(
         )
     }
 
+    override suspend fun delete(care: Care) {
+        careDao.delete(CareEntity(care))
+    }
+
     override fun findAll(): Flow<List<Care>> {
         return careDao.findAll()
             .mapList { mapper.toDomain(it) }

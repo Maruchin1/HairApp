@@ -9,6 +9,8 @@ interface CareRepo {
 
     suspend fun update(care: Care)
 
+    suspend fun delete(care: Care)
+
     fun findAll(): Flow<List<Care>>
 
     fun findById(careId: Int): Flow<Care>

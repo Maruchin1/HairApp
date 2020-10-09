@@ -1,11 +1,13 @@
 package com.example.hairapp.page_care
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.core.domain.CareStep
 import com.example.core.domain.Product
 import com.example.core.domain.ProductsProportion
 import com.example.hairapp.framework.BindingRecyclerAdapter
+import com.example.hairapp.framework.BindingViewHolder
 import java.util.*
 
 class CareProductsAdapter(
@@ -19,10 +21,6 @@ class CareProductsAdapter(
 
     fun getCareProduct(position: Int): CareStep? {
         return itemsList.getOrNull(position)
-    }
-
-    fun getPosition(careStep: CareStep): Int {
-        return itemsList.indexOf(careStep)
     }
 
     fun getAllCareProducts(): List<CareStep> {
@@ -40,22 +38,26 @@ class CareProductsAdapter(
             }
         }
         notifyItemMoved(fromPosition, toPosition)
+        updateItemsOrder()
     }
 
-    fun addCareProduct() {
-        itemsList.add(0, CareStep())
-        notifyItemInserted(0)
+    fun addStep() {
+        val newStepPosition = 0
+        itemsList.add(newStepPosition, CareStep(order = newStepPosition))
+        notifyItemInserted(newStepPosition)
         updateProductsProportion()
+        updateItemsOrder()
     }
 
-    fun removeCareProduct(position: Int) {
+    fun removeStep(position: Int) {
         itemsList.removeAt(position)
         notifyItemRemoved(position)
         updateProductsProportion()
+        updateItemsOrder()
     }
 
-    fun setProduct(careStep: CareStep, selectedProduct: Product) {
-        val position = itemsList.indexOf(careStep)
+    fun setStepProduct(position: Int, selectedProduct: Product) {
+        val careStep = itemsList[position]
         careStep.product = selectedProduct
         itemsList.removeAt(position)
         itemsList.add(position, careStep)
@@ -66,9 +68,16 @@ class CareProductsAdapter(
     override fun updateItems(newList: List<CareStep>?) {
         super.updateItems(newList)
         updateProductsProportion()
+        updateItemsOrder()
     }
 
     private fun updateProductsProportion() {
         _productsProportion.value = ProductsProportion(itemsList)
+    }
+
+    private fun updateItemsOrder() {
+        itemsList.forEachIndexed { index, careStep ->
+            careStep.order = index
+        }
     }
 }

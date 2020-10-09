@@ -24,6 +24,8 @@ internal data class CareStepEntity(
 
     val specificApplicationType: Application.Type?,
 
+    var order: Int,
+
     var productId: Int?,
 
     val careId: Int
@@ -31,6 +33,7 @@ internal data class CareStepEntity(
     constructor(careStep: CareStep, careId: Int) : this(
         careProductId = 0,
         specificApplicationType = careStep.specificApplicationType,
+        order = careStep.order,
         productId = careStep.product?.id,
         careId = careId
     )

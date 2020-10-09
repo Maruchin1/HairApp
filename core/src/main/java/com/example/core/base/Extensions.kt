@@ -1,7 +1,5 @@
-package com.example.core
+package com.example.core.base
 
-import com.example.core.base.FlowUseCase
-import com.example.core.base.UseCase
 import kotlinx.coroutines.flow.Flow
 
 suspend operator fun <O : Any> UseCase<Unit, O>.invoke(): Result<O> {

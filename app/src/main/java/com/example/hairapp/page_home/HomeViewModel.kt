@@ -7,7 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import com.example.core.domain.Care
 import com.example.core.domain.Product
-import com.example.core.invoke
+import com.example.core.base.invoke
 import com.example.core.use_case.ShowCaresList
 import com.example.core.use_case.ShowProductsList
 

@@ -5,7 +5,7 @@ import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import com.example.core.domain.Product
 import com.example.core.gateway.ProductRepo
-import com.example.core.invoke
+import com.example.core.base.invoke
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk

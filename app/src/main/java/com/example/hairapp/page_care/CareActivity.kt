@@ -36,6 +36,16 @@ class CareActivity : AppCompatActivity() {
             .start()
     }
 
+    fun deleteCare() {
+        lifecycleScope.launch {
+            viewModel.deleteCare().onFailure {
+                showErrorSnackbar(it.message)
+            }.onSuccess {
+                finish()
+            }
+        }
+    }
+
     fun saveCare() {
         lifecycleScope.launch {
             val fragment = fragment_products as CareProductsFragment

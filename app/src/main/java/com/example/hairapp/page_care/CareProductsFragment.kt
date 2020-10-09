@@ -29,7 +29,7 @@ class CareProductsFragment : Fragment() {
             selectedProductId?.let { selectedProductId ->
                 viewModel.findProduct(selectedProductId)
             }?.let { selectedProduct ->
-                adapter.setProduct(requestedCareProduct, selectedProduct)
+                adapter.setStepProduct(requestedCareProduct.order, selectedProduct)
             }
         }
     }
@@ -80,7 +80,7 @@ class CareProductsFragment : Fragment() {
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            adapter.removeCareProduct(viewHolder.adapterPosition)
+            adapter.removeStep(viewHolder.adapterPosition)
         }
 
         override fun canDropOver(
@@ -107,7 +107,7 @@ class CareProductsFragment : Fragment() {
     })
 
     fun addProduct() {
-        adapter.addCareProduct()
+        adapter.addStep()
     }
 
     fun selectProduct(careStep: CareStep) {
