@@ -136,18 +136,18 @@
                 android:orientation="vertical">
 
                 <fragment
+                    android:id="@+id/fragment_products"
+                    android:name="com.example.hairapp.page_care.CareProductsFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout="@layout/fragment_care_products" />
+
+                <fragment
                     android:id="@+id/fragment_photos"
                     android:name="com.example.hairapp.page_care.CarePhotosFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:layout="@layout/fragment_care_photos" />
-
-                <fragment
-                    android:id="@+id/fragment_products"
-                    android:name="com.example.hairapp.page_care.CareProductsFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:layout="@layout/fragment_care_products" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

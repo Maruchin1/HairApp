@@ -34,8 +34,9 @@ class SelectProductActivity : AppCompatActivity(), ProductItemController {
     private fun setupAdapter() {
         recycler.adapter = BindingRecyclerAdapter<Product>(
             controller = this,
-            layoutResId = R.layout.item_product,
+            layoutResId = R.layout.item_product
         ).apply {
+            setSource(viewModel.products, this@SelectProductActivity)
             setItemComparator { it.id }
         }
     }

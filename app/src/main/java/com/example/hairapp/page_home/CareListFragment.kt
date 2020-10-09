@@ -31,6 +31,7 @@ class CareListFragment : Fragment(), CareItemController {
             controller = this,
             layoutResId = R.layout.item_care,
         ).apply {
+            setSource(viewModel.cares, viewLifecycleOwner)
             setItemComparator { it.id }
         }
     }

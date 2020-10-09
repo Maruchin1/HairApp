@@ -23,8 +23,9 @@
         android:clipToPadding="false"
         android:nestedScrollingEnabled="false"
         android:orientation="vertical"
+        android:paddingHorizontal="4dp"
         android:paddingTop="4dp"
-        android:paddingBottom="128dp"
+        android:paddingBottom="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_care_product" />
 
