@@ -36,7 +36,10 @@ class CareActivity : AppCompatActivity() {
             .start()
     }
 
-    fun deleteCare() {
+    fun deleteCare() = confirmDialog(
+        title = getString(R.string.confirm_delete),
+        message = getString(R.string.care_activity_confirm_delete_message)
+    ) {
         lifecycleScope.launch {
             viewModel.deleteCare().onFailure {
                 showErrorSnackbar(it.message)

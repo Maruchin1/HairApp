@@ -35,7 +35,7 @@ internal class Mapper(
                     toDomain(it)
                 }
             )
-        }
+        }.sortedBy { it.order }
     )
 
     suspend fun toDomain(entity: ProductWithApplications) = Product(
@@ -52,7 +52,7 @@ internal class Mapper(
         return toDomain(applicationEntity)
     }
 
-    suspend fun toDomain(entity: ApplicationEntity): Application {
+    fun toDomain(entity: ApplicationEntity): Application {
         return Application(
             name = entity.applicationName,
             type = entity.type
