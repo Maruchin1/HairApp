@@ -13,7 +13,7 @@
 
         <variable
             name="item"
-            type="com.example.core.domain.CareProduct" />
+            type="com.example.core.domain.CareStep" />
     </data>
 
     <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"

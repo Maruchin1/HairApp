@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.example.core.domain.Application
-import com.example.core.domain.CareProduct
+import com.example.core.domain.CareStep
 
 @Entity(
     foreignKeys = [
@@ -17,7 +17,7 @@ import com.example.core.domain.CareProduct
         )
     ]
 )
-internal data class CareProductEntity(
+internal data class CareStepEntity(
 
     @PrimaryKey(autoGenerate = true)
     val careProductId: Int,
@@ -28,10 +28,10 @@ internal data class CareProductEntity(
 
     val careId: Int
 ) {
-    constructor(careProduct: CareProduct, careId: Int) : this(
+    constructor(careStep: CareStep, careId: Int) : this(
         careProductId = 0,
-        specificApplicationType = careProduct.specificApplicationType,
-        productId = careProduct.product?.id,
+        specificApplicationType = careStep.specificApplicationType,
+        productId = careStep.product?.id,
         careId = careId
     )
 }

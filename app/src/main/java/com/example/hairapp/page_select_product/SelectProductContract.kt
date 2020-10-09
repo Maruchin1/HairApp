@@ -4,25 +4,25 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContract
-import com.example.core.domain.CareProduct
+import com.example.core.domain.CareStep
 
-class SelectProductContract : ActivityResultContract<CareProduct, Pair<CareProduct, Int?>>() {
+class SelectProductContract : ActivityResultContract<CareStep, Pair<CareStep, Int?>>() {
 
-    private var requestedCareProduct: CareProduct? = null
+    private var requestedCareStep: CareStep? = null
 
-    override fun createIntent(context: Context, input: CareProduct?): Intent {
-        requestedCareProduct = input
+    override fun createIntent(context: Context, input: CareStep?): Intent {
+        requestedCareStep = input
         return Intent(context, SelectProductActivity::class.java)
             .putExtra(IN_APPLICATION_TYPE, input?.specificApplicationType)
     }
 
-    override fun parseResult(resultCode: Int, intent: Intent?): Pair<CareProduct, Int?> {
+    override fun parseResult(resultCode: Int, intent: Intent?): Pair<CareStep, Int?> {
         val productId = if (resultCode == Activity.RESULT_OK) {
             val id = intent?.getIntExtra(OUT_PRODUCT_ID, -1)
             if (id == -1) null else id
         } else null
-        val result = Pair(requestedCareProduct!!, productId)
-        requestedCareProduct = null
+        val result = Pair(requestedCareStep!!, productId)
+        requestedCareStep = null
         return result
     }
 

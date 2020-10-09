@@ -72,7 +72,8 @@ object Binder {
     @JvmStatic
     fun setSelectedItemsChangedListener(view: ChipGroup, attrChange: InverseBindingListener) {
         val chips = view.children as Sequence<Chip>
-        chips.forEach { chip ->
+        val chipsList = chips.toList()
+        chipsList.forEach { chip ->
             chip.setOnCheckedChangeListener { _, _ ->
                 attrChange.onChange()
             }

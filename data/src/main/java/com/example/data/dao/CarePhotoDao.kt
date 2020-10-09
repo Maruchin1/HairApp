@@ -1,20 +1,13 @@
 package com.example.data.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
+import androidx.room.*
 import com.example.data.entity.CarePhotoEntity
+import com.example.data.room.PatchableDao
+import kotlinx.coroutines.flow.Flow
 
 @Dao
-internal interface CarePhotoDao {
+internal interface CarePhotoDao : PatchableDao<CarePhotoEntity> {
 
-    @Insert
-    suspend fun insert(vararg entity: CarePhotoEntity)
-
-    @Update
-    suspend fun update(vararg entity: CarePhotoEntity)
-
-    @Delete
-    suspend fun delete(vararg entity: CarePhotoEntity)
+    @Query("select * from CarePhotoEntity where careId = :careId")
+    fun findByCare(careId: Int): Flow<List<CarePhotoEntity>>
 }

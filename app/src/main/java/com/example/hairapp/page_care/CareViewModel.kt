@@ -2,7 +2,7 @@ package com.example.hairapp.page_care
 
 import androidx.lifecycle.*
 import com.example.core.domain.Care
-import com.example.core.domain.CareProduct
+import com.example.core.domain.CareStep
 import com.example.core.domain.Product
 import com.example.core.domain.ProductsProportion
 import com.example.core.use_case.AddCare
@@ -26,7 +26,7 @@ class CareViewModel(
 
     private val _date = MutableLiveData(LocalDate.now())
     private val _careType = MutableLiveData(Care.Type.OMO)
-    private val _steps = MediatorLiveData<List<CareProduct>>()
+    private val _steps = MediatorLiveData<List<CareStep>>()
     private val _photos = MutableLiveData<MutableList<String>>(mutableListOf())
     private val _productsProportion = MediatorLiveData<ProductsProportion>()
     private var editCareId: Int? = null
@@ -36,7 +36,7 @@ class CareViewModel(
     val careType: LiveData<Care.Type> = _careType
     val photos: LiveData<List<String>> = _photos.map { it.toList() }
     val photosAvailable: LiveData<Boolean> = photos.map { it.isNotEmpty() }
-    val steps: LiveData<List<CareProduct>> = _steps
+    val steps: LiveData<List<CareStep>> = _steps
     val stepsAvailable: LiveData<Boolean> = steps.map { it.isNotEmpty() }
     val productsProportion: LiveData<ProductsProportion> = _productsProportion
 
@@ -82,7 +82,7 @@ class CareViewModel(
         return showSelectedProduct(input).firstOrNull()
     }
 
-    suspend fun saveCare(steps: List<CareProduct>): Result<Unit> {
+    suspend fun saveCare(steps: List<CareStep>): Result<Unit> {
         val selectedDate = date.value
             ?: return resultFailure("Nie wybrano daty pielęgnacji")
         val selectedCareType = careType.value

@@ -7,28 +7,28 @@ data class Care(
     val type: Type,
     var date: LocalDate,
     var photos: List<String>,
-    var steps: List<CareProduct>
+    var steps: List<CareStep>
 ) {
 
     enum class Type {
         OMO {
-            override fun makeSteps(): List<CareProduct> = listOf(
-                CareProduct(Application.Type.CONDITIONER),
-                CareProduct(Application.Type.SHAMPOO),
-                CareProduct(Application.Type.CONDITIONER)
+            override fun makeSteps(): List<CareStep> = listOf(
+                CareStep(Application.Type.CONDITIONER),
+                CareStep(Application.Type.SHAMPOO),
+                CareStep(Application.Type.CONDITIONER)
             )
         },
         CG {
-            override fun makeSteps(): List<CareProduct> = listOf(
-                CareProduct(Application.Type.CONDITIONER),
-                CareProduct(Application.Type.CONDITIONER)
+            override fun makeSteps(): List<CareStep> = listOf(
+                CareStep(Application.Type.CONDITIONER),
+                CareStep(Application.Type.CONDITIONER)
             )
         },
         CUSTOM {
-            override fun makeSteps(): List<CareProduct> = listOf()
+            override fun makeSteps(): List<CareStep> = listOf()
         };
 
-        abstract fun makeSteps(): List<CareProduct>
+        abstract fun makeSteps(): List<CareStep>
 
     }
 }

@@ -2,7 +2,7 @@ package com.example.hairapp.page_care
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.core.domain.CareProduct
+import com.example.core.domain.CareStep
 import com.example.core.domain.Product
 import com.example.core.domain.ProductsProportion
 import com.example.hairapp.framework.BindingRecyclerAdapter
@@ -11,21 +11,21 @@ import java.util.*
 class CareProductsAdapter(
     controller: Any,
     layoutResId: Int,
-) : BindingRecyclerAdapter<CareProduct>(controller, layoutResId) {
+) : BindingRecyclerAdapter<CareStep>(controller, layoutResId) {
 
     private val _productsProportion = MutableLiveData<ProductsProportion>()
 
     val productsProportion: LiveData<ProductsProportion> = _productsProportion
 
-    fun getCareProduct(position: Int): CareProduct? {
+    fun getCareProduct(position: Int): CareStep? {
         return itemsList.getOrNull(position)
     }
 
-    fun getPosition(careProduct: CareProduct): Int {
-        return itemsList.indexOf(careProduct)
+    fun getPosition(careStep: CareStep): Int {
+        return itemsList.indexOf(careStep)
     }
 
-    fun getAllCareProducts(): List<CareProduct> {
+    fun getAllCareProducts(): List<CareStep> {
         return itemsList
     }
 
@@ -43,7 +43,7 @@ class CareProductsAdapter(
     }
 
     fun addCareProduct() {
-        itemsList.add(0, CareProduct())
+        itemsList.add(0, CareStep())
         notifyItemInserted(0)
         updateProductsProportion()
     }
@@ -54,16 +54,16 @@ class CareProductsAdapter(
         updateProductsProportion()
     }
 
-    fun setProduct(careProduct: CareProduct, selectedProduct: Product) {
-        val position = itemsList.indexOf(careProduct)
-        careProduct.product = selectedProduct
+    fun setProduct(careStep: CareStep, selectedProduct: Product) {
+        val position = itemsList.indexOf(careStep)
+        careStep.product = selectedProduct
         itemsList.removeAt(position)
-        itemsList.add(position, careProduct)
+        itemsList.add(position, careStep)
         notifyItemChanged(position)
         updateProductsProportion()
     }
 
-    override fun updateItems(newList: List<CareProduct>?) {
+    override fun updateItems(newList: List<CareStep>?) {
         super.updateItems(newList)
         updateProductsProportion()
     }

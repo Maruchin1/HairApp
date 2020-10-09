@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.core.domain.CareProduct
+import com.example.core.domain.CareStep
 import com.example.hairapp.R
 import com.example.hairapp.framework.Binder
 import com.example.hairapp.page_select_product.SelectProductContract
@@ -110,11 +110,11 @@ class CareProductsFragment : Fragment() {
         adapter.addCareProduct()
     }
 
-    fun selectProduct(careProduct: CareProduct) {
-        selectProductRequest.launch(careProduct)
+    fun selectProduct(careStep: CareStep) {
+        selectProductRequest.launch(careStep)
     }
 
-    fun getCareProducts(): List<CareProduct> {
+    fun getCareProducts(): List<CareStep> {
         return adapter.getAllCareProducts()
     }
 

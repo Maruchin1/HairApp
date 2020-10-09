@@ -1,7 +1,7 @@
 package com.example.data.room
 
 import com.example.core.domain.Care
-import com.example.core.domain.CareProduct
+import com.example.core.domain.CareStep
 import com.example.core.domain.Product
 import com.example.core.domain.Application
 import com.example.data.dao.ApplicationDao
@@ -25,8 +25,8 @@ internal class Mapper(
         type = entity.care.type,
         date = entity.care.date,
         photos = entity.photos.map { it.data },
-        steps = entity.products.map { careProductEntity ->
-            CareProduct(
+        steps = entity.steps.map { careProductEntity ->
+            CareStep(
                 specificApplicationType = careProductEntity.specificApplicationType,
                 product = careProductEntity.productId?.let {
                     productDao.findById(it).firstOrNull()

@@ -1,6 +1,5 @@
 package com.example.data.repo
 
-import android.util.Log
 import com.example.core.domain.Product
 import com.example.core.domain.Application
 import com.example.core.gateway.ProductRepo
@@ -9,10 +8,11 @@ import com.example.data.dao.ProductDao
 import com.example.data.entity.ProductApplicationEntity
 import com.example.data.entity.ProductEntity
 import com.example.data.room.Mapper
+import com.example.data.room.mapList
+import com.example.data.room.patch
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 
 internal class RoomProductRepo(
     private val mapper: Mapper,
@@ -25,26 +25,15 @@ internal class RoomProductRepo(
         val productApplicationsEntities = product.applications.map {
             ProductApplicationEntity(it, newProductId)
         }
-        productApplicationDao.insert(*productApplicationsEntities.toTypedArray())
+        productApplicationDao.insert(productApplicationsEntities)
     }
 
     override suspend fun update(product: Product) {
-        Log.d("MyDebug", "repo update")
         productDao.update(ProductEntity(product))
-        val productApplicationsEntities = product.applications.map {
-            ProductApplicationEntity(it, product.id)
-        }
-        val existingProductApplicationsEntities = productApplicationDao.findByProduct(product.id).first()
-        productApplicationsEntities.forEach {
-            if (!existingProductApplicationsEntities.contains(it)) {
-                productApplicationDao.insert(it)
-            }
-        }
-        existingProductApplicationsEntities.forEach {
-            if (!productApplicationsEntities.contains(it)) {
-                productApplicationDao.delete(it)
-            }
-        }
+        productApplicationDao.patch(
+            newData = product.applications.map { ProductApplicationEntity(it, product.id) },
+            existingData = productApplicationDao.findByProduct(product.id).first()
+        )
     }
 
     override suspend fun delete(product: Product) {
@@ -53,23 +42,21 @@ internal class RoomProductRepo(
 
     override fun findById(productId: Int): Flow<Product> {
         return productDao.findById(productId)
-            .onEach { Log.d("MyDebug", "findById $productId: $it") }
             .map { mapper.toDomain(it) }
     }
 
     override fun findAll(): Flow<List<Product>> {
-        return productDao.findAll().map { list ->
-            list.map { mapper.toDomain(it) }
-        }
+        return productDao.findAll()
+            .mapList { mapper.toDomain(it) }
     }
 
     override fun findByApplicationType(type: Application.Type): Flow<List<Product>> {
-        return productDao.findAll().map { list ->
-            list.map { mapper.toDomain(it) }
-        }.map { list ->
-            list.filter { product ->
-                product.applications.any { it.type == type }
+        return productDao.findAll()
+            .mapList { mapper.toDomain(it) }
+            .map { list ->
+                list.filter { product ->
+                    product.applications.any { it.type == type }
+                }
             }
-        }
     }
 }

@@ -2,7 +2,7 @@ package com.example.core.use_case
 
 import com.example.core.base.UseCase
 import com.example.core.domain.Care
-import com.example.core.domain.CareProduct
+import com.example.core.domain.CareStep
 import com.example.core.errors.CareException
 import com.example.core.gateway.CareRepo
 import kotlinx.coroutines.flow.firstOrNull
@@ -35,6 +35,6 @@ class UpdateCare(
         val careId: Int,
         val date: LocalDate,
         val photos: List<String>,
-        val steps: List<CareProduct>
+        val steps: List<CareStep>
     )
 }

@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import com.example.data.entity.CareEntity
 import com.example.data.entity.CarePhotoEntity
-import com.example.data.entity.CareProductEntity
+import com.example.data.entity.CareStepEntity
 
 internal data class CareWithPhotosAndProducts(
 
@@ -21,5 +21,5 @@ internal data class CareWithPhotosAndProducts(
         parentColumn = "careId",
         entityColumn = "careId"
     )
-    val products: List<CareProductEntity>
+    val steps: List<CareStepEntity>
 )

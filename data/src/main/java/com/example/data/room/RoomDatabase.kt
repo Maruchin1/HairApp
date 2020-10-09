@@ -11,7 +11,7 @@ import com.example.data.entity.*
         ApplicationEntity::class,
         CareEntity::class,
         CarePhotoEntity::class,
-        CareProductEntity::class,
+        CareStepEntity::class,
         ProductApplicationEntity::class,
         ProductEntity::class
     ],
@@ -26,7 +26,7 @@ internal abstract class RoomDatabase : RoomDatabase() {
 
     abstract fun carePhotoDao(): CarePhotoDao
 
-    abstract fun careProductDao(): CareProductDao
+    abstract fun careProductDao(): CareStepDao
 
     abstract fun productApplicationDao(): ProductApplicationDao
 

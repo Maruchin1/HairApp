@@ -2,7 +2,7 @@ package com.example.core.use_case
 
 import com.example.core.base.UseCase
 import com.example.core.domain.Care
-import com.example.core.domain.CareProduct
+import com.example.core.domain.CareStep
 import com.example.core.gateway.CareRepo
 import java.time.LocalDate
 
@@ -33,6 +33,6 @@ class AddCare(
         val date: LocalDate,
         val type: Care.Type,
         val photos: List<String>,
-        val steps: List<CareProduct>
+        val steps: List<CareStep>
     )
 }

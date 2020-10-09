@@ -5,6 +5,7 @@ import com.example.core.gateway.ApplicationRepo
 import com.example.data.dao.ApplicationDao
 import com.example.data.entity.ApplicationEntity
 import com.example.data.room.Mapper
+import com.example.data.room.mapList
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -37,7 +38,7 @@ internal class RoomApplicationRepo(
 
     override fun findAll(): Flow<List<Application>> {
         return applicationDao.findAll()
-            .map { list -> list.map { mapper.toDomain(it) } }
+            .mapList { mapper.toDomain(it) }
     }
 
     private fun prepopulate() = GlobalScope.launch {

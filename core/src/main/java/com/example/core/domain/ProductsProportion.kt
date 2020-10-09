@@ -1,6 +1,6 @@
 package com.example.core.domain
 
-class ProductsProportion(steps: List<CareProduct>) {
+class ProductsProportion(steps: List<CareStep>) {
 
     val humectants: Float
     val emollients: Float

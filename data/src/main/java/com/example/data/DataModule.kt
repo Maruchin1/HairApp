@@ -49,7 +49,8 @@ val dataModule = module {
         RoomCareRepo(
             mapper = get(),
             careDao = get(),
-            productDao = get()
+            carePhotoDao = get(),
+            careStepDao = get()
         )
     }
     single<ApplicationRepo> {
