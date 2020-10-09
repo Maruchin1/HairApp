@@ -9,7 +9,7 @@
 
         <variable
             name="controller"
-            type="com.example.hairapp.page_care.CareProductsFragment" />
+            type="com.example.hairapp.page_care.CareStepsFragment" />
 
         <variable
             name="item"
@@ -25,6 +25,7 @@
         android:focusable="true"
         android:foreground="?selectableItemBackground"
         android:onClick="@{() -> controller.selectProduct(item)}"
+        app:onLongClick="@{() -> controller.deleteStep(item)}"
         app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

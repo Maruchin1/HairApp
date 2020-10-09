@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:icon="@drawable/ic_outline_shopping_basket_24"
-        app:title="Przechowuj swoje produkty"
+        app:title="Przechowuj produkty"
         app:useArrow="true" />
 
 </FrameLayout>

@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/care_photos_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp"
-        android:text="@string/photos"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/care_photos_recycler"
@@ -30,4 +20,11 @@
         app:spanCount="2"
         tools:listitem="@layout/item_care_photo" />
 
-</LinearLayout>
+    <com.example.hairapp.common.NoContentView
+        android:id="@+id/care_photos_no_photos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:icon="@drawable/ic_outline_photo_library_24"
+        app:title="Dodaj zdjęcia do pielęgnacji" />
+
+</FrameLayout>

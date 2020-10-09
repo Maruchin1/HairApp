@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:icon="@drawable/ic_outline_bathtub_24"
-        app:title="Zapisuj swoje pielęgnacje"
+        app:title="Zapisuj pielęgnacje"
         app:useArrow="true"/>
 
 </FrameLayout>

@@ -5,6 +5,7 @@
     <string name="products">Produkty</string>
     <string name="statistics">Statystyki</string>
     <string name="settings">Ustawienia</string>
+    <string name="steps">Korki</string>
 
     <string name="name">Nazwa</string>
     <string name="manufacturer">Producent</string>
@@ -28,6 +29,7 @@
 
     <!--CareActivity-->
     <string name="care_activity_confirm_delete_message">Wybrana pielęgnacja zostanie usunięta. Czy chcesz kontynuować?</string>
+    <string name="care_activity_confirm_delete_step_message">Wybrany krok zostanie usunięty z pielęgnacji. Czy chcesz kontynuować?</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

@@ -1,16 +1,14 @@
 package com.example.hairapp.page_care
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.core.domain.CareStep
 import com.example.core.domain.Product
 import com.example.core.domain.ProductsProportion
 import com.example.hairapp.framework.BindingRecyclerAdapter
-import com.example.hairapp.framework.BindingViewHolder
 import java.util.*
 
-class CareProductsAdapter(
+class CareStepsAdapter(
     controller: Any,
     layoutResId: Int,
 ) : BindingRecyclerAdapter<CareStep>(controller, layoutResId) {

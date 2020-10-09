@@ -18,6 +18,15 @@ import java.time.LocalDate
 
 object Binder {
 
+    @BindingAdapter("app:onLongClick")
+    @JvmStatic
+    fun setOnLongClick(view: View, action: (() -> Unit)?) {
+        view.setOnLongClickListener {
+            action?.invoke()
+            true
+        }
+    }
+
     // Photo
 
     @BindingAdapter("app:srcUri")

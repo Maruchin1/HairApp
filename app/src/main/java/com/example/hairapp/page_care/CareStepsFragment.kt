@@ -10,16 +10,19 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.ChangeBounds
+import androidx.transition.TransitionManager
 import com.example.core.domain.CareStep
 import com.example.hairapp.R
 import com.example.hairapp.framework.Binder
+import com.example.hairapp.framework.confirmDialog
 import com.example.hairapp.page_select_product.SelectProductContract
-import kotlinx.android.synthetic.main.fragment_care_products.*
-import kotlinx.android.synthetic.main.item_care_product.view.*
+import kotlinx.android.synthetic.main.fragment_care_steps.*
+import kotlinx.android.synthetic.main.item_care_step.view.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class CareProductsFragment : Fragment() {
+class CareStepsFragment : Fragment() {
 
     private val viewModel: CareViewModel by sharedViewModel()
 
@@ -35,9 +38,9 @@ class CareProductsFragment : Fragment() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private val adapter: CareProductsAdapter = CareProductsAdapter(
+    private val adapter: CareStepsAdapter = CareStepsAdapter(
         controller = this,
-        layoutResId = R.layout.item_care_product,
+        layoutResId = R.layout.item_care_step,
     ).apply {
         setItemSetup { viewHolder, _ ->
             viewHolder.itemView.item_care_product_edit_drag_handle.setOnTouchListener { v, event ->
@@ -54,7 +57,7 @@ class CareProductsFragment : Fragment() {
         }
 
         override fun isItemViewSwipeEnabled(): Boolean {
-            return true
+            return false
         }
 
         override fun getMovementFlags(
@@ -106,7 +109,7 @@ class CareProductsFragment : Fragment() {
         }
     })
 
-    fun addProduct() {
+    fun addStep() {
         adapter.addStep()
     }
 
@@ -114,8 +117,19 @@ class CareProductsFragment : Fragment() {
         selectProductRequest.launch(careStep)
     }
 
-    fun getCareProducts(): List<CareStep> {
+    fun getSteps(): List<CareStep> {
         return adapter.getAllCareProducts()
+    }
+
+    fun deleteStep(careStep: CareStep) {
+        if (careStep.specificApplicationType == null) {
+            requireActivity().confirmDialog(
+                title = getString(R.string.confirm_delete),
+                message = getString(R.string.care_activity_confirm_delete_step_message)
+            ) {
+                adapter.removeStep(careStep.order)
+            }
+        }
     }
 
     override fun onCreateView(
@@ -123,19 +137,19 @@ class CareProductsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_care_products, container, false)
+        return inflater.inflate(R.layout.fragment_care_steps, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        care_products_recycler.adapter = adapter
-        touchHelper.attachToRecyclerView(care_products_recycler)
+        care_steps_recycler.adapter = adapter
+        touchHelper.attachToRecyclerView(care_steps_recycler)
 
         viewModel.stepsAvailable.observe(viewLifecycleOwner) {
-            Binder.setVisibleOrGone(care_products_header, it)
-            Binder.setVisibleOrGone(care_products_recycler, it)
+            Binder.setVisibleOrGone(care_steps_recycler, it)
         }
         viewModel.steps.observe(viewLifecycleOwner) {
+            TransitionManager.beginDelayedTransition(care_steps_recycler, ChangeBounds())
             adapter.updateItems(it)
         }
         viewModel.addProductsProportionSource(adapter.productsProportion)

@@ -34,7 +34,7 @@ class CareViewModel(
     val date: LiveData<LocalDate> = _date
     val careType: LiveData<Care.Type> = _careType
     val photos: LiveData<List<String>> = _photos.map { it.toList() }
-    val photosAvailable: LiveData<Boolean> = photos.map { it.isNotEmpty() }
+    val noPhotos: LiveData<Boolean> = photos.map { it.isEmpty() }
     val steps: LiveData<List<CareStep>> = _steps
     val stepsAvailable: LiveData<Boolean> = steps.map { it.isNotEmpty() }
     val productsProportion: LiveData<ProductsProportion> = _productsProportion

@@ -29,16 +29,17 @@ class CarePhotosFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.photosAvailable.observe(viewLifecycleOwner) {
-            Binder.setVisibleOrGone(care_photos_header, it)
-            Binder.setVisibleOrGone(care_photos_recycler, it)
-        }
 
         care_photos_recycler.adapter = BindingRecyclerAdapter<String>(
             controller = this,
             layoutResId = R.layout.item_care_photo
         ).apply {
             setSource(viewModel.photos, viewLifecycleOwner)
+        }
+
+        viewModel.noPhotos.observe(viewLifecycleOwner) {
+            Binder.setVisibleOrGone(care_photos_no_photos, it)
+            Binder.setVisibleOrGone(care_photos_recycler, !it)
         }
     }
 }
