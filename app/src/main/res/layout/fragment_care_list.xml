@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/recycler"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_transparent"
-    android:clipToPadding="false"
-    android:orientation="vertical"
-    android:paddingVertical="8dp"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    tools:listitem="@layout/item_care" />
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_cares"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_transparent"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:paddingTop="8dp"
+        android:paddingBottom="128dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_care" />
+
+    <com.example.hairapp.common.NoContentView
+        android:id="@+id/no_cares"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:icon="@drawable/ic_outline_bathtub_24"
+        app:title="Zapisuj swoje pielęgnacje"
+        app:useArrow="true"/>
+
+</FrameLayout>

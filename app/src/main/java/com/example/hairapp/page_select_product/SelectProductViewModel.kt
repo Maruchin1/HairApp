@@ -24,6 +24,8 @@ class SelectProductViewModel(
         showProductsToSelect(input).asLiveData()
     }
 
+    val noProducts: LiveData<Boolean> = products.map { it.isEmpty() }
+
     fun selectProductApplicationType(type: Application.Type?) {
         productApplicationType.value = type
     }

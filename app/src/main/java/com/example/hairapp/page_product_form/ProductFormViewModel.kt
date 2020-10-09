@@ -6,7 +6,6 @@ import com.example.core.domain.Product
 import com.example.core.domain.Application
 import com.example.core.invoke
 import com.example.core.use_case.*
-import com.example.hairapp.R
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
@@ -18,12 +17,10 @@ class ProductFormViewModel(
     private val updateProduct: UpdateProduct
 ) : ViewModel() {
 
+    private val _productNameError = MutableLiveData<String?>(null)
+
     private var editProductId: Int? = null
 
-    val photoPlaceholderId: LiveData<Int> = liveData {
-        val id = R.drawable.ic_round_add_a_photo_24
-        emit(id)
-    }
     val productApplicationOptions: LiveData<List<String>> = liveData {
         val options = showProductApplicationOptions().first()
         val optionsNames = options.map { it.name }
@@ -38,6 +35,8 @@ class ProductFormViewModel(
     val proteins = MutableLiveData(false)
     val productApplications = MutableLiveData(listOf<String>())
 
+    val productNameError: LiveData<String?> = _productNameError
+
     fun setEditProductAsync(productId: Int): Deferred<Result<Unit>> = viewModelScope.async {
         editProductId = productId
         val input = ShowSelectedProduct.Input(productId)
@@ -48,6 +47,7 @@ class ProductFormViewModel(
     }
 
     suspend fun saveProduct(): Result<Unit> {
+        if (!isFormValid()) return Result.failure(Exception("Niepoprawne dane"))
         return if (editProductId == null) {
             val input = makeAddInput()
             addProduct(input)
@@ -55,6 +55,14 @@ class ProductFormViewModel(
             val input = makeUpdateInput()
             updateProduct(input)
         }
+    }
+
+    private fun isFormValid(): Boolean {
+        _productNameError.value = productName.value.let {
+            if (it.isNullOrEmpty()) "Podaj nazwę produktu" else null
+        }
+        if (_productNameError.value != null) return false
+        return true
     }
 
     private suspend fun makeAddInput() = AddProduct.Input(

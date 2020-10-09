@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.core.domain.Product
 import com.example.hairapp.R
 import com.example.hairapp.common.ProductItemController
+import com.example.hairapp.framework.Binder
 import com.example.hairapp.framework.BindingRecyclerAdapter
 import com.example.hairapp.page_product.ProductActivity
 import kotlinx.android.synthetic.main.fragment_products_list.*
@@ -27,11 +28,17 @@ class ProductsListFragment : Fragment(), ProductItemController {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         recycler_products.adapter = BindingRecyclerAdapter<Product>(
             controller = this,
             layoutResId = R.layout.item_product
         ).apply {
             setSource(viewModel.products, viewLifecycleOwner)
+        }
+
+        viewModel.noProducts.observe(viewLifecycleOwner) {
+            Binder.setVisibleOrGone(recycler_products, !it)
+            Binder.setVisibleOrGone(no_products, it)
         }
     }
 

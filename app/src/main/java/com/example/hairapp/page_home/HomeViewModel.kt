@@ -21,5 +21,9 @@ class HomeViewModel(
         it
     }
 
+    val noCares: LiveData<Boolean> = cares.map { it.isEmpty() }
+
     val products: LiveData<List<Product>> = showProductsList().asLiveData()
+
+    val noProducts: LiveData<Boolean> = products.map { it.isEmpty() }
 }

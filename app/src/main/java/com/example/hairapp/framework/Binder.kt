@@ -13,6 +13,7 @@ import coil.load
 import com.example.core.domain.Care
 import com.example.hairapp.R
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.textfield.TextInputLayout
 import java.time.LocalDate
 
 object Binder {
@@ -83,5 +84,12 @@ object Binder {
     @JvmStatic
     fun getDate(view: EditText): LocalDate? {
         return Converter.inverseDate(view.text.toString())
+    }
+
+    @BindingAdapter("app:fieldError")
+    @JvmStatic
+    fun setFieldError(view: TextInputLayout, error: String?) {
+        view.error = error
+        view.isErrorEnabled = error != null
     }
 }

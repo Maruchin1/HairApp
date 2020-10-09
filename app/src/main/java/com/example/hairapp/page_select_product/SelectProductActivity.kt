@@ -11,12 +11,18 @@ import com.example.hairapp.common.ProductItemController
 import com.example.hairapp.databinding.ActivitySelectProductBinding
 import com.example.hairapp.framework.BindingRecyclerAdapter
 import com.example.hairapp.framework.bind
+import com.example.hairapp.page_product_form.ProductFormActivity
 import kotlinx.android.synthetic.main.activity_select_product.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SelectProductActivity : AppCompatActivity(), ProductItemController {
 
     private val viewModel: SelectProductViewModel by viewModel()
+
+    fun addProduct() {
+        val intent = ProductFormActivity.makeIntent(this, null)
+        startActivity(intent)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
