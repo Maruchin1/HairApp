@@ -11,6 +11,7 @@ import com.example.data.room.Mapper
 import com.example.data.room.mapList
 import com.example.data.room.patch
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
@@ -42,6 +43,7 @@ internal class RoomProductRepo(
 
     override fun findById(productId: Int): Flow<Product> {
         return productDao.findById(productId)
+            .filterNotNull()
             .map { mapper.toDomain(it) }
     }
 

@@ -118,6 +118,7 @@
                     app:layout_constraintTop_toBottomOf="@id/box_name">
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_edit"
                         style="@style/Widget.App.Button.Secondary"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -128,6 +129,7 @@
                         app:icon="@drawable/ic_round_edit_24" />
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_delete"
                         style="@style/Widget.App.Button.Secondary"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -164,6 +166,7 @@
                         app:visibleOrGone="@{viewModel.typeNotSpecified}" />
 
                     <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_group_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp">

@@ -27,7 +27,7 @@ class ProductsListFragment : Fragment(), ProductItemController {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recycler.adapter = BindingRecyclerAdapter<Product>(
+        recycler_products.adapter = BindingRecyclerAdapter<Product>(
             controller = this,
             layoutResId = R.layout.item_product
         ).apply {
