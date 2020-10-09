@@ -89,36 +89,12 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <com.example.hairapp.common.ProductsProportionView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:paddingHorizontal="8dp">
-
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.App.Button.Secondary.Dark"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:layout_weight="1"
-                    android:onClick="@{() -> controller.addProduct()}"
-                    android:text="@string/add_product"
-                    app:icon="@drawable/ic_round_playlist_add_24" />
-
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.App.Button.Secondary.Dark"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="4dp"
-                    android:layout_weight="1"
-                    android:onClick="@{() -> controller.addPhoto()}"
-                    android:text="@string/add_photo"
-                    app:icon="@drawable/ic_round_add_a_photo_24"
-                    app:layout_scrollFlags="scroll" />
-
-            </LinearLayout>
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="16dp"
+                app:productsProportion="@{viewModel.productsProportion}" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -152,30 +128,47 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <LinearLayout
+        <com.nambimobile.widgets.efab.ExpandableFabLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_bottom_bar"
-            android:elevation="8dp"
-            android:orientation="vertical"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="8dp"
-            app:layout_anchor="@id/content"
-            app:layout_anchorGravity="bottom">
+            android:layout_height="match_parent">
 
-            <com.example.hairapp.common.ProductsProportionView
+            <com.nambimobile.widgets.efab.Overlay
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:productsProportion="@{viewModel.productsProportion}" />
+                android:layout_height="match_parent" />
 
-            <TextView
+            <com.nambimobile.widgets.efab.ExpandableFab
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="4dp"
-                android:text="@string/products_proportion"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
-        </LinearLayout>
+                android:layout_gravity="bottom|end"
+                android:layout_margin="24dp"
+                app:efab_color="@color/color_primary"
+                app:efab_icon="@drawable/ic_round_edit_24"
+                app:efab_iconAnimationRotationDeg="135" />
+
+            <com.nambimobile.widgets.efab.FabOption
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_color="@color/color_primary"
+                app:fab_icon="@drawable/ic_round_delete_24"
+                app:label_text="Usuń pielęgnacje" />
+
+            <com.nambimobile.widgets.efab.FabOption
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> controller.addPhoto()}"
+                app:fab_color="@color/color_primary"
+                app:fab_icon="@drawable/ic_round_add_a_photo_24"
+                app:label_text="Dodaj zdjęcie" />
+
+            <com.nambimobile.widgets.efab.FabOption
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> controller.addProduct()}"
+                app:fab_color="@color/color_primary"
+                app:fab_icon="@drawable/ic_round_playlist_add_24"
+                app:label_text="Dodaj produkt" />
+
+        </com.nambimobile.widgets.efab.ExpandableFabLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

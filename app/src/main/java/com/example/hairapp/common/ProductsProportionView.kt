@@ -9,6 +9,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import com.example.core.domain.ProductsProportion
 import com.example.hairapp.R
+import com.example.hairapp.framework.Binder
 import kotlinx.android.synthetic.main.view_products_proportion.view.*
 
 class ProductsProportionView(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
@@ -21,6 +22,8 @@ class ProductsProportionView(context: Context, attrs: AttributeSet) : FrameLayou
                 view_products_proportion_emollients.setWeight(value.emollients)
                 view_products_proportion_proteins.setWeight(value.proteins)
             }
+            val showLabel = value == null || value.isEmpty()
+            Binder.setVisibleOrGone(view_products_proportion_label, showLabel)
         }
 
     init {
