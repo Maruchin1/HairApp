@@ -217,12 +217,13 @@
                         android:textColor="@color/text_color_tertiary"
                         app:visibleOrGone="@{viewModel.applicationNotSpecified}" />
 
-                    <com.google.android.material.chip.ChipGroup
+                    <com.example.hairapp.common.DynamicChipGroupView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         app:items="@{viewModel.applications}"
-                        app:itemsSelectable="@{false}" />
+                        app:itemsSelectable="false" />
+
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

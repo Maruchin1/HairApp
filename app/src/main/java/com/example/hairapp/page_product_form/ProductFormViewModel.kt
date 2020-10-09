@@ -36,7 +36,7 @@ class ProductFormViewModel(
     val humectants = MutableLiveData(false)
     val emollients = MutableLiveData(false)
     val proteins = MutableLiveData(false)
-    val productApplications = MutableLiveData(setOf<String>())
+    val productApplications = MutableLiveData(listOf<String>())
 
     fun setEditProductAsync(productId: Int): Deferred<Result<Unit>> = viewModelScope.async {
         editProductId = productId
@@ -85,7 +85,7 @@ class ProductFormViewModel(
         emollients.postValue(product.type.emollients)
         humectants.postValue(product.type.humectants)
         proteins.postValue(product.type.proteins)
-        productApplications.postValue(product.applications.map { it.name }.toSet())
+        productApplications.postValue(product.applications.map { it.name })
     }
 
     private suspend fun getSelectedApplications(): Set<Application> {

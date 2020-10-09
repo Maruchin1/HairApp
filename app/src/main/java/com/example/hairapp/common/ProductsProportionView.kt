@@ -11,11 +11,6 @@ import com.example.core.domain.ProductsProportion
 import com.example.hairapp.R
 import kotlinx.android.synthetic.main.view_products_proportion.view.*
 
-@BindingAdapter("app:productsProportion")
-fun setProductsProportion(view: ProductsProportionView, value: ProductsProportion?) {
-    view.productsProportions = value
-}
-
 class ProductsProportionView(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
 
     var productsProportions: ProductsProportion? = null
@@ -34,5 +29,14 @@ class ProductsProportionView(context: Context, attrs: AttributeSet) : FrameLayou
 
     private fun View.setWeight(weight: Float) {
         updateLayoutParams<LinearLayout.LayoutParams> { this.weight = weight }
+    }
+
+    companion object {
+
+        @BindingAdapter("app:productsProportion")
+        @JvmStatic
+        fun setProductsProportion(view: ProductsProportionView, value: ProductsProportion?) {
+            view.productsProportions = value
+        }
     }
 }

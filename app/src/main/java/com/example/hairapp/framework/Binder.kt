@@ -1,84 +1,20 @@
 package com.example.hairapp.framework
 
-import android.content.res.ColorStateList
 import android.net.Uri
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
-import androidx.core.view.children
-import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
-import androidx.databinding.InverseBindingListener
 import coil.load
 import com.example.core.domain.Care
 import com.example.hairapp.R
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import java.time.LocalDate
 
 object Binder {
-
-    // ChipGroup
-
-    @BindingAdapter("app:items", "app:itemsSelectable", requireAll = false)
-    @JvmStatic
-    fun setChipGroupItems(view: ChipGroup, items: Collection<String>?, itemsSelectable: Boolean?) {
-        view.removeAllViews()
-        items?.forEach {
-            val chip = Chip(view.context)
-            if (itemsSelectable == false) {
-                chip.chipBackgroundColor =
-                    ColorStateList.valueOf(
-                        ContextCompat.getColor(
-                            view.context,
-                            R.color.color_primary
-                        )
-                    )
-                chip.setTextColor(ContextCompat.getColor(view.context, R.color.color_white))
-            }
-            chip.id = View.generateViewId()
-            chip.text = it
-            chip.isClickable = true
-            chip.isCheckable = true
-            view.addView(chip)
-        }
-    }
-
-    @BindingAdapter("app:selectedItems")
-    @JvmStatic
-    fun setSelectedItems(view: ChipGroup, items: Set<String>?) {
-        items ?: return
-        val chips = view.children as Sequence<Chip>
-        chips.forEach { chip ->
-            val chipValue = chip.text.toString()
-            chip.isChecked = items.contains(chipValue)
-        }
-    }
-
-    @InverseBindingAdapter(attribute = "app:selectedItems")
-    @JvmStatic
-    fun getSelectedItems(view: ChipGroup): Set<String> {
-        val chips = view.children as Sequence<Chip>
-        val selectedChips = chips.filter { it.isChecked }
-        return selectedChips.map { it.text.toString() }.toSet()
-    }
-
-    @BindingAdapter("app:selectedItemsAttrChanged")
-    @JvmStatic
-    fun setSelectedItemsChangedListener(view: ChipGroup, attrChange: InverseBindingListener) {
-        val chips = view.children as Sequence<Chip>
-        val chipsList = chips.toList()
-        chipsList.forEach { chip ->
-            chip.setOnCheckedChangeListener { _, _ ->
-                attrChange.onChange()
-            }
-        }
-    }
 
     // Photo
 

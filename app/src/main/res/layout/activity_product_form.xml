@@ -32,8 +32,8 @@
                 app:actionIcon="@drawable/ic_round_save_24"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:onBackClick="@{controller::finish}"
                 app:onActionClick="@{controller::saveProduct}"
+                app:onBackClick="@{controller::finish}"
                 app:title="Nowy produkt" />
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -151,14 +151,14 @@
                     android:text="@string/select_application"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chip_group_application"
+                <com.example.hairapp.common.DynamicChipGroupView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     app:items="@{viewModel.productApplicationOptions}"
-                    app:selectedItems="@={viewModel.productApplications}"
-                    app:singleSelection="false" />
+                    app:itemsSelectable="true"
+                    app:selectedItems="@={viewModel.productApplications}" />
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

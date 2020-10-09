@@ -9,21 +9,6 @@ import androidx.databinding.BindingAdapter
 import com.example.hairapp.R
 import kotlinx.android.synthetic.main.view_toolbar.view.*
 
-@BindingAdapter("app:title")
-fun setTitle(view: ToolbarView, title: String?) {
-    view.title = title
-}
-
-@BindingAdapter("app:onBackClick")
-fun setOnBackClick(view: ToolbarView, action: () -> Unit) {
-    view.onBackClick = action
-}
-
-@BindingAdapter("app:onActionClick")
-fun setOnActionClick(view: ToolbarView, action: () -> Unit) {
-    view.onActionClick = action
-}
-
 class ToolbarView(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
 
     var title: String?
@@ -66,4 +51,25 @@ class ToolbarView(context: Context, attrs: AttributeSet) : FrameLayout(context, 
             onActionClick?.invoke()
         }
     }
+
+    companion object {
+        @BindingAdapter("app:title")
+        @JvmStatic
+        fun setTitle(view: ToolbarView, title: String?) {
+            view.title = title
+        }
+
+        @BindingAdapter("app:onBackClick")
+        @JvmStatic
+        fun setOnBackClick(view: ToolbarView, action: () -> Unit) {
+            view.onBackClick = action
+        }
+
+        @BindingAdapter("app:onActionClick")
+        @JvmStatic
+        fun setOnActionClick(view: ToolbarView, action: () -> Unit) {
+            view.onActionClick = action
+        }
+    }
+
 }
