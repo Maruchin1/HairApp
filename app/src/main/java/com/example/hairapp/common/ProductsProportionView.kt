@@ -28,6 +28,13 @@ class ProductsProportionView(context: Context, attrs: AttributeSet) : FrameLayou
 
     init {
         inflate(context, R.layout.view_products_proportion, this)
+        arrayOf(
+            view_products_proportion_humectants,
+            view_products_proportion_emollients,
+            view_products_proportion_proteins
+        ).forEach {
+            it.setWeight(0f)
+        }
     }
 
     private fun View.setWeight(weight: Float) {

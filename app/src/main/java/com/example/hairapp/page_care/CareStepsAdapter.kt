@@ -41,7 +41,10 @@ class CareStepsAdapter(
 
     fun addStep() {
         val newStepPosition = 0
-        itemsList.add(newStepPosition, CareStep(order = newStepPosition))
+        itemsList.add(
+            newStepPosition,
+            CareStep(order = newStepPosition, type = CareStep.Type.OTHER)
+        )
         notifyItemInserted(newStepPosition)
         updateProductsProportion()
         updateItemsOrder()

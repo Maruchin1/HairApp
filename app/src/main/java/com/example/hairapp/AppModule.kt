@@ -37,7 +37,6 @@ val appModule = module {
     viewModel {
         ProductFormViewModel(
             showSelectedProduct = get(),
-            showProductApplicationOptions = get(),
             addProduct = get(),
             updateProduct = get()
         )

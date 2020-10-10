@@ -26,10 +26,6 @@ val coreModule = module {
     }
 
     factory {
-        ShowProductApplicationOptions(applicationRepo = get())
-    }
-
-    factory {
         ShowProductsList(productRepo = get())
     }
 

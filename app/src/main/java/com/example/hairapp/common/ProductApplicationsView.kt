@@ -3,6 +3,7 @@ package com.example.hairapp.common
 import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
@@ -11,24 +12,26 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import androidx.lifecycle.MutableLiveData
+import com.example.core.domain.Product
 import com.example.hairapp.R
+import com.example.hairapp.framework.Converter
 import com.google.android.material.chip.Chip
-import kotlinx.android.synthetic.main.view_dynamic_chip_group.view.*
+import kotlinx.android.synthetic.main.view_product_applications.view.*
 
-class DynamicChipGroupView(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
+class ProductApplicationsView(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
 
-    private val _selectedItems = MutableLiveData<List<String>>(listOf())
+    private val _selectedItems = MutableLiveData<List<Product.Application>>(listOf())
 
     var itemsSelectable: Boolean = false
 
-    var items: List<String> = listOf()
+    var items: List<Product.Application> = listOf()
         set(value) {
             field = value
             updateDisplayedChips()
             updateSelectedChips()
         }
 
-    var selectedItems: List<String>
+    var selectedItems: List<Product.Application>
         get() = _selectedItems.value!!
         set(value) {
             _selectedItems.value = value
@@ -36,16 +39,16 @@ class DynamicChipGroupView(context: Context, attrs: AttributeSet) : FrameLayout(
         }
 
     init {
-        inflate(context, R.layout.view_dynamic_chip_group, this)
-        context.obtainStyledAttributes(attrs, R.styleable.DynamicChipGroupView).run {
-            itemsSelectable = getBoolean(R.styleable.DynamicChipGroupView_itemsSelectable, false)
+        inflate(context, R.layout.view_product_applications, this)
+        context.obtainStyledAttributes(attrs, R.styleable.ProductApplicationsView).run {
+            itemsSelectable = getBoolean(R.styleable.ProductApplicationsView_itemsSelectable, false)
             recycle()
         }
     }
 
     private fun updateDisplayedChips() {
         chip_group.removeAllViews()
-        items.forEach { text ->
+        items.forEach { productApplication ->
             val chip = Chip(context)
             if (!itemsSelectable) {
                 chip.chipBackgroundColor = ColorStateList.valueOf(
@@ -54,7 +57,7 @@ class DynamicChipGroupView(context: Context, attrs: AttributeSet) : FrameLayout(
                 chip.setTextColor(ContextCompat.getColor(context, R.color.color_white))
             }
             chip.id = View.generateViewId()
-            chip.text = text
+            chip.text = Converter.productApplication(productApplication)
             chip.isClickable = true
             chip.isCheckable = true
             chip_group.addView(chip)
@@ -69,7 +72,8 @@ class DynamicChipGroupView(context: Context, attrs: AttributeSet) : FrameLayout(
         val chips = chip_group.children as Sequence<Chip>
         chips.forEach { chip ->
             val chipText = chip.text.toString()
-            chip.isChecked = selectedItems.contains(chipText)
+            val chipItemValue = Converter.inverseProductApplication(chipText)
+            chip.isChecked = selectedItems.contains(chipItemValue)
         }
     }
 
@@ -78,7 +82,10 @@ class DynamicChipGroupView(context: Context, attrs: AttributeSet) : FrameLayout(
         chip.setOnCheckedChangeListener { _, _ ->
             val chips = chip_group.children as Sequence<Chip>
             val selectedChips = chips.filter { it.isChecked }
-            _selectedItems.value = selectedChips.map { it.text.toString() }.toList()
+            _selectedItems.value = selectedChips
+                .toList()
+                .mapNotNull { Converter.inverseProductApplication(it.text.toString()) }
+                .also { Log.d("ProductApplicationsView", it.toString()) }
         }
     }
 
@@ -86,26 +93,26 @@ class DynamicChipGroupView(context: Context, attrs: AttributeSet) : FrameLayout(
 
         @BindingAdapter("app:items")
         @JvmStatic
-        fun setItems(view: DynamicChipGroupView, items: List<String>?) {
+        fun setItems(view: ProductApplicationsView, items: List<Product.Application>?) {
             items?.let { view.items = it }
         }
 
         @BindingAdapter("app:selectedItems")
         @JvmStatic
-        fun setSelectedItems(view: DynamicChipGroupView, selectedItems: List<String>?) {
+        fun setSelectedItems(view: ProductApplicationsView, selectedItems: List<Product.Application>?) {
             selectedItems?.let { view.selectedItems = it }
         }
 
         @InverseBindingAdapter(attribute = "app:selectedItems")
         @JvmStatic
-        fun getSelectedItems(view: DynamicChipGroupView): List<String> {
+        fun getSelectedItems(view: ProductApplicationsView): List<Product.Application> {
             return view._selectedItems.value!!
         }
 
         @BindingAdapter("app:selectedItemsAttrChanged")
         @JvmStatic
         fun setSelectedItemsChangedListener(
-            view: DynamicChipGroupView,
+            view: ProductApplicationsView,
             attrChange: InverseBindingListener
         ) {
             view._selectedItems.observeForever { attrChange.onChange() }

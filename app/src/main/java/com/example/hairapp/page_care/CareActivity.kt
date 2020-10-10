@@ -9,13 +9,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.lifecycleScope
-import androidx.viewpager.widget.ViewPager
 import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityCareBinding
 import com.example.hairapp.framework.*
 import com.github.dhaval2404.imagepicker.ImagePicker
 import kotlinx.android.synthetic.main.activity_care.*
-import kotlinx.android.synthetic.main.activity_care.btn_add
 import kotlinx.android.synthetic.main.activity_care.tabs
 import kotlinx.android.synthetic.main.activity_care.tabs_pager
 import kotlinx.coroutines.launch
@@ -41,6 +39,7 @@ class CareActivity : AppCompatActivity() {
                 .start()
         }
     }
+
 
     fun deleteCare() = confirmDialog(
         title = getString(R.string.confirm_delete),
@@ -70,7 +69,7 @@ class CareActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         bind<ActivityCareBinding>(R.layout.activity_care, viewModel)
         setStatusBarColor(R.color.color_primary)
-        setNavigationColor(R.color.color_white)
+        setNavigationColor(R.color.color_background)
         setupTabs()
         checkIfEdit()
     }
@@ -105,22 +104,7 @@ class CareActivity : AppCompatActivity() {
         val photosTab = tabs.getTabAt(CareTab.PHOTOS.position)
         photosTab?.icon = ContextCompat.getDrawable(this, R.drawable.ic_round_photo_library_24)
 
-        tabs_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) = Unit
-
-            override fun onPageSelected(position: Int) = Unit
-
-            override fun onPageScrollStateChanged(state: Int) {
-                when (state) {
-                    ViewPager.SCROLL_STATE_DRAGGING -> btn_add.hide()
-                    ViewPager.SCROLL_STATE_IDLE -> btn_add.show()
-                }
-            }
-        })
+        CareTabsFabsMediator(this)
     }
 
     inner class TabsAdapter : FragmentStatePagerAdapter(
@@ -147,7 +131,7 @@ class CareActivity : AppCompatActivity() {
 
     }
 
-    private enum class CareTab(val position: Int) {
+    internal enum class CareTab(val position: Int) {
         STEPS(0),
         PHOTOS(1);
 

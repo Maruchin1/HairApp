@@ -65,7 +65,7 @@ class CareStepsFragment : Fragment() {
             viewHolder: RecyclerView.ViewHolder
         ): Int {
             val careProduct = adapter.getCareProduct(viewHolder.adapterPosition)
-            if (careProduct == null || careProduct.specificApplicationType != null)
+            if (careProduct == null || careProduct.type != CareStep.Type.OTHER)
                 return 0
             val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
             val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
@@ -92,7 +92,7 @@ class CareStepsFragment : Fragment() {
             target: RecyclerView.ViewHolder
         ): Boolean {
             val targetItem = adapter.getCareProduct(target.adapterPosition)
-            if (targetItem?.specificApplicationType == null) {
+            if (targetItem?.type == CareStep.Type.OTHER) {
                 return true
             }
 
@@ -101,10 +101,10 @@ class CareStepsFragment : Fragment() {
 
             return if (currentPosition < targetPosition) {
                 val nextItem = adapter.getCareProduct(targetPosition + 1)
-                nextItem?.specificApplicationType == null
+                nextItem?.type == CareStep.Type.OTHER
             } else {
                 val previousItem = adapter.getCareProduct(targetPosition - 1)
-                previousItem?.specificApplicationType == null
+                previousItem?.type == CareStep.Type.OTHER
             }
         }
     })
@@ -122,7 +122,7 @@ class CareStepsFragment : Fragment() {
     }
 
     fun deleteStep(careStep: CareStep) {
-        if (careStep.specificApplicationType == null) {
+        if (careStep.type == CareStep.Type.OTHER) {
             requireActivity().confirmDialog(
                 title = getString(R.string.confirm_delete),
                 message = getString(R.string.care_activity_confirm_delete_step_message)
@@ -153,6 +153,11 @@ class CareStepsFragment : Fragment() {
             adapter.updateItems(it)
         }
         viewModel.addProductsProportionSource(adapter.productsProportion)
+
+        viewModel.noSteps.observe(viewLifecycleOwner) {
+            Binder.setVisibleOrGone(care_steps_not_steps, it)
+            Binder.setVisibleOrGone(care_steps_recycler, !it)
+        }
     }
 
 }

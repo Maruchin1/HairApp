@@ -2,7 +2,6 @@ package com.example.core.use_case
 
 import com.example.core.base.UseCase
 import com.example.core.domain.Product
-import com.example.core.domain.Application
 import com.example.core.errors.ProductException
 import com.example.core.gateway.ProductRepo
 import kotlinx.coroutines.flow.firstOrNull
@@ -26,7 +25,7 @@ class UpdateProduct(
         product.apply {
             name = input.productName
             manufacturer = input.productManufacturer
-            type.apply {
+            composition.apply {
                 humectants = input.humectants
                 emollients = input.emollients
                 proteins = input.proteins
@@ -45,7 +44,7 @@ class UpdateProduct(
         val humectants: Boolean,
         val emollients: Boolean,
         val proteins: Boolean,
-        val applications: Set<Application>,
+        val applications: Set<Product.Application>,
         val productPhotoData: String?
     )
 }

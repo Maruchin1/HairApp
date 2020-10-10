@@ -24,7 +24,6 @@ class CareViewModel(
 
     private val _editCareId = MutableLiveData<Int?>(null)
     private val _date = MutableLiveData(LocalDate.now())
-    private val _careType = MutableLiveData(Care.Type.OMO)
     private val _steps = MediatorLiveData<List<CareStep>>()
     private val _photos = MutableLiveData<MutableList<String>>(mutableListOf())
     private val _productsProportion = MediatorLiveData<ProductsProportion>()
@@ -33,14 +32,9 @@ class CareViewModel(
     val photos: LiveData<List<String>> = _photos.map { it.toList() }
     val noPhotos: LiveData<Boolean> = photos.map { it.isEmpty() }
     val steps: LiveData<List<CareStep>> = _steps
+    val noSteps: LiveData<Boolean> = steps.map { it.isEmpty() }
     val stepsAvailable: LiveData<Boolean> = steps.map { it.isNotEmpty() }
     val productsProportion: LiveData<ProductsProportion> = _productsProportion
-
-    init {
-        _steps.addSource(_careType) {
-            _steps.value = it.makeSteps()
-        }
-    }
 
     fun setEditCareAsync(careId: Int): Deferred<Result<Unit>> = viewModelScope.async {
         _editCareId.postValue(careId)
@@ -53,10 +47,6 @@ class CareViewModel(
 
     fun setDate(date: LocalDate) {
         _date.value = date
-    }
-
-    fun setCareType(type: Care.Type) {
-        _careType.value = type
     }
 
     fun addProductsProportionSource(source: LiveData<ProductsProportion>) {
@@ -81,12 +71,10 @@ class CareViewModel(
     suspend fun saveCare(steps: List<CareStep>): Result<Unit> {
         val selectedDate = date.value
             ?: return resultFailure("Nie wybrano daty pielęgnacji")
-        val selectedCareType = _careType.value
-            ?: return resultFailure("Nie wybrano metody pielęgnacji")
         val photos = _photos.value ?: emptyList()
         val editCareId = _editCareId.value
         return if (editCareId == null) {
-            val input = AddCare.Input(selectedDate, selectedCareType, photos, steps)
+            val input = AddCare.Input(selectedDate, photos, steps)
             addCare(input)
         } else {
             val input = UpdateCare.Input(editCareId, selectedDate, photos, steps)
@@ -103,7 +91,6 @@ class CareViewModel(
 
     private fun applyCareToEdit(care: Care) {
         _date.postValue(care.date)
-        _careType.postValue(care.type)
         _photos.postValue(care.photos.toMutableList())
         _steps.postValue(care.steps)
     }

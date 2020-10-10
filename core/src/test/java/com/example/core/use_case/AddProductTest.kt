@@ -3,7 +3,6 @@ package com.example.core.use_case
 import assertk.assertThat
 import assertk.assertions.isTrue
 import com.example.core.domain.Product
-import com.example.core.domain.Application
 import com.example.core.gateway.ProductRepo
 import io.mockk.*
 import kotlinx.coroutines.runBlocking
@@ -38,7 +37,7 @@ class AddProductTest {
             humectants = true,
             proteins = false,
             applications = setOf(
-                Application("Mocny szampon", Application.Type.SHAMPOO)
+                Product.Application.STRONG_SHAMPOO
             ),
             productPhotoData = null
         )
@@ -50,9 +49,13 @@ class AddProductTest {
             id = 0,
             name = "Shauma",
             manufacturer = "Schwarzkopf",
-            type = Product.Type(emollients = false, humectants = true, proteins = false),
+            composition = Product.Composition(
+                emollients = false,
+                humectants = true,
+                proteins = false
+            ),
             applications = mutableSetOf(
-                Application("Mocny szampon", Application.Type.SHAMPOO)
+                Product.Application.STRONG_SHAMPOO
             ),
             photoData = null
         )

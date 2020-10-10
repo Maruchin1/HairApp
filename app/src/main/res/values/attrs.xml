@@ -14,7 +14,7 @@
 
     <declare-styleable name="ProductsProportionView" />
 
-    <declare-styleable name="DynamicChipGroupView">
+    <declare-styleable name="ProductApplicationsView">
         <attr name="itemsSelectable" format="boolean" />
     </declare-styleable>
 

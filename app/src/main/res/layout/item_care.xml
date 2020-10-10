@@ -17,12 +17,12 @@
     <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="82dp"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?selectableItemBackground"
         android:onClick="@{() -> controller.onCareSelected(item)}"
-        app:strokeWidth="0dp"
-        android:layout_marginBottom="8dp">
+        app:strokeWidth="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,28 +53,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/item_care_method"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="4dp"
-                    android:text='@{Converter.careType(item.type), default="Metoda OMO"}'
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
-                    app:layout_constraintBottom_toTopOf="@id/item_care_products_proportion"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <com.example.hairapp.common.ProductsProportionView
                     android:id="@+id/item_care_products_proportion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginBottom="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/item_care_method"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:productsProportion="@{Converter.productsProportion(item)}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

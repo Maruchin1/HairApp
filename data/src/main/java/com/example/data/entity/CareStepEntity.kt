@@ -3,7 +3,6 @@ package com.example.data.entity
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.example.core.domain.Application
 import com.example.core.domain.CareStep
 
 @Entity(
@@ -22,7 +21,7 @@ internal data class CareStepEntity(
     @PrimaryKey(autoGenerate = true)
     val careProductId: Int,
 
-    val specificApplicationType: Application.Type?,
+    val type: CareStep.Type,
 
     var order: Int,
 
@@ -32,7 +31,7 @@ internal data class CareStepEntity(
 ) {
     constructor(careStep: CareStep, careId: Int) : this(
         careProductId = 0,
-        specificApplicationType = careStep.specificApplicationType,
+        type = careStep.type,
         order = careStep.order,
         productId = careStep.product?.id,
         careId = careId

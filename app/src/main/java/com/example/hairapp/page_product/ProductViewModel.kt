@@ -27,15 +27,26 @@ class ProductViewModel(
     val productName: LiveData<String> = selectedProduct.map {
         it.name
     }
-    val productManufacturer: LiveData<String> = selectedProduct.map { it.manufacturer }
-    val typeNotSpecified: LiveData<Boolean> = selectedProduct.map { it.typeNotSpecified }
-    val humectants: LiveData<Boolean> = selectedProduct.map { it.type.humectants }
-    val emollients: LiveData<Boolean> = selectedProduct.map { it.type.emollients }
-    val proteins: LiveData<Boolean> = selectedProduct.map { it.type.proteins }
-    val applicationNotSpecified: LiveData<Boolean> =
-        selectedProduct.map { it.applicationNotSpecified }
-    val applications: LiveData<List<String>> = selectedProduct.map { product ->
-        product.applications.map { it.name }
+    val productManufacturer: LiveData<String> = selectedProduct.map {
+        it.manufacturer
+    }
+    val typeNotSpecified: LiveData<Boolean> = selectedProduct.map {
+        it.typeNotSpecified
+    }
+    val humectants: LiveData<Boolean> = selectedProduct.map {
+        it.composition.humectants
+    }
+    val emollients: LiveData<Boolean> = selectedProduct.map {
+        it.composition.emollients
+    }
+    val proteins: LiveData<Boolean> = selectedProduct.map {
+        it.composition.proteins
+    }
+    val applicationNotSpecified: LiveData<Boolean> = selectedProduct.map {
+        it.applicationNotSpecified
+    }
+    val applications: LiveData<List<Product.Application>> = selectedProduct.map {
+        it.applications.toList()
     }
 
     fun selectProduct(productId: Int) {

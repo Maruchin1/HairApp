@@ -1,32 +1,35 @@
 package com.example.hairapp.page_select_product
 
 import androidx.lifecycle.*
+import com.example.core.domain.CareStep
 import com.example.core.domain.Product
-import com.example.core.domain.Application
 import com.example.core.use_case.ShowProductsToSelect
 
 class SelectProductViewModel(
     private val showProductsToSelect: ShowProductsToSelect
 ) : ViewModel() {
 
-    private val productApplicationType = MutableLiveData<Application.Type?>(null)
+    private val careStepType = MutableLiveData<CareStep.Type?>(null)
 
-    val title: LiveData<String> = productApplicationType.map {
+    val title: LiveData<String> = careStepType.map {
         when (it) {
-            Application.Type.CONDITIONER -> "Wybierz odżywkę"
-            Application.Type.SHAMPOO -> "Wybierz szampon"
+            CareStep.Type.CONDITIONER -> "Wybierz odżywkę"
+            CareStep.Type.SHAMPOO -> "Wybierz szampon"
+            CareStep.Type.OIL -> "Wybierz olej"
+            CareStep.Type.EMULSIFYING -> "Wybierz emulgator"
+            CareStep.Type.STYLIZATION -> "Wybierz stylizator"
             else -> "Wybierz produkt"
         }
     }
 
-    val products: LiveData<List<Product>> = productApplicationType.switchMap {
-        val input = ShowProductsToSelect.Input(it)
+    val products: LiveData<List<Product>> = careStepType.switchMap {
+        val input = ShowProductsToSelect.Input(it?.matchingApplications)
         showProductsToSelect(input).asLiveData()
     }
 
     val noProducts: LiveData<Boolean> = products.map { it.isEmpty() }
 
-    fun selectProductApplicationType(type: Application.Type?) {
-        productApplicationType.value = type
+    fun selectProductApplicationType(type: CareStep.Type?) {
+        careStepType.value = type
     }
 }

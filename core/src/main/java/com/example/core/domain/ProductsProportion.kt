@@ -7,9 +7,9 @@ class ProductsProportion(steps: List<CareStep>) {
     val proteins: Float
 
     init {
-        val numOfHumectants = steps.count { it.product?.type?.humectants == true }.toFloat()
-        val numOfEmollients = steps.count { it.product?.type?.emollients == true }.toFloat()
-        val numOfProteins = steps.count { it.product?.type?.proteins == true }.toFloat()
+        val numOfHumectants = steps.count { it.product?.composition?.humectants == true }.toFloat()
+        val numOfEmollients = steps.count { it.product?.composition?.emollients == true }.toFloat()
+        val numOfProteins = steps.count { it.product?.composition?.proteins == true }.toFloat()
 
         val numOfAll = numOfHumectants + numOfEmollients + numOfProteins
 

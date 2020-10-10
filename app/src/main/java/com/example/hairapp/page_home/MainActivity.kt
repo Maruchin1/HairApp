@@ -13,7 +13,6 @@ import com.example.hairapp.page_product_form.ProductFormActivity
 import com.example.hairapp.framework.setNavigationColor
 import com.example.hairapp.framework.setStatusBarColor
 import com.example.hairapp.page_care.CareActivity
-import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         bind<ActivityMainBinding>(R.layout.activity_main, viewModel = null)
         setStatusBarColor(R.color.color_primary)
-        setNavigationColor(R.color.color_white)
+        setNavigationColor(R.color.color_background)
         setupTabs()
     }
 
@@ -44,24 +43,7 @@ class MainActivity : AppCompatActivity() {
         val productsTab = tabs.getTabAt(HomeTab.PRODUCTS.position)
         productsTab?.icon = ContextCompat.getDrawable(this, R.drawable.ic_round_shopping_basket_24)
 
-
-
-        tabs_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) = Unit
-
-            override fun onPageSelected(position: Int) = Unit
-
-            override fun onPageScrollStateChanged(state: Int) {
-                when (state) {
-                    ViewPager.SCROLL_STATE_DRAGGING -> btn_add.hide()
-                    ViewPager.SCROLL_STATE_IDLE -> btn_add.show()
-                }
-            }
-        })
+        MainTabsFabMediator(this)
     }
 
     inner class TabsAdapter : FragmentStatePagerAdapter(

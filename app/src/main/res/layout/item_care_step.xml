@@ -5,7 +5,7 @@
 
         <import type="com.example.hairapp.framework.Converter" />
 
-        <import type="com.example.core.domain.Application.Type" />
+        <import type="com.example.core.domain.CareStep.Type" />
 
         <variable
             name="controller"
@@ -38,21 +38,21 @@
                 android:layout_height="16dp"
                 android:background="@color/color_primary"
                 app:layout_constraintTop_toTopOf="parent"
-                app:visibleOrGone="@{item.specificApplicationType != null}" />
+                app:visibleOrGone="@{item.type != Type.OTHER}" />
 
             <TextView
                 android:id="@+id/item_care_product_edit_type"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:text="@{Converter.productApplicationType(item.specificApplicationType), default=Rodzaj}"
+                android:text="@{Converter.careStepType(item.type), default=Rodzaj}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
                 android:textColor="@color/color_white"
                 app:layout_constraintBottom_toBottomOf="@id/item_care_product_edit_main_box"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/item_care_product_edit_photo_box"
                 app:layout_constraintTop_toTopOf="parent"
-                app:visibleOrGone="@{item.specificApplicationType != null}" />
+                app:visibleOrGone="@{item.type != Type.OTHER}" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/item_care_product_edit_photo_box"
@@ -98,44 +98,20 @@
                 app:layout_constraintTop_toBottomOf="@id/item_care_product_edit_name"
                 app:visibleOrGone="@{item.product != null}" />
 
-            <FrameLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="48dp"
+                android:text="Wybierz produkt"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textColor="@color/text_color_tertiary"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/item_care_product_edit_photo_box"
                 app:layout_constraintTop_toBottomOf="@id/item_care_product_edit_main_box"
-                app:visibleOrGone="@{item.product == null}">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Wybierz produkt"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textColor="@color/text_color_tertiary"
-                    android:visibility="gone"
-                    app:visibleOrGone="@{item.specificApplicationType == null}" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Wybierz odżywkę"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textColor="@color/text_color_tertiary"
-                    android:visibility="gone"
-                    app:visibleOrGone="@{item.specificApplicationType == Type.CONDITIONER}" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Wybierz szampon"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textColor="@color/text_color_tertiary"
-                    android:visibility="gone"
-                    app:visibleOrGone="@{item.specificApplicationType == Type.SHAMPOO}" />
-            </FrameLayout>
+                app:visibleOrGone="@{item.product == null}" />
 
             <ImageButton
                 android:id="@+id/item_care_product_edit_drag_handle"
@@ -147,7 +123,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:visibleOrGone="@{item.specificApplicationType == null}" />
+                app:visibleOrGone="@{item.type == Type.OTHER}" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

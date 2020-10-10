@@ -4,8 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.core.domain.CareStep
 import com.example.core.domain.Product
-import com.example.core.domain.Application
 import com.example.hairapp.R
 import com.example.hairapp.common.ProductItemController
 import com.example.hairapp.databinding.ActivitySelectProductBinding
@@ -48,8 +48,7 @@ class SelectProductActivity : AppCompatActivity(), ProductItemController {
     }
 
     private fun selectProductApplicationType() {
-        val type =
-            intent.getSerializableExtra(SelectProductContract.IN_APPLICATION_TYPE) as Application.Type?
+        val type = intent.getSerializableExtra(SelectProductContract.IN_CARE_TYPE) as CareStep.Type?
         viewModel.selectProductApplicationType(type)
     }
 }

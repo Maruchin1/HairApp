@@ -1,31 +1,12 @@
 package com.example.data.room
 
+import android.util.Log
 import androidx.room.TypeConverter
-import com.example.core.domain.Application
-import com.example.core.domain.Care
+import com.example.core.domain.CareStep
+import com.example.core.domain.Product
 import java.time.LocalDate
 
 internal class RoomConverter {
-
-    @TypeConverter
-    fun fromApplicationType(value: Application.Type?): String? {
-        return value?.toString()
-    }
-
-    @TypeConverter
-    fun toApplicationType(value: String?): Application.Type? {
-        return value?.let { Application.Type.valueOf(it) }
-    }
-
-    @TypeConverter
-    fun fromCareType(value: Care.Type?): String? {
-        return value?.toString()
-    }
-
-    @TypeConverter
-    fun toCareType(value: String?): Care.Type? {
-        return value?.let { Care.Type.valueOf(it) }
-    }
 
     @TypeConverter
     fun fromLocalDate(value: LocalDate?): String? {
@@ -35,6 +16,33 @@ internal class RoomConverter {
     @TypeConverter
     fun toLocalDate(value: String?): LocalDate? {
         return value?.let { LocalDate.parse(value) }
+    }
+
+    @TypeConverter
+    fun fromProductApplications(value: Set<Product.Application>?): String? {
+        Log.d("RoomConverter", "applications: $value")
+        return value?.joinToString(",").also { Log.d("RoomConverter", "converted: $it") }
+    }
+
+    @TypeConverter
+    fun toProductApplications(value: String?): Set<Product.Application>? {
+        if (value?.isEmpty() == true || value?.isBlank() == true) {
+            return emptySet()
+        }
+        return value
+            ?.split(",")
+            ?.map { Product.Application.valueOf(it) }
+            ?.toSet() ?: emptySet()
+    }
+
+    @TypeConverter
+    fun fromCareStepType(value: CareStep.Type?): String? {
+        return value?.toString()
+    }
+
+    @TypeConverter
+    fun toCareStepType(value: String?): CareStep.Type? {
+        return value?.let { CareStep.Type.valueOf(it) }
     }
 
 }

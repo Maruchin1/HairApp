@@ -13,7 +13,7 @@ class SelectProductContract : ActivityResultContract<CareStep, Pair<CareStep, In
     override fun createIntent(context: Context, input: CareStep?): Intent {
         requestedCareStep = input
         return Intent(context, SelectProductActivity::class.java)
-            .putExtra(IN_APPLICATION_TYPE, input?.specificApplicationType)
+            .putExtra(IN_CARE_TYPE, input?.type)
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): Pair<CareStep, Int?> {
@@ -27,7 +27,7 @@ class SelectProductContract : ActivityResultContract<CareStep, Pair<CareStep, In
     }
 
     companion object {
-        const val IN_APPLICATION_TYPE = "in-application-tye"
+        const val IN_CARE_TYPE = "in-care-tye"
         const val OUT_PRODUCT_ID = "out-product-id"
     }
 }

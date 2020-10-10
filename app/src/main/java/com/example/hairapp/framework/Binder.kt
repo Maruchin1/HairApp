@@ -65,24 +65,6 @@ object Binder {
 
     // EditText
 
-    @BindingAdapter("app:careType")
-    @JvmStatic
-    fun setCareType(view: EditText, type: Care.Type?) {
-        val currTypeText = view.text.toString()
-        val newTypeText = Converter.careType(type)
-        if (currTypeText != newTypeText) {
-            view.setText(newTypeText)
-        }
-    }
-
-    @BindingAdapter("app:careTypeOptions")
-    @JvmStatic
-    fun setCareTypeOptions(view: AutoCompleteTextView, options: Array<Care.Type>) {
-        val stringOptions = options.map { Converter.careType(it) }
-        val adapter = ArrayAdapter(view.context, R.layout.item_menu, stringOptions)
-        view.setAdapter(adapter)
-    }
-
     @BindingAdapter("app:date")
     @JvmStatic
     fun setDate(view: EditText, date: LocalDate?) {

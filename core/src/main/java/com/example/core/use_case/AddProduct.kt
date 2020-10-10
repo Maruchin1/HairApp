@@ -2,7 +2,6 @@ package com.example.core.use_case
 
 import com.example.core.base.UseCase
 import com.example.core.domain.Product
-import com.example.core.domain.Application
 import com.example.core.gateway.ProductRepo
 
 class AddProduct(
@@ -22,7 +21,7 @@ class AddProduct(
             id = 0,
             name = input.productName,
             manufacturer = input.productManufacturer,
-            type = Product.Type(
+            composition = Product.Composition(
                 emollients = input.emollients,
                 humectants = input.humectants,
                 proteins = input.proteins
@@ -42,7 +41,7 @@ class AddProduct(
         val humectants: Boolean,
         val emollients: Boolean,
         val proteins: Boolean,
-        val applications: Set<Application>,
+        val applications: Set<Product.Application>,
         val productPhotoData: String?
     )
 }

@@ -12,20 +12,23 @@ internal data class ProductEntity(
     val productId: Int,
 
     @Embedded
-    val type: Product.Type,
+    val composition: Product.Composition,
 
     var name: String,
 
     var manufacturer: String,
+
+    var applications: Set<Product.Application>,
 
     var photoData: String?
 ) {
 
     constructor(product: Product) : this(
         productId = product.id,
-        type = product.type,
+        composition = product.composition,
         name = product.name,
         manufacturer = product.manufacturer,
+        applications = product.applications,
         photoData = product.photoData
     )
 }

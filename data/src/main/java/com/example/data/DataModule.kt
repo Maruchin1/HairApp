@@ -2,9 +2,7 @@ package com.example.data
 
 import androidx.room.Room
 import com.example.core.gateway.CareRepo
-import com.example.core.gateway.ApplicationRepo
 import com.example.core.gateway.ProductRepo
-import com.example.data.repo.RoomApplicationRepo
 import com.example.data.repo.RoomCareRepo
 import com.example.data.repo.RoomProductRepo
 import com.example.data.room.Mapper
@@ -21,17 +19,14 @@ val dataModule = module {
     }
 
     // Dao
-    single { get<RoomDatabase>().applicationDao() }
     single { get<RoomDatabase>().careDao() }
     single { get<RoomDatabase>().carePhotoDao() }
     single { get<RoomDatabase>().careProductDao() }
-    single { get<RoomDatabase>().productApplicationDao() }
     single { get<RoomDatabase>().productDao() }
 
     // Mapper
     single {
         Mapper(
-            applicationDao = get(),
             careDao = get(),
             productDao = get()
         )
@@ -41,8 +36,7 @@ val dataModule = module {
     single<ProductRepo> {
         RoomProductRepo(
             mapper = get(),
-            productDao = get(),
-            productApplicationDao = get()
+            productDao = get()
         )
     }
     single<CareRepo> {
@@ -51,12 +45,6 @@ val dataModule = module {
             careDao = get(),
             carePhotoDao = get(),
             careStepDao = get()
-        )
-    }
-    single<ApplicationRepo> {
-        RoomApplicationRepo(
-            mapper = get(),
-            applicationDao = get()
         )
     }
 
