@@ -5,6 +5,8 @@
 
         <import type="com.example.hairapp.framework.Converter" />
 
+        <import type="com.example.core.domain.CareStep" />
+
         <variable
             name="controller"
             type="com.example.hairapp.page_care.CareActivity" />
@@ -116,71 +118,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="24dp"
-            android:onClick="@{() -> controller.addElement()}"
+            android:onClick="@{() -> controller.addPhoto()}"
             android:src="@drawable/ic_round_add_a_photo_24"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
-        <com.nambimobile.widgets.efab.ExpandableFabLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.nambimobile.widgets.efab.Overlay
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <com.nambimobile.widgets.efab.ExpandableFab
-                android:id="@+id/btn_add_step"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="24dp"
-                app:efab_color="@color/color_primary"
-                app:efab_icon="@drawable/ic_round_playlist_add_24"
-                app:efab_iconAnimationRotationDeg="360" />
-
-            <com.nambimobile.widgets.efab.FabOption
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_color="@color/color_primary"
-                app:fab_icon="@drawable/ic_round_add_24"
-                app:label_text="Inny" />
-
-            <com.nambimobile.widgets.efab.FabOption
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_color="@color/color_primary"
-                app:fab_icon="@drawable/ic_round_add_24"
-                app:label_text="Stylizator" />
-
-            <com.nambimobile.widgets.efab.FabOption
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_color="@color/color_primary"
-                app:fab_icon="@drawable/ic_round_add_24"
-                app:label_text="Emulgator" />
-
-            <com.nambimobile.widgets.efab.FabOption
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_color="@color/color_primary"
-                app:fab_icon="@drawable/ic_round_add_24"
-                app:label_text="Olej" />
-
-            <com.nambimobile.widgets.efab.FabOption
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_color="@color/color_primary"
-                app:fab_icon="@drawable/ic_round_add_24"
-                app:label_text="Szampon" />
-
-            <com.nambimobile.widgets.efab.FabOption
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_color="@color/color_primary"
-                app:fab_icon="@drawable/ic_round_add_24"
-                app:label_text="Odżywka" />
-
-        </com.nambimobile.widgets.efab.ExpandableFabLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_add_step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="24dp"
+            android:onClick="@{() -> controller.addStep()}"
+            android:src="@drawable/ic_round_playlist_add_24" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

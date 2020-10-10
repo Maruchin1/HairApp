@@ -16,8 +16,8 @@ data class CareStep(
             )
         ),
         OIL(listOf(Product.Application.OIL)),
-        EMULSIFYING(listOf(Product.Application.CONDITIONER)),
-        STYLIZATION(
+        EMULSIFIER(listOf(Product.Application.CONDITIONER)),
+        STYLIZER(
             Product.Application.values().filterNot {
                 it in listOf(
                     Product.Application.MILD_SHAMPOO,

@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.lifecycleScope
+import com.example.core.domain.CareStep
 import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityCareBinding
 import com.example.hairapp.framework.*
@@ -29,17 +30,23 @@ class CareActivity : AppCompatActivity() {
         viewModel.setDate(it)
     }
 
-    fun addElement() {
-        when (CareTab.byPosition(tabs.selectedTabPosition)) {
-            CareTab.STEPS -> stepsFragment.addStep()
-            CareTab.PHOTOS -> ImagePicker.with(this)
-                .crop(x = 4f, y = 3f)
-                .compress(maxSize = 1024)
-                .maxResultSize(width = 1080, height = 810)
-                .start()
+    fun addStep() = actionDialog(
+        title = "Rodzaj produktu",
+        items = CareStep.Type.values().map {
+            Pair(
+                first = Converter.careStepType(it)!!,
+                second = { stepsFragment.addStep(it) }
+            )
         }
-    }
+    )
 
+    fun addPhoto() {
+        ImagePicker.with(this)
+            .crop(x = 4f, y = 3f)
+            .compress(maxSize = 1024)
+            .maxResultSize(width = 1080, height = 810)
+            .start()
+    }
 
     fun deleteCare() = confirmDialog(
         title = getString(R.string.confirm_delete),

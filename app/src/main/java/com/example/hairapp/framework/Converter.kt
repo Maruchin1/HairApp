@@ -73,8 +73,8 @@ object Converter {
             CareStep.Type.CONDITIONER -> "Odżywka"
             CareStep.Type.SHAMPOO -> "Szampon"
             CareStep.Type.OIL -> "Olej"
-            CareStep.Type.EMULSIFYING -> "Emulgacja"
-            CareStep.Type.STYLIZATION -> "Stylizacja"
+            CareStep.Type.EMULSIFIER -> "Emulgator"
+            CareStep.Type.STYLIZER -> "Stylizator"
             CareStep.Type.OTHER -> "Inne"
             null -> null
         }

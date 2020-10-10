@@ -11,6 +11,8 @@ import com.example.hairapp.common.ProductItemController
 import com.example.hairapp.databinding.ActivitySelectProductBinding
 import com.example.hairapp.framework.BindingRecyclerAdapter
 import com.example.hairapp.framework.bind
+import com.example.hairapp.framework.setNavigationColor
+import com.example.hairapp.framework.setStatusBarColor
 import com.example.hairapp.page_product_form.ProductFormActivity
 import kotlinx.android.synthetic.main.activity_select_product.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,6 +29,8 @@ class SelectProductActivity : AppCompatActivity(), ProductItemController {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind<ActivitySelectProductBinding>(R.layout.activity_select_product, viewModel)
+        setStatusBarColor(R.color.color_primary)
+        setNavigationColor(R.color.color_background)
         setupAdapter()
         selectProductApplicationType()
     }

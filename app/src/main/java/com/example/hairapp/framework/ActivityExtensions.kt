@@ -67,3 +67,16 @@ inline fun FragmentActivity.confirmDialog(
         .setNegativeButton("Nie", null)
         .show()
 }
+
+fun FragmentActivity.actionDialog(
+    title: String,
+    items: List<Pair<String, () -> Unit>>
+) {
+    MaterialAlertDialogBuilder(this)
+        .setTitle(title)
+        .setItems(items.map { it.first }.toTypedArray()) { _, which ->
+            val action = items[which].second
+            action()
+        }
+        .show()
+}

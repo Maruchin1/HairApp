@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
 import com.example.core.domain.CareStep
+import com.example.core.domain.Product
 import com.example.hairapp.R
 import com.example.hairapp.framework.Binder
 import com.example.hairapp.framework.confirmDialog
@@ -27,12 +28,15 @@ class CareStepsFragment : Fragment() {
     private val viewModel: CareViewModel by sharedViewModel()
 
     private val selectProductRequest = registerForActivityResult(SelectProductContract()) {
-        val (requestedCareProduct, selectedProductId) = it
         lifecycleScope.launch {
-            selectedProductId?.let { selectedProductId ->
+            it.productId?.let { selectedProductId ->
                 viewModel.findProduct(selectedProductId)
             }?.let { selectedProduct ->
-                adapter.setStepProduct(requestedCareProduct.order, selectedProduct)
+                if (it.position == null) {
+                    adapter.addStep(it.type, selectedProduct)
+                } else {
+                    adapter.setStepProduct(it.position, selectedProduct)
+                }
             }
         }
     }
@@ -109,12 +113,14 @@ class CareStepsFragment : Fragment() {
         }
     })
 
-    fun addStep() {
-        adapter.addStep()
+    fun addStep(type: CareStep.Type) {
+        val input = SelectProductContract.Input(null, type)
+        selectProductRequest.launch(input)
     }
 
     fun selectProduct(careStep: CareStep) {
-        selectProductRequest.launch(careStep)
+        val input = SelectProductContract.Input(careStep.order, careStep.type)
+        selectProductRequest.launch(input)
     }
 
     fun getSteps(): List<CareStep> {

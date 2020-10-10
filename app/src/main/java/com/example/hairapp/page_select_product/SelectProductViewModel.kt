@@ -16,8 +16,8 @@ class SelectProductViewModel(
             CareStep.Type.CONDITIONER -> "Wybierz odżywkę"
             CareStep.Type.SHAMPOO -> "Wybierz szampon"
             CareStep.Type.OIL -> "Wybierz olej"
-            CareStep.Type.EMULSIFYING -> "Wybierz emulgator"
-            CareStep.Type.STYLIZATION -> "Wybierz stylizator"
+            CareStep.Type.EMULSIFIER -> "Wybierz emulgator"
+            CareStep.Type.STYLIZER -> "Wybierz stylizator"
             else -> "Wybierz produkt"
         }
     }
