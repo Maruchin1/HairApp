@@ -14,8 +14,10 @@ class CareStepsAdapter(
 ) : BindingRecyclerAdapter<CareStep>(controller, layoutResId) {
 
     private val _productsProportion = MutableLiveData<ProductsProportion>()
+    private val _noSteps = MutableLiveData(true)
 
     val productsProportion: LiveData<ProductsProportion> = _productsProportion
+    val noSteps: LiveData<Boolean> = _noSteps
 
     fun getCareProduct(position: Int): CareStep? {
         return itemsList.getOrNull(position)
@@ -46,6 +48,7 @@ class CareStepsAdapter(
         notifyItemInserted(newStepPosition)
         updateProductsProportion()
         updateItemsOrder()
+        updateNoItems()
     }
 
     fun removeStep(position: Int) {
@@ -53,6 +56,7 @@ class CareStepsAdapter(
         notifyItemRemoved(position)
         updateProductsProportion()
         updateItemsOrder()
+        updateNoItems()
     }
 
     fun setStepProduct(position: Int, selectedProduct: Product) {
@@ -68,6 +72,7 @@ class CareStepsAdapter(
         super.updateItems(newList)
         updateProductsProportion()
         updateItemsOrder()
+        updateNoItems()
     }
 
     private fun updateProductsProportion() {
@@ -78,5 +83,9 @@ class CareStepsAdapter(
         itemsList.forEachIndexed { index, careStep ->
             careStep.order = index
         }
+    }
+
+    private fun updateNoItems() {
+        _noSteps.value = itemsList.isEmpty()
     }
 }

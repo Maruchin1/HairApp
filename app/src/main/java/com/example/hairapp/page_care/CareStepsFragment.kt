@@ -68,9 +68,6 @@ class CareStepsFragment : Fragment() {
             recyclerView: RecyclerView,
             viewHolder: RecyclerView.ViewHolder
         ): Int {
-            val careProduct = adapter.getCareProduct(viewHolder.adapterPosition)
-            if (careProduct == null || careProduct.type != CareStep.Type.OTHER)
-                return 0
             val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
             val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
             return makeMovementFlags(dragFlags, swipeFlags)
@@ -89,28 +86,6 @@ class CareStepsFragment : Fragment() {
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             adapter.removeStep(viewHolder.adapterPosition)
         }
-
-        override fun canDropOver(
-            recyclerView: RecyclerView,
-            current: RecyclerView.ViewHolder,
-            target: RecyclerView.ViewHolder
-        ): Boolean {
-            val targetItem = adapter.getCareProduct(target.adapterPosition)
-            if (targetItem?.type == CareStep.Type.OTHER) {
-                return true
-            }
-
-            val currentPosition = current.adapterPosition
-            val targetPosition = target.adapterPosition
-
-            return if (currentPosition < targetPosition) {
-                val nextItem = adapter.getCareProduct(targetPosition + 1)
-                nextItem?.type == CareStep.Type.OTHER
-            } else {
-                val previousItem = adapter.getCareProduct(targetPosition - 1)
-                previousItem?.type == CareStep.Type.OTHER
-            }
-        }
     })
 
     fun addStep(type: CareStep.Type) {
@@ -127,15 +102,11 @@ class CareStepsFragment : Fragment() {
         return adapter.getAllCareProducts()
     }
 
-    fun deleteStep(careStep: CareStep) {
-        if (careStep.type == CareStep.Type.OTHER) {
-            requireActivity().confirmDialog(
-                title = getString(R.string.confirm_delete),
-                message = getString(R.string.care_activity_confirm_delete_step_message)
-            ) {
-                adapter.removeStep(careStep.order)
-            }
-        }
+    fun deleteStep(careStep: CareStep) = requireActivity().confirmDialog(
+        title = getString(R.string.confirm_delete),
+        message = getString(R.string.care_activity_confirm_delete_step_message)
+    ) {
+        adapter.removeStep(careStep.order)
     }
 
     override fun onCreateView(
@@ -160,7 +131,7 @@ class CareStepsFragment : Fragment() {
         }
         viewModel.addProductsProportionSource(adapter.productsProportion)
 
-        viewModel.noSteps.observe(viewLifecycleOwner) {
+        adapter.noSteps.observe(viewLifecycleOwner) {
             Binder.setVisibleOrGone(care_steps_not_steps, it)
             Binder.setVisibleOrGone(care_steps_recycler, !it)
         }
