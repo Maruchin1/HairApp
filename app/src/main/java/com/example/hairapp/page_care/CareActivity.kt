@@ -6,16 +6,18 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager.widget.ViewPager
 import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityCareBinding
 import com.example.hairapp.framework.*
-import com.example.hairapp.page_home.CareListFragment
 import com.github.dhaval2404.imagepicker.ImagePicker
 import kotlinx.android.synthetic.main.activity_care.*
+import kotlinx.android.synthetic.main.activity_care.btn_add
+import kotlinx.android.synthetic.main.activity_care.tabs
+import kotlinx.android.synthetic.main.activity_care.tabs_pager
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,16 +31,15 @@ class CareActivity : AppCompatActivity() {
         viewModel.setDate(it)
     }
 
-    fun addProduct() {
-        stepsFragment.addStep()
-    }
-
-    fun addPhoto() {
-        ImagePicker.with(this)
-            .crop(x = 4f, y = 3f)
-            .compress(maxSize = 1024)
-            .maxResultSize(width = 1080, height = 810)
-            .start()
+    fun addElement() {
+        when (CareTab.byPosition(tabs.selectedTabPosition)) {
+            CareTab.STEPS -> stepsFragment.addStep()
+            CareTab.PHOTOS -> ImagePicker.with(this)
+                .crop(x = 4f, y = 3f)
+                .compress(maxSize = 1024)
+                .maxResultSize(width = 1080, height = 810)
+                .start()
+        }
     }
 
     fun deleteCare() = confirmDialog(
@@ -71,11 +72,6 @@ class CareActivity : AppCompatActivity() {
         setStatusBarColor(R.color.color_primary)
         setNavigationColor(R.color.color_white)
         setupTabs()
-
-        input_date.inputType = 0
-        input_care_type.inputType = 0
-
-        setCareTypeListener()
         checkIfEdit()
     }
 
@@ -83,14 +79,6 @@ class CareActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             data?.data?.let { viewModel.addPhoto(it.toString()) }
-        }
-    }
-
-    private fun setCareTypeListener() {
-        input_care_type.doOnTextChanged { text, _, _, _ ->
-            Converter.inverseCareType(text?.toString())?.let {
-                viewModel.setCareType(it)
-            }
         }
     }
 
@@ -116,6 +104,23 @@ class CareActivity : AppCompatActivity() {
 
         val photosTab = tabs.getTabAt(CareTab.PHOTOS.position)
         photosTab?.icon = ContextCompat.getDrawable(this, R.drawable.ic_round_photo_library_24)
+
+        tabs_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) = Unit
+
+            override fun onPageSelected(position: Int) = Unit
+
+            override fun onPageScrollStateChanged(state: Int) {
+                when (state) {
+                    ViewPager.SCROLL_STATE_DRAGGING -> btn_add.hide()
+                    ViewPager.SCROLL_STATE_IDLE -> btn_add.show()
+                }
+            }
+        })
     }
 
     inner class TabsAdapter : FragmentStatePagerAdapter(

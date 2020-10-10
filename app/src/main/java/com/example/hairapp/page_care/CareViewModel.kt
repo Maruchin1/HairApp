@@ -29,10 +29,7 @@ class CareViewModel(
     private val _photos = MutableLiveData<MutableList<String>>(mutableListOf())
     private val _productsProportion = MediatorLiveData<ProductsProportion>()
 
-    val editMode: LiveData<Boolean> = _editCareId.map { it != null }
-    val careOptions: LiveData<Array<Care.Type>> = liveData { emit(Care.Type.values()) }
     val date: LiveData<LocalDate> = _date
-    val careType: LiveData<Care.Type> = _careType
     val photos: LiveData<List<String>> = _photos.map { it.toList() }
     val noPhotos: LiveData<Boolean> = photos.map { it.isEmpty() }
     val steps: LiveData<List<CareStep>> = _steps
@@ -40,7 +37,7 @@ class CareViewModel(
     val productsProportion: LiveData<ProductsProportion> = _productsProportion
 
     init {
-        _steps.addSource(careType) {
+        _steps.addSource(_careType) {
             _steps.value = it.makeSteps()
         }
     }
@@ -84,7 +81,7 @@ class CareViewModel(
     suspend fun saveCare(steps: List<CareStep>): Result<Unit> {
         val selectedDate = date.value
             ?: return resultFailure("Nie wybrano daty pielęgnacji")
-        val selectedCareType = careType.value
+        val selectedCareType = _careType.value
             ?: return resultFailure("Nie wybrano metody pielęgnacji")
         val photos = _photos.value ?: emptyList()
         val editCareId = _editCareId.value
