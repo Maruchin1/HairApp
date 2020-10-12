@@ -26,7 +26,8 @@
             <com.example.hairapp.common.ToolbarView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:onBackClick="@{() -> controller.finish()}"
+                app:leftActionIcon="@drawable/ic_round_arrow_back_ios_24"
+                app:onLeftAction="@{() -> controller.finish()}"
                 app:title='@{viewModel.title, default="Wybierz produkt"}' />
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -46,13 +47,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clipToPadding="false"
+                    android:paddingHorizontal="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="128dp"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2"
                     app:visibleOrGone="@{!viewModel.noProducts}"
-                    tools:listitem="@layout/item_product"
-                    android:paddingHorizontal="4dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="128dp"/>
+                    tools:listitem="@layout/item_product" />
 
                 <com.example.hairapp.common.NoContentView
                     android:layout_width="match_parent"

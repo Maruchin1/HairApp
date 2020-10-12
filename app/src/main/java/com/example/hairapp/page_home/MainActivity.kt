@@ -13,9 +13,15 @@ import com.example.hairapp.page_product_form.ProductFormActivity
 import com.example.hairapp.framework.setNavigationColor
 import com.example.hairapp.framework.setStatusBarColor
 import com.example.hairapp.page_care.CareActivity
+import com.example.hairapp.page_settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    fun openSettings() {
+        val intent = SettingsActivity.makeIntent(this)
+        startActivity(intent)
+    }
 
     fun addNew() {
         val intent = when (HomeTab.byPosition(tabs.selectedTabPosition)) {
@@ -31,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         setStatusBarColor(R.color.color_primary)
         setNavigationColor(R.color.color_background)
         setupTabs()
+        DrawerMediator(this)
     }
 
     private fun setupTabs() {

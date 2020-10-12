@@ -5,7 +5,8 @@
 
     <declare-styleable name="ToolbarView">
         <attr name="title" />
-        <attr name="actionIcon" format="reference" />
+        <attr name="leftActionIcon" format="reference" />
+        <attr name="rightActionIcon" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="CareProductEditSectionView">

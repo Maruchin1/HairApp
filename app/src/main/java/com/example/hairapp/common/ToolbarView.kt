@@ -17,38 +17,45 @@ class ToolbarView(context: Context, attrs: AttributeSet) : FrameLayout(context, 
             toolbar_title.text = value
         }
 
-    var actionIcon: Drawable?
-        get() = toolbar_action_btn.drawable
+    var leftActionIcon: Drawable?
+        get() = toolbara_left_action.drawable
         set(value) {
-            toolbar_action_btn.setImageDrawable(value)
+            toolbara_left_action.setImageDrawable(value)
         }
 
-    var onBackClick: (() -> Unit)? = null
+    var rightActionIcon: Drawable?
+        get() = toolbar_right_action.drawable
         set(value) {
-            field = value
-            toolbar_back_btn.visibility = if (value != null) View.VISIBLE else View.GONE
+            toolbar_right_action.setImageDrawable(value)
         }
 
-    var onActionClick: (() -> Unit)? = null
+    var onLeftAction: (() -> Unit)? = null
         set(value) {
             field = value
-            toolbar_action_btn.visibility = if (value != null) View.VISIBLE else View.GONE
+            toolbara_left_action.visibility = if (value != null) View.VISIBLE else View.GONE
+        }
+
+    var onRightAction: (() -> Unit)? = null
+        set(value) {
+            field = value
+            toolbar_right_action.visibility = if (value != null) View.VISIBLE else View.GONE
         }
 
     init {
         View.inflate(context, R.layout.view_toolbar, this)
         context.obtainStyledAttributes(attrs, R.styleable.ToolbarView).run {
             title = getString(R.styleable.ToolbarView_title)
-            actionIcon = getDrawable(R.styleable.ToolbarView_actionIcon)
+            leftActionIcon = getDrawable(R.styleable.ToolbarView_leftActionIcon)
+            rightActionIcon = getDrawable(R.styleable.ToolbarView_rightActionIcon)
             recycle()
         }
-        onBackClick = null
-        onActionClick = null
-        toolbar_back_btn.setOnClickListener {
-            onBackClick?.invoke()
+        onLeftAction = null
+        onRightAction = null
+        toolbara_left_action.setOnClickListener {
+            onLeftAction?.invoke()
         }
-        toolbar_action_btn.setOnClickListener {
-            onActionClick?.invoke()
+        toolbar_right_action.setOnClickListener {
+            onRightAction?.invoke()
         }
     }
 
@@ -59,16 +66,16 @@ class ToolbarView(context: Context, attrs: AttributeSet) : FrameLayout(context, 
             view.title = title
         }
 
-        @BindingAdapter("app:onBackClick")
+        @BindingAdapter("app:onLeftAction")
         @JvmStatic
-        fun setOnBackClick(view: ToolbarView, action: () -> Unit) {
-            view.onBackClick = action
+        fun setOnLeftAction(view: ToolbarView, action: () -> Unit) {
+            view.onLeftAction = action
         }
 
-        @BindingAdapter("app:onActionClick")
+        @BindingAdapter("app:onRightAction")
         @JvmStatic
-        fun setOnActionClick(view: ToolbarView, action: () -> Unit) {
-            view.onActionClick = action
+        fun setOnRightAction(view: ToolbarView, action: () -> Unit) {
+            view.onRightAction = action
         }
     }
 

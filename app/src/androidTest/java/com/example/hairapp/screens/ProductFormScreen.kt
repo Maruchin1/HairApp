@@ -10,7 +10,7 @@ import com.example.hairapp.R
 
 class ProductFormScreen : Screen<ProductFormScreen>() {
 
-    val btnSave = KButton { withId(R.id.toolbar_action_btn) }
+    val btnSave = KButton { withId(R.id.toolbar_right_action) }
 
     val toolbarTitle = KTextView { withId(R.id.toolbar_title) }
 

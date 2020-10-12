@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Statystyki">
+        <menu>
+
+            <item
+                android:id="@+id/option_avg_peh"
+                android:icon="@drawable/ic_round_pie_chart_24"
+                android:title="Średnia PEH" />
+
+            <item
+                android:id="@+id/option_products_rating"
+                android:icon="@drawable/ic_round_insert_chart_24"
+                android:title="Ranking moich produktów" />
+
+            <item
+                android:id="@+id/option_photos_gallery"
+                android:icon="@drawable/ic_round_photo_library_24"
+                android:title="Przegląd zdjęć" />
+
+        </menu>
+    </item>
+
+    <item android:title="Ustawienia">
+
+        <menu>
+
+            <item
+                android:id="@+id/option_my_care_schema"
+                android:icon="@drawable/ic_round_folder_24"
+                android:title="Mój schemat pielęgnacji" />
+
+            <item
+                android:id="@+id/option_saved_manufacturers"
+                android:icon="@drawable/ic_round_folder_24"
+                android:title="Zapisani producenci" />
+
+            <item
+                android:id="@+id/option_about"
+                android:icon="@drawable/ic_round_info_24"
+                android:title="O aplikacji" />
+
+        </menu>
+    </item>
+
+</menu>
