@@ -95,18 +95,21 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.App.TextInput.Exposed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:hint="@string/manufacturer"
                     app:startIconDrawable="@drawable/ic_round_local_offer_24">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/etx_manufacturer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapSentences"
-                        android:text="@={viewModel.productManufacturer}" />
+                        android:text="@={viewModel.productManufacturer}"
+                        app:items="@{viewModel.savedManufacturers}" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView

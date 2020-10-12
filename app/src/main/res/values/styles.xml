@@ -42,6 +42,12 @@
         <item name="boxCornerRadiusTopEnd">8dp</item>
     </style>
 
+    <style name="Widget.App.TextInput.Exposed" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="startIconTint">@color/color_primary</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+    </style>
+
     <style name="Widget.App.Chip" parent="Widget.MaterialComponents.Chip.Action">
         <item name="chipBackgroundColor">@color/color_primary</item>
         <item name="android:textColor">@color/color_white</item>

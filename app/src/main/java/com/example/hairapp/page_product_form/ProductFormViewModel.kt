@@ -1,22 +1,32 @@
 package com.example.hairapp.page_product_form
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.*
+import com.example.core.base.invoke
 import com.example.core.domain.Product
 import com.example.core.use_case.*
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 class ProductFormViewModel(
     private val showSelectedProduct: ShowSelectedProduct,
+    private val showSavedManufacturers: ShowSavedManufacturers,
     private val addProduct: AddProduct,
-    private val updateProduct: UpdateProduct
+    private val updateProduct: UpdateProduct,
 ) : ViewModel() {
 
     private val _productNameError = MutableLiveData<String?>(null)
 
     private var editProductId: Int? = null
+
+    val savedManufacturers: LiveData<List<String>> = showSavedManufacturers()
+        .onEach { Log.d("MyDebug", "saved: $it") }
+        .asLiveData()
 
     val productApplicationOptions: LiveData<List<Product.Application>> = liveData {
         val optionsNames = Product.Application.values().toList()

@@ -13,6 +13,7 @@ import coil.load
 import com.example.core.domain.Care
 import com.example.hairapp.R
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputLayout
 import java.time.LocalDate
 
@@ -82,5 +83,12 @@ object Binder {
     fun setFieldError(view: TextInputLayout, error: String?) {
         view.error = error
         view.isErrorEnabled = error != null
+    }
+
+    @BindingAdapter("app:items")
+    @JvmStatic
+    fun setAutocompleteItems(view: MaterialAutoCompleteTextView, items: List<String>?) {
+        val adapter = ArrayAdapter(view.context, R.layout.item_autocomplete, items ?: emptyList())
+        view.setAdapter(adapter)
     }
 }
