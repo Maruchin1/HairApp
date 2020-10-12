@@ -3,6 +3,8 @@ package com.example.data
 import androidx.room.Room
 import com.example.core.gateway.CareRepo
 import com.example.core.gateway.ProductRepo
+import com.example.core.gateway.Settings
+import com.example.data.repo.PrefSettings
 import com.example.data.repo.RoomCareRepo
 import com.example.data.repo.RoomProductRepo
 import com.example.data.room.Mapper
@@ -34,12 +36,19 @@ val dataModule = module {
     }
 
     // Repo
+    single<Settings> {
+        PrefSettings(
+            context = androidContext()
+        )
+    }
+
     single<ProductRepo> {
         RoomProductRepo(
             mapper = get(),
             productDao = get()
         )
     }
+
     single<CareRepo> {
         RoomCareRepo(
             mapper = get(),
