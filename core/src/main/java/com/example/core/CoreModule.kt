@@ -22,6 +22,10 @@ val coreModule = module {
     }
 
     factory {
+        SaveManufacturer(settings = get())
+    }
+
+    factory {
         ShowCaresList(careRepo = get())
     }
 
@@ -31,6 +35,10 @@ val coreModule = module {
 
     factory {
         ShowProductsToSelect(productRepo = get())
+    }
+
+    factory {
+        ShowSavedManufacturers(settings = get())
     }
 
     factory {
