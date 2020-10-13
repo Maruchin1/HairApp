@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".page_care_schema.CareSchemaActivity"></activity>
+        <activity android:name=".page_photos_gallery.PhotosGalleryActivity"></activity>
+        <activity android:name=".page_care_schema.CareSchemaActivity" />
         <activity android:name=".page_settings.SettingsActivity" />
         <activity
             android:name=".page_select_product.SelectProductActivity"

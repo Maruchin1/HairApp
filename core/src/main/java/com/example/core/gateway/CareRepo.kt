@@ -11,6 +11,8 @@ interface CareRepo {
 
     suspend fun delete(care: Care)
 
+    suspend fun deleteCarePhoto(data: String)
+
     fun findAll(): Flow<List<Care>>
 
     fun findById(careId: Int): Flow<Care>

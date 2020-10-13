@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hairapp.BR
 
 open class BindingRecyclerAdapter<T : Any>(
-    private val controller: Any,
+    protected val controller: Any,
     private val layoutResId: Int
 ) : RecyclerView.Adapter<BindingViewHolder>() {
 
@@ -45,8 +45,8 @@ open class BindingRecyclerAdapter<T : Any>(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
-        val binding: ViewDataBinding =
-            DataBindingUtil.inflate(LayoutInflater.from(parent.context), layoutResId, parent, false)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding: ViewDataBinding = DataBindingUtil.inflate(inflater, layoutResId, parent, false)
         return BindingViewHolder(binding)
     }
 

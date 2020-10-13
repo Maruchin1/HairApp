@@ -18,6 +18,10 @@ val coreModule = module {
     }
 
     factory {
+        DeleteCarePhoto(careRepo = get())
+    }
+
+    factory {
         DeleteProduct(productRepo = get())
     }
 
@@ -31,6 +35,10 @@ val coreModule = module {
 
     factory {
         ShowCaresList(careRepo = get())
+    }
+
+    factory {
+        ShowPhotosReview(careRepo = get())
     }
 
     factory {

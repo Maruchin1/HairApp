@@ -8,6 +8,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 internal interface CarePhotoDao : PatchableDao<CarePhotoEntity> {
 
+    @Query("delete from CarePhotoEntity where data = :data")
+    suspend fun deleteByData(data: String)
+
     @Query("select * from CarePhotoEntity where careId = :careId")
     fun findByCare(careId: Int): Flow<List<CarePhotoEntity>>
 }

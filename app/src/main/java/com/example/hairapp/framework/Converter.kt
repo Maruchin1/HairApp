@@ -112,6 +112,12 @@ object Converter {
         return date?.month?.getDisplayName(TextStyle.SHORT, Locale.getDefault())
     }
 
+    @JvmStatic
+    fun dayAndMonth(date: LocalDate?): String? {
+        val formatter = DateTimeFormatter.ofPattern("dd MMM")
+        return date?.format(formatter)
+    }
+
     // ProductsProportion
 
     @JvmStatic

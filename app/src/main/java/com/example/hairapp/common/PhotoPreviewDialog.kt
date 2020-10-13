@@ -1,4 +1,4 @@
-package com.example.hairapp.page_care
+package com.example.hairapp.common
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,11 +14,12 @@ import com.example.hairapp.framework.bind
 import com.example.hairapp.framework.confirmDialog
 import kotlinx.android.synthetic.main.fragment_photo_preview.*
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class PhotoPreviewFragment(photo: String) : DialogFragment() {
+class PhotoPreviewDialog(
+    photo: String,
+    private val onPhotoDelete: ((String) -> Unit)?
+) : DialogFragment() {
 
-    private val viewModel: CareViewModel by sharedViewModel()
     private val _photo = MutableLiveData(photo)
 
     val photo: LiveData<String> = _photo
@@ -37,7 +38,7 @@ class PhotoPreviewFragment(photo: String) : DialogFragment() {
             inflater,
             container,
             R.layout.fragment_photo_preview,
-            viewModel
+            null
         )
     }
 
@@ -59,7 +60,7 @@ class PhotoPreviewFragment(photo: String) : DialogFragment() {
             message = "Czy chcesz usunąć wybrane zdjęcie z pielęgnacji? Tej operacji nie będzie można cofnąć."
         )
         if (confirmed) {
-            _photo.value?.let { viewModel.deletePhoto(it) }
+            _photo.value?.let { onPhotoDelete?.invoke(it) }
             dismiss()
         }
     }

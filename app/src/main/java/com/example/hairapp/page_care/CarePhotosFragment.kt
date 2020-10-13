@@ -6,18 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.hairapp.R
+import com.example.hairapp.common.CarePhotoItemController
+import com.example.hairapp.common.PhotoPreviewDialog
 import com.example.hairapp.framework.Binder
 import com.example.hairapp.framework.BindingRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_care_photos.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class CarePhotosFragment : Fragment() {
+class CarePhotosFragment : Fragment(), CarePhotoItemController {
 
     private val viewModel: CareViewModel by sharedViewModel()
-
-    fun displayPhoto(photo: String) {
-        PhotoPreviewFragment(photo).show(childFragmentManager, "PhotoPreview")
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,5 +39,12 @@ class CarePhotosFragment : Fragment() {
             Binder.setVisibleOrGone(care_photos_no_photos, it)
             Binder.setVisibleOrGone(care_photos_recycler, !it)
         }
+    }
+
+    override fun onPhotoSelected(data: String) {
+        PhotoPreviewDialog(
+            photo = data,
+            onPhotoDelete = { viewModel.deletePhoto(it) }
+        ).show(childFragmentManager, "PhotoPreview")
     }
 }

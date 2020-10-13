@@ -5,11 +5,8 @@
 
         <variable
             name="controller"
-            type="com.example.hairapp.page_care.PhotoPreviewFragment" />
+            type="com.example.hairapp.common.PhotoPreviewDialog" />
 
-        <variable
-            name="viewModel"
-            type="com.example.hairapp.page_care.CareViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"

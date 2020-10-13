@@ -3,6 +3,7 @@ package com.example.hairapp
 import com.example.hairapp.page_care.CareViewModel
 import com.example.hairapp.page_care_schema.CareSchemaViewModel
 import com.example.hairapp.page_home.HomeViewModel
+import com.example.hairapp.page_photos_gallery.PhotosGalleryViewModel
 import com.example.hairapp.page_product.ProductViewModel
 import com.example.hairapp.page_product_form.ProductFormViewModel
 import com.example.hairapp.page_select_product.SelectProductViewModel
@@ -33,6 +34,13 @@ val appModule = module {
         HomeViewModel(
             showProductsList = get(),
             showCaresList = get()
+        )
+    }
+
+    viewModel {
+        PhotosGalleryViewModel(
+            showPhotosReview = get(),
+            deleteCarePhoto = get()
         )
     }
 
