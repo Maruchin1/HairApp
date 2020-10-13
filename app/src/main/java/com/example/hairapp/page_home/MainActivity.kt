@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.viewpager.widget.ViewPager
 import com.example.hairapp.R
 import com.example.hairapp.framework.bind
 import com.example.hairapp.databinding.ActivityMainBinding
@@ -13,15 +12,9 @@ import com.example.hairapp.page_product_form.ProductFormActivity
 import com.example.hairapp.framework.setNavigationColor
 import com.example.hairapp.framework.setStatusBarColor
 import com.example.hairapp.page_care.CareActivity
-import com.example.hairapp.page_settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
-    fun openSettings() {
-        val intent = SettingsActivity.makeIntent(this)
-        startActivity(intent)
-    }
 
     fun addNew() {
         val intent = when (HomeTab.byPosition(tabs.selectedTabPosition)) {
@@ -38,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         setNavigationColor(R.color.color_background)
         setupTabs()
         DrawerMediator(this)
+        DrawerNavigationMediator(this)
     }
 
     private fun setupTabs() {

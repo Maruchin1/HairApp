@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="controller"
+            type="com.example.hairapp.page_care_schema.CareSchemaActivity" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".page_care_schema.CareSchemaActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.example.hairapp.common.ToolbarView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:leftActionIcon="@drawable/ic_round_arrow_back_ios_24"
+                app:onLeftAction="@{() -> controller.finish()}"
+                app:title="Schemat pielęgnacji" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/care_schema_steps_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="128dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_care_schema_step"
+                    app:visibleOrGone="@{!controller.noSteps}"/>
+
+                <com.example.hairapp.common.NoContentView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:icon="@drawable/ic_round_list_24"
+                    app:title="Dodaj kroki"
+                    app:visibleOrGone="@{controller.noSteps}" />
+
+            </FrameLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_add_step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="24dp"
+            android:onClick="@{() -> controller.addStep()}"
+            android:src="@drawable/ic_round_add_24" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

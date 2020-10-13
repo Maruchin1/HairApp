@@ -19,7 +19,6 @@ open class BindingRecyclerAdapter<T : Any>(
     protected val itemsList = mutableListOf<T>()
 
     private var diffCallback: CustomDiffCallback<T>? = null
-    private var setupItem: ((RecyclerView.ViewHolder, T) -> Unit)? = null
 
     fun setSource(source: LiveData<List<T>>, lifecycleOwner: LifecycleOwner) {
         source.observe(lifecycleOwner) {
@@ -29,10 +28,6 @@ open class BindingRecyclerAdapter<T : Any>(
 
     fun setItemComparator(compareBy: (item: T) -> Any) {
         diffCallback = CustomDiffCallback(compareBy)
-    }
-
-    fun setItemSetup(setup: (RecyclerView.ViewHolder, T) -> Unit) {
-        setupItem = setup
     }
 
     open fun updateItems(newList: List<T>?) {
@@ -59,7 +54,6 @@ open class BindingRecyclerAdapter<T : Any>(
         val item = itemsList[position]
         Log.d("MyDebug", "bind: $item")
         holder.bind(item = item, handler = controller)
-        setupItem?.invoke(holder, item)
     }
 
     override fun getItemCount(): Int {

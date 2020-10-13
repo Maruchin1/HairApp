@@ -7,12 +7,13 @@
             <item
                 android:id="@+id/option_avg_peh"
                 android:icon="@drawable/ic_round_pie_chart_24"
-                android:title="Średnia PEH" />
+                android:title="Średnia PEH"
+                />
 
             <item
                 android:id="@+id/option_products_rating"
                 android:icon="@drawable/ic_round_insert_chart_24"
-                android:title="Ranking moich produktów" />
+                android:title="Ranking produktów" />
 
             <item
                 android:id="@+id/option_photos_gallery"
@@ -27,14 +28,9 @@
         <menu>
 
             <item
-                android:id="@+id/option_my_care_schema"
+                android:id="@+id/option_care_schema"
                 android:icon="@drawable/ic_round_folder_24"
-                android:title="Mój schemat pielęgnacji" />
-
-            <item
-                android:id="@+id/option_saved_manufacturers"
-                android:icon="@drawable/ic_round_folder_24"
-                android:title="Zapisani producenci" />
+                android:title="Schemat pielęgnacji" />
 
             <item
                 android:id="@+id/option_about"

@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
+import com.example.core.domain.CareStep
 import com.example.hairapp.BR
 import com.example.hairapp.R
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -80,3 +81,15 @@ fun FragmentActivity.actionDialog(
         }
         .show()
 }
+
+inline fun FragmentActivity.selectCareStepDialog(
+    crossinline careStepAction: (CareStep.Type) -> Unit
+) = actionDialog(
+    title = "Rodzaj produktu",
+    items = CareStep.Type.values().map {
+        Pair(
+            first = Converter.careStepType(it)!!,
+            second = { careStepAction(it) }
+        )
+    }
+)

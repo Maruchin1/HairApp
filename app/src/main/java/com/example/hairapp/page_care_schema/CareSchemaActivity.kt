@@ -1,0 +1,46 @@
+package com.example.hairapp.page_care_schema
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.lifecycle.LiveData
+import com.example.hairapp.R
+import com.example.hairapp.databinding.ActivityCareSchemaBinding
+import com.example.hairapp.framework.*
+import com.example.hairapp.page_care.CareStepsAdapter
+import kotlinx.android.synthetic.main.activity_care_schema.*
+
+class CareSchemaActivity : AppCompatActivity() {
+
+    val noSteps: LiveData<Boolean>
+        get() = adapter.noSteps
+
+    @SuppressLint("ClickableViewAccessibility")
+    private val adapter: CareStepsAdapter = CareStepsAdapter(
+        controller = this,
+        layoutResId = R.layout.item_care_schema_step,
+        dragHandleResId = R.id.item_care_schema_step_drag_handle
+    )
+
+    fun addStep() = selectCareStepDialog {
+        adapter.addStep(it, null)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        bind<ActivityCareSchemaBinding>(R.layout.activity_care_schema, null)
+        setStatusBarColor(R.color.color_primary)
+        setNavigationColor(R.color.color_background)
+
+        care_schema_steps_recycler.adapter = adapter
+        adapter.touchHelper.attachToRecyclerView(care_schema_steps_recycler)
+    }
+
+    companion object {
+        fun makeIntent(context: Context): Intent {
+            return Intent(context, CareSchemaActivity::class.java)
+        }
+    }
+}

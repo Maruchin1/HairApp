@@ -30,15 +30,9 @@ class CareActivity : AppCompatActivity() {
         viewModel.setDate(it)
     }
 
-    fun addStep() = actionDialog(
-        title = "Rodzaj produktu",
-        items = CareStep.Type.values().map {
-            Pair(
-                first = Converter.careStepType(it)!!,
-                second = { stepsFragment.addStep(it) }
-            )
-        }
-    )
+    fun addStep() = selectCareStepDialog {
+        stepsFragment.addStep(it)
+    }
 
     fun addPhoto() {
         ImagePicker.with(this)
