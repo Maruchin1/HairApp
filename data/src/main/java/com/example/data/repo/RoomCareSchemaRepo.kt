@@ -1,6 +1,7 @@
 package com.example.data.repo
 
 import com.example.core.domain.CareSchema
+import com.example.core.domain.CareStep
 import com.example.core.gateway.CareSchemaRepo
 import com.example.data.dao.CareSchemaDao
 import com.example.data.dao.CareSchemaStepDao
@@ -9,15 +10,21 @@ import com.example.data.entity.CareSchemaStepEntity
 import com.example.data.room.Mapper
 import com.example.data.room.mapList
 import com.example.data.room.patch
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 internal class RoomCareSchemaRepo(
     private val mapper: Mapper,
     private val careSchemaDao: CareSchemaDao,
     private val careSchemaStepDao: CareSchemaStepDao
 ) : CareSchemaRepo {
+
+    init {
+        checkInitialized()
+    }
 
     override suspend fun addNew(careSchema: CareSchema) {
         val addedSchemaId = careSchemaDao.insert(CareSchemaEntity(careSchema)).first().toInt()
@@ -52,5 +59,30 @@ internal class RoomCareSchemaRepo(
             .mapList { mapper.toDomain(it) }
     }
 
+    private fun checkInitialized() = GlobalScope.launch {
+        val schemas = careSchemaDao.findAll().first()
+        if (schemas.isEmpty()) {
+            getDefaultSchemas().forEach { addNew(it) }
+        }
+    }
 
+    private fun getDefaultSchemas() = arrayOf(
+        CareSchema(
+            id = 0,
+            name = "OMO",
+            steps = listOf(
+                CareStep(type = CareStep.Type.CONDITIONER, order = 0, product = null),
+                CareStep(type = CareStep.Type.SHAMPOO, order = 1, product = null),
+                CareStep(type = CareStep.Type.CONDITIONER, order = 2, product = null)
+            )
+        ),
+        CareSchema(
+            id = 0,
+            name = "CG",
+            steps = listOf(
+                CareStep(type = CareStep.Type.CONDITIONER, order = 0, product = null),
+                CareStep(type = CareStep.Type.CONDITIONER, order = 1, product = null)
+            )
+        )
+    )
 }

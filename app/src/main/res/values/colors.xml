@@ -6,6 +6,7 @@
     <color name="color_accent">#03DAC5</color>
 
     <color name="color_background">#eeeeee</color>
+    <color name="color_background_darker">#e0e0e0</color>
 
     <color name="color_black">#000000</color>
     <color name="color_white">#ffffff</color>

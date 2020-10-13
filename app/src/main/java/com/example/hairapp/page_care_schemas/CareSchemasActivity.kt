@@ -9,6 +9,8 @@ import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityCareSchemasBinding
 import com.example.hairapp.framework.BindingRecyclerAdapter
 import com.example.hairapp.framework.bind
+import com.example.hairapp.framework.setNavigationColor
+import com.example.hairapp.framework.setStatusBarColor
 import kotlinx.android.synthetic.main.activity_care_schemas.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -23,6 +25,8 @@ class CareSchemasActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind<ActivityCareSchemasBinding>(R.layout.activity_care_schemas, viewModel)
+        setStatusBarColor(R.color.color_primary)
+        setNavigationColor(R.color.color_background)
 
         care_schemas_recycler.adapter = adapter
         adapter.setSource(viewModel.careSchemas, this)
