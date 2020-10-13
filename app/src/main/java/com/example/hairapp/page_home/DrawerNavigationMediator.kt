@@ -2,7 +2,7 @@ package com.example.hairapp.page_home
 
 import android.view.MenuItem
 import com.example.hairapp.R
-import com.example.hairapp.page_care_schema.CareSchemaActivity
+import com.example.hairapp.page_care_schemas.CareSchemasActivity
 import com.example.hairapp.page_photos_gallery.PhotosGalleryActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,7 +29,7 @@ class DrawerNavigationMediator(private val activity: MainActivity): NavigationVi
     }
 
     private fun openCareSchema() {
-        val intent = CareSchemaActivity.makeIntent(activity)
+        val intent = CareSchemasActivity.makeIntent(activity)
         activity.startActivity(intent)
     }
 }

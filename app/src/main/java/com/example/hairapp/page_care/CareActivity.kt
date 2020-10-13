@@ -71,15 +71,9 @@ class CareActivity : AppCompatActivity() {
 
     private fun checkIfEdit() {
         val editCareId = intent.getIntExtra(IN_EDIT_CARE_ID, -1)
-        if (editCareId == -1) {
-            loadCareSchema()
-        } else {
+        if (editCareId != -1) {
             setEditCare(editCareId)
         }
-    }
-
-    private fun loadCareSchema() = lifecycleScope.launch {
-        viewModel.loadCareSchema()
     }
 
     private fun setEditCare(careId: Int) = lifecycleScope.launch {

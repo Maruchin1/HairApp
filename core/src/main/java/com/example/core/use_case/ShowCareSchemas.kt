@@ -5,13 +5,12 @@ import com.example.core.domain.CareSchema
 import com.example.core.gateway.CareSchemaRepo
 import kotlinx.coroutines.flow.Flow
 
-class ShowCareSchema(
+class ShowCareSchemas(
     private val careSchemaRepo: CareSchemaRepo
-) : FlowUseCase<ShowCareSchema.Input, CareSchema>() {
+) : FlowUseCase<Unit, List<CareSchema>>() {
 
-    override fun execute(input: Input): Flow<CareSchema> {
-        return careSchemaRepo.findById(input.id)
+    override fun execute(input: Unit): Flow<List<CareSchema>> {
+        return careSchemaRepo.findAll()
     }
 
-    data class Input(val id: Int)
 }

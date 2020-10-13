@@ -19,7 +19,6 @@ import java.time.LocalDate
 class CareViewModel(
     private val showSelectedProduct: ShowSelectedProduct,
     private val showSelectedCare: ShowSelectedCare,
-    private val showCareSchema: ShowCareSchema,
     private val addCare: AddCare,
     private val updateCare: UpdateCare,
     private val deleteCare: DeleteCare
@@ -36,11 +35,6 @@ class CareViewModel(
     val noPhotos: LiveData<Boolean> = photos.map { it.isEmpty() }
     val steps: LiveData<List<CareStep>> = _steps
     val productsProportion: LiveData<ProductsProportion> = _productsProportion
-
-    suspend fun loadCareSchema() {
-        val careSchema = showCareSchema().first()
-        _steps.postValue(careSchema)
-    }
 
     suspend fun setEditCareAsync(careId: Int): Result<Unit> {
         _editCareId.postValue(careId)

@@ -5,7 +5,7 @@
 
         <variable
             name="controller"
-            type="com.example.hairapp.page_care_schema.CareSchemaActivity" />
+            type="com.example.hairapp.page_edit_care_schema.EditCareSchemaActivity" />
 
     </data>
 
@@ -14,7 +14,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".page_care_schema.CareSchemaActivity">
+        tools:context=".page_edit_care_schema.EditCareSchemaActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"

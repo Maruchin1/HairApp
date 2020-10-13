@@ -10,6 +10,10 @@ val coreModule = module {
     }
 
     factory {
+        AddCareSchema(careSchemaRepo = get())
+    }
+
+    factory {
         AddProduct(productRepo = get())
     }
 
@@ -26,11 +30,11 @@ val coreModule = module {
     }
 
     factory {
-        SaveCareSchema(settings = get())
+        ShowCareSchema(careSchemaRepo = get())
     }
 
     factory {
-        ShowCareSchema(settings = get())
+        ShowCareSchemas(careSchemaRepo = get())
     }
 
     factory {
@@ -63,6 +67,10 @@ val coreModule = module {
 
     factory {
         UpdateCare(careRepo = get())
+    }
+
+    factory {
+        UpdateCareSchema(careSchemaRepo = get())
     }
 
     factory {

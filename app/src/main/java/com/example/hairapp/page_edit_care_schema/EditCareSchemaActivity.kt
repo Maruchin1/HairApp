@@ -1,4 +1,4 @@
-package com.example.hairapp.page_care_schema
+package com.example.hairapp.page_edit_care_schema
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,19 +9,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import com.example.core.domain.CareStep
 import com.example.hairapp.R
-import com.example.hairapp.databinding.ActivityCareSchemaBinding
+import com.example.hairapp.databinding.ActivityEditCareSchemaBinding
 import com.example.hairapp.framework.*
 import com.example.hairapp.page_care.CareStepsAdapter
-import kotlinx.android.synthetic.main.activity_care_schema.*
+import kotlinx.android.synthetic.main.activity_edit_care_schema.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CareSchemaActivity : AppCompatActivity() {
+class EditCareSchemaActivity : AppCompatActivity() {
 
     val noSteps: LiveData<Boolean>
         get() = adapter.noSteps
 
-    private val viewModel: CareSchemaViewModel by viewModel()
+    private val viewModel: EditCareSchemaViewModel by viewModel()
 
     @SuppressLint("ClickableViewAccessibility")
     private val adapter: CareStepsAdapter = CareStepsAdapter(
@@ -46,13 +46,13 @@ class CareSchemaActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bind<ActivityCareSchemaBinding>(R.layout.activity_care_schema, null)
+        bind<ActivityEditCareSchemaBinding>(R.layout.activity_edit_care_schema, null)
         setStatusBarColor(R.color.color_primary)
         setNavigationColor(R.color.color_background)
 
         care_schema_steps_recycler.adapter = adapter
         adapter.touchHelper.attachToRecyclerView(care_schema_steps_recycler)
-        adapter.setSource(viewModel.careSchema, this)
+//        adapter.setSource(viewModel.careSchema, this)
     }
 
     override fun onBackPressed() {
@@ -61,11 +61,11 @@ class CareSchemaActivity : AppCompatActivity() {
 
     private fun checkSchemaChanged() = lifecycleScope.launch {
         val newSchema = adapter.getAllCareSteps()
-        if (viewModel.schemaChanged(newSchema) && confirmSaveChanges()) {
-            saveChanges(newSchema)
-        } else {
-            super.onBackPressed()
-        }
+//        if (viewModel.schemaChanged(newSchema) && confirmSaveChanges()) {
+//            saveChanges(newSchema)
+//        } else {
+//            super.onBackPressed()
+//        }
     }
 
     private suspend fun confirmSaveChanges() = confirmDialog(
@@ -73,15 +73,15 @@ class CareSchemaActivity : AppCompatActivity() {
         message = "Schemat pielęgnacji został zmodyfikowany. Chcesz zapisać wprowadzone zmiany?"
     )
 
-    private suspend fun saveChanges(newSchema: List<CareStep>) {
-        viewModel.saveChanges(newSchema)
-            .onSuccess { super.onBackPressed() }
-            .onFailure { showErrorSnackbar(it.message) }
-    }
+//    private suspend fun saveChanges(newSchema: List<CareStep>) {
+//        viewModel.saveChanges(newSchema)
+//            .onSuccess { super.onBackPressed() }
+//            .onFailure { showErrorSnackbar(it.message) }
+//    }
 
     companion object {
         fun makeIntent(context: Context): Intent {
-            return Intent(context, CareSchemaActivity::class.java)
+            return Intent(context, EditCareSchemaActivity::class.java)
         }
     }
 }

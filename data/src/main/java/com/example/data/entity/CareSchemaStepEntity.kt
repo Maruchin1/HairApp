@@ -8,32 +8,29 @@ import com.example.core.domain.CareStep
 @Entity(
     foreignKeys = [
         ForeignKey(
-            entity = CareEntity::class,
-            parentColumns = ["careId"],
-            childColumns = ["careId"],
+            entity = CareSchemaEntity::class,
+            parentColumns = ["careSchemaId"],
+            childColumns = ["careSchemaId"],
             onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE
         )
     ]
 )
-internal data class CareStepEntity(
+internal data class CareSchemaStepEntity(
 
     @PrimaryKey(autoGenerate = true)
-    val careStepId: Int,
+    val careSchemaStepId: Int,
 
     val type: CareStep.Type,
 
     var order: Int,
 
-    var productId: Int?,
-
-    val careId: Int
+    val careSchemaId: Int
 ) {
-    constructor(careStep: CareStep, careId: Int) : this(
-        careStepId = 0,
+    constructor(careStep: CareStep, careSchemaId: Int) : this(
+        careSchemaStepId = 0,
         type = careStep.type,
         order = careStep.order,
-        productId = careStep.product?.id,
-        careId = careId
+        careSchemaId = careSchemaId
     )
 }
