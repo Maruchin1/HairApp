@@ -26,12 +26,16 @@ class CareActivity : AppCompatActivity() {
     private val stepsFragment by lazy { CareStepsFragment() }
     private val photosFragment by lazy { CarePhotosFragment() }
 
-    fun selectDate() = datePickerDialog {
-        viewModel.setDate(it)
+    fun selectDate() = lifecycleScope.launch {
+        datePickerDialog()?.let { date ->
+            viewModel.setDate(date)
+        }
     }
 
-    fun addStep() = selectCareStepDialog {
-        stepsFragment.addStep(it)
+    fun addStep() = lifecycleScope.launch {
+        selectCareStepDialog()?.let { type ->
+            stepsFragment.addStep(type)
+        }
     }
 
     fun addPhoto() {

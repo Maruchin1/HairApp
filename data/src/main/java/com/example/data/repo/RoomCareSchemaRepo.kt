@@ -26,10 +26,11 @@ internal class RoomCareSchemaRepo(
         checkInitialized()
     }
 
-    override suspend fun addNew(careSchema: CareSchema) {
+    override suspend fun addNew(careSchema: CareSchema): Int {
         val addedSchemaId = careSchemaDao.insert(CareSchemaEntity(careSchema)).first().toInt()
         val stepsEntities = careSchema.steps.map { CareSchemaStepEntity(it, addedSchemaId) }
         careSchemaStepDao.insert(stepsEntities)
+        return addedSchemaId
     }
 
     override suspend fun update(careSchema: CareSchema) {
@@ -46,11 +47,6 @@ internal class RoomCareSchemaRepo(
 
     override fun findById(id: Int): Flow<CareSchema> {
         return careSchemaDao.findById(id)
-            .map { mapper.toDomain(it) }
-    }
-
-    override fun findByName(name: String): Flow<CareSchema> {
-        return careSchemaDao.findByName(name)
             .map { mapper.toDomain(it) }
     }
 

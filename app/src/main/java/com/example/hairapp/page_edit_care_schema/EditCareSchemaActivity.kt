@@ -30,8 +30,10 @@ class EditCareSchemaActivity : AppCompatActivity() {
         dragHandleResId = R.id.item_care_schema_step_drag_handle
     )
 
-    fun addStep() = selectCareStepDialog {
-        adapter.addStep(it, null)
+    fun addStep() = lifecycleScope.launch {
+        selectCareStepDialog()?.let { type ->
+            adapter.addStep(type, null)
+        }
     }
 
     fun deleteStep(careStep: CareStep) = lifecycleScope.launch {
@@ -80,7 +82,7 @@ class EditCareSchemaActivity : AppCompatActivity() {
 //    }
 
     companion object {
-        fun makeIntent(context: Context): Intent {
+        fun makeIntent(context: Context, schemaId: Int): Intent {
             return Intent(context, EditCareSchemaActivity::class.java)
         }
     }

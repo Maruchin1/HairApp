@@ -25,7 +25,8 @@ val appModule = module {
 
     viewModel {
         CareSchemasViewModel(
-            showCareSchemas = get()
+            showCareSchemas = get(),
+            addCareSchema = get()
         )
     }
 

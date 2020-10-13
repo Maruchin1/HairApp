@@ -4,14 +4,14 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import com.example.core.domain.CareSchema
 import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityCareSchemasBinding
-import com.example.hairapp.framework.BindingRecyclerAdapter
-import com.example.hairapp.framework.bind
-import com.example.hairapp.framework.setNavigationColor
-import com.example.hairapp.framework.setStatusBarColor
+import com.example.hairapp.framework.*
+import com.example.hairapp.page_edit_care_schema.EditCareSchemaActivity
 import kotlinx.android.synthetic.main.activity_care_schemas.*
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CareSchemasActivity : AppCompatActivity() {
@@ -22,6 +22,14 @@ class CareSchemasActivity : AppCompatActivity() {
         BindingRecyclerAdapter<CareSchema>(this, R.layout.item_care_schema)
     }
 
+    fun addNewSchema() = lifecycleScope.launch {
+        inputDialog("Nazwij swój schemat")?.let { name ->
+            viewModel.addCareSchema(name)
+                .onSuccess { openSchemaPage(it) }
+                .onFailure { showErrorSnackbar(it.message) }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind<ActivityCareSchemasBinding>(R.layout.activity_care_schemas, viewModel)
@@ -30,6 +38,11 @@ class CareSchemasActivity : AppCompatActivity() {
 
         care_schemas_recycler.adapter = adapter
         adapter.setSource(viewModel.careSchemas, this)
+    }
+
+    private fun openSchemaPage(schemaId: Int) {
+        val intent = EditCareSchemaActivity.makeIntent(this, schemaId)
+        startActivity(intent)
     }
 
     companion object {

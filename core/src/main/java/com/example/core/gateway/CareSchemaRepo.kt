@@ -5,15 +5,13 @@ import kotlinx.coroutines.flow.Flow
 
 interface CareSchemaRepo {
 
-    suspend fun addNew(careSchema: CareSchema)
+    suspend fun addNew(careSchema: CareSchema): Int
 
     suspend fun update(careSchema: CareSchema)
 
     suspend fun delete(careSchema: CareSchema)
 
     fun findById(id: Int): Flow<CareSchema>
-
-    fun findByName(name: String): Flow<CareSchema>
 
     fun findAll(): Flow<List<CareSchema>>
 }

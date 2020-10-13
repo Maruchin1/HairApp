@@ -22,9 +22,6 @@ internal interface CareSchemaDao {
     @Query("select * from CareSchemaEntity where careSchemaId = :id")
     fun findById(id: Int): Flow<CareSchemaWithSteps>
 
-    @Query("select * from CareSchemaEntity where name = :name")
-    fun findByName(name: String): Flow<CareSchemaWithSteps>
-
     @Query("select * from CareSchemaEntity")
     fun findAll(): Flow<List<CareSchemaWithSteps>>
 }
