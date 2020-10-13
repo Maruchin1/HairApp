@@ -22,6 +22,14 @@ val coreModule = module {
     }
 
     factory {
+        SaveCareSchema(settings = get())
+    }
+
+    factory {
+        ShowCareSchema(settings = get())
+    }
+
+    factory {
         ShowCaresList(careRepo = get())
     }
 
