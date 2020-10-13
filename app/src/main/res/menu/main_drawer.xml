@@ -6,17 +6,19 @@
 
             <item
                 android:id="@+id/option_avg_peh"
+                android:enabled="false"
                 android:icon="@drawable/ic_round_pie_chart_24"
-                android:title="Średnia PEH"
-                />
+                android:title="Średnia PEH" />
 
             <item
                 android:id="@+id/option_products_rating"
+                android:enabled="false"
                 android:icon="@drawable/ic_round_insert_chart_24"
                 android:title="Ranking produktów" />
 
             <item
                 android:id="@+id/option_photos_gallery"
+                android:enabled="false"
                 android:icon="@drawable/ic_round_photo_library_24"
                 android:title="Przegląd zdjęć" />
 
@@ -34,6 +36,7 @@
 
             <item
                 android:id="@+id/option_about"
+                android:enabled="false"
                 android:icon="@drawable/ic_round_info_24"
                 android:title="O aplikacji" />
 

@@ -34,6 +34,16 @@ class CareSchemaActivity : AppCompatActivity() {
         adapter.addStep(it, null)
     }
 
+    fun deleteStep(careStep: CareStep) = lifecycleScope.launch {
+        val confirmed = confirmDialog(
+            title = getString(R.string.confirm_delete),
+            message = getString(R.string.care_schema_confirm_delete_step_message)
+        )
+        if (confirmed) {
+            adapter.removeStep(careStep.order)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind<ActivityCareSchemaBinding>(R.layout.activity_care_schema, null)

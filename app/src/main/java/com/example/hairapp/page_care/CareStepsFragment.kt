@@ -80,9 +80,6 @@ class CareStepsFragment : Fragment() {
         care_steps_recycler.adapter = adapter
         adapter.touchHelper.attachToRecyclerView(care_steps_recycler)
 
-        viewModel.stepsAvailable.observe(viewLifecycleOwner) {
-            Binder.setVisibleOrGone(care_steps_recycler, it)
-        }
         viewModel.steps.observe(viewLifecycleOwner) {
             TransitionManager.beginDelayedTransition(care_steps_recycler, ChangeBounds())
             adapter.updateItems(it)

@@ -1,6 +1,7 @@
 package com.example.hairapp.page_care
 
 import androidx.lifecycle.*
+import com.example.core.base.invoke
 import com.example.core.domain.Care
 import com.example.core.domain.CareStep
 import com.example.core.domain.Product
@@ -12,11 +13,13 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class CareViewModel(
     private val showSelectedProduct: ShowSelectedProduct,
     private val showSelectedCare: ShowSelectedCare,
+    private val showCareSchema: ShowCareSchema,
     private val addCare: AddCare,
     private val updateCare: UpdateCare,
     private val deleteCare: DeleteCare
@@ -32,13 +35,17 @@ class CareViewModel(
     val photos: LiveData<List<String>> = _photos.map { it.toList() }
     val noPhotos: LiveData<Boolean> = photos.map { it.isEmpty() }
     val steps: LiveData<List<CareStep>> = _steps
-    val stepsAvailable: LiveData<Boolean> = steps.map { it.isNotEmpty() }
     val productsProportion: LiveData<ProductsProportion> = _productsProportion
 
-    fun setEditCareAsync(careId: Int): Deferred<Result<Unit>> = viewModelScope.async {
+    suspend fun loadCareSchema() {
+        val careSchema = showCareSchema().first()
+        _steps.postValue(careSchema)
+    }
+
+    suspend fun setEditCareAsync(careId: Int): Result<Unit> {
         _editCareId.postValue(careId)
         val input = ShowSelectedCare.Input(careId)
-        showSelectedCare(input).runCatching {
+        return showSelectedCare(input).runCatching {
             val care = this.first()
             applyCareToEdit(care)
         }

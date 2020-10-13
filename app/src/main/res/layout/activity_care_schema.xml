@@ -49,14 +49,14 @@
                     android:paddingTop="4dp"
                     android:paddingBottom="128dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_care_schema_step"
-                    app:visibleOrGone="@{!controller.noSteps}"/>
+                    app:visibleOrGone="@{!controller.noSteps}"
+                    tools:listitem="@layout/item_care_schema_step" />
 
                 <com.example.hairapp.common.NoContentView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:icon="@drawable/ic_round_list_24"
-                    app:title="Dodaj kroki"
+                    app:title="@string/care_schema_info_message"
                     app:visibleOrGone="@{controller.noSteps}" />
 
             </FrameLayout>

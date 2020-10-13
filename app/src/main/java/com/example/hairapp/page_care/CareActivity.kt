@@ -71,14 +71,20 @@ class CareActivity : AppCompatActivity() {
 
     private fun checkIfEdit() {
         val editCareId = intent.getIntExtra(IN_EDIT_CARE_ID, -1)
-        if (editCareId != -1)
+        if (editCareId == -1) {
+            loadCareSchema()
+        } else {
             setEditCare(editCareId)
+        }
+    }
+
+    private fun loadCareSchema() = lifecycleScope.launch {
+        viewModel.loadCareSchema()
     }
 
     private fun setEditCare(careId: Int) = lifecycleScope.launch {
         toolbar.title = "Pielęgnacja"
         viewModel.setEditCareAsync(careId)
-            .await()
             .onFailure { showErrorSnackbar(it.message) }
     }
 
