@@ -27,11 +27,12 @@ class ProductActivity : AppCompatActivity() {
         }
     }
 
-    fun deleteProduct() = confirmDialog(
-        getString(R.string.confirm_delete),
-        getString(R.string.product_activity_confirm_delete_message)
-    ) {
-        lifecycleScope.launch {
+    fun deleteProduct() = lifecycleScope.launch {
+        val confirmed = confirmDialog(
+            getString(R.string.confirm_delete),
+            getString(R.string.product_activity_confirm_delete_message)
+        )
+        if (confirmed) {
             viewModel.deleteProduct()
                 .onSuccess { finish() }
                 .onFailure { showErrorSnackbar(it.message) }

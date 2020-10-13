@@ -59,14 +59,14 @@ class CareStepsAdapter(
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) = Unit
     })
 
-    fun getAllCareProducts(): List<CareStep> {
+    fun getAllCareSteps(): List<CareStep> {
         return itemsList
     }
 
     fun addStep(type: CareStep.Type, product: Product?) {
-        val newStepPosition = 0
+        val newStepPosition = itemsList.size
         val newStep = CareStep(type, newStepPosition, product)
-        itemsList.add(newStepPosition, newStep)
+        itemsList.add(newStep)
         notifyItemInserted(newStepPosition)
         updateProductsProportion()
         updateItemsOrder()

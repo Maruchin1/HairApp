@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.R
 import com.example.hairapp.databinding.FragmentPhotoPreviewBinding
 import com.example.hairapp.framework.bind
 import com.example.hairapp.framework.confirmDialog
 import kotlinx.android.synthetic.main.fragment_photo_preview.*
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class PhotoPreviewFragment(photo: String) : DialogFragment() {
@@ -51,11 +53,14 @@ class PhotoPreviewFragment(photo: String) : DialogFragment() {
         }
     }
 
-    private fun deletePhoto() = requireActivity().confirmDialog(
-        title = "Usuń zdjęcie",
-        message = "Czy chcesz usunąć wybrane zdjęcie z pielęgnacji? Tej operacji nie będzie można cofnąć."
-    ) {
-        _photo.value?.let { viewModel.deletePhoto(it) }
-        dismiss()
+    private fun deletePhoto() = lifecycleScope.launch {
+        val confirmed = requireActivity().confirmDialog(
+            title = "Usuń zdjęcie",
+            message = "Czy chcesz usunąć wybrane zdjęcie z pielęgnacji? Tej operacji nie będzie można cofnąć."
+        )
+        if (confirmed) {
+            _photo.value?.let { viewModel.deletePhoto(it) }
+            dismiss()
+        }
     }
 }

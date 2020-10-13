@@ -1,6 +1,7 @@
 package com.example.hairapp
 
 import com.example.hairapp.page_care.CareViewModel
+import com.example.hairapp.page_care_schema.CareSchemaViewModel
 import com.example.hairapp.page_home.HomeViewModel
 import com.example.hairapp.page_product.ProductViewModel
 import com.example.hairapp.page_product_form.ProductFormViewModel
@@ -17,6 +18,13 @@ val appModule = module {
             addCare = get(),
             updateCare = get(),
             deleteCare = get()
+        )
+    }
+
+    viewModel {
+        CareSchemaViewModel(
+            showCareSchema = get(),
+            saveCareSchema = get()
         )
     }
 

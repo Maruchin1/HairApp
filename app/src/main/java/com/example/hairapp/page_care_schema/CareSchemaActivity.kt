@@ -6,16 +6,22 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.lifecycleScope
+import com.example.core.domain.CareStep
 import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityCareSchemaBinding
 import com.example.hairapp.framework.*
 import com.example.hairapp.page_care.CareStepsAdapter
 import kotlinx.android.synthetic.main.activity_care_schema.*
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CareSchemaActivity : AppCompatActivity() {
 
     val noSteps: LiveData<Boolean>
         get() = adapter.noSteps
+
+    private val viewModel: CareSchemaViewModel by viewModel()
 
     @SuppressLint("ClickableViewAccessibility")
     private val adapter: CareStepsAdapter = CareStepsAdapter(
@@ -36,6 +42,31 @@ class CareSchemaActivity : AppCompatActivity() {
 
         care_schema_steps_recycler.adapter = adapter
         adapter.touchHelper.attachToRecyclerView(care_schema_steps_recycler)
+        adapter.setSource(viewModel.careSchema, this)
+    }
+
+    override fun onBackPressed() {
+        checkSchemaChanged()
+    }
+
+    private fun checkSchemaChanged() = lifecycleScope.launch {
+        val newSchema = adapter.getAllCareSteps()
+        if (viewModel.schemaChanged(newSchema) && confirmSaveChanges()) {
+            saveChanges(newSchema)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    private suspend fun confirmSaveChanges() = confirmDialog(
+        title = "Zapisz zmiany",
+        message = "Schemat pielęgnacji został zmodyfikowany. Chcesz zapisać wprowadzone zmiany?"
+    )
+
+    private suspend fun saveChanges(newSchema: List<CareStep>) {
+        viewModel.saveChanges(newSchema)
+            .onSuccess { super.onBackPressed() }
+            .onFailure { showErrorSnackbar(it.message) }
     }
 
     companion object {

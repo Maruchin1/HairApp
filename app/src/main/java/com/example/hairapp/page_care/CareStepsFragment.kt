@@ -3,23 +3,18 @@ package com.example.hairapp.page_care
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
 import com.example.core.domain.CareStep
-import com.example.core.domain.Product
 import com.example.hairapp.R
 import com.example.hairapp.framework.Binder
 import com.example.hairapp.framework.confirmDialog
 import com.example.hairapp.page_select_product.SelectProductContract
 import kotlinx.android.synthetic.main.fragment_care_steps.*
-import kotlinx.android.synthetic.main.item_care_step.view.*
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -59,14 +54,17 @@ class CareStepsFragment : Fragment() {
     }
 
     fun getSteps(): List<CareStep> {
-        return adapter.getAllCareProducts()
+        return adapter.getAllCareSteps()
     }
 
-    fun deleteStep(careStep: CareStep) = requireActivity().confirmDialog(
-        title = getString(R.string.confirm_delete),
-        message = getString(R.string.care_activity_confirm_delete_step_message)
-    ) {
-        adapter.removeStep(careStep.order)
+    fun deleteStep(careStep: CareStep) = lifecycleScope.launch {
+        val confirmed = requireActivity().confirmDialog(
+            title = getString(R.string.confirm_delete),
+            message = getString(R.string.care_activity_confirm_delete_step_message)
+        )
+        if (confirmed) {
+            adapter.removeStep(careStep.order)
+        }
     }
 
     override fun onCreateView(

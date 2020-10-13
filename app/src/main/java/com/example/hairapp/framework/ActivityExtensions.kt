@@ -16,6 +16,8 @@ import com.google.android.material.snackbar.Snackbar
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 fun AppCompatActivity.setStatusBarColor(colorId: Int) {
     window.statusBarColor = ContextCompat.getColor(this, colorId)
@@ -56,16 +58,15 @@ inline fun FragmentActivity.datePickerDialog(crossinline selected: (LocalDate) -
     dialog.show(supportFragmentManager, "DatePicker")
 }
 
-inline fun FragmentActivity.confirmDialog(
+suspend fun FragmentActivity.confirmDialog(
     title: String,
-    message: String,
-    crossinline onConfirm: () -> Unit
-) {
+    message: String
+): Boolean = suspendCoroutine {
     MaterialAlertDialogBuilder(this)
         .setTitle(title)
         .setMessage(message)
-        .setPositiveButton("Tak") { _, _ -> onConfirm() }
-        .setNegativeButton("Nie", null)
+        .setPositiveButton("Tak") { _, _ -> it.resume(true) }
+        .setNegativeButton("Nie") { _, _ -> it.resume(false) }
         .show()
 }
 
