@@ -27,6 +27,7 @@ class UpdateCare(
         date = input.date
         photos = input.photos
         steps = input.steps
+        notes = input.notes
     }
 
     private suspend fun saveUpdated(care: Care) = careRepo.update(care)
@@ -35,6 +36,7 @@ class UpdateCare(
         val careId: Int,
         val date: LocalDate,
         val photos: List<String>,
-        val steps: List<CareStep>
+        val steps: List<CareStep>,
+        val notes: String
     )
 }

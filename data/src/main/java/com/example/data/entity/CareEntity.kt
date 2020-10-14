@@ -13,11 +13,14 @@ internal data class CareEntity(
 
     val schemaName: String,
 
-    val date: LocalDate
+    val date: LocalDate,
+
+    val notes: String
 ) {
     constructor(care: Care) : this(
         careId = care.id,
         schemaName = care.schemaName,
-        date = care.date
+        date = care.date,
+        notes = care.notes
     )
 }

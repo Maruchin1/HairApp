@@ -29,7 +29,8 @@ internal class Mapper(
                     toDomain(it)
                 }
             )
-        }.sortedBy { it.order }
+        }.sortedBy { it.order },
+        notes = entity.care.notes
     )
 
     fun toDomain(entity: ProductEntity) = Product(

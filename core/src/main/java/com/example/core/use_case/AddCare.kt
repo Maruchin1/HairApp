@@ -21,7 +21,8 @@ class AddCare(
             schemaName = input.schemaName,
             date = input.date,
             photos = input.photos,
-            steps = input.steps
+            steps = input.steps,
+            notes = input.notes
         )
     }
 
@@ -33,6 +34,7 @@ class AddCare(
         val schemaName: String,
         val date: LocalDate,
         val photos: List<String>,
-        val steps: List<CareStep>
+        val steps: List<CareStep>,
+        val notes: String
     )
 }

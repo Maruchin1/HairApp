@@ -25,6 +25,7 @@ class CareActivity : AppCompatActivity() {
     private val viewModel: CareViewModel by viewModel()
     private val stepsFragment by lazy { CareStepsFragment() }
     private val photosFragment by lazy { CarePhotosFragment() }
+    private val notesFragment by lazy { CareNotesFragment() }
 
     fun selectDate() = lifecycleScope.launch {
         datePickerDialog()?.let { date ->
@@ -95,6 +96,9 @@ class CareActivity : AppCompatActivity() {
         val photosTab = tabs.getTabAt(CareTab.PHOTOS.position)
         photosTab?.icon = ContextCompat.getDrawable(this, R.drawable.ic_round_photo_library_24)
 
+        val notesTab = tabs.getTabAt(CareTab.NOTES.position)
+        notesTab?.icon = ContextCompat.getDrawable(this, R.drawable.ic_round_notes_24)
+
         CareTabsFabsMediator(this)
     }
 
@@ -103,33 +107,33 @@ class CareActivity : AppCompatActivity() {
         BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
     ) {
         override fun getCount(): Int {
-            return 2
+            return 3
         }
 
         override fun getItem(position: Int): Fragment {
             return when (CareTab.byPosition(position)) {
                 CareTab.STEPS -> stepsFragment
                 CareTab.PHOTOS -> photosFragment
+                CareTab.NOTES -> notesFragment
             }
         }
 
         override fun getPageTitle(position: Int): CharSequence? {
-            return when (CareTab.byPosition(position)) {
-                CareTab.STEPS -> "Kroki"
-                CareTab.PHOTOS -> "Zdjęcia"
-            }
+            return CareTab.byPosition(position).title
         }
     }
 
-    internal enum class CareTab(val position: Int) {
-        STEPS(0),
-        PHOTOS(1);
+    internal enum class CareTab(val position: Int, val title: String) {
+        STEPS(0, "Kroki"),
+        PHOTOS(1, "Zdjęcia"),
+        NOTES(2, "Notatki");
 
         companion object {
             fun byPosition(position: Int) = when (position) {
                 0 -> STEPS
                 1 -> PHOTOS
-                else -> throw IllegalStateException("Tab number has to be 0 (steps) or 1 (photos)")
+                2 -> NOTES
+                else -> throw IllegalStateException("Tab number has to be 0 (steps), 1 (photos) or 2 (notes)")
             }
         }
     }

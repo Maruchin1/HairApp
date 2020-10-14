@@ -60,5 +60,6 @@
     <string name="add_product">Dodaj produkt</string>
     <string name="no_products_selected">Nie wybrano produktów</string>
     <string name="products_proportion">Proporcje produktów</string>
+    <string name="notes">Notatki</string>
 
 </resources>

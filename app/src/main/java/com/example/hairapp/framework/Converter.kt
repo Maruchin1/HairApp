@@ -125,5 +125,14 @@ object Converter {
         return care?.let { ProductsProportion(it.steps) }
     }
 
+    // CareNotes
+    @JvmStatic
+    fun careNotes(notes: String?): String {
+        return if (notes.isNullOrEmpty() || notes.isBlank()) {
+            "Zapisz swoje notatki, uwagi, obserwacje ..."
+        } else {
+            notes
+        }
+    }
 
 }

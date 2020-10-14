@@ -7,5 +7,6 @@ data class Care(
     val schemaName: String,
     var date: LocalDate,
     var photos: List<String>,
-    var steps: List<CareStep>
+    var steps: List<CareStep>,
+    var notes: String
 )

@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     fun addNew() {
         when (HomeTab.byPosition(tabs.selectedTabPosition)) {
             HomeTab.CARE -> addNewCare()
-            HomeTab.PRODUCTS -> ProductFormActivity.makeIntent(this, null)
+            HomeTab.PRODUCTS -> addNewProduct()
         }
     }
 
@@ -58,6 +58,11 @@ class MainActivity : AppCompatActivity() {
             val intent = CareActivity.makeIntent(this@MainActivity, selectedSchema)
             startActivity(intent)
         }
+    }
+
+    private fun addNewProduct() {
+        val intent = ProductFormActivity.makeIntent(this, null)
+        startActivity(intent)
     }
 
     inner class TabsAdapter : FragmentStatePagerAdapter(

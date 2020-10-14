@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/color_accent</item>
 
         <item name="android:colorBackground">@color/color_background</item>
+        <item name="materialButtonStyle">@style/Widget.App.Button.Primary</item>
         <item name="materialCardViewStyle">@style/Widget.App.Card</item>
         <item name="chipStyle">@style/Widget.App.Chip.Choice</item>
         <item name="textInputStyle">@style/Widget.App.TextInput</item>
@@ -119,6 +120,13 @@
 
     <style name="Widget.App.ToolbarButton.Dark" parent="Widget.AppCompat.Toolbar.Button.Navigation">
         <item name="tint">@color/color_white</item>
+    </style>
+
+    <style name="Widget.App.Button.Primary" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="cornerRadius">8dp</item>
+        <item name="iconPadding">8dp</item>
+        <item name="android:textColor">@color/color_white</item>
+        <item name="iconTint">@color/color_white</item>
     </style>
 
     <style name="Widget.App.Button.Secondary" parent="Widget.MaterialComponents.Button.OutlinedButton">
