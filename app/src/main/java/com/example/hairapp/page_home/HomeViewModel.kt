@@ -8,12 +8,16 @@ import androidx.lifecycle.map
 import com.example.core.domain.Care
 import com.example.core.domain.Product
 import com.example.core.base.invoke
+import com.example.core.domain.CareSchema
+import com.example.core.use_case.ShowCareSchemas
 import com.example.core.use_case.ShowCaresList
 import com.example.core.use_case.ShowProductsList
+import kotlinx.coroutines.flow.first
 
 class HomeViewModel(
     showProductsList: ShowProductsList,
-    showCaresList: ShowCaresList
+    showCaresList: ShowCaresList,
+    private val showCareSchemas: ShowCareSchemas
 ) : ViewModel() {
 
     val cares: LiveData<List<Care>> = showCaresList().asLiveData().map {
@@ -26,4 +30,8 @@ class HomeViewModel(
     val products: LiveData<List<Product>> = showProductsList().asLiveData()
 
     val noProducts: LiveData<Boolean> = products.map { it.isEmpty() }
+
+    suspend fun getCareSchemas(): List<CareSchema> {
+        return showCareSchemas().first()
+    }
 }

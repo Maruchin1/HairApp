@@ -17,6 +17,7 @@ val appModule = module {
         CareViewModel(
             showSelectedProduct = get(),
             showSelectedCare = get(),
+            showCareSchema = get(),
             addCare = get(),
             updateCare = get(),
             deleteCare = get()
@@ -41,7 +42,8 @@ val appModule = module {
     viewModel {
         HomeViewModel(
             showProductsList = get(),
-            showCaresList = get()
+            showCaresList = get(),
+            showCareSchemas = get()
         )
     }
 

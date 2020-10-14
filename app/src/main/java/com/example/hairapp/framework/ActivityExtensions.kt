@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
+import com.example.core.domain.CareSchema
 import com.example.core.domain.CareStep
 import com.example.hairapp.BR
 import com.example.hairapp.R
@@ -80,6 +81,24 @@ suspend fun FragmentActivity.selectCareStepDialog(): CareStep.Type? = suspendCor
         .setTitle("Rodzaj produktu")
         .setItems(items.toTypedArray()) { _, which ->
             val selectedValue = values[which]
+            it.resume(selectedValue)
+        }
+        .setOnCancelListener { _ -> it.resume(null) }
+        .show()
+}
+
+suspend fun FragmentActivity.selectCareSchemaDialog(
+    schemas: List<CareSchema>
+): CareSchema? = suspendCoroutine {
+    val schemasWithEmpty = mutableListOf<CareSchema>().apply {
+        addAll(schemas)
+        add(CareSchema.noSchema)
+    }
+    val items = schemasWithEmpty.map { it.name}
+    MaterialAlertDialogBuilder(this)
+        .setTitle("Schemat pielęgnacji")
+        .setItems(items.toTypedArray()) { _, which ->
+            val selectedValue = schemasWithEmpty[which]
             it.resume(selectedValue)
         }
         .setOnCancelListener { _ -> it.resume(null) }

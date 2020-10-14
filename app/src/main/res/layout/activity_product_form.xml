@@ -32,6 +32,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:onNavigationClick="@{() -> controller.onBackPressed()}"
+                app:optionsMenu="@menu/save"
                 app:title="Nowy produkt" />
         </com.google.android.material.appbar.AppBarLayout>
 

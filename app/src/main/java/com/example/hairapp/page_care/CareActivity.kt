@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.lifecycleScope
-import com.example.core.domain.CareStep
+import com.example.core.domain.CareSchema
 import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityCareBinding
 import com.example.hairapp.framework.*
@@ -46,16 +46,6 @@ class CareActivity : AppCompatActivity() {
             .start()
     }
 
-    fun saveCare() {
-        lifecycleScope.launch {
-            val steps = stepsFragment.getSteps()
-            viewModel.saveCare(steps).onFailure {
-                showErrorSnackbar(it.message)
-            }.onSuccess {
-                finish()
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +53,9 @@ class CareActivity : AppCompatActivity() {
         setStatusBarColor(R.color.color_primary)
         setNavigationColor(R.color.color_background)
         setupTabs()
-        checkIfEdit()
+        checkInputParams()
+
+        toolbar.onMenuOptionClick = { saveCare() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -73,17 +65,24 @@ class CareActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkIfEdit() {
-        val editCareId = intent.getIntExtra(IN_EDIT_CARE_ID, -1)
-        if (editCareId != -1) {
-            setEditCare(editCareId)
+    private fun saveCare() = lifecycleScope.launch {
+        val steps = stepsFragment.getSteps()
+        viewModel.saveCare(steps).onFailure {
+            showErrorSnackbar(it.message)
+        }.onSuccess {
+            finish()
         }
     }
 
-    private fun setEditCare(careId: Int) = lifecycleScope.launch {
-        toolbar.title = "Pielęgnacja"
-        viewModel.setEditCareAsync(careId)
-            .onFailure { showErrorSnackbar(it.message) }
+    private fun checkInputParams() = lifecycleScope.launch {
+        val editCareId = intent.getIntExtra(IN_EDIT_CARE_ID, -1)
+        val newCareSchemaId = intent.getIntExtra(IN_NEW_CARE_SCHEMA_ID, -1)
+        val result = when {
+            editCareId != -1 -> viewModel.setEditCare(editCareId)
+            newCareSchemaId != -1 -> viewModel.setNewCareSchema(newCareSchemaId)
+            else -> null
+        }
+        result?.onFailure { showErrorSnackbar(it.message) }
     }
 
     private fun setupTabs() {
@@ -120,7 +119,6 @@ class CareActivity : AppCompatActivity() {
                 CareTab.PHOTOS -> "Zdjęcia"
             }
         }
-
     }
 
     internal enum class CareTab(val position: Int) {
@@ -138,10 +136,16 @@ class CareActivity : AppCompatActivity() {
 
     companion object {
         private const val IN_EDIT_CARE_ID = "in-edit-care-id"
+        private const val IN_NEW_CARE_SCHEMA_ID = "in-new-care-schema-id"
 
-        fun makeIntent(context: Context, editCareId: Int?): Intent {
+        fun makeIntent(context: Context, editCareId: Int): Intent {
             return Intent(context, CareActivity::class.java)
                 .putExtra(IN_EDIT_CARE_ID, editCareId)
+        }
+
+        fun makeIntent(context: Context, newCareSchema: CareSchema): Intent {
+            return Intent(context, CareActivity::class.java)
+                .putExtra(IN_NEW_CARE_SCHEMA_ID, newCareSchema.id)
         }
     }
 }

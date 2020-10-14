@@ -53,15 +53,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <TextView
+                    android:id="@+id/item_care_method"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="4dp"
+                    android:text='@{item.schemaName, default="OMO"}'
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+                    app:layout_constraintBottom_toTopOf="@id/item_care_products_proportion"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <com.example.hairapp.common.ProductsProportionView
                     android:id="@+id/item_care_products_proportion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/item_care_method"
                     app:productsProportion="@{Converter.productsProportion(item)}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

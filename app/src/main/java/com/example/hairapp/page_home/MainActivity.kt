@@ -5,23 +5,28 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.R
 import com.example.hairapp.framework.bind
 import com.example.hairapp.databinding.ActivityMainBinding
+import com.example.hairapp.framework.selectCareSchemaDialog
 import com.example.hairapp.page_product_form.ProductFormActivity
 import com.example.hairapp.framework.setNavigationColor
 import com.example.hairapp.framework.setStatusBarColor
 import com.example.hairapp.page_care.CareActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
+    private val viewModel: HomeViewModel by viewModel()
+
     fun addNew() {
-        val intent = when (HomeTab.byPosition(tabs.selectedTabPosition)) {
-            HomeTab.CARE -> CareActivity.makeIntent(this, null)
+        when (HomeTab.byPosition(tabs.selectedTabPosition)) {
+            HomeTab.CARE -> addNewCare()
             HomeTab.PRODUCTS -> ProductFormActivity.makeIntent(this, null)
         }
-        startActivity(intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +50,14 @@ class MainActivity : AppCompatActivity() {
         productsTab?.icon = ContextCompat.getDrawable(this, R.drawable.ic_round_shopping_basket_24)
 
         MainTabsFabMediator(this)
+    }
+
+    private fun addNewCare() = lifecycleScope.launch {
+        val schemas = viewModel.getCareSchemas()
+        selectCareSchemaDialog(schemas)?.let { selectedSchema ->
+            val intent = CareActivity.makeIntent(this@MainActivity, selectedSchema)
+            startActivity(intent)
+        }
     }
 
     inner class TabsAdapter : FragmentStatePagerAdapter(

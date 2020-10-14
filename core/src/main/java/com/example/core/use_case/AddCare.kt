@@ -18,6 +18,7 @@ class AddCare(
     private fun makeNewCare(input: Input): Care {
         return Care(
             id = 0,
+            schemaName = input.schemaName,
             date = input.date,
             photos = input.photos,
             steps = input.steps
@@ -29,6 +30,7 @@ class AddCare(
     }
 
     data class Input(
+        val schemaName: String,
         val date: LocalDate,
         val photos: List<String>,
         val steps: List<CareStep>

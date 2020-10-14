@@ -29,14 +29,6 @@ class ProductFormActivity : AppCompatActivity() {
             .start()
     }
 
-    fun saveProduct() {
-        lifecycleScope.launch {
-            viewModel.saveProduct()
-                .onSuccess { finish() }
-                .onFailure { showErrorSnackbar(it.message) }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind<ActivityProductFormBinding>(R.layout.activity_product_form, viewModel)
@@ -46,6 +38,8 @@ class ProductFormActivity : AppCompatActivity() {
         val editProductId = intent.getIntExtra(IN_EDIT_PRODUCT_ID, -1)
         if (editProductId != -1)
             setEditProduct(editProductId)
+
+        toolbar.onMenuOptionClick = { saveProduct() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -60,6 +54,12 @@ class ProductFormActivity : AppCompatActivity() {
         toolbar.title = "Edytuj produkt"
         viewModel.setEditProductAsync(productId)
             .await()
+            .onFailure { showErrorSnackbar(it.message) }
+    }
+
+    private fun saveProduct() = lifecycleScope.launch {
+        viewModel.saveProduct()
+            .onSuccess { finish() }
             .onFailure { showErrorSnackbar(it.message) }
     }
 

@@ -16,6 +16,7 @@ internal class Mapper(
 
     suspend fun toDomain(entity: CareWithPhotosAndProducts) = Care(
         id = entity.care.careId,
+        schemaName = entity.care.schemaName,
         date = entity.care.date,
         photos = entity.photos.map { it.data },
         steps = entity.steps.map { careStepEntity ->

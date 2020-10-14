@@ -1,42 +1,47 @@
 package com.example.hairapp.page_care
 
 import androidx.lifecycle.*
-import com.example.core.base.invoke
-import com.example.core.domain.Care
-import com.example.core.domain.CareStep
-import com.example.core.domain.Product
-import com.example.core.domain.ProductsProportion
+import com.example.core.domain.*
 import com.example.core.use_case.*
 import com.example.hairapp.framework.resultFailure
 import com.example.hairapp.framework.updateState
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class CareViewModel(
     private val showSelectedProduct: ShowSelectedProduct,
     private val showSelectedCare: ShowSelectedCare,
+    private val showCareSchema: ShowCareSchema,
     private val addCare: AddCare,
     private val updateCare: UpdateCare,
     private val deleteCare: DeleteCare
 ) : ViewModel() {
 
     private val _editCareId = MutableLiveData<Int?>(null)
+    private val _schemaName = MutableLiveData(CareSchema.noSchema.name)
     private val _date = MutableLiveData(LocalDate.now())
     private val _steps = MediatorLiveData<List<CareStep>>()
     private val _photos = MutableLiveData<MutableList<String>>(mutableListOf())
     private val _productsProportion = MediatorLiveData<ProductsProportion>()
 
+    val title: LiveData<String> = _schemaName
     val date: LiveData<LocalDate> = _date
     val photos: LiveData<List<String>> = _photos.map { it.toList() }
     val noPhotos: LiveData<Boolean> = photos.map { it.isEmpty() }
     val steps: LiveData<List<CareStep>> = _steps
     val productsProportion: LiveData<ProductsProportion> = _productsProportion
 
-    suspend fun setEditCareAsync(careId: Int): Result<Unit> {
+    suspend fun setNewCareSchema(schemaId: Int): Result<Unit> {
+        val input = ShowCareSchema.Input(schemaId)
+        return showCareSchema(input).runCatching {
+            val schema = this.first()
+            _schemaName.postValue(schema.name)
+            _steps.postValue(schema.steps)
+        }
+    }
+
+    suspend fun setEditCare(careId: Int): Result<Unit> {
         _editCareId.postValue(careId)
         val input = ShowSelectedCare.Input(careId)
         return showSelectedCare(input).runCatching {
@@ -69,12 +74,12 @@ class CareViewModel(
     }
 
     suspend fun saveCare(steps: List<CareStep>): Result<Unit> {
-        val selectedDate = date.value
-            ?: return resultFailure("Nie wybrano daty pielęgnacji")
+        val schemaName = _schemaName.value!!
+        val selectedDate = _date.value!!
         val photos = _photos.value ?: emptyList()
         val editCareId = _editCareId.value
         return if (editCareId == null) {
-            val input = AddCare.Input(selectedDate, photos, steps)
+            val input = AddCare.Input(schemaName, selectedDate, photos, steps)
             addCare(input)
         } else {
             val input = UpdateCare.Input(editCareId, selectedDate, photos, steps)

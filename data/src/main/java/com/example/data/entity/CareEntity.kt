@@ -11,10 +11,13 @@ internal data class CareEntity(
     @PrimaryKey(autoGenerate = true)
     val careId: Int,
 
+    val schemaName: String,
+
     val date: LocalDate
 ) {
     constructor(care: Care) : this(
         careId = care.id,
+        schemaName = care.schemaName,
         date = care.date
     )
 }
