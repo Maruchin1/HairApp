@@ -21,6 +21,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?selectableItemBackground"
+        android:onClick="@{() -> controller.openSchemaPage(item.id)}"
         app:cardBackgroundColor="@color/color_primary_light">
 
         <androidx.constraintlayout.widget.ConstraintLayout

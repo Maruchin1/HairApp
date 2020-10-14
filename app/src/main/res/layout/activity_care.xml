@@ -32,10 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll"
-                app:leftActionIcon="@drawable/ic_round_arrow_back_ios_24"
-                app:onLeftAction="@{controller::finish}"
-                app:onRightAction="@{controller::saveCare}"
-                app:rightActionIcon="@drawable/ic_round_save_24"
+                app:onNavigationClick="@{() -> controller.onBackPressed()}"
                 app:title="Nowa pielęgnacja" />
 
             <LinearLayout

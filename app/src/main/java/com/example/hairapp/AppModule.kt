@@ -33,7 +33,8 @@ val appModule = module {
     viewModel {
         EditCareSchemaViewModel(
             showCareSchema = get(),
-            updateCareSchema = get()
+            updateCareSchema = get(),
+            deleteCareSchema = get()
         )
     }
 

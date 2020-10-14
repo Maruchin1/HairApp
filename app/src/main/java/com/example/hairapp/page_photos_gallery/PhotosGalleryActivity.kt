@@ -22,7 +22,7 @@ class PhotosGalleryActivity : AppCompatActivity(), CarePhotoItemController {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bind<ActivityPhotosGalleryBinding>(R.layout.activity_photos_gallery, null)
+        bind<ActivityPhotosGalleryBinding>(R.layout.activity_photos_gallery, viewModel)
         setStatusBarColor(R.color.color_primary)
         setNavigationColor(R.color.color_background)
 

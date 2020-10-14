@@ -8,6 +8,10 @@
         <variable
             name="controller"
             type="com.example.hairapp.page_photos_gallery.PhotosGalleryActivity" />
+
+        <variable
+            name="viewModel"
+            type="com.example.hairapp.page_photos_gallery.PhotosGalleryViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -22,8 +26,7 @@
             <com.example.hairapp.common.ToolbarView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:leftActionIcon="@drawable/ic_round_arrow_back_ios_24"
-                app:onLeftAction="@{() -> controller.onBackPressed()}"
+                app:onNavigationClick="@{() -> controller.onBackPressed()}"
                 app:title="Przegląd zdjęć" />
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -33,15 +36,30 @@
             android:fillViewport="true"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/gallery_photos_adapter"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:paddingHorizontal="4dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="128dp"
-                tools:listitem="@layout/item_care_photo" />
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/gallery_photos_adapter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="128dp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
+                    app:visibleOrGone="@{!viewModel.noPhotos}"
+                    tools:listitem="@layout/item_care_photo" />
+
+                <com.example.hairapp.common.NoContentView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:icon="@drawable/ic_outline_photo_library_24"
+                    app:title="Nie zapisano jeszcze żadnych zdjęć z pielęgnacji"
+                    app:visibleOrGone="@{viewModel.noPhotos}" />
+            </FrameLayout>
         </androidx.core.widget.NestedScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

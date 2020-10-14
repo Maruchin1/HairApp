@@ -18,7 +18,7 @@ class UpdateCareSchema(
         val existing = findExisting()
         if (existing == null) {
             notFound()
-        } else {
+        } else if (schemaChanged(existing)) {
             patchSchema(existing)
             saveSchema(existing)
         }
@@ -29,7 +29,11 @@ class UpdateCareSchema(
     }
 
     private fun notFound() {
-        throw CareSchemaException.NotFound(input.name)
+        throw CareSchemaException.NotFound()
+    }
+
+    private fun schemaChanged(existing: CareSchema): Boolean {
+        return existing.name != input.name || existing.steps != input.steps
     }
 
     private fun patchSchema(schema: CareSchema) {

@@ -7,6 +7,10 @@
             name="controller"
             type="com.example.hairapp.page_edit_care_schema.EditCareSchemaActivity" />
 
+        <variable
+            name="viewModel"
+            type="com.example.hairapp.page_edit_care_schema.EditCareSchemaViewModel" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -21,11 +25,12 @@
             android:layout_height="wrap_content">
 
             <com.example.hairapp.common.ToolbarView
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:leftActionIcon="@drawable/ic_round_arrow_back_ios_24"
-                app:onLeftAction="@{() -> controller.onBackPressed()}"
-                app:title="Schemat pielęgnacji" />
+                app:onNavigationClick="@{() -> controller.onBackPressed()}"
+                app:optionsMenu="@menu/edit_care_schema"
+                app:title='@{viewModel.schemaName, default="Schemat pielęgnacji"}' />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView

@@ -3,8 +3,12 @@ package com.example.hairapp.common
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.PopupMenu
+import androidx.annotation.MenuRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.example.hairapp.R
 import kotlinx.android.synthetic.main.view_toolbar.view.*
@@ -17,65 +21,61 @@ class ToolbarView(context: Context, attrs: AttributeSet) : FrameLayout(context, 
             toolbar_title.text = value
         }
 
-    var leftActionIcon: Drawable?
-        get() = toolbara_left_action.drawable
-        set(value) {
-            toolbara_left_action.setImageDrawable(value)
-        }
-
-    var rightActionIcon: Drawable?
-        get() = toolbar_right_action.drawable
-        set(value) {
-            toolbar_right_action.setImageDrawable(value)
-        }
-
-    var onLeftAction: (() -> Unit)? = null
+    var navigationMode: Int = MODE_STANDARD
         set(value) {
             field = value
-            toolbara_left_action.visibility = if (value != null) View.VISIBLE else View.GONE
+            val iconResId = when (value) {
+                MODE_HOME -> R.drawable.ic_round_menu_24
+                MODE_STANDARD -> R.drawable.ic_round_arrow_back_ios_24
+                else -> throw IllegalStateException("Not matching navigation mode $value")
+            }
+            toolbar_toolbar.navigationIcon = ContextCompat.getDrawable(context, iconResId)
         }
 
-    var onRightAction: (() -> Unit)? = null
+    @MenuRes
+    var optionsMenuResId: Int = NO_MENU
         set(value) {
             field = value
-            toolbar_right_action.visibility = if (value != null) View.VISIBLE else View.GONE
+            if (value != NO_MENU) {
+                toolbar_toolbar.inflateMenu(value)
+            }
         }
+
+    var onNavigationClick: (() -> Unit)? = null
+
+    var onMenuOptionClick: ((MenuItem) -> Unit)? = null
 
     init {
         View.inflate(context, R.layout.view_toolbar, this)
         context.obtainStyledAttributes(attrs, R.styleable.ToolbarView).run {
             title = getString(R.styleable.ToolbarView_title)
-            leftActionIcon = getDrawable(R.styleable.ToolbarView_leftActionIcon)
-            rightActionIcon = getDrawable(R.styleable.ToolbarView_rightActionIcon)
+            navigationMode = getInteger(R.styleable.ToolbarView_toolbarMode, MODE_STANDARD)
+            optionsMenuResId = getResourceId(R.styleable.ToolbarView_optionsMenu, NO_MENU)
             recycle()
         }
-        onLeftAction = null
-        onRightAction = null
-        toolbara_left_action.setOnClickListener {
-            onLeftAction?.invoke()
-        }
-        toolbar_right_action.setOnClickListener {
-            onRightAction?.invoke()
+
+        toolbar_toolbar.setNavigationOnClickListener { onNavigationClick?.invoke() }
+        toolbar_toolbar.setOnMenuItemClickListener {
+            onMenuOptionClick?.invoke(it)
+            true
         }
     }
 
     companion object {
+        private const val NO_MENU = -1
+        private const val MODE_HOME = 0
+        private const val MODE_STANDARD = 1
+
         @BindingAdapter("app:title")
         @JvmStatic
         fun setTitle(view: ToolbarView, title: String?) {
             view.title = title
         }
 
-        @BindingAdapter("app:onLeftAction")
+        @BindingAdapter("app:onNavigationClick")
         @JvmStatic
-        fun setOnLeftAction(view: ToolbarView, action: () -> Unit) {
-            view.onLeftAction = action
-        }
-
-        @BindingAdapter("app:onRightAction")
-        @JvmStatic
-        fun setOnRightAction(view: ToolbarView, action: () -> Unit) {
-            view.onRightAction = action
+        fun setOnNavigationClick(view: ToolbarView, action: () -> Unit) {
+            view.onNavigationClick = action
         }
     }
 

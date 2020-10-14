@@ -9,7 +9,7 @@ class DrawerMediator(private val activity: MainActivity) {
     }
 
     init {
-        activity.toolbar.onLeftAction = this::toggleDrawer
+        activity.toolbar.onNavigationClick = this::toggleDrawer
     }
 
     private fun toggleDrawer() {

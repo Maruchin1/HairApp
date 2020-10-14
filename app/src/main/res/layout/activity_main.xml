@@ -32,7 +32,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:leftActionIcon="@drawable/ic_round_menu_24"
+                    app:toolbarMode="home"
                     app:title="@string/app_name" />
 
                 <com.google.android.material.tabs.TabLayout

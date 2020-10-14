@@ -5,8 +5,11 @@
 
     <declare-styleable name="ToolbarView">
         <attr name="title" />
-        <attr name="leftActionIcon" format="reference" />
-        <attr name="rightActionIcon" format="reference" />
+        <attr name="toolbarMode" format="enum">
+            <enum name="home" value="0" />
+            <enum name="standard" value="1" />
+        </attr>
+        <attr name="optionsMenu" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="CareProductEditSectionView">

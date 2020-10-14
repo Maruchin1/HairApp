@@ -48,42 +48,62 @@ class EditCareSchemaActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bind<ActivityEditCareSchemaBinding>(R.layout.activity_edit_care_schema, null)
+        bind<ActivityEditCareSchemaBinding>(R.layout.activity_edit_care_schema, viewModel)
         setStatusBarColor(R.color.color_primary)
         setNavigationColor(R.color.color_background)
 
         care_schema_steps_recycler.adapter = adapter
         adapter.touchHelper.attachToRecyclerView(care_schema_steps_recycler)
-//        adapter.setSource(viewModel.careSchema, this)
+        adapter.setSource(viewModel.schemaSteps, this)
+
+        val schemaId = intent.getIntExtra(EXTRA_SCHEMA_ID, -1)
+        if (schemaId != -1) {
+            selectCareSchema(schemaId)
+        }
+
+        toolbar.onMenuOptionClick = {
+            when (it.itemId) {
+                R.id.option_change_name -> askForNewName()
+                R.id.option_delete -> deleteSchema()
+            }
+        }
     }
 
     override fun onBackPressed() {
-        checkSchemaChanged()
+        val updatedSteps = adapter.getAllCareSteps()
+        viewModel.saveChanges(updatedSteps)
+        super.onBackPressed()
     }
 
-    private fun checkSchemaChanged() = lifecycleScope.launch {
-        val newSchema = adapter.getAllCareSteps()
-//        if (viewModel.schemaChanged(newSchema) && confirmSaveChanges()) {
-//            saveChanges(newSchema)
-//        } else {
-//            super.onBackPressed()
-//        }
+    private fun selectCareSchema(schemaId: Int) = lifecycleScope.launch {
+        viewModel.selectCareSchema(schemaId)
+            .onFailure { showErrorSnackbar(it.message) }
     }
 
-    private suspend fun confirmSaveChanges() = confirmDialog(
-        title = "Zapisz zmiany",
-        message = "Schemat pielęgnacji został zmodyfikowany. Chcesz zapisać wprowadzone zmiany?"
-    )
+    private fun askForNewName() = lifecycleScope.launch {
+        inputDialog(getString(R.string.name_your_schema))?.let { newName ->
+            viewModel.changeSchemaName(newName)
+        }
+    }
 
-//    private suspend fun saveChanges(newSchema: List<CareStep>) {
-//        viewModel.saveChanges(newSchema)
-//            .onSuccess { super.onBackPressed() }
-//            .onFailure { showErrorSnackbar(it.message) }
-//    }
+    private fun deleteSchema() = lifecycleScope.launch {
+        val confirmed = confirmDialog(
+            title = getString(R.string.confirm_delete),
+            message = getString(R.string.care_schema_confirm_delete_message)
+        )
+        if (confirmed) {
+            viewModel.deleteSchema()
+                .onSuccess { finish() }
+                .onFailure { showErrorSnackbar(it.message) }
+        }
+    }
 
     companion object {
+        private const val EXTRA_SCHEMA_ID = "extra-schema-id"
+
         fun makeIntent(context: Context, schemaId: Int): Intent {
             return Intent(context, EditCareSchemaActivity::class.java)
+                .putExtra(EXTRA_SCHEMA_ID, schemaId)
         }
     }
 }

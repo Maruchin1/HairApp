@@ -31,10 +31,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:leftActionIcon="@drawable/ic_round_arrow_back_ios_24"
-                app:onLeftAction="@{controller::finish}"
-                app:onRightAction="@{controller::saveProduct}"
-                app:rightActionIcon="@drawable/ic_round_save_24"
+                app:onNavigationClick="@{() -> controller.onBackPressed()}"
                 app:title="Nowy produkt" />
         </com.google.android.material.appbar.AppBarLayout>
 

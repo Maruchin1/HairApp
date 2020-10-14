@@ -31,9 +31,11 @@
     <string name="care_activity_confirm_delete_message">Wybrana pielęgnacja zostanie usunięta. Czy chcesz kontynuować?</string>
     <string name="care_activity_confirm_delete_step_message">Wybrany krok zostanie usunięty z pielęgnacji. Czy chcesz kontynuować?</string>
 
-    <!--CareSchemaActivity-->
-    <string name="care_schema_info_message">Zdefiniuj schemat kroków dla swoich pielęgnacji</string>
+    <!--CareSchema-->
+    <string name="care_schema_info_message">Zdefiniuj schemat kroków dla swojej pielęgnacji</string>
+    <string name="care_schema_confirm_delete_message">Wybrany schemat zostanie usunięty. Czy chcesz kontynuować?</string>
     <string name="care_schema_confirm_delete_step_message">Wybrany krok zostanie usunięty ze schematu pielęgnacji. Czy chcesz kontynuować?</string>
+    <string name="name_your_schema">Nazwij swój schemat</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

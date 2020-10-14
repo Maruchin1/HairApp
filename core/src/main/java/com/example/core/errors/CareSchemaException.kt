@@ -4,5 +4,5 @@ sealed class CareSchemaException(message: String) : IllegalStateException(messag
 
     class AlreadyExists(name: String) : CareSchemaException("Istnieje już inny schemat o nazwie $name")
 
-    class NotFound(name: String) : CareSchemaException("Nie znaleziono schematu o nazwie $name")
+    class NotFound() : CareSchemaException("Nie znaleziono wybranego schematu")
 }

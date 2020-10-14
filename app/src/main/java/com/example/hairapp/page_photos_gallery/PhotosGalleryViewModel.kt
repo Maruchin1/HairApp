@@ -1,9 +1,6 @@
 package com.example.hairapp.page_photos_gallery
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.core.base.invoke
 import com.example.core.domain.DayPhotos
 import com.example.core.use_case.DeleteCarePhoto
@@ -19,6 +16,8 @@ class PhotosGalleryViewModel(
     val galleryItems: LiveData<List<GalleryItem>> = showPhotosReview()
         .map { it.toGalleryItems() }
         .asLiveData()
+
+    val noPhotos: LiveData<Boolean> = galleryItems.map { it.isEmpty() }
 
     fun deletePhoto(photo: String) = viewModelScope.launch {
         val input = DeleteCarePhoto.Input(photo)

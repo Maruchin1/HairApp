@@ -9,10 +9,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.R
-import com.example.hairapp.databinding.FragmentPhotoPreviewBinding
+import com.example.hairapp.databinding.DialogPhotoPreviewBinding
 import com.example.hairapp.framework.bind
 import com.example.hairapp.framework.confirmDialog
-import kotlinx.android.synthetic.main.fragment_photo_preview.*
+import kotlinx.android.synthetic.main.dialog_photo_preview.*
 import kotlinx.coroutines.launch
 
 class PhotoPreviewDialog(
@@ -34,10 +34,10 @@ class PhotoPreviewDialog(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return bind<FragmentPhotoPreviewBinding>(
+        return bind<DialogPhotoPreviewBinding>(
             inflater,
             container,
-            R.layout.fragment_photo_preview,
+            R.layout.dialog_photo_preview,
             null
         )
     }

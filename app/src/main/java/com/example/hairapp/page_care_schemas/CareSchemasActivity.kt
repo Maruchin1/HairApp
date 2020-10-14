@@ -23,11 +23,16 @@ class CareSchemasActivity : AppCompatActivity() {
     }
 
     fun addNewSchema() = lifecycleScope.launch {
-        inputDialog("Nazwij swój schemat")?.let { name ->
+        inputDialog(getString(R.string.name_your_schema))?.let { name ->
             viewModel.addCareSchema(name)
                 .onSuccess { openSchemaPage(it) }
                 .onFailure { showErrorSnackbar(it.message) }
         }
+    }
+
+    fun openSchemaPage(schemaId: Int) {
+        val intent = EditCareSchemaActivity.makeIntent(this, schemaId)
+        startActivity(intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,11 +43,6 @@ class CareSchemasActivity : AppCompatActivity() {
 
         care_schemas_recycler.adapter = adapter
         adapter.setSource(viewModel.careSchemas, this)
-    }
-
-    private fun openSchemaPage(schemaId: Int) {
-        val intent = EditCareSchemaActivity.makeIntent(this, schemaId)
-        startActivity(intent)
     }
 
     companion object {

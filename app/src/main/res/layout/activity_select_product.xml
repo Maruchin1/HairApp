@@ -26,8 +26,7 @@
             <com.example.hairapp.common.ToolbarView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:leftActionIcon="@drawable/ic_round_arrow_back_ios_24"
-                app:onLeftAction="@{() -> controller.finish()}"
+                app:onNavigationClick="@{() -> controller.onBackPressed()}"
                 app:title='@{viewModel.title, default="Wybierz produkt"}' />
         </com.google.android.material.appbar.AppBarLayout>
 
