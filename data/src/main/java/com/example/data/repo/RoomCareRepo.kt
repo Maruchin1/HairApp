@@ -60,4 +60,9 @@ internal data class RoomCareRepo(
         return careDao.findById(careId)
             .map { mapper.toDomain(it) }
     }
+
+    override fun findLastN(numOfCares: Int): Flow<List<Care>> {
+        return careDao.findLastN(numOfCares)
+            .mapList { mapper.toDomain(it) }
+    }
 }

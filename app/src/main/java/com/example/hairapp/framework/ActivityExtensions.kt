@@ -1,6 +1,9 @@
 package com.example.hairapp.framework
 
 import android.app.Activity
+import android.content.Context
+import android.graphics.Color
+import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat

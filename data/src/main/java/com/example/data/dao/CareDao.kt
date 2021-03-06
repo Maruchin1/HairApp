@@ -1,7 +1,6 @@
 package com.example.data.dao
 
 import androidx.room.*
-import com.example.core.domain.Care
 import com.example.data.entity.CareEntity
 import com.example.data.relations.CareWithPhotosAndProducts
 import kotlinx.coroutines.flow.Flow
@@ -25,4 +24,9 @@ internal interface CareDao {
     @Transaction
     @Query("select * from CareEntity")
     fun findAll(): Flow<List<CareWithPhotosAndProducts>>
+
+    @Transaction
+    @Query("select * from CareEntity limit :numOfCares")
+    fun findLastN(numOfCares: Int): Flow<List<CareWithPhotosAndProducts>>
+
 }

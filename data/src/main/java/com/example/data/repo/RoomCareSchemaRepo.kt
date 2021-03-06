@@ -55,11 +55,6 @@ internal class RoomCareSchemaRepo(
             .mapList { mapper.toDomain(it) }
     }
 
-    override fun findLastN(numOfCares: Int): Flow<List<CareSchema>> {
-        return careSchemaDao.findLastN(numOfCares)
-            .mapList { mapper.toDomain(it) }
-    }
-
     private fun checkInitialized() = GlobalScope.launch {
         val schemas = careSchemaDao.findAll().first()
         if (schemas.isEmpty()) {

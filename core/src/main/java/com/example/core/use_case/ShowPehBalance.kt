@@ -1,23 +1,25 @@
 package com.example.core.use_case
 
 import com.example.core.base.FlowUseCase
+import com.example.core.domain.Care
 import com.example.core.domain.CareSchema
 import com.example.core.domain.PehBalance
+import com.example.core.gateway.CareRepo
 import com.example.core.gateway.CareSchemaRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class ShowPehBalance(
-    private val careSchemaRepo: CareSchemaRepo
+    private val careRepo: CareRepo
 ) : FlowUseCase<ShowPehBalance.Input, PehBalance>() {
 
     override fun execute(input: Input): Flow<PehBalance> {
-        return careSchemaRepo.findLastN(input.numOfCares)
+        return careRepo.findLastN(input.numOfCares)
             .map { calcBalanceForEach(it) }
             .map { calcAvgBalance(it) }
     }
 
-    private fun calcBalanceForEach(schemas: List<CareSchema>): List<PehBalance> {
+    private fun calcBalanceForEach(schemas: List<Care>): List<PehBalance> {
         return schemas.map { PehBalance.fromSteps(it.steps) }
     }
 

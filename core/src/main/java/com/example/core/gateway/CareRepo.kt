@@ -16,4 +16,6 @@ interface CareRepo {
     fun findAll(): Flow<List<Care>>
 
     fun findById(careId: Int): Flow<Care>
+
+    fun findLastN(numOfCares: Int): Flow<List<Care>>
 }

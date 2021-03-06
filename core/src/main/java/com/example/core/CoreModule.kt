@@ -46,7 +46,7 @@ val coreModule = module {
     }
 
     factory {
-        ShowPehBalance(careSchemaRepo = get())
+        ShowPehBalance(careRepo = get())
     }
 
     factory {

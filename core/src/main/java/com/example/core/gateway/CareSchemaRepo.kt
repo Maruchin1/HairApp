@@ -14,6 +14,4 @@ interface CareSchemaRepo {
     fun findById(id: Int): Flow<CareSchema>
 
     fun findAll(): Flow<List<CareSchema>>
-
-    fun findLastN(numOfCares: Int): Flow<List<CareSchema>>
 }
