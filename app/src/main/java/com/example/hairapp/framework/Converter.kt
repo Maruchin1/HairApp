@@ -4,7 +4,7 @@ import android.net.Uri
 import com.example.core.domain.Care
 import com.example.core.domain.CareStep
 import com.example.core.domain.Product
-import com.example.core.domain.ProductsProportion
+import com.example.core.domain.PehBalance
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -121,8 +121,8 @@ object Converter {
     // ProductsProportion
 
     @JvmStatic
-    fun productsProportion(care: Care?): ProductsProportion? {
-        return care?.let { ProductsProportion(it.steps) }
+    fun pehBalance(care: Care?): PehBalance? {
+        return care?.let { PehBalance.fromSteps(it.steps) }
     }
 
     // CareNotes

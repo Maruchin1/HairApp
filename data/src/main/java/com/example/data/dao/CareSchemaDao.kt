@@ -24,4 +24,7 @@ internal interface CareSchemaDao {
 
     @Query("select * from CareSchemaEntity")
     fun findAll(): Flow<List<CareSchemaWithSteps>>
+
+    @Query("select * from CareSchemaEntity limit :numOfCares")
+    fun findLastN(numOfCares: Int): Flow<List<CareSchemaWithSteps>>
 }

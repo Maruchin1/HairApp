@@ -8,7 +8,7 @@ data class CareSchema(
     companion object {
         val noSchema = CareSchema(
             id = -1,
-            name = "Własna pielęgnacja",
+            name = "Bez schematu",
             steps = listOf()
         )
     }

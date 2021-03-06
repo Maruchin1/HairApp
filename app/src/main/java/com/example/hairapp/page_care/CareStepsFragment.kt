@@ -84,7 +84,7 @@ class CareStepsFragment : Fragment() {
             TransitionManager.beginDelayedTransition(care_steps_recycler, ChangeBounds())
             adapter.updateItems(it)
         }
-        viewModel.addProductsProportionSource(adapter.productsProportion)
+        viewModel.addProductsProportionSource(adapter.pehBalance)
 
         adapter.noSteps.observe(viewLifecycleOwner) {
             Binder.setVisibleOrGone(care_steps_not_steps, it)

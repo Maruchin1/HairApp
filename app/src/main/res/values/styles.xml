@@ -6,6 +6,7 @@
         <item name="colorOnPrimary">@color/color_white</item>
         <item name="colorPrimaryDark">@color/color_primary</item>
         <item name="colorAccent">@color/color_accent</item>
+        <item name="colorSurface">@color/color_surface</item>
 
         <item name="android:colorBackground">@color/color_background</item>
         <item name="materialButtonStyle">@style/Widget.App.Button.Primary</item>
@@ -36,7 +37,7 @@
 
     <style name="Widget.App.Card" parent="Widget.MaterialComponents.CardView">
         <item name="cardElevation">0dp</item>
-        <item name="cardBackgroundColor">@color/color_white</item>
+        <item name="cardBackgroundColor">@color/color_surface</item>
         <item name="cardCornerRadius">8dp</item>
     </style>
 

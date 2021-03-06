@@ -24,7 +24,7 @@ class CareViewModel(
     private val _steps = MediatorLiveData<List<CareStep>>()
     private val _photos = MutableLiveData<MutableList<String>>(mutableListOf())
     private val _notes = MutableLiveData<String>()
-    private val _productsProportion = MediatorLiveData<ProductsProportion>()
+    private val _productsProportion = MediatorLiveData<PehBalance>()
 
     val title: LiveData<String> = _schemaName
     val date: LiveData<LocalDate> = _date
@@ -32,7 +32,7 @@ class CareViewModel(
     val noPhotos: LiveData<Boolean> = photos.map { it.isEmpty() }
     val steps: LiveData<List<CareStep>> = _steps
     val notes: LiveData<String> = _notes
-    val productsProportion: LiveData<ProductsProportion> = _productsProportion
+    val pehBalance: LiveData<PehBalance> = _productsProportion
 
     suspend fun setNewCareSchema(schemaId: Int): Result<Unit> {
         val input = ShowCareSchema.Input(schemaId)
@@ -56,7 +56,7 @@ class CareViewModel(
         _date.value = date
     }
 
-    fun addProductsProportionSource(source: LiveData<ProductsProportion>) {
+    fun addProductsProportionSource(source: LiveData<PehBalance>) {
         _productsProportion.removeSource(source)
         _productsProportion.addSource(source) {
             _productsProportion.value = it

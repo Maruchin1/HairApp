@@ -4,6 +4,7 @@ import com.example.hairapp.page_care.CareViewModel
 import com.example.hairapp.page_care_schemas.CareSchemasViewModel
 import com.example.hairapp.page_edit_care_schema.EditCareSchemaViewModel
 import com.example.hairapp.page_home.HomeViewModel
+import com.example.hairapp.page_peh_balance.PehBalanceViewModel
 import com.example.hairapp.page_photos_gallery.PhotosGalleryViewModel
 import com.example.hairapp.page_product.ProductViewModel
 import com.example.hairapp.page_product_form.ProductFormViewModel
@@ -73,6 +74,12 @@ val appModule = module {
     viewModel {
         SelectProductViewModel(
             showProductsToSelect = get()
+        )
+    }
+
+    viewModel {
+        PehBalanceViewModel(
+            showPehBalance = get()
         )
     }
 }

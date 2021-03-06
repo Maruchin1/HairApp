@@ -5,6 +5,7 @@
     <color name="color_primary_light">#ffcccb</color>
     <color name="color_accent">#9b0000</color>
 
+    <color name="color_surface">#fafafa</color>
     <color name="color_background">#eeeeee</color>
     <color name="color_background_darker">#e0e0e0</color>
     <color name="color_background_dark">@android:color/darker_gray</color>

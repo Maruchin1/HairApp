@@ -2,7 +2,6 @@ package com.example.hairapp.page_care
 
 import android.annotation.SuppressLint
 import android.view.MotionEvent
-import android.view.View
 import android.widget.ImageButton
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core.domain.CareStep
 import com.example.core.domain.Product
-import com.example.core.domain.ProductsProportion
+import com.example.core.domain.PehBalance
 import com.example.hairapp.framework.BindingRecyclerAdapter
 import com.example.hairapp.framework.BindingViewHolder
 import java.util.*
@@ -21,10 +20,10 @@ class CareStepsAdapter(
     private val dragHandleResId: Int?
 ) : BindingRecyclerAdapter<CareStep>(controller, layoutResId) {
 
-    private val _productsProportion = MutableLiveData<ProductsProportion>()
+    private val _productsProportion = MutableLiveData<PehBalance>()
     private val _noSteps = MutableLiveData(true)
 
-    val productsProportion: LiveData<ProductsProportion> = _productsProportion
+    val pehBalance: LiveData<PehBalance> = _productsProportion
     val noSteps: LiveData<Boolean> = _noSteps
 
     val touchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
@@ -126,7 +125,7 @@ class CareStepsAdapter(
     }
 
     private fun updateProductsProportion() {
-        _productsProportion.value = ProductsProportion(itemsList)
+        _productsProportion.value = PehBalance.fromSteps(itemsList)
     }
 
     private fun updateItemsOrder() {

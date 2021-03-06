@@ -32,13 +32,14 @@ fun Activity.setSystemColors(statusBar: Int, navigation: Int) {
     window.navigationBarColor = ContextCompat.getColor(this, navigation)
 }
 
-fun <T : ViewDataBinding> AppCompatActivity.bind(layoutId: Int, viewModel: ViewModel?) {
+fun <T : ViewDataBinding> AppCompatActivity.bind(layoutId: Int, viewModel: ViewModel?): T {
     val binding = DataBindingUtil.setContentView<T>(this, layoutId)
     binding.lifecycleOwner = this
     binding.setVariable(BR.controller, this)
     viewModel?.let {
         binding.setVariable(BR.viewModel, viewModel)
     }
+    return binding
 }
 
 fun AppCompatActivity.showErrorSnackbar(message: String?) {
@@ -97,7 +98,7 @@ suspend fun FragmentActivity.selectCareSchemaDialog(
         addAll(schemas)
         add(CareSchema.noSchema)
     }
-    val items = schemasWithEmpty.map { it.name}
+    val items = schemasWithEmpty.map { it.name }
     MaterialAlertDialogBuilder(this)
         .setTitle("Schemat pielęgnacji")
         .setItems(items.toTypedArray()) { _, which ->

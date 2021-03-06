@@ -5,8 +5,7 @@
         <menu>
 
             <item
-                android:id="@+id/option_avg_peh"
-                android:enabled="false"
+                android:id="@+id/option_peh_balance"
                 android:icon="@drawable/ic_round_pie_chart_24"
                 android:title="Równowaga PEH" />
 
