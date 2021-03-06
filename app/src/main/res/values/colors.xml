@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="color_primary">#ef9a9a</color>
-    <color name="color_primary_dark">#e57373</color>
-    <color name="color_primary_light">#ffebee</color>
-    <color name="color_accent">#03DAC5</color>
+    <color name="color_primary_dark">#ba6b6c</color>
+    <color name="color_primary_light">#ffcccb</color>
+    <color name="color_accent">#9b0000</color>
 
     <color name="color_background">#eeeeee</color>
     <color name="color_background_darker">#e0e0e0</color>
+    <color name="color_background_dark">@android:color/darker_gray</color>
 
     <color name="color_black">#000000</color>
     <color name="color_white">#ffffff</color>
@@ -16,9 +17,9 @@
     <color name="color_emollients">#ffd54f</color>
     <color name="color_proteins">#4fc3f7</color>
 
-    <color name="text_color_primary">@android:color/primary_text_light</color>
-    <color name="text_color_secondary">@android:color/secondary_text_light</color>
-    <color name="text_color_tertiary">@android:color/tertiary_text_light</color>
+    <color name="text_color_primary">#5d4037</color>
+    <color name="text_color_secondary">#795548</color>
+    <color name="text_color_tertiary">#a1887f</color>
 
     <color name="text_color_primary_dark">@android:color/primary_text_dark</color>
     <color name="text_color_secondary_dark">@android:color/secondary_text_dark</color>

@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.transition.TransitionManager
 import com.example.hairapp.R
 import com.example.hairapp.databinding.FragmentCareNotesBinding
+import com.example.hairapp.framework.Animator
 import com.example.hairapp.framework.bind
 import kotlinx.android.synthetic.main.fragment_care_notes.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -46,7 +47,7 @@ class CareNotesFragment : Fragment() {
     }
 
     private fun changeMode(newMode: Mode) {
-        TransitionManager.beginDelayedTransition(container)
+        Animator.fastFade(container)
         _mode.value = newMode
     }
 

@@ -2,6 +2,7 @@
 <resources>
 
     <attr name="title" format="string" />
+    <attr name="icon" format="reference" />
 
     <declare-styleable name="ToolbarView">
         <attr name="title" />
@@ -23,9 +24,14 @@
     </declare-styleable>
 
     <declare-styleable name="NoContentView">
-        <attr name="icon" format="reference" />
+        <attr name="icon" />
         <attr name="title" />
         <attr name="useArrow" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="SectionCardView">
+        <attr name="icon" />
+        <attr name="titleResId" format="reference" />
     </declare-styleable>
 
 </resources>

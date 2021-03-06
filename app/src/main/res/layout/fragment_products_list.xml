@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/color_primary">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_products"
@@ -11,9 +12,9 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:paddingHorizontal="4dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="128dp"
+        android:paddingHorizontal="@dimen/page_list_padding_horizontal"
+        android:paddingTop="@dimen/page_padding_top"
+        android:paddingBottom="@dimen/page_padding_bottom"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         tools:listitem="@layout/item_product" />

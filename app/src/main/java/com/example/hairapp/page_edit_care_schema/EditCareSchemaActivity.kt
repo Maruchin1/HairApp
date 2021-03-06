@@ -49,8 +49,7 @@ class EditCareSchemaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind<ActivityEditCareSchemaBinding>(R.layout.activity_edit_care_schema, viewModel)
-        setStatusBarColor(R.color.color_primary)
-        setNavigationColor(R.color.color_background)
+        setSystemColors(R.color.color_primary)
 
         care_schema_steps_recycler.adapter = adapter
         adapter.touchHelper.attachToRecyclerView(care_schema_steps_recycler)

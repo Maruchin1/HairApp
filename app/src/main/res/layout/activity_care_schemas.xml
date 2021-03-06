@@ -18,7 +18,8 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
 
             <com.example.hairapp.common.ToolbarView
                 android:layout_width="match_parent"
@@ -31,6 +32,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/color_primary"
             android:fillViewport="true"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
@@ -44,8 +46,9 @@
                     android:layout_height="match_parent"
                     android:clipToPadding="false"
                     android:orientation="vertical"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="12dp"
+                    android:paddingHorizontal="@dimen/page_list_padding_horizontal"
+                    android:paddingTop="@dimen/page_padding_top"
+                    android:paddingBottom="@dimen/page_padding_bottom"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_care_schema" />
 
@@ -53,6 +56,7 @@
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_add_care_schema"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

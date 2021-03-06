@@ -25,7 +25,8 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp">
 
             <com.example.hairapp.common.ToolbarView
                 android:id="@+id/toolbar"
@@ -54,8 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text='@{Converter.date(viewModel.date), default="10.10.2020"}'
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                    android:textColor="@color/color_primary_light" />
+                    android:textAppearance="@style/TextAppearance.App.PageTitle" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/color_background"
+            android:background="@color/color_primary"
             android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 

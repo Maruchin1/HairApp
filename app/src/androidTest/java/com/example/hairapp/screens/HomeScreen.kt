@@ -7,11 +7,14 @@ import com.agoda.kakao.recycler.KRecyclerItem
 import com.agoda.kakao.recycler.KRecyclerView
 import com.agoda.kakao.screen.Screen
 import com.agoda.kakao.tabs.KTabLayout
+import com.agoda.kakao.text.KButton
 import com.agoda.kakao.text.KTextView
 import com.example.hairapp.R
 import org.hamcrest.Matcher
 
 class HomeScreen : Screen<HomeScreen>() {
+
+    val btnDrawer = KButton { withContentDescription("Toolbar navigation") }
 
     val tabs = KTabLayout { withId(R.id.tabs) }
 
@@ -25,11 +28,11 @@ class HomeScreen : Screen<HomeScreen>() {
 
 class ProductItem(parent: Matcher<View>) : KRecyclerItem<ProductItem>(parent) {
 
-    val card = KView { withId(R.id.item_product_card) }
+    val card = KView(parent) { withId(R.id.item_product_card) }
 
-    val image = KImageView { withId(R.id.item_product_image) }
+    val image = KImageView(parent) { withId(R.id.item_product_image) }
 
-    val name = KTextView { withId(R.id.item_product_name) }
+    val name = KTextView(parent) { withId(R.id.item_product_name) }
 
-    val manufacturer = KTextView { withId(R.id.item_product_manufacturer) }
+    val manufacturer = KTextView(parent) { withId(R.id.item_product_manufacturer) }
 }

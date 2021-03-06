@@ -10,9 +10,8 @@ import com.example.hairapp.R
 import com.example.hairapp.framework.bind
 import com.example.hairapp.databinding.ActivityMainBinding
 import com.example.hairapp.framework.selectCareSchemaDialog
+import com.example.hairapp.framework.setSystemColors
 import com.example.hairapp.page_product_form.ProductFormActivity
-import com.example.hairapp.framework.setNavigationColor
-import com.example.hairapp.framework.setStatusBarColor
 import com.example.hairapp.page_care.CareActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
@@ -32,8 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind<ActivityMainBinding>(R.layout.activity_main, viewModel = null)
-        setStatusBarColor(R.color.color_primary)
-        setNavigationColor(R.color.color_background)
+        setSystemColors(R.color.color_primary)
         setupTabs()
         DrawerMediator(this)
         DrawerNavigationMediator(this)

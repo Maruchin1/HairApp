@@ -12,6 +12,7 @@ import com.example.hairapp.R
 import com.example.hairapp.databinding.DialogPhotoPreviewBinding
 import com.example.hairapp.framework.bind
 import com.example.hairapp.framework.confirmDialog
+import com.example.hairapp.framework.setSystemColors
 import kotlinx.android.synthetic.main.dialog_photo_preview.*
 import kotlinx.coroutines.launch
 
@@ -34,6 +35,7 @@ class PhotoPreviewDialog(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        requireActivity().setSystemColors(R.color.color_primary)
         return bind<DialogPhotoPreviewBinding>(
             inflater,
             container,
@@ -44,6 +46,7 @@ class PhotoPreviewDialog(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         requireDialog().window?.setWindowAnimations(R.style.DialogAnimation)
 
         toolbar.setOnMenuItemClickListener {
@@ -52,6 +55,11 @@ class PhotoPreviewDialog(
             }
             true
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        requireActivity().setSystemColors(R.color.color_primary)
     }
 
     private fun deletePhoto() = lifecycleScope.launch {

@@ -41,9 +41,9 @@ class CareActivity : AppCompatActivity() {
 
     fun addPhoto() {
         ImagePicker.with(this)
-            .crop(x = 4f, y = 3f)
+            .crop(x = 1f, y = 1f)
             .compress(maxSize = 1024)
-            .maxResultSize(width = 1080, height = 810)
+            .maxResultSize(width = 1080, height = 1080)
             .start()
     }
 
@@ -51,8 +51,7 @@ class CareActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind<ActivityCareBinding>(R.layout.activity_care, viewModel)
-        setStatusBarColor(R.color.color_primary)
-        setNavigationColor(R.color.color_background)
+        setSystemColors(R.color.color_primary)
         setupTabs()
         checkInputParams()
 

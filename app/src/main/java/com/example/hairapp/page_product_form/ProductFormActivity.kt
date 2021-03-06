@@ -8,10 +8,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityProductFormBinding
-import com.example.hairapp.framework.bind
-import com.example.hairapp.framework.setNavigationColor
-import com.example.hairapp.framework.setStatusBarColor
-import com.example.hairapp.framework.showErrorSnackbar
+import com.example.hairapp.framework.*
 import com.github.dhaval2404.imagepicker.ImagePicker
 import kotlinx.android.synthetic.main.activity_product_form.*
 import kotlinx.coroutines.launch
@@ -23,17 +20,16 @@ class ProductFormActivity : AppCompatActivity() {
 
     fun takePhoto() {
         ImagePicker.with(this)
-            .crop(x = 4f, y = 3f)
+            .crop(x = 1f, y = 1f)
             .compress(maxSize = 1024)
-            .maxResultSize(width = 1080, height = 810)
+            .maxResultSize(width = 1080, height = 1080)
             .start()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind<ActivityProductFormBinding>(R.layout.activity_product_form, viewModel)
-        setStatusBarColor(R.color.color_primary)
-        setNavigationColor(R.color.color_background)
+        setSystemColors(R.color.color_primary)
 
         val editProductId = intent.getIntExtra(IN_EDIT_PRODUCT_ID, -1)
         if (editProductId != -1)

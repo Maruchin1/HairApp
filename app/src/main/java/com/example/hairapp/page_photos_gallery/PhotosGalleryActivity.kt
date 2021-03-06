@@ -10,8 +10,7 @@ import com.example.hairapp.common.CarePhotoItemController
 import com.example.hairapp.databinding.ActivityPhotosGalleryBinding
 import com.example.hairapp.framework.bind
 import com.example.hairapp.common.PhotoPreviewDialog
-import com.example.hairapp.framework.setNavigationColor
-import com.example.hairapp.framework.setStatusBarColor
+import com.example.hairapp.framework.setSystemColors
 import kotlinx.android.synthetic.main.activity_photos_gallery.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -23,8 +22,7 @@ class PhotosGalleryActivity : AppCompatActivity(), CarePhotoItemController {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind<ActivityPhotosGalleryBinding>(R.layout.activity_photos_gallery, viewModel)
-        setStatusBarColor(R.color.color_primary)
-        setNavigationColor(R.color.color_background)
+        setSystemColors(R.color.color_primary)
 
         gallery_photos_adapter.adapter = adapter
         gallery_photos_adapter.layoutManager = makeLayoutManager()

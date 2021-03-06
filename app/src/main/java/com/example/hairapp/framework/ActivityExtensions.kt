@@ -1,5 +1,6 @@
 package com.example.hairapp.framework
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
@@ -21,12 +22,14 @@ import java.time.ZoneId
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-fun AppCompatActivity.setStatusBarColor(colorId: Int) {
-    window.statusBarColor = ContextCompat.getColor(this, colorId)
+fun Activity.setSystemColors(colorResId: Int) {
+    window.statusBarColor = ContextCompat.getColor(this, colorResId)
+    window.navigationBarColor = ContextCompat.getColor(this, colorResId)
 }
 
-fun AppCompatActivity.setNavigationColor(colorId: Int) {
-    window.navigationBarColor = ContextCompat.getColor(this, colorId)
+fun Activity.setSystemColors(statusBar: Int, navigation: Int) {
+    window.statusBarColor = ContextCompat.getColor(this, statusBar)
+    window.navigationBarColor = ContextCompat.getColor(this, navigation)
 }
 
 fun <T : ViewDataBinding> AppCompatActivity.bind(layoutId: Int, viewModel: ViewModel?) {

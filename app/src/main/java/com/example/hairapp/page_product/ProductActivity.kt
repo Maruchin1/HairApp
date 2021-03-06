@@ -42,8 +42,7 @@ class ProductActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind<ActivityProductBinding>(R.layout.activity_product, viewModel)
-        setStatusBarColor(R.color.color_transparent)
-        setNavigationColor(R.color.color_background)
+        setSystemColors(R.color.color_transparent, R.color.color_primary)
 
         setupCollapsingToolbar()
         initViewModel()

@@ -38,8 +38,7 @@ class CareSchemasActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind<ActivityCareSchemasBinding>(R.layout.activity_care_schemas, viewModel)
-        setStatusBarColor(R.color.color_primary)
-        setNavigationColor(R.color.color_background)
+        setSystemColors(R.color.color_primary)
 
         care_schemas_recycler.adapter = adapter
         adapter.setSource(viewModel.careSchemas, this)
