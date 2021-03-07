@@ -10,7 +10,12 @@ class PehBalanceViewModel(
     private val careRepo: CareRepo
 ) : ViewModel() {
 
-    private val _selectedNumOfCares = MutableLiveData(5)
+    companion object {
+        const val DEFAULT_NUM_OF_CARES = 5
+    }
+
+    private val allCares: Flow<List<Care>> = careRepo.findAll()
+    private val _selectedNumOfCares = MutableLiveData(DEFAULT_NUM_OF_CARES)
 
     val selectedNumOfCares: LiveData<Int> = _selectedNumOfCares
 
@@ -18,13 +23,25 @@ class PehBalanceViewModel(
         .flatMapLatest { calcPehBalance(it) }
         .asLiveData()
 
-    val numOfLastMonthCares: LiveData<Int> = careRepo.findAll()
+    val numOfLastMonthCares: LiveData<Int> = allCares
         .mapLatest { countCaresFromLastMonth(it) }
         .asLiveData()
 
-    val avgDaysIntervalBetweenCares: LiveData<Int> = careRepo.findAll()
+    val avgDaysIntervalBetweenCares: LiveData<Int> = allCares
         .mapLatest { calcAvgDaysIntervalBetweenCares(it) }
         .asLiveData()
+
+    fun selectNumOfCares(value: Int) {
+        _selectedNumOfCares.postValue(value)
+    }
+
+    fun getSelectedNumOfCares(): Int {
+        return _selectedNumOfCares.value ?: DEFAULT_NUM_OF_CARES
+    }
+
+    suspend fun getNumOfAllCares(): Int {
+        return allCares.first().size
+    }
 
     private fun calcPehBalance(numOfCares: Int): Flow<PehBalance> {
         return careRepo.findLastN(numOfCares)
