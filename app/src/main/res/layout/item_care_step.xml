@@ -77,7 +77,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text='@{Converter.careStepType(item.type), default="Rodzaj produktu"}'
-                android:textAppearance="@style/TextAppearance.App.ItemBodySecondary"
+                android:textAppearance="@style/TextAppearance.App.BodySecondary"
                 app:layout_constraintBottom_toTopOf="@id/product_name"
                 app:layout_constraintEnd_toEndOf="@id/product_name"
                 app:layout_constraintStart_toStartOf="@id/product_name"
@@ -91,7 +91,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text='@{item.product.name, default="Nazwa produktu"}'
-                android:textAppearance="@style/TextAppearance.App.ItemBodyPrimary"
+                android:textAppearance="@style/TextAppearance.App.BodyPrimary"
                 app:layout_constraintBottom_toTopOf="@id/product_manufacturer"
                 app:layout_constraintEnd_toStartOf="@id/item_care_product_edit_drag_handle"
                 app:layout_constraintStart_toEndOf="@id/product_photo"
@@ -106,7 +106,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text='@{item.product.manufacturer, default="Productent"}'
-                android:textAppearance="@style/TextAppearance.App.ItemBodyTertiary"
+                android:textAppearance="@style/TextAppearance.App.BodyTertiary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/product_name"
                 app:layout_constraintStart_toStartOf="@id/product_name"
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text='@{Converter.careStepType(item.type), default="Rodzaj produktu"}'
-                android:textAppearance="@style/TextAppearance.App.ItemBodyPrimary"
+                android:textAppearance="@style/TextAppearance.App.BodyPrimary"
                 android:textColor="@color/text_color_secondary"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/hint_select_product"
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/select_product"
-                android:textAppearance="@style/TextAppearance.App.ItemBodyTertiary"
+                android:textAppearance="@style/TextAppearance.App.BodyTertiary"
                 android:textColor="@color/text_color_tertiary"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"

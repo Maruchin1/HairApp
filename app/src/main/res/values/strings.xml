@@ -66,10 +66,14 @@
     <string name="add">Dodaj</string>
     <string name="no_products">Nie dodano produktów</string>
     <string name="section_name">Nazwa sekcji</string>
-    <string name="care_notes_hint">Zapisz swoje notatki, uwagi, obserwacje ...</string>
+    <string name="care_notes_hint">Zapisz swoje notatki, uwagi, obserwacje …</string>
     <string name="confirm">Zatwierdź</string>
     <string name="discard">Odrzuć</string>
     <string name="select_product">Wybierz produkt</string>
     <string name="peh_balance">Równowaga PEH</string>
+    <string name="num_of_last_month_cares">Liczba pielęgnacji w ostatnim miesiącu</string>
+    <string name="avg_days_interval_between_cares">Średnia liczba dni pomiędzy pielęgnacjami</string>
+    <string name="delete">Usuń</string>
+    <string name="edit">Edytuj</string>
 
 </resources>

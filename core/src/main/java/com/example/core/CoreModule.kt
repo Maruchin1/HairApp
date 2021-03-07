@@ -46,10 +46,6 @@ val coreModule = module {
     }
 
     factory {
-        ShowPehBalance(careRepo = get())
-    }
-
-    factory {
         ShowPhotosReview(careRepo = get())
     }
 

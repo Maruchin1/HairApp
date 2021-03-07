@@ -79,7 +79,7 @@ val appModule = module {
 
     viewModel {
         PehBalanceViewModel(
-            showPehBalance = get()
+            careRepo = get()
         )
     }
 }
