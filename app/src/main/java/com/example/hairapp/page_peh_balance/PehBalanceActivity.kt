@@ -41,64 +41,11 @@ class PehBalanceActivity : AppCompatActivity() {
         binding = bind(R.layout.activity_peh_balance, viewModel)
         setSystemColors(R.color.color_primary)
 
-        viewModel.pehBalance.observe(this) { setupPehChart(it) }
-    }
-
-    private fun setupPehChart(pehBalance: PehBalance) {
-        binding.pehBalanceChart.run {
-            data = PieData(makeDataSet(pehBalance))
-            legend.isEnabled = false
-            description.isEnabled = false
-            setTouchEnabled(false)
-            isDragDecelerationEnabled = false
-            transparentCircleRadius = 0f
-            setHoleColor(getColor(R.color.color_primary))
-
-            centerText = "PEH"
-            setCenterTextColor(getColor(R.color.color_primary_light))
-            setCenterTextSize(48f)
-
-            setUsePercentValues(true)
-
-            invalidate()
-        }
-    }
-
-    private fun makeDataSet(pehBalance: PehBalance): PieDataSet {
-        val entries = mutableListOf(
-            PieEntry(pehBalance.proteins.toFloat(), "Proteiny"),
-            PieEntry(pehBalance.emollients.toFloat(), "Emolienty"),
-            PieEntry(pehBalance.humectants.toFloat(), "Humektanty")
+        PehBalanceChartMediator(
+            activity = this,
+            pieChart = binding.pehBalanceChart,
+            source = viewModel.pehBalance
         )
-        val entriesColors = mutableListOf(
-            getColor(R.color.color_proteins),
-            getColor(R.color.color_emollients),
-            getColor(R.color.color_humectants)
-        )
-        indexesOfZeros(entries).forEach { idx ->
-            entries.removeAt(idx)
-            entriesColors.removeAt(idx)
-        }
-        return PieDataSet(entries, null).apply {
-            colors = entriesColors
-            sliceSpace = 8f
-            valueFormatter = PehValueFormatter()
-            valueTextColor = this@PehBalanceActivity.getColor(R.color.color_white)
-            valueTextSize = 24f
-        }
-    }
-
-    private fun indexesOfZeros(entries: List<PieEntry>): List<Int> {
-        return entries
-            .filter { it.value == 0f }
-            .map { entries.indexOf(it) }
-    }
-
-    private class PehValueFormatter : ValueFormatter() {
-        override fun getPieLabel(value: Float, pieEntry: PieEntry?): String {
-            val intValue = value.roundToInt()
-            return "$intValue %"
-        }
     }
 
     companion object {
