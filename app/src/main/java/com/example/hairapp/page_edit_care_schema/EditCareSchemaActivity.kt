@@ -31,13 +31,14 @@ class EditCareSchemaActivity : AppCompatActivity() {
     )
 
     fun addStep() = lifecycleScope.launch {
-        selectCareStepDialog()?.let { type ->
+        Dialog.selectCareStep(this@EditCareSchemaActivity)?.let { type ->
             adapter.addStep(type, null)
         }
     }
 
     fun deleteStep(careStep: CareStep) = lifecycleScope.launch {
-        val confirmed = confirmDialog(
+        val confirmed = Dialog.confirm(
+            context = this@EditCareSchemaActivity,
             title = getString(R.string.confirm_delete),
             message = getString(R.string.care_schema_confirm_delete_step_message)
         )
@@ -76,24 +77,28 @@ class EditCareSchemaActivity : AppCompatActivity() {
 
     private fun selectCareSchema(schemaId: Int) = lifecycleScope.launch {
         viewModel.selectCareSchema(schemaId)
-            .onFailure { showErrorSnackbar(it.message) }
+            .onFailure { Snackbar.error(this@EditCareSchemaActivity, it) }
     }
 
     private fun askForNewName() = lifecycleScope.launch {
-        inputDialog(getString(R.string.name_your_schema))?.let { newName ->
+        Dialog.typeText(
+            context = this@EditCareSchemaActivity,
+            title = getString(R.string.name_your_schema)
+        )?.let { newName ->
             viewModel.changeSchemaName(newName)
         }
     }
 
     private fun deleteSchema() = lifecycleScope.launch {
-        val confirmed = confirmDialog(
+        val confirmed = Dialog.confirm(
+            context = this@EditCareSchemaActivity,
             title = getString(R.string.confirm_delete),
             message = getString(R.string.care_schema_confirm_delete_message)
         )
         if (confirmed) {
             viewModel.deleteSchema()
                 .onSuccess { finish() }
-                .onFailure { showErrorSnackbar(it.message) }
+                .onFailure { Snackbar.error(this@EditCareSchemaActivity, it) }
         }
     }
 

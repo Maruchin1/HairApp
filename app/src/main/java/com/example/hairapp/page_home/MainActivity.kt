@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.R
 import com.example.hairapp.framework.bind
 import com.example.hairapp.databinding.ActivityMainBinding
-import com.example.hairapp.framework.selectCareSchemaDialog
+import com.example.hairapp.framework.Dialog
 import com.example.hairapp.framework.setSystemColors
 import com.example.hairapp.page_product_form.ProductFormActivity
 import com.example.hairapp.page_care.CareActivity
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun addNewCare() = lifecycleScope.launch {
         val schemas = viewModel.getCareSchemas()
-        selectCareSchemaDialog(schemas)?.let { selectedSchema ->
+        Dialog.selectCareSchema(this@MainActivity, schemas)?.let { selectedSchema ->
             val intent = CareActivity.makeIntent(this@MainActivity, selectedSchema)
             startActivity(intent)
         }

@@ -13,7 +13,6 @@ import com.example.core.domain.CareSchema
 import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityCareBinding
 import com.example.hairapp.framework.*
-import com.github.dhaval2404.imagepicker.ImagePicker
 import kotlinx.android.synthetic.main.activity_care.*
 import kotlinx.android.synthetic.main.activity_care.tabs
 import kotlinx.android.synthetic.main.activity_care.tabs_pager
@@ -28,23 +27,19 @@ class CareActivity : AppCompatActivity() {
     private val notesFragment by lazy { CareNotesFragment() }
 
     fun selectDate() = lifecycleScope.launch {
-        datePickerDialog()?.let { date ->
+        Dialog.pickDate(supportFragmentManager)?.let { date ->
             viewModel.setDate(date)
         }
     }
 
     fun addStep() = lifecycleScope.launch {
-        selectCareStepDialog()?.let { type ->
+        Dialog.selectCareStep(this@CareActivity)?.let { type ->
             stepsFragment.addStep(type)
         }
     }
 
     fun addPhoto() {
-        ImagePicker.with(this)
-            .crop(x = 1f, y = 1f)
-            .compress(maxSize = 1024)
-            .maxResultSize(width = 1080, height = 1080)
-            .start()
+        Dialog.pickImage(this)
     }
 
 
@@ -67,22 +62,19 @@ class CareActivity : AppCompatActivity() {
 
     private fun saveCare() = lifecycleScope.launch {
         val steps = stepsFragment.getSteps()
-        viewModel.saveCare(steps).onFailure {
-            showErrorSnackbar(it.message)
-        }.onSuccess {
-            finish()
-        }
+        viewModel.saveCare(steps)
+            .onFailure { Snackbar.error(this@CareActivity, it) }
+            .onSuccess { finish() }
     }
 
     private fun checkInputParams() = lifecycleScope.launch {
         val editCareId = intent.getIntExtra(IN_EDIT_CARE_ID, -1)
         val newCareSchemaId = intent.getIntExtra(IN_NEW_CARE_SCHEMA_ID, -1)
-        val result = when {
+        when {
             editCareId != -1 -> viewModel.setEditCare(editCareId)
             newCareSchemaId != -1 -> viewModel.setNewCareSchema(newCareSchemaId)
             else -> null
-        }
-        result?.onFailure { showErrorSnackbar(it.message) }
+        }?.onFailure { Snackbar.error(this@CareActivity, it) }
     }
 
     private fun setupTabs() {

@@ -12,7 +12,7 @@ import androidx.transition.TransitionManager
 import com.example.core.domain.CareStep
 import com.example.hairapp.R
 import com.example.hairapp.framework.Binder
-import com.example.hairapp.framework.confirmDialog
+import com.example.hairapp.framework.Dialog
 import com.example.hairapp.page_select_product.SelectProductContract
 import kotlinx.android.synthetic.main.fragment_care_steps.*
 import kotlinx.coroutines.launch
@@ -58,7 +58,8 @@ class CareStepsFragment : Fragment() {
     }
 
     fun deleteStep(careStep: CareStep) = lifecycleScope.launch {
-        val confirmed = requireActivity().confirmDialog(
+        val confirmed = Dialog.confirm(
+            context = requireContext(),
             title = getString(R.string.confirm_delete),
             message = getString(R.string.care_activity_confirm_delete_step_message)
         )

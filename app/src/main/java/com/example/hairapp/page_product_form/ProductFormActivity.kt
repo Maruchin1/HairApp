@@ -50,13 +50,13 @@ class ProductFormActivity : AppCompatActivity() {
         toolbar.title = "Edytuj produkt"
         viewModel.setEditProductAsync(productId)
             .await()
-            .onFailure { showErrorSnackbar(it.message) }
+            .onFailure { Snackbar.error(this@ProductFormActivity, it) }
     }
 
     private fun saveProduct() = lifecycleScope.launch {
         viewModel.saveProduct()
             .onSuccess { finish() }
-            .onFailure { showErrorSnackbar(it.message) }
+            .onFailure { Snackbar.error(this@ProductFormActivity, it) }
     }
 
     companion object {

@@ -23,10 +23,13 @@ class CareSchemasActivity : AppCompatActivity() {
     }
 
     fun addNewSchema() = lifecycleScope.launch {
-        inputDialog(getString(R.string.name_your_schema))?.let { name ->
+        Dialog.typeText(
+            context = this@CareSchemasActivity,
+            title = getString(R.string.name_your_schema)
+        )?.let { name ->
             viewModel.addCareSchema(name)
                 .onSuccess { openSchemaPage(it) }
-                .onFailure { showErrorSnackbar(it.message) }
+                .onFailure { Snackbar.error(this@CareSchemasActivity, it) }
         }
     }
 
