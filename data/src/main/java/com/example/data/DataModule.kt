@@ -1,14 +1,17 @@
 package com.example.data
 
 import androidx.room.Room
+import com.example.core.gateway.AppPreferences
 import com.example.core.gateway.CareRepo
 import com.example.core.gateway.CareSchemaRepo
 import com.example.core.gateway.ProductRepo
+import com.example.data.repo.DataStoreAppPreferences
 import com.example.data.repo.RoomCareRepo
 import com.example.data.repo.RoomCareSchemaRepo
 import com.example.data.repo.RoomProductRepo
 import com.example.data.room.Mapper
 import com.example.data.room.RoomDatabase
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -67,6 +70,12 @@ val dataModule = module {
         RoomProductRepo(
             mapper = get(),
             productDao = get()
+        )
+    }
+
+    single<AppPreferences> {
+        DataStoreAppPreferences(
+            context = androidApplication()
         )
     }
 

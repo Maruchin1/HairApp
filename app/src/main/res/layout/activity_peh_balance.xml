@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="com.example.hairapp.framework.Converter" />
+
         <variable
             name="controller"
             type="com.example.hairapp.page_peh_balance.PehBalanceActivity" />
@@ -63,9 +65,9 @@
                     android:clickable="true"
                     android:drawablePadding="8dp"
                     android:focusable="true"
-                    android:onClick="@{() -> controller.selectNumOfCares()}"
+                    android:onClick="@{() -> controller.selectCaresForBalance()}"
                     android:padding="8dp"
-                    android:text='@{"Ostatnie " + viewModel.selectedNumOfCares + " pielęgnacji", default="Ostatnie 5 pielęgnacji"}'
+                    android:text='@{Converter.caresForBalance(viewModel.caresForBalance), default="Ostatnie 5 pielęgnacji"}'
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textColor="@color/color_white"
                     app:drawableEndCompat="@drawable/ic_round_arrow_drop_down_24"

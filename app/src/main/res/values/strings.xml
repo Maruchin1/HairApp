@@ -37,6 +37,15 @@
     <string name="care_schema_confirm_delete_step_message">Wybrany krok zostanie usunięty ze schematu pielęgnacji. Czy chcesz kontynuować?</string>
     <string name="name_your_schema">Nazwij swój schemat</string>
 
+    <!--PehBalance-->
+    <string name="last_week">Ostatni tydzień</string>
+    <string name="last_two_weeks">Ostatnie dwa tygodnie</string>
+    <string name="last_three_weeks">Ostatnie trzy tygodnie</string>
+    <string name="last_month">Ostatni miesiąc</string>
+    <string name="last_two_months">Ostatnie dwa miesiące</string>
+    <string name="last_three_months">Ostatnie trzy miesiace</string>
+    <string name="all">Wszystkie</string>
+
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>

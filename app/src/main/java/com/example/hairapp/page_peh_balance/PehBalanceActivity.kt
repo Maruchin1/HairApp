@@ -24,15 +24,12 @@ class PehBalanceActivity : AppCompatActivity() {
     private val viewModel: PehBalanceViewModel by viewModel()
     private lateinit var binding: ActivityPehBalanceBinding
 
-    fun selectNumOfCares() = lifecycleScope.launch {
-        Dialog.pickNumber(
+    fun selectCaresForBalance() = lifecycleScope.launch {
+        Dialog.selectCaresForBalance(
             context = this@PehBalanceActivity,
-            title = "Liczba pielęgnacji",
-            minValue = 1,
-            maxValue = viewModel.getNumOfAllCares(),
-            currentValue = viewModel.getSelectedNumOfCares()
-        )?.let { selectedNumber ->
-            viewModel.selectNumOfCares(selectedNumber)
+            currentValue = viewModel.getCaresForBalance()
+        )?.let { newCaresForBalance ->
+            viewModel.setCaresForBalance(newCaresForBalance)
         }
     }
 

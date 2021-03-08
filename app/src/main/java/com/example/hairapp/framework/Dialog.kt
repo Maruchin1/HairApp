@@ -7,6 +7,7 @@ import android.widget.NumberPicker
 import androidx.fragment.app.FragmentManager
 import com.example.core.domain.CareSchema
 import com.example.core.domain.CareStep
+import com.example.core.domain.CaresForBalance
 import com.example.hairapp.R
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -112,12 +113,30 @@ object Dialog {
             addAll(schemas)
             add(CareSchema.noSchema)
         }
-        val items = schemasWithEmpty.map { it.name }
+        val items = schemasWithEmpty.map { it.name }.toTypedArray()
         MaterialAlertDialogBuilder(context)
             .setTitle("Schemat pielęgnacji")
-            .setItems(items.toTypedArray()) { _, which ->
-                val selectedValue = schemasWithEmpty[which]
-                it.resume(selectedValue)
+            .setItems(items) { _, which ->
+                it.resume(schemasWithEmpty[which])
+            }
+            .setOnCancelListener { _ ->
+                it.resume(null)
+            }
+            .show()
+    }
+
+    suspend fun selectCaresForBalance(
+        context: Context,
+        currentValue: CaresForBalance
+    ): CaresForBalance? = suspendCoroutine {
+        val values = CaresForBalance.values()
+        val items = values.map { Converter.caresForBalance(it) }.toTypedArray()
+        val selectedIdx = values.indexOf(currentValue)
+        MaterialAlertDialogBuilder(context)
+            .setTitle("Pielęgnacje")
+            .setSingleChoiceItems(items, selectedIdx) { dialog, which ->
+                it.resume(values[which])
+                dialog.dismiss()
             }
             .setOnCancelListener { _ ->
                 it.resume(null)

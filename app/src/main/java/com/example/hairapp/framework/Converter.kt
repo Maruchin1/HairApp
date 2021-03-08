@@ -1,10 +1,7 @@
 package com.example.hairapp.framework
 
 import android.net.Uri
-import com.example.core.domain.Care
-import com.example.core.domain.CareStep
-import com.example.core.domain.Product
-import com.example.core.domain.PehBalance
+import com.example.core.domain.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -68,16 +65,28 @@ object Converter {
     // CareStep.Type
 
     @JvmStatic
-    fun careStepType(data: CareStep.Type?): String? {
-        return when (data) {
-            CareStep.Type.CONDITIONER -> "Odżywka"
-            CareStep.Type.SHAMPOO -> "Szampon"
-            CareStep.Type.OIL -> "Olej"
-            CareStep.Type.EMULSIFIER -> "Emulgator"
-            CareStep.Type.STYLIZER -> "Stylizator"
-            CareStep.Type.OTHER -> "Inne"
-            null -> null
-        }
+    fun careStepType(data: CareStep.Type?): String? = when (data) {
+        CareStep.Type.CONDITIONER -> "Odżywka"
+        CareStep.Type.SHAMPOO -> "Szampon"
+        CareStep.Type.OIL -> "Olej"
+        CareStep.Type.EMULSIFIER -> "Emulgator"
+        CareStep.Type.STYLIZER -> "Stylizator"
+        CareStep.Type.OTHER -> "Inne"
+        null -> null
+    }
+
+    // CaresForBalance
+
+    @JvmStatic
+    fun caresForBalance(data: CaresForBalance?): String? = when (data) {
+        CaresForBalance.LAST_WEEK -> "Ostatni tydzień"
+        CaresForBalance.LAST_TWO_WEEKS -> "Ostatnie dwa tygodnie"
+        CaresForBalance.LAST_THREE_WEEKS -> "Ostatnie trzy tygodnie"
+        CaresForBalance.LAST_MONTH -> "Ostatni miesiąc"
+        CaresForBalance.LAST_TWO_MONTH -> "Ostatnie dwa miesiące"
+        CaresForBalance.LAST_THREE_MONTH -> "Ostatenie trzy miesiące"
+        CaresForBalance.ALL -> "Wszystkie pielęgnacje"
+        null -> null
     }
 
     // Photo

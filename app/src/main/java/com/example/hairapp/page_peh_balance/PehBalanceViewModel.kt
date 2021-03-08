@@ -2,24 +2,24 @@ package com.example.hairapp.page_peh_balance
 
 import androidx.lifecycle.*
 import com.example.core.domain.Care
+import com.example.core.domain.CaresForBalance
 import com.example.core.domain.PehBalance
 import com.example.core.gateway.CareRepo
+import com.example.core.gateway.AppPreferences
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 class PehBalanceViewModel(
-    private val careRepo: CareRepo
+    private val careRepo: CareRepo,
+    private val appPreferences: AppPreferences
 ) : ViewModel() {
 
-    companion object {
-        const val DEFAULT_NUM_OF_CARES = 5
-    }
-
     private val allCares: Flow<List<Care>> = careRepo.findAll()
-    private val _selectedNumOfCares = MutableLiveData(DEFAULT_NUM_OF_CARES)
+    private val _caresForBalance: Flow<CaresForBalance> = appPreferences.getCaresForBalance()
 
-    val selectedNumOfCares: LiveData<Int> = _selectedNumOfCares
+    val caresForBalance: LiveData<CaresForBalance> = _caresForBalance.asLiveData()
 
-    val pehBalance: LiveData<PehBalance> = _selectedNumOfCares.asFlow()
+    val pehBalance: LiveData<PehBalance> = _caresForBalance
         .flatMapLatest { calcPehBalance(it) }
         .asLiveData()
 
@@ -31,22 +31,25 @@ class PehBalanceViewModel(
         .mapLatest { calcAvgDaysIntervalBetweenCares(it) }
         .asLiveData()
 
-    fun selectNumOfCares(value: Int) {
-        _selectedNumOfCares.postValue(value)
+    fun setCaresForBalance(value: CaresForBalance) = viewModelScope.launch {
+        appPreferences.setCaresForBalance(value)
     }
 
-    fun getSelectedNumOfCares(): Int {
-        return _selectedNumOfCares.value ?: DEFAULT_NUM_OF_CARES
+    suspend fun getCaresForBalance(): CaresForBalance {
+        return _caresForBalance.first()
     }
 
-    suspend fun getNumOfAllCares(): Int {
-        return allCares.first().size
-    }
-
-    private fun calcPehBalance(numOfCares: Int): Flow<PehBalance> {
-        return careRepo.findLastN(numOfCares)
+    private fun calcPehBalance(caresForBalance: CaresForBalance): Flow<PehBalance> {
+        return loadCaresForPehBalance(caresForBalance)
             .map { calcBalanceForEach(it) }
             .map { calcAvgBalance(it) }
+    }
+
+    private fun loadCaresForPehBalance(caresForBalance: CaresForBalance): Flow<List<Care>> {
+        return when (caresForBalance) {
+            CaresForBalance.ALL -> careRepo.findAll()
+            else -> careRepo.findLastN(caresForBalance.daysLimit)
+        }
     }
 
     private fun calcBalanceForEach(schemas: List<Care>): List<PehBalance> {
@@ -72,4 +75,6 @@ class PehBalanceViewModel(
             .average()
             .toInt()
     }
+
+
 }
