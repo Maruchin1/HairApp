@@ -6,11 +6,11 @@ import kotlin.math.absoluteValue
 
 data class Care(
     val id: Int,
-    val schemaName: String,
-    var date: LocalDate,
-    var photos: List<String>,
-    var steps: List<CareStep>,
-    var notes: String
+    val schemaName: String = "",
+    var date: LocalDate = LocalDate.now(),
+    var photos: List<String> = listOf(),
+    var steps: List<CareStep> = listOf(),
+    var notes: String = ""
 ) {
 
     fun isFromLastDays(numOfDays: Long): Boolean {
@@ -21,5 +21,9 @@ data class Care(
 
     fun daysFromCare(care: Care): Long {
         return ChronoUnit.DAYS.between(care.date, date).absoluteValue
+    }
+
+    fun getStepsProducts(): List<Product> {
+        return steps.mapNotNull { it.product }
     }
 }

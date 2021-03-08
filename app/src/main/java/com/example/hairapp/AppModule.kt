@@ -8,6 +8,7 @@ import com.example.hairapp.page_peh_balance.PehBalanceViewModel
 import com.example.hairapp.page_photos_gallery.PhotosGalleryViewModel
 import com.example.hairapp.page_product.ProductViewModel
 import com.example.hairapp.page_product_form.ProductFormViewModel
+import com.example.hairapp.page_products_ranking.ProductsRankingViewModel
 import com.example.hairapp.page_select_product.SelectProductViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -79,6 +80,13 @@ val appModule = module {
 
     viewModel {
         PehBalanceViewModel(
+            careRepo = get(),
+            appPreferences = get()
+        )
+    }
+
+    viewModel {
+        ProductsRankingViewModel(
             careRepo = get(),
             appPreferences = get()
         )

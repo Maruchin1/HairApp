@@ -2,7 +2,7 @@ package com.example.hairapp.page_peh_balance
 
 import androidx.lifecycle.*
 import com.example.core.domain.Care
-import com.example.core.domain.CaresForBalance
+import com.example.core.domain.CaresLimit
 import com.example.core.domain.PehBalance
 import com.example.core.gateway.CareRepo
 import com.example.core.gateway.AppPreferences
@@ -15,11 +15,11 @@ class PehBalanceViewModel(
 ) : ViewModel() {
 
     private val allCares: Flow<List<Care>> = careRepo.findAll()
-    private val _caresForBalance: Flow<CaresForBalance> = appPreferences.getCaresForBalance()
+    private val _caresLimit: Flow<CaresLimit> = appPreferences.getPehBalanceCaresLimit()
 
-    val caresForBalance: LiveData<CaresForBalance> = _caresForBalance.asLiveData()
+    val caresLimit: LiveData<CaresLimit> = _caresLimit.asLiveData()
 
-    val pehBalance: LiveData<PehBalance> = _caresForBalance
+    val pehBalance: LiveData<PehBalance> = _caresLimit
         .flatMapLatest { calcPehBalance(it) }
         .asLiveData()
 
@@ -31,24 +31,24 @@ class PehBalanceViewModel(
         .mapLatest { calcAvgDaysIntervalBetweenCares(it) }
         .asLiveData()
 
-    fun setCaresForBalance(value: CaresForBalance) = viewModelScope.launch {
-        appPreferences.setCaresForBalance(value)
+    fun setCaresForBalance(value: CaresLimit) = viewModelScope.launch {
+        appPreferences.setPehBalanceCaresLimit(value)
     }
 
-    suspend fun getCaresForBalance(): CaresForBalance {
-        return _caresForBalance.first()
+    suspend fun getCaresForBalance(): CaresLimit {
+        return _caresLimit.first()
     }
 
-    private fun calcPehBalance(caresForBalance: CaresForBalance): Flow<PehBalance> {
-        return loadCaresForPehBalance(caresForBalance)
+    private fun calcPehBalance(caresLimit: CaresLimit): Flow<PehBalance> {
+        return loadCaresWithLimit(caresLimit)
             .map { calcBalanceForEach(it) }
             .map { calcAvgBalance(it) }
     }
 
-    private fun loadCaresForPehBalance(caresForBalance: CaresForBalance): Flow<List<Care>> {
-        return when (caresForBalance) {
-            CaresForBalance.ALL -> careRepo.findAll()
-            else -> careRepo.findLastN(caresForBalance.daysLimit)
+    private fun loadCaresWithLimit(caresLimit: CaresLimit): Flow<List<Care>> {
+        return when (caresLimit) {
+            CaresLimit.ALL -> allCares
+            else -> careRepo.findLastN(caresLimit.daysLimit)
         }
     }
 

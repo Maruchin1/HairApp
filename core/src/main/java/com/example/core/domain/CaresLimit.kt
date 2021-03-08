@@ -1,6 +1,6 @@
 package com.example.core.domain
 
-enum class CaresForBalance(val daysLimit: Int) {
+enum class CaresLimit(val daysLimit: Int) {
     LAST_WEEK(7),
     LAST_TWO_WEEKS(14),
     LAST_THREE_WEEKS(21),

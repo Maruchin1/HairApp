@@ -61,6 +61,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation "io.mockk:mockk:1.10.0"
     testImplementation "com.willowtreeapps.assertk:assertk:0.21"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3'
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
 
     // Integration tests
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

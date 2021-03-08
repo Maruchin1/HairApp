@@ -1,11 +1,15 @@
 package com.example.core.gateway
 
-import com.example.core.domain.CaresForBalance
+import com.example.core.domain.CaresLimit
 import kotlinx.coroutines.flow.Flow
 
 interface AppPreferences {
 
-    fun getCaresForBalance(): Flow<CaresForBalance>
+    fun getPehBalanceCaresLimit(): Flow<CaresLimit>
 
-    suspend fun setCaresForBalance(value: CaresForBalance)
+    fun getProductsRankingCaresLimit(): Flow<CaresLimit>
+
+    suspend fun setPehBalanceCaresLimit(value: CaresLimit)
+
+    suspend fun setProductsRankingCaresLimit(value: CaresLimit)
 }

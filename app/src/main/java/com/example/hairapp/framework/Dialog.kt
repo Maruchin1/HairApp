@@ -7,7 +7,7 @@ import android.widget.NumberPicker
 import androidx.fragment.app.FragmentManager
 import com.example.core.domain.CareSchema
 import com.example.core.domain.CareStep
-import com.example.core.domain.CaresForBalance
+import com.example.core.domain.CaresLimit
 import com.example.hairapp.R
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -127,9 +127,9 @@ object Dialog {
 
     suspend fun selectCaresForBalance(
         context: Context,
-        currentValue: CaresForBalance
-    ): CaresForBalance? = suspendCoroutine {
-        val values = CaresForBalance.values()
+        currentValue: CaresLimit
+    ): CaresLimit? = suspendCoroutine {
+        val values = CaresLimit.values()
         val items = values.map { Converter.caresForBalance(it) }.toTypedArray()
         val selectedIdx = values.indexOf(currentValue)
         MaterialAlertDialogBuilder(context)

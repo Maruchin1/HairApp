@@ -78,14 +78,14 @@ object Converter {
     // CaresForBalance
 
     @JvmStatic
-    fun caresForBalance(data: CaresForBalance?): String? = when (data) {
-        CaresForBalance.LAST_WEEK -> "Ostatni tydzień"
-        CaresForBalance.LAST_TWO_WEEKS -> "Ostatnie dwa tygodnie"
-        CaresForBalance.LAST_THREE_WEEKS -> "Ostatnie trzy tygodnie"
-        CaresForBalance.LAST_MONTH -> "Ostatni miesiąc"
-        CaresForBalance.LAST_TWO_MONTH -> "Ostatnie dwa miesiące"
-        CaresForBalance.LAST_THREE_MONTH -> "Ostatenie trzy miesiące"
-        CaresForBalance.ALL -> "Wszystkie pielęgnacje"
+    fun caresForBalance(data: CaresLimit?): String? = when (data) {
+        CaresLimit.LAST_WEEK -> "Ostatni tydzień"
+        CaresLimit.LAST_TWO_WEEKS -> "Ostatnie dwa tygodnie"
+        CaresLimit.LAST_THREE_WEEKS -> "Ostatnie trzy tygodnie"
+        CaresLimit.LAST_MONTH -> "Ostatni miesiąc"
+        CaresLimit.LAST_TWO_MONTH -> "Ostatnie dwa miesiące"
+        CaresLimit.LAST_THREE_MONTH -> "Ostatenie trzy miesiące"
+        CaresLimit.ALL -> "Wszystkie pielęgnacje"
         null -> null
     }
 
