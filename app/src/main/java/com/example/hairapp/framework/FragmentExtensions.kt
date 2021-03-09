@@ -16,7 +16,7 @@ import com.example.hairapp.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
-fun <T : ViewDataBinding> Fragment.bind(
+fun <T : ViewDataBinding> Fragment.bindActivity(
     inflater: LayoutInflater,
     container: ViewGroup?,
     layoutId: Int,

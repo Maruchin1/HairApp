@@ -10,90 +10,32 @@
             type="com.example.hairapp.page_home.MainActivity" />
     </data>
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:background="@color/color_primary"
+        android:clipToPadding="false"
+        tools:context=".page_home.MainActivity">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            tools:context=".page_home.MainActivity">
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/bottom_nav"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_primary"
-                app:elevation="0dp">
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@color/color_primary_light"
+            app:itemIconTint="@color/bottom_nav_icon_and_text"
+            app:itemTextColor="@color/bottom_nav_icon_and_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/main_nav"
+            app:labelVisibilityMode="labeled"/>
 
-                <com.example.hairapp.common.ToolbarView
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:toolbarMode="home"
-                    app:title="@string/app_name"
-                    />
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabs"
-                    style="@style/Widget.MaterialComponents.TabLayout.Colored"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:tabInlineLabel="true"
-                    app:tabMode="fixed">
-
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:icon="@drawable/ic_round_bathtub_24"
-                        android:text="@string/care" />
-
-                    <com.google.android.material.tabs.TabItem
-                        android:id="@+id/tab_products"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:icon="@drawable/ic_round_shopping_basket_24"
-                        android:text="@string/products" />
-                </com.google.android.material.tabs.TabLayout>
-            </com.google.android.material.appbar.AppBarLayout>
-
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/tabs_pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </androidx.core.widget.NestedScrollView>
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="24dp"
-                android:onClick="@{() -> controller.addNew()}"
-                android:src="@drawable/ic_round_add_24" />
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigation"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/view_drawer_header"
-            app:menu="@menu/main_drawer" />
-
-    </androidx.drawerlayout.widget.DrawerLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </layout>

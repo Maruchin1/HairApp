@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.hairapp.R
 import com.example.hairapp.common.CarePhotoItemController
 import com.example.hairapp.databinding.ActivityPhotosGalleryBinding
-import com.example.hairapp.framework.bind
+import com.example.hairapp.framework.bindActivity
 import com.example.hairapp.common.PhotoPreviewDialog
 import com.example.hairapp.framework.setSystemColors
 import kotlinx.android.synthetic.main.activity_photos_gallery.*
@@ -21,7 +21,7 @@ class PhotosGalleryActivity : AppCompatActivity(), CarePhotoItemController {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bind<ActivityPhotosGalleryBinding>(R.layout.activity_photos_gallery, viewModel)
+        bindActivity<ActivityPhotosGalleryBinding>(R.layout.activity_photos_gallery, viewModel)
         setSystemColors(R.color.color_primary)
 
         gallery_photos_adapter.adapter = adapter

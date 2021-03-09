@@ -49,7 +49,7 @@ class EditCareSchemaActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bind<ActivityEditCareSchemaBinding>(R.layout.activity_edit_care_schema, viewModel)
+        bindActivity<ActivityEditCareSchemaBinding>(R.layout.activity_edit_care_schema, viewModel)
         setSystemColors(R.color.color_primary)
 
         care_schema_steps_recycler.adapter = adapter

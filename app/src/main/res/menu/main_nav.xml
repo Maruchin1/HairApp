@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_cares"
+        android:icon="@drawable/ic_round_bathtub_24"
+        android:title="@string/cares" />
+
+    <item
+        android:id="@+id/nav_products"
+        android:icon="@drawable/ic_round_shopping_basket_24"
+        android:title="@string/products" />
+
+    <item
+        android:id="@+id/nav_stats"
+        android:icon="@drawable/ic_round_bar_chart_24"
+        android:title="@string/stats" />
+
+    <item
+        android:id="@+id/nav_more"
+        android:icon="@drawable/ic_round_menu_24"
+        android:title="@string/more" />
+</menu>

@@ -84,5 +84,8 @@
     <string name="avg_days_interval_between_cares">Średnia liczba dni pomiędzy pielęgnacjami</string>
     <string name="delete">Usuń</string>
     <string name="edit">Edytuj</string>
+    <string name="cares">Pielęgnacje</string>
+    <string name="stats">Statystyki</string>
+    <string name="more">Więcej</string>
 
 </resources>

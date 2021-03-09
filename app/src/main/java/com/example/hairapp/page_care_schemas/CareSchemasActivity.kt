@@ -40,7 +40,7 @@ class CareSchemasActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bind<ActivityCareSchemasBinding>(R.layout.activity_care_schemas, viewModel)
+        bindActivity<ActivityCareSchemasBinding>(R.layout.activity_care_schemas, viewModel)
         setSystemColors(R.color.color_primary)
 
         care_schemas_recycler.adapter = adapter

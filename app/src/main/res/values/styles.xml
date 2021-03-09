@@ -1,4 +1,4 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/color_accent</item>
         <item name="colorSurface">@color/color_surface</item>
 
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="android:colorBackground">@color/color_background</item>
         <item name="materialButtonStyle">@style/Widget.App.Button.Primary</item>
         <item name="materialCardViewStyle">@style/Widget.App.Card</item>

@@ -42,7 +42,7 @@ class ProductActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bind<ActivityProductBinding>(R.layout.activity_product, viewModel)
+        bindActivity<ActivityProductBinding>(R.layout.activity_product, viewModel)
         setSystemColors(R.color.color_transparent, R.color.color_primary)
 
         setupCollapsingToolbar()

@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.R
 import com.example.hairapp.databinding.DialogPhotoPreviewBinding
 import com.example.hairapp.framework.Dialog
-import com.example.hairapp.framework.bind
+import com.example.hairapp.framework.bindActivity
 import com.example.hairapp.framework.setSystemColors
 import kotlinx.android.synthetic.main.dialog_photo_preview.*
 import kotlinx.coroutines.launch
@@ -36,7 +36,7 @@ class PhotoPreviewDialog(
         savedInstanceState: Bundle?
     ): View? {
         requireActivity().setSystemColors(R.color.color_primary)
-        return bind<DialogPhotoPreviewBinding>(
+        return bindActivity<DialogPhotoPreviewBinding>(
             inflater,
             container,
             R.layout.dialog_photo_preview,
