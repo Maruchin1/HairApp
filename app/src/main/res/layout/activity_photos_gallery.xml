@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:onNavigationClick="@{() -> controller.onBackPressed()}"
-                app:title="Przegląd zdjęć" />
+                app:title="Zdjęcia z pielęgnacji" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
@@ -43,7 +43,7 @@
                 android:layout_height="match_parent">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/gallery_photos_adapter"
+                    android:id="@+id/photosGrid"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clipToPadding="false"

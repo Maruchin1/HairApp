@@ -7,11 +7,10 @@ import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.hairapp.R
 import com.example.hairapp.common.CarePhotoItemController
-import com.example.hairapp.databinding.ActivityPhotosGalleryBinding
 import com.example.hairapp.framework.bindActivity
-import com.example.hairapp.common.PhotoPreviewDialog
+import com.example.hairapp.databinding.ActivityPhotosGalleryBinding
 import com.example.hairapp.framework.SystemColors
-import kotlinx.android.synthetic.main.activity_photos_gallery.*
+import com.example.hairapp.page_photo_preview.PhotoPreviewActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PhotosGalleryActivity : AppCompatActivity(), CarePhotoItemController {
@@ -19,22 +18,29 @@ class PhotosGalleryActivity : AppCompatActivity(), CarePhotoItemController {
     private val viewModel: PhotosGalleryViewModel by viewModel()
     private val adapter by lazy { GalleryAdapter(this) }
 
+    private val openPhoto = registerForActivityResult(
+        PhotoPreviewActivity.Contract()
+    ) { photoToDelete ->
+        photoToDelete?.let {
+            viewModel.deletePhoto(it)
+        }
+    }
+
+    private lateinit var binding: ActivityPhotosGalleryBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bindActivity<ActivityPhotosGalleryBinding>(R.layout.activity_photos_gallery, viewModel)
-        SystemColors(this).allDark()
+        binding = bindActivity(R.layout.activity_photos_gallery, viewModel)
+        SystemColors(this).allDark().apply()
 
-        gallery_photos_adapter.adapter = adapter
-        gallery_photos_adapter.layoutManager = makeLayoutManager()
+        binding.photosGrid.adapter = adapter
+        binding.photosGrid.layoutManager = makeLayoutManager()
 
         adapter.setSource(viewModel.galleryItems, this)
     }
 
     override fun onPhotoSelected(data: String) {
-        PhotoPreviewDialog(
-            photo = data,
-            onPhotoDelete = { viewModel.deletePhoto(data) }
-        ).show(supportFragmentManager, "PhotoPreview")
+        openPhoto.launch(data)
     }
 
     private fun makeLayoutManager() = GridLayoutManager(this, 2).apply {

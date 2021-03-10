@@ -11,6 +11,8 @@ import com.example.core.gateway.CareSchemaRepo
 import com.example.core.util.AppClock
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.startWith
 import java.time.LocalDate
 
 class CaresListViewModel(
@@ -30,6 +32,7 @@ class CaresListViewModel(
     val daysFromLastCare: LiveData<Long> = _orderedCares
         .map { it.firstOrNull() }
         .map { calcDaysFromLastCare(it) }
+        .onStart { emit(0) }
         .asLiveData()
 
     val orderedCares: LiveData<List<Care>> = _orderedCares

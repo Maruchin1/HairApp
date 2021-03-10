@@ -72,7 +72,7 @@
 
     <style name="Widget.App.Fab" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="shapeAppearanceOverlay">@style/ShapeOverlay.Fab</item>
-        <item name="backgroundTint">@color/color_primary_dark</item>
+        <item name="backgroundTint">@color/color_primary</item>
         <item name="tint">@color/color_white</item>
     </style>
 
@@ -138,6 +138,15 @@
         <item name="iconTint">@color/color_primary</item>
         <item name="cornerRadius">8dp</item>
         <item name="iconPadding">8dp</item>
+    </style>
+
+    <style name="Widget.App.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="iconPadding">8dp</item>
+    </style>
+
+    <style name="Widget.App.Button.Text.Dark" parent="Widget.App.Button.Text">
+        <item name="android:textColor">@color/color_white</item>
+        <item name="iconTint">@color/color_white</item>
     </style>
 
     <style name="Widget.App.Button.Primary.Dark" parent="Widget.App.Button.Primary">

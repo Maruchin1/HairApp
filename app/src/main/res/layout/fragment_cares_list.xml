@@ -93,17 +93,15 @@
                         app:value='@{`` + viewModel.daysFromLastCare, default="6"}' />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_add_care"
-                        style="@style/Widget.App.Button.Primary.Dark"
+                        android:id="@+id/btn_gallery"
+                        style="@style/Widget.App.Button.Text.Dark"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
                         android:layout_marginTop="32dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="8dp"
-                        android:onClick="@{() -> controller.addNewCare()}"
-                        android:text="Dodaj"
-                        app:icon="@drawable/ic_round_add_24"
+                        android:onClick="@{() -> controller.openPhotos()}"
+                        android:text="Zdjęcia"
+                        app:icon="@drawable/ic_round_photo_library_24"
+                        app:iconGravity="textStart"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/btn_open_statistics"
@@ -111,22 +109,29 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_open_statistics"
-                        style="@style/Widget.App.Button.Secondary.Dark"
+                        style="@style/Widget.App.Button.Text.Dark"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="8dp"
                         android:onClick="@{() -> controller.openStatistics()}"
-                        android:text="Statystyki"
-                        app:icon="@drawable/ic_round_bar_chart_24"
-                        app:layout_constraintBottom_toBottomOf="@id/btn_add_care"
-                        app:layout_constraintEnd_toStartOf="@id/btn_add_care"
+                        android:text="PEH"
+                        app:icon="@drawable/ic_round_pie_chart_24"
+                        app:iconGravity="textStart"
+                        app:layout_constraintBottom_toBottomOf="@id/btn_gallery"
+                        app:layout_constraintEnd_toStartOf="@id/btn_gallery"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/btn_add_care" />
-
+                        app:layout_constraintTop_toTopOf="@id/btn_gallery" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/page_padding_top"
+                android:text="Nowa pielęgnacja"
+                app:icon="@drawable/ic_round_add_24"
+                app:iconGravity="textStart" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_cares"
@@ -134,9 +139,9 @@
                 android:layout_height="match_parent"
                 android:background="@color/color_transparent"
                 android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/page_list_padding_horizontal"
-                android:paddingTop="@dimen/page_padding_top"
                 android:paddingBottom="@dimen/page_padding_bottom"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_care" />

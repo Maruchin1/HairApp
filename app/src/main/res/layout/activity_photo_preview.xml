@@ -5,8 +5,7 @@
 
         <variable
             name="controller"
-            type="com.example.hairapp.common.PhotoPreviewDialog" />
-
+            type="com.example.hairapp.page_photo_preview.PhotoPreviewActivity" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,9 +36,8 @@
                 android:theme="@style/Widget.App.Toolbar.Dark"
                 app:menu="@menu/photo_preview"
                 app:navigationIcon="@drawable/ic_round_close_24"
-                app:onNavigationClick="@{() -> controller.dismiss()}" />
+                app:onNavigationClick="@{() -> controller.finish()}" />
         </com.google.android.material.appbar.AppBarLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 </layout>

@@ -16,6 +16,7 @@ import com.example.hairapp.framework.Dialog
 import com.example.hairapp.framework.bindFragment
 import com.example.hairapp.page_care.CareActivity
 import com.example.hairapp.page_peh_balance.PehBalanceActivity
+import com.example.hairapp.page_photos_gallery.PhotosGalleryActivity
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,6 +30,10 @@ class CaresListFragment : Fragment(), CareItemController {
 
     fun openStatistics() {
         startActivity(PehBalanceActivity.makeIntent(requireContext()))
+    }
+
+    fun openPhotos() {
+        startActivity(PhotosGalleryActivity.makeIntent(requireContext()))
     }
 
     fun addNewCare() = lifecycleScope.launch {

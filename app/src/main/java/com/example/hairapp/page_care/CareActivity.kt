@@ -46,7 +46,7 @@ class CareActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindActivity<ActivityCareBinding>(R.layout.activity_care, viewModel)
-        SystemColors(this).allDark()
+        SystemColors(this).darkStatusBar().lightNavigationBar().apply()
         setupTabs()
         checkInputParams()
 

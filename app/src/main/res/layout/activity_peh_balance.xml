@@ -100,7 +100,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/stat_last_month_cares"
-                    app:value='@{`` + viewModel.avgDaysIntervalBetweenCares + " dni", default="17 dni"}' />
+                    app:value='@{`` + viewModel.avgDaysIntervalBetweenCares, default="17"}' />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

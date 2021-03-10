@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".page_photo_preview.PhotoPreviewActivity"></activity>
         <activity
             android:name=".page_peh_balance.PehBalanceActivity"
             android:screenOrientation="portrait" />
