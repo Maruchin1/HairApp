@@ -2,7 +2,6 @@ package com.example.hairapp
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.hairapp.page_home.MainActivity
 import com.example.hairapp.screens.*
 import org.junit.Rule
 import org.junit.Test

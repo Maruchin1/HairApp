@@ -1,83 +1,48 @@
 package com.example.core
 
 import com.example.core.use_case.*
+import com.example.core.util.AppClock
 import org.koin.dsl.module
 
 val coreModule = module {
 
-    factory {
-        AddCare(careRepo = get())
-    }
+    factory { AddCare(get()) }
 
-    factory {
-        AddCareSchema(careSchemaRepo = get())
-    }
+    factory { AddCareSchema(get()) }
 
-    factory {
-        AddProduct(productRepo = get())
-    }
+    factory { AddProduct(get()) }
 
-    factory {
-        DeleteCare(careRepo = get())
-    }
+    factory { DeleteCare(get()) }
 
-    factory {
-        DeleteCarePhoto(careRepo = get())
-    }
+    factory { DeleteCarePhoto(get()) }
 
-    factory {
-        DeleteCareSchema(careSchemaRepo = get())
-    }
+    factory { DeleteCareSchema(get()) }
 
-    factory {
-        DeleteProduct(productRepo = get())
-    }
+    factory { DeleteProduct(get()) }
 
-    factory {
-        ShowCareSchema(careSchemaRepo = get())
-    }
+    factory { ShowCareSchema(get()) }
 
-    factory {
-        ShowCareSchemas(careSchemaRepo = get())
-    }
+    factory { ShowCareSchemas(get()) }
 
-    factory {
-        ShowCaresList(careRepo = get())
-    }
+    factory { ShowCaresList(get()) }
 
-    factory {
-        ShowPhotosReview(careRepo = get())
-    }
+    factory { ShowPhotosReview(get()) }
 
-    factory {
-        ShowProductsList(productRepo = get())
-    }
+    factory { ShowProductsList(get()) }
 
-    factory {
-        ShowProductsToSelect(productRepo = get())
-    }
+    factory { ShowProductsToSelect(get()) }
 
-    factory {
-        ShowSavedManufacturers(productRepo = get())
-    }
+    factory { ShowSavedManufacturers(get()) }
 
-    factory {
-        ShowSelectedCare(careRepo = get())
-    }
+    factory { ShowSelectedCare(get()) }
 
-    factory {
-        ShowSelectedProduct(productRepo = get())
-    }
+    factory { ShowSelectedProduct(get()) }
 
-    factory {
-        UpdateCare(careRepo = get())
-    }
+    factory { UpdateCare(get()) }
 
-    factory {
-        UpdateCareSchema(careSchemaRepo = get())
-    }
+    factory { UpdateCareSchema(get()) }
 
-    factory {
-        UpdateProduct(productRepo = get())
-    }
+    factory { UpdateProduct(get()) }
+
+    factory { AppClock() }
 }

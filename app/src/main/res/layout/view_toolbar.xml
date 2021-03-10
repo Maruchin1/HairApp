@@ -9,12 +9,11 @@
         android:id="@+id/toolbar_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:theme="@style/ThemeOverlay.App.Toolbar.Dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_round_arrow_back_ios_24"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:navigationContentDescription="Toolbar navigation" />
+        app:navigationContentDescription="Toolbar navigation"
+        app:navigationIcon="@drawable/ic_round_arrow_back_ios_24" />
 
     <TextView
         android:id="@+id/toolbar_title"

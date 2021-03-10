@@ -11,6 +11,7 @@ import com.example.hairapp.R
 import com.example.hairapp.databinding.FragmentCareNotesBinding
 import com.example.hairapp.framework.Animator
 import com.example.hairapp.framework.bindActivity
+import com.example.hairapp.framework.bindFragment
 import kotlinx.android.synthetic.main.fragment_care_notes.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -40,9 +41,9 @@ class CareNotesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return bindActivity<FragmentCareNotesBinding>(
+        return bindFragment<FragmentCareNotesBinding>(
             inflater, container, R.layout.fragment_care_notes, viewModel
-        )
+        ).root
     }
 
     private fun changeMode(newMode: Mode) {

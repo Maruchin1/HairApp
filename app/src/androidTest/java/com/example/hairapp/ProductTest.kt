@@ -5,7 +5,6 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.agoda.kakao.dialog.KAlertDialog
-import com.example.hairapp.page_home.MainActivity
 import com.example.hairapp.screens.HomeScreen
 import com.example.hairapp.screens.ProductFormScreen
 import com.example.hairapp.screens.ProductItem

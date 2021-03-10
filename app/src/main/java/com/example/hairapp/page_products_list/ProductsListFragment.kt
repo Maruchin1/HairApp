@@ -1,4 +1,4 @@
-package com.example.hairapp.page_home
+package com.example.hairapp.page_products_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,11 +12,11 @@ import com.example.hairapp.framework.Binder
 import com.example.hairapp.framework.BindingRecyclerAdapter
 import com.example.hairapp.page_product.ProductActivity
 import kotlinx.android.synthetic.main.fragment_products_list.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProductsListFragment : Fragment(), ProductItemController {
 
-    private val viewModel: HomeViewModel by sharedViewModel()
+    private val viewModel: ProductsListViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +33,7 @@ class ProductsListFragment : Fragment(), ProductItemController {
             controller = this,
             layoutResId = R.layout.item_product
         ).apply {
-            setSource(viewModel.products, viewLifecycleOwner)
+            setSource(viewModel.alphabeticalProducts, viewLifecycleOwner)
         }
 
         viewModel.noProducts.observe(viewLifecycleOwner) {

@@ -6,12 +6,14 @@ import com.example.core.domain.CaresLimit
 import com.example.core.domain.PehBalance
 import com.example.core.gateway.CareRepo
 import com.example.core.gateway.AppPreferences
+import com.example.core.util.AppClock
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class PehBalanceViewModel(
     private val careRepo: CareRepo,
-    private val appPreferences: AppPreferences
+    private val appPreferences: AppPreferences,
+    private val appClock: AppClock
 ) : ViewModel() {
 
     private val allCares: Flow<List<Care>> = careRepo.findAll()
@@ -27,7 +29,7 @@ class PehBalanceViewModel(
         .mapLatest { countCaresFromLastMonth(it) }
         .asLiveData()
 
-    val avgDaysIntervalBetweenCares: LiveData<Int> = allCares
+    val avgDaysIntervalBetweenCares: LiveData<Long> = allCares
         .mapLatest { calcAvgDaysIntervalBetweenCares(it) }
         .asLiveData()
 
@@ -65,16 +67,18 @@ class PehBalanceViewModel(
     }
 
     private fun countCaresFromLastMonth(cares: List<Care>): Int {
-        return cares.count { it.isFromLastDays(30) }
+        return cares.count { appClock.isFromLastDays(it.date, 30) }
     }
 
-    private fun calcAvgDaysIntervalBetweenCares(cares: List<Care>): Int {
+    private fun calcAvgDaysIntervalBetweenCares(cares: List<Care>): Long {
         return cares
             .sortedBy { it.date }
-            .zipWithNext { a, b -> b.daysFromCare(a) }
+            .zipWithNext { a, b -> calcDaysBetweenCares(a, b) }
             .average()
-            .toInt()
+            .toLong()
     }
 
-
+    private fun calcDaysBetweenCares(firstCare: Care, secondCare: Care): Long {
+        return appClock.absoluteDaysBetween(firstCare.date, secondCare.date)
+    }
 }

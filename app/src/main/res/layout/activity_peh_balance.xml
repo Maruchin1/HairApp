@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:onNavigationClick="@{() -> controller.onBackPressed()}"
-                app:title="@string/peh_balance" />
+                app:title="@string/statistics" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
@@ -42,6 +42,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clipToPadding="false"
                 android:paddingHorizontal="@dimen/page_padding_horizontal">
 
                 <com.github.mikephil.charting.charts.PieChart
@@ -72,83 +73,34 @@
                     android:textColor="@color/color_white"
                     app:drawableEndCompat="@drawable/ic_round_arrow_drop_down_24"
                     app:drawableTint="@color/color_white"
-                    app:layout_constraintBottom_toTopOf="@id/card_last_month_cares"
+                    app:layout_constraintBottom_toTopOf="@id/stat_last_month_cares"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/peh_balance_chart" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_last_month_cares"
-                    style="@style/Widget.App.Card.Dark"
+                <com.example.hairapp.views.StatCounterView
+                    android:id="@+id/stat_last_month_cares"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="16dp"
+                    app:label="@string/num_of_last_month_cares"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="4:3"
-                    app:layout_constraintEnd_toStartOf="@id/card_avg_cares_interval"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintEnd_toStartOf="@id/stat_avg_days_between_cares"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:value='@{`` + viewModel.numOfLastMonthCares, default="12"}' />
 
-                <TextView
-                    android:id="@+id/value_last_month_cares"
+                <com.example.hairapp.views.StatCounterView
+                    android:id="@+id/stat_avg_days_between_cares"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text='@{`` + viewModel.numOfLastMonthCares, default="12"}'
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.App.BigValue"
-                    app:layout_constraintEnd_toEndOf="@id/card_last_month_cares"
-                    app:layout_constraintStart_toStartOf="@id/card_last_month_cares"
-                    app:layout_constraintTop_toTopOf="@id/card_last_month_cares" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    android:text="@string/num_of_last_month_cares"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.App.BodySecondary"
-                    app:layout_constraintBottom_toBottomOf="@id/card_last_month_cares"
-                    app:layout_constraintEnd_toEndOf="@id/card_last_month_cares"
-                    app:layout_constraintStart_toStartOf="@id/card_last_month_cares"
-                    app:layout_constraintTop_toBottomOf="@id/value_last_month_cares" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_avg_cares_interval"
-                    style="@style/Widget.App.Card.Dark"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="16dp"
+                    app:label="@string/avg_days_interval_between_cares"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="4:3"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/card_last_month_cares" />
-
-                <TextView
-                    android:id="@+id/value_avg_cares_interval"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text='@{`` + viewModel.avgDaysIntervalBetweenCares, default="4"}'
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.App.BigValue"
-                    app:layout_constraintEnd_toEndOf="@id/card_avg_cares_interval"
-                    app:layout_constraintStart_toStartOf="@id/card_avg_cares_interval"
-                    app:layout_constraintTop_toTopOf="@id/card_avg_cares_interval" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    android:text="@string/avg_days_interval_between_cares"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.App.BodySecondary"
-                    app:layout_constraintBottom_toBottomOf="@id/card_avg_cares_interval"
-                    app:layout_constraintEnd_toEndOf="@id/card_avg_cares_interval"
-                    app:layout_constraintStart_toStartOf="@id/card_avg_cares_interval"
-                    app:layout_constraintTop_toBottomOf="@id/value_avg_cares_interval" />
+                    app:layout_constraintStart_toEndOf="@id/stat_last_month_cares"
+                    app:value='@{`` + viewModel.avgDaysIntervalBetweenCares + " dni", default="17 dni"}' />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.example.hairapp.framework.Converter" />
+
+        <variable
+            name="controller"
+            type="com.example.hairapp.page_cares_list.CaresListFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.example.hairapp.page_cares_list.CaresListViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_background"
+        android:clipToPadding="false"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/page_padding_horizontal"
+                android:layout_marginTop="@dimen/page_padding_top"
+                app:cardBackgroundColor="@color/color_primary">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/today_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/ic_round_event_24"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/color_white" />
+
+                    <TextView
+                        android:id="@+id/today"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:text='@{Converter.dayOfWeekAndMonth(viewModel.today), default="Wtorek 09 Marzec"}'
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textColor="@color/color_white"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/today_icon"
+                        app:layout_constraintEnd_toStartOf="@id/counter_days_from_last_care"
+                        app:layout_constraintStart_toEndOf="@id/today_icon"
+                        app:layout_constraintTop_toTopOf="@id/today_icon" />
+
+                    <TextView
+                        android:id="@+id/label_last_care"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="Ostatnia\npielęgnacja"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                        android:textColor="@color/color_white"
+                        app:layout_constraintBottom_toBottomOf="@id/counter_days_from_last_care"
+                        app:layout_constraintEnd_toStartOf="@id/counter_days_from_last_care"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/today"
+                        app:layout_constraintVertical_bias="1" />
+
+                    <com.example.hairapp.views.StatCounterView
+                        android:id="@+id/counter_days_from_last_care"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        app:label="Dni temu"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:value='@{`` + viewModel.daysFromLastCare, default="6"}' />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_add_care"
+                        style="@style/Widget.App.Button.Primary.Dark"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:onClick="@{() -> controller.addNewCare()}"
+                        android:text="Dodaj"
+                        app:icon="@drawable/ic_round_add_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/btn_open_statistics"
+                        app:layout_constraintTop_toBottomOf="@id/counter_days_from_last_care" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_open_statistics"
+                        style="@style/Widget.App.Button.Secondary.Dark"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:onClick="@{() -> controller.openStatistics()}"
+                        android:text="Statystyki"
+                        app:icon="@drawable/ic_round_bar_chart_24"
+                        app:layout_constraintBottom_toBottomOf="@id/btn_add_care"
+                        app:layout_constraintEnd_toStartOf="@id/btn_add_care"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/btn_add_care" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_cares"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_transparent"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/page_list_padding_horizontal"
+                android:paddingTop="@dimen/page_padding_top"
+                android:paddingBottom="@dimen/page_padding_bottom"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_care" />
+
+            <com.example.hairapp.common.NoContentView
+                android:id="@+id/no_cares"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:icon="@drawable/ic_outline_bathtub_24"
+                app:title="Zapisuj pielęgnacje"
+                app:useArrow="true" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

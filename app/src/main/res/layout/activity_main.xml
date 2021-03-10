@@ -7,15 +7,15 @@
 
         <variable
             name="controller"
-            type="com.example.hairapp.page_home.MainActivity" />
+            type="com.example.hairapp.MainActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_primary"
+        android:background="@color/color_background"
         android:clipToPadding="false"
-        tools:context=".page_home.MainActivity">
+        tools:context=".MainActivity">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container"
@@ -26,11 +26,9 @@
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"
+            style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:backgroundTint="@color/color_primary_light"
-            app:itemIconTint="@color/bottom_nav_icon_and_text"
-            app:itemTextColor="@color/bottom_nav_icon_and_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/main_nav"
             app:labelVisibilityMode="labeled"/>

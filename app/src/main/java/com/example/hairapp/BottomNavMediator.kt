@@ -1,10 +1,11 @@
-package com.example.hairapp.page_home
+package com.example.hairapp
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import com.example.hairapp.R
+import com.example.hairapp.page_cares_list.CaresListFragment
+import com.example.hairapp.page_products_list.ProductsListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class BottomNavMediator(
@@ -15,7 +16,7 @@ class BottomNavMediator(
     init {
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_cares -> openPage<CareListFragment>()
+                R.id.nav_cares -> openPage<CaresListFragment>()
                 R.id.nav_products -> openPage<ProductsListFragment>()
             }
             true

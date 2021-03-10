@@ -8,8 +8,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityPehBalanceBinding
 import com.example.hairapp.framework.Dialog
+import com.example.hairapp.framework.SystemColors
 import com.example.hairapp.framework.bindActivity
-import com.example.hairapp.framework.setSystemColors
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -30,7 +30,7 @@ class PehBalanceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = bindActivity(R.layout.activity_peh_balance, viewModel)
-        setSystemColors(R.color.color_primary)
+        SystemColors(this).allDark().apply()
 
         PehBalanceChartMediator(
             activity = this,

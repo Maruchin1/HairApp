@@ -11,8 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.R
 import com.example.hairapp.databinding.DialogPhotoPreviewBinding
 import com.example.hairapp.framework.Dialog
-import com.example.hairapp.framework.bindActivity
-import com.example.hairapp.framework.setSystemColors
+import com.example.hairapp.framework.bindFragment
 import kotlinx.android.synthetic.main.dialog_photo_preview.*
 import kotlinx.coroutines.launch
 
@@ -35,13 +34,12 @@ class PhotoPreviewDialog(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        requireActivity().setSystemColors(R.color.color_primary)
-        return bindActivity<DialogPhotoPreviewBinding>(
+        return bindFragment<DialogPhotoPreviewBinding>(
             inflater,
             container,
             R.layout.dialog_photo_preview,
             null
-        )
+        ).root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,11 +53,6 @@ class PhotoPreviewDialog(
             }
             true
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        requireActivity().setSystemColors(R.color.color_primary)
     }
 
     private fun deletePhoto() = lifecycleScope.launch {

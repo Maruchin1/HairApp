@@ -112,8 +112,7 @@ object Converter {
 
     @JvmStatic
     fun dayOfMonth(date: LocalDate?): String? {
-        val formatter = DateTimeFormatter.ofPattern("dd")
-        return date?.format(formatter)
+        return date?.format(DateTimeFormatter.ofPattern("dd"))
     }
 
     @JvmStatic
@@ -123,8 +122,12 @@ object Converter {
 
     @JvmStatic
     fun dayAndMonth(date: LocalDate?): String? {
-        val formatter = DateTimeFormatter.ofPattern("dd MMM")
-        return date?.format(formatter)
+        return date?.format(DateTimeFormatter.ofPattern("dd MMM"))
+    }
+
+    @JvmStatic
+    fun dayOfWeekAndMonth(date: LocalDate?): String? {
+        return date?.format(DateTimeFormatter.ofPattern("EE dd MMMM"))
     }
 
     // ProductsProportion

@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.view_section_card.view.*
 
 class SectionCardView(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
 
-    private var binding = ViewSectionCardBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding = ViewSectionCardBinding.inflate(LayoutInflater.from(context), this, true)
 
     var title: String?
         get() = binding.sectionTitle.text.toString()
