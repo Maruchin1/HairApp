@@ -23,61 +23,23 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:elevation="0dp">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar"
+            <com.example.hairapp.views.ToolbarView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                app:contentScrim="?attr/colorPrimary"
-                app:expandedTitleMarginEnd="64dp"
-                app:expandedTitleMarginStart="48dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:titleEnabled="false">
-
-                <ImageView
-                    android:id="@+id/image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    app:layout_collapseMode="parallax"
-                    app:srcUri="@{viewModel.productPhoto}" />
-
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin"
-                    app:navigationIcon="@drawable/ic_round_arrow_back_24"
-                    app:onNavigationClick="@{() -> controller.onBackPressed()}"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-                    <TextView
-                        android:id="@+id/toolbar_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/product"
-                        android:textAppearance="@style/TextAppearance.App.ToolbarTitle" />
-                </com.google.android.material.appbar.MaterialToolbar>
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:onNavigationClick="@{() -> controller.onBackPressed()}"
+                app:title="@string/product" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_overlapping_content"
+            android:background="@color/color_background"
             android:clipToPadding="false"
             android:fillViewport="true"
-            app:behavior_overlapTop="16dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
@@ -88,40 +50,55 @@
                 android:paddingTop="@dimen/page_padding_top"
                 android:paddingBottom="@dimen/page_padding_bottom">
 
-                <LinearLayout
-                    android:id="@+id/box_name"
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    app:cardBackgroundColor="@color/color_transparent"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
 
-                    <TextView
-                        android:id="@+id/txv_product_name"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text='@{viewModel.productName, default="Nazwa produktu"}'
-                        android:textAppearance="@style/TextAppearance.App.PageTitle" />
+                        android:background="@drawable/bg_dotted_border">
 
-                    <TextView
-                        android:id="@+id/txv_product_manufacturer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:alpha="0.6"
-                        android:text='@{viewModel.productManufacturer, default=Producent}'
-                        android:textAppearance="@style/TextAppearance.App.PageSubtitle"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        <ImageView
+                            android:id="@+id/image"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcUri="@{viewModel.productPhoto}" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/txv_product_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/section_margin_top"
+                    android:text='@{viewModel.productName, default="Nazwa produktu"}'
+                    android:textAppearance="@style/TextAppearance.App.PageTitle" />
+
+                <TextView
+                    android:id="@+id/txv_product_manufacturer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text='@{viewModel.productManufacturer, default=Producent}'
+                    android:textAppearance="@style/TextAppearance.App.PageSubtitle"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/box_actions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/section_margin_top"
-                    app:layout_constraintTop_toBottomOf="@id/box_name">
+                    android:layout_marginTop="@dimen/section_margin_top">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_edit"
-                        style="@style/Widget.App.Button.Secondary.Dark"
+                        style="@style/Widget.App.Button.Secondary"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
@@ -132,7 +109,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_delete"
-                        style="@style/Widget.App.Button.Secondary.Dark"
+                        style="@style/Widget.App.Button.Secondary"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -142,70 +119,75 @@
                         app:icon="@drawable/ic_round_delete_24" />
                 </LinearLayout>
 
-                <com.example.hairapp.views.SectionCardView
+                <TextView
+                    android:id="@+id/section_title_product_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/section_margin_top"
-                    app:titleResId="@string/product_type">
+                    android:text="@string/product_type"
+                    android:textAppearance="@style/TextAppearance.App.SectionTitle" />
 
-                    <TextView
-                        android:id="@+id/txv_type_not_specified"
-                        android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/txv_type_not_specified"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/section_body_margin_top"
+                    android:text="@string/type_not_specified"
+                    android:textAppearance="@style/TextAppearance.App.BodyTertiary"
+                    app:visibleOrGone="@{viewModel.typeNotSpecified}" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/section_body_margin_top">
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.App.Chip"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/type_not_specified"
-                        android:textAppearance="@style/TextAppearance.App.BodyTertiary"
-                        app:visibleOrGone="@{viewModel.typeNotSpecified}" />
+                        android:text="@string/humectants"
+                        app:chipBackgroundColor="@color/color_humectants"
+                        app:visibleOrGone="@{viewModel.humectants}" />
 
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/chip_group_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.App.Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/emollients"
+                        app:chipBackgroundColor="@color/color_emollients"
+                        app:visibleOrGone="@{viewModel.emollients}" />
 
-                        <com.google.android.material.chip.Chip
-                            style="@style/Widget.App.Chip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/humectants"
-                            app:chipBackgroundColor="@color/color_humectants"
-                            app:visibleOrGone="@{viewModel.humectants}" />
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.App.Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/proteins"
+                        app:chipBackgroundColor="@color/color_proteins"
+                        app:visibleOrGone="@{viewModel.proteins}" />
+                </com.google.android.material.chip.ChipGroup>
 
-                        <com.google.android.material.chip.Chip
-                            style="@style/Widget.App.Chip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/emollients"
-                            app:chipBackgroundColor="@color/color_emollients"
-                            app:visibleOrGone="@{viewModel.emollients}" />
-
-                        <com.google.android.material.chip.Chip
-                            style="@style/Widget.App.Chip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/proteins"
-                            app:chipBackgroundColor="@color/color_proteins"
-                            app:visibleOrGone="@{viewModel.proteins}" />
-                    </com.google.android.material.chip.ChipGroup>
-                </com.example.hairapp.views.SectionCardView>
-
-                <com.example.hairapp.views.SectionCardView
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/section_margin_top"
-                    app:titleResId="@string/product_application">
+                    android:text="@string/product_application"
+                    android:textAppearance="@style/TextAppearance.App.SectionTitle" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/application_not_specified"
-                        android:textAppearance="@style/TextAppearance.App.BodyTertiary"
-                        app:visibleOrGone="@{viewModel.applicationNotSpecified}" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/section_body_margin_top"
+                    android:text="@string/application_not_specified"
+                    android:textAppearance="@style/TextAppearance.App.BodyTertiary"
+                    app:visibleOrGone="@{viewModel.applicationNotSpecified}" />
 
-                    <com.example.hairapp.views.ProductApplicationsView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:items="@{viewModel.applications}"
-                        app:itemsSelectable="false" />
-                </com.example.hairapp.views.SectionCardView>
+                <com.example.hairapp.views.ProductApplicationsView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/section_body_margin_top"
+                    app:items="@{viewModel.applications}"
+                    app:itemsSelectable="false" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

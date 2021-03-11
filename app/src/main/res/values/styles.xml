@@ -71,7 +71,7 @@
     </style>
 
     <style name="Widget.App.Chip" parent="Widget.MaterialComponents.Chip.Action">
-        <item name="chipBackgroundColor">@color/color_primary_dark</item>
+        <item name="chipBackgroundColor">@color/color_primary</item>
         <item name="android:textColor">@color/color_white</item>
         <item name="chipCornerRadius">8dp</item>
     </style>
@@ -80,7 +80,7 @@
         <item name="chipBackgroundColor">@color/chip_bg</item>
         <item name="android:textColor">@color/chip_text</item>
         <item name="chipCornerRadius">8dp</item>
-        <item name="chipStrokeWidth">3dp</item>
+        <item name="chipStrokeWidth">2dp</item>
         <item name="chipStrokeColor">@color/color_primary</item>
     </style>
 
@@ -92,7 +92,7 @@
 
     <style name="Widget.App.ExtendedFab" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="shapeAppearanceOverlay">@style/ShapeOverlay.Fab</item>
-        <item name="backgroundTint">@color/color_primary_dark</item>
+        <item name="backgroundTint">@color/color_primary</item>
         <item name="iconTint">@color/color_white</item>
         <item name="android:textColor">@color/color_white</item>
         <item name="iconGravity">textStart</item>
@@ -146,7 +146,7 @@
     </style>
 
     <style name="Widget.App.Button.Secondary" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="strokeWidth">3dp</item>
+        <item name="strokeWidth">2dp</item>
         <item name="strokeColor">@color/color_primary</item>
         <item name="android:textColor">@color/color_primary</item>
         <item name="iconTint">@color/color_primary</item>
@@ -157,6 +157,7 @@
     <style name="Widget.App.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="iconPadding">8dp</item>
         <item name="cornerRadius">8dp</item>
+        <item name="iconGravity">textStart</item>
     </style>
 
     <style name="Widget.App.Button.Text.Dark" parent="Widget.App.Button.Text">
@@ -183,11 +184,19 @@
     </style>
 
     <style name="TextAppearance.App.PageTitle" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">@color/text_color_primary</item>
+    </style>
+
+    <style name="TextAppearance.App.PageSubtitle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/text_color_tertiary</item>
+    </style>
+
+    <style name="TextAppearance.App.PageTitle.Dark" parent="TextAppearance.App.PageTitle">
         <item name="android:textColor">@color/text_color_primary_dark</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextAppearance.App.PageSubtitle" parent="TextAppearance.MaterialComponents.Headline6">
+    <style name="TextAppearance.App.PageSubtitle.Dark" parent="TextAppearance.App.PageSubtitle">
         <item name="android:textColor">@color/text_color_primary_dark</item>
     </style>
 

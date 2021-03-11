@@ -37,8 +37,7 @@
                     android:layout_weight="1"
                     android:onClick="@{() -> controller.openRanging()}"
                     android:text="@string/ranking"
-                    app:icon="@drawable/ic_round_bar_chart_24"
-                    app:iconGravity="textStart" />
+                    app:icon="@drawable/ic_round_bar_chart_24" />
 
                 <com.google.android.material.button.MaterialButton
                     style="@style/Widget.App.Button.Text"
@@ -47,8 +46,7 @@
                     android:layout_weight="1"
                     android:onClick="@{() -> controller.addProduct()}"
                     android:text="@string/add"
-                    app:icon="@drawable/ic_round_add_24"
-                    app:iconGravity="textStart" />
+                    app:icon="@drawable/ic_round_add_24" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

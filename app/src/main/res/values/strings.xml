@@ -92,5 +92,6 @@
     <string name="photos">Zdjęcia</string>
     <string name="new_care">Nowa pielęgnacja</string>
     <string name="save_cares">Zapisuj pielęgnacje</string>
+    <string name="new_product">Nowy produkt</string>
 
 </resources>

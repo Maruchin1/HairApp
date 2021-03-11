@@ -52,7 +52,7 @@ class ProductApplicationsView(context: Context, attrs: AttributeSet) : FrameLayo
             val chip = Chip(context)
             if (!itemsSelectable) {
                 chip.chipBackgroundColor = ColorStateList.valueOf(
-                    ContextCompat.getColor(context, R.color.color_primary_dark)
+                    ContextCompat.getColor(context, R.color.color_primary)
                 )
                 chip.setTextColor(ContextCompat.getColor(context, R.color.color_white))
             }
