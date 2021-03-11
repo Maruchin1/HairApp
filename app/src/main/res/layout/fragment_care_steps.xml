@@ -18,7 +18,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_care_step" />
 
-    <com.example.hairapp.common.NoContentView
+    <com.example.hairapp.views.NoContentView
         android:id="@+id/care_steps_not_steps"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

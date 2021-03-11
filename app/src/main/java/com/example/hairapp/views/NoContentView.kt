@@ -1,4 +1,4 @@
-package com.example.hairapp.common
+package com.example.hairapp.views
 
 import android.content.Context
 import android.graphics.drawable.Drawable

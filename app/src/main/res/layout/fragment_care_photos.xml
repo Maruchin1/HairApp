@@ -1,29 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/care_photos_recycler"
+    <data>
+
+        <variable
+            name="controller"
+            type="com.example.hairapp.page_care.CarePhotosFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.example.hairapp.page_care.CareViewModel" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:nestedScrollingEnabled="false"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/page_list_padding_horizontal"
-        android:paddingTop="@dimen/page_padding_top"
-        android:paddingBottom="@dimen/page_padding_bottom"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        tools:listitem="@layout/item_care_photo" />
+        android:layout_height="wrap_content">
 
-    <com.example.hairapp.common.NoContentView
-        android:id="@+id/care_photos_no_photos"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:icon="@drawable/ic_outline_photo_library_24"
-        app:title="Dodaj zdjęcia" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/care_photos_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/page_list_padding_horizontal"
+            android:paddingTop="@dimen/page_padding_top"
+            android:paddingBottom="@dimen/page_padding_bottom"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/item_care_photo" />
 
-</FrameLayout>
+        <com.example.hairapp.views.NoContentView
+            android:id="@+id/care_photos_no_photos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:icon="@drawable/ic_outline_photo_library_24"
+            app:title="Dodaj zdjęcia"
+            app:visibleOrGone="@{viewModel.noPhotos}" />
+
+    </FrameLayout>
+</layout>

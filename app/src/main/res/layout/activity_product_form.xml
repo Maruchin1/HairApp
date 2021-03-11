@@ -23,10 +23,9 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:elevation="0dp"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.example.hairapp.common.ToolbarView
+            <com.example.hairapp.views.ToolbarView
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,7 +40,7 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/color_primary"
+            android:background="@color/color_background"
             android:clipToPadding="false"
             android:fillViewport="true"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -55,10 +54,10 @@
                 android:paddingTop="@dimen/page_padding_top"
                 android:paddingBottom="@dimen/page_padding_bottom">
 
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Widget.App.Card.Dark"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_dotted_border"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?selectableItemBackground"
@@ -76,7 +75,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcUri="@{viewModel.productPhoto}" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -112,125 +111,108 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Widget.App.Card.Dark"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/section_margin_top">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <ImageView
+                        android:id="@+id/section_icon_product_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_round_label_24"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/text_color_primary" />
+
+                    <TextView
+                        android:id="@+id/section_title_product_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/section_title_margin_start"
+                        android:text="@string/product_type"
+                        android:textAppearance="@style/TextAppearance.App.SectionTitle"
+                        app:layout_constraintBottom_toBottomOf="@id/section_icon_product_type"
+                        app:layout_constraintBottom_toTopOf="@id/chip_group_type"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@id/section_icon_product_type"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_group_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/section_container_padding">
+                        android:layout_marginTop="@dimen/section_body_margin_top"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/section_title_product_type"
+                        app:singleSelection="false">
 
-                        <ImageView
-                            android:id="@+id/section_icon_product_type"
+                        <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_round_label_24"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/text_color_primary" />
+                            android:checked="@={viewModel.humectants}"
+                            android:text="@string/humectants"
+                            app:chipBackgroundColor="@color/chip_humectant_bg"
+                            app:chipStrokeColor="@color/color_humectants" />
 
-                        <TextView
-                            android:id="@+id/section_title_product_type"
-                            android:layout_width="0dp"
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/section_title_margin_start"
-                            android:text="@string/product_type"
-                            android:textAppearance="@style/TextAppearance.App.SectionTitle"
-                            app:layout_constraintBottom_toBottomOf="@id/section_icon_product_type"
-                            app:layout_constraintBottom_toTopOf="@id/chip_group_type"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toEndOf="@id/section_icon_product_type"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:checked="@={viewModel.emollients}"
+                            android:text="@string/emollients"
+                            app:chipBackgroundColor="@color/chip_emollient_bg"
+                            app:chipStrokeColor="@color/color_emollients" />
 
-                        <com.google.android.material.chip.ChipGroup
-                            android:id="@+id/chip_group_type"
-                            android:layout_width="match_parent"
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/section_body_margin_top"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/section_title_product_type"
-                            app:singleSelection="false">
+                            android:checked="@={viewModel.proteins}"
+                            android:text="@string/proteins"
+                            app:chipBackgroundColor="@color/chip_protein_bg"
+                            app:chipStrokeColor="@color/color_proteins" />
+                    </com.google.android.material.chip.ChipGroup>
 
-                            <com.google.android.material.chip.Chip
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:checked="@={viewModel.humectants}"
-                                android:text="@string/humectants"
-                                app:chipBackgroundColor="@color/chip_humectant_bg"
-                                app:chipStrokeColor="@color/color_humectants"
-                                app:chipStrokeWidth="3dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                            <com.google.android.material.chip.Chip
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:checked="@={viewModel.emollients}"
-                                android:text="@string/emollients"
-                                app:chipBackgroundColor="@color/chip_emollient_bg"
-                                app:chipStrokeColor="@color/color_emollients"
-                                app:chipStrokeWidth="3dp" />
-
-                            <com.google.android.material.chip.Chip
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:checked="@={viewModel.proteins}"
-                                android:text="@string/proteins"
-                                app:chipBackgroundColor="@color/chip_protein_bg"
-                                app:chipStrokeColor="@color/color_proteins"
-                                app:chipStrokeWidth="3dp" />
-                        </com.google.android.material.chip.ChipGroup>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/Widget.App.Card.Dark"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/section_margin_top">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <ImageView
+                        android:id="@+id/section_icon_product_application"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_round_label_24"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/text_color_primary" />
+
+                    <TextView
+                        android:id="@+id/section_title_product_application"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/section_title_margin_start"
+                        android:text="@string/product_application"
+                        android:textAppearance="@style/TextAppearance.App.SectionTitle"
+                        app:layout_constraintBottom_toBottomOf="@id/section_icon_product_application"
+                        app:layout_constraintBottom_toTopOf="@id/chip_group_product_application"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/section_icon_product_application"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.example.hairapp.views.ProductApplicationsView
+                        android:id="@+id/chip_group_product_application"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/section_container_padding">
-
-                        <ImageView
-                            android:id="@+id/section_icon_product_application"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_round_label_24"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/text_color_primary" />
-
-                        <TextView
-                            android:id="@+id/section_title_product_application"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/section_title_margin_start"
-                            android:text="@string/product_application"
-                            android:textAppearance="@style/TextAppearance.App.SectionTitle"
-                            app:layout_constraintBottom_toBottomOf="@id/section_icon_product_application"
-                            app:layout_constraintBottom_toTopOf="@id/chip_group_product_application"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/section_icon_product_application"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <com.example.hairapp.common.ProductApplicationsView
-                            android:id="@+id/chip_group_product_application"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/section_body_margin_top"
-                            app:items="@{viewModel.productApplicationOptions}"
-                            app:itemsSelectable="true"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/section_title_product_application"
-                            app:selectedItems="@={viewModel.productApplications}" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
+                        android:layout_marginTop="@dimen/section_body_margin_top"
+                        app:items="@{viewModel.productApplicationOptions}"
+                        app:itemsSelectable="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/section_title_product_application"
+                        app:selectedItems="@={viewModel.productApplications}" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

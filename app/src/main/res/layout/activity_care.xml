@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <com.example.hairapp.common.ToolbarView
+            <com.example.hairapp.views.ToolbarView
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                     android:src="@drawable/ic_round_arrow_drop_down_24" />
             </LinearLayout>
 
-            <com.example.hairapp.common.ProductsProportionView
+            <com.example.hairapp.views.ProductsProportionView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"

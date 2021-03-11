@@ -1,12 +1,10 @@
-package com.example.hairapp.common
+package com.example.hairapp.views
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.PopupMenu
 import androidx.annotation.MenuRes
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -26,7 +24,7 @@ class ToolbarView(context: Context, attrs: AttributeSet) : FrameLayout(context, 
             field = value
             val iconResId = when (value) {
                 MODE_HOME -> R.drawable.ic_round_menu_24
-                MODE_STANDARD -> R.drawable.ic_round_arrow_back_ios_24
+                MODE_STANDARD -> R.drawable.ic_round_arrow_back_24
                 else -> throw IllegalStateException("Not matching navigation mode $value")
             }
             toolbar_toolbar.navigationIcon = ContextCompat.getDrawable(context, iconResId)

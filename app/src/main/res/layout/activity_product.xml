@@ -53,7 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:navigationIcon="@drawable/ic_round_arrow_back_ios_24"
+                    app:navigationIcon="@drawable/ic_round_arrow_back_24"
                     app:onNavigationClick="@{() -> controller.onBackPressed()}"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -142,7 +142,7 @@
                         app:icon="@drawable/ic_round_delete_24" />
                 </LinearLayout>
 
-                <com.example.hairapp.common.SectionCardView
+                <com.example.hairapp.views.SectionCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/section_margin_top"
@@ -185,9 +185,9 @@
                             app:chipBackgroundColor="@color/color_proteins"
                             app:visibleOrGone="@{viewModel.proteins}" />
                     </com.google.android.material.chip.ChipGroup>
-                </com.example.hairapp.common.SectionCardView>
+                </com.example.hairapp.views.SectionCardView>
 
-                <com.example.hairapp.common.SectionCardView
+                <com.example.hairapp.views.SectionCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/section_margin_top"
@@ -200,12 +200,12 @@
                         android:textAppearance="@style/TextAppearance.App.BodyTertiary"
                         app:visibleOrGone="@{viewModel.applicationNotSpecified}" />
 
-                    <com.example.hairapp.common.ProductApplicationsView
+                    <com.example.hairapp.views.ProductApplicationsView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:items="@{viewModel.applications}"
                         app:itemsSelectable="false" />
-                </com.example.hairapp.common.SectionCardView>
+                </com.example.hairapp.views.SectionCardView>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

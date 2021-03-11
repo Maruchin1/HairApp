@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             app:elevation="0dp">
 
-            <com.example.hairapp.common.ToolbarView
+            <com.example.hairapp.views.ToolbarView
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                     app:visibleOrGone="@{!controller.noSteps}"
                     tools:listitem="@layout/item_care_schema_step" />
 
-                <com.example.hairapp.common.NoContentView
+                <com.example.hairapp.views.NoContentView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:icon="@drawable/ic_round_list_24"

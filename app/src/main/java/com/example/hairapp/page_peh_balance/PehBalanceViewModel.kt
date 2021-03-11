@@ -18,18 +18,20 @@ class PehBalanceViewModel(
 
     private val allCares: Flow<List<Care>> = careRepo.findAll()
     private val _caresLimit: Flow<CaresLimit> = appPreferences.getPehBalanceCaresLimit()
+    private val limitedCares: Flow<List<Care>> = _caresLimit
+        .flatMapLatest { loadCaresWithLimit(it) }
 
     val caresLimit: LiveData<CaresLimit> = _caresLimit.asLiveData()
 
-    val pehBalance: LiveData<PehBalance> = _caresLimit
-        .flatMapLatest { calcPehBalance(it) }
+    val pehBalance: LiveData<PehBalance> = limitedCares
+        .mapLatest { calcPehBalance(it) }
         .asLiveData()
 
-    val numOfLastMonthCares: LiveData<Int> = allCares
+    val numOfLastMonthCares: LiveData<Int> = limitedCares
         .mapLatest { countCaresFromLastMonth(it) }
         .asLiveData()
 
-    val avgDaysIntervalBetweenCares: LiveData<Long> = allCares
+    val avgDaysIntervalBetweenCares: LiveData<Long> = limitedCares
         .mapLatest { calcAvgDaysIntervalBetweenCares(it) }
         .asLiveData()
 
@@ -41,10 +43,9 @@ class PehBalanceViewModel(
         return _caresLimit.first()
     }
 
-    private fun calcPehBalance(caresLimit: CaresLimit): Flow<PehBalance> {
-        return loadCaresWithLimit(caresLimit)
-            .map { calcBalanceForEach(it) }
-            .map { calcAvgBalance(it) }
+    private fun calcPehBalance(cares: List<Care>): PehBalance {
+        val pehBalances = calcPehBalanceForEach(cares)
+        return calcAvgBalance(pehBalances)
     }
 
     private fun loadCaresWithLimit(caresLimit: CaresLimit): Flow<List<Care>> {
@@ -54,7 +55,7 @@ class PehBalanceViewModel(
         }
     }
 
-    private fun calcBalanceForEach(schemas: List<Care>): List<PehBalance> {
+    private fun calcPehBalanceForEach(schemas: List<Care>): List<PehBalance> {
         return schemas.map { PehBalance.fromSteps(it.steps) }
     }
 

@@ -24,7 +24,6 @@
 
     <!--ProductActivity-->
     <string name="product_activity_confirm_delete_message">Wybrany produkt zostanie usunięty. Czy chcesz kontynuować?</string>
-    <string name="photos">Zdjęcia</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!--CareActivity-->
@@ -72,7 +71,6 @@
     <string name="notes">Notatki</string>
     <string name="product_type">Typ produktu</string>
     <string name="product_application">Zastosowanie produktu</string>
-    <string name="add">Dodaj</string>
     <string name="no_products">Nie dodano produktów</string>
     <string name="section_name">Nazwa sekcji</string>
     <string name="care_notes_hint">Zapisz swoje notatki, uwagi, obserwacje …</string>
@@ -80,12 +78,19 @@
     <string name="discard">Odrzuć</string>
     <string name="select_product">Wybierz produkt</string>
     <string name="peh_balance">Równowaga PEH</string>
-    <string name="num_of_last_month_cares">Liczba pielęgnacji w ostatnim miesiącu</string>
+    <string name="num_of_last_month_cares">Liczba zapisanych pielęgnacji</string>
     <string name="avg_days_interval_between_cares">Liczba dni między pięlęgnacjami</string>
     <string name="delete">Usuń</string>
     <string name="edit">Edytuj</string>
     <string name="cares">Pielęgnacje</string>
     <string name="stats">Statystyki</string>
     <string name="more">Więcej</string>
+    <string name="ranking">Ranking</string>
+    <string name="add">Dodaj</string>
+    <string name="last_care">Ostatnia\npielęgnacja</string>
+    <string name="days_ago">Dni temu</string>
+    <string name="photos">Zdjęcia</string>
+    <string name="new_care">Nowa pielęgnacja</string>
+    <string name="save_cares">Zapisuj pielęgnacje</string>
 
 </resources>

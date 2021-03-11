@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             app:elevation="0dp">
 
-            <com.example.hairapp.common.ToolbarView
+            <com.example.hairapp.views.ToolbarView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll"

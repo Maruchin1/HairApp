@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             app:elevation="0dp">
 
-            <com.example.hairapp.common.ToolbarView
+            <com.example.hairapp.views.ToolbarView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:onNavigationClick="@{() -> controller.onBackPressed()}"
@@ -55,7 +55,7 @@
                     app:visibleOrGone="@{!viewModel.noPhotos}"
                     tools:listitem="@layout/item_care_photo" />
 
-                <com.example.hairapp.common.NoContentView
+                <com.example.hairapp.views.NoContentView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:icon="@drawable/ic_outline_photo_library_24"

@@ -66,7 +66,7 @@
                     app:layout_constraintBottom_toTopOf="@id/item_care_products_proportion"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.example.hairapp.common.ProductsProportionView
+                <com.example.hairapp.views.ProductsProportionView
                     android:id="@+id/item_care_products_proportion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

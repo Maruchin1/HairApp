@@ -25,19 +25,37 @@
         android:paddingTop="@dimen/page_padding_top"
         android:paddingBottom="@dimen/page_padding_bottom">
 
-        <LinearLayout
-            android:id="@+id/box_notes_edit"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_notes"
+            style="@style/Widget.App.Card.Stroked"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent"
-            app:visibleOrGone="@{controller.mode == Mode.EDIT}">
+            android:layout_marginTop="@dimen/item_margin_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
+            android:minHeight="300dp"
+            android:onClick="@{() -> controller.editNotes()}"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txv_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginVertical="16dp"
+                android:text='@{Converter.careNotes(viewModel.notes), default="Zapisz swoje notatki, uwagi, obserwacje ..."}'
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/text_color_primary"
+                app:visibleOrGone="@{controller.mode == Mode.VIEW}" />
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.App.TextInput.NoStroke"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:hintEnabled="false"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:visibleOrGone="@{controller.mode == Mode.EDIT}">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_notes"
@@ -45,76 +63,38 @@
                     android:layout_height="wrap_content"
                     android:gravity="top"
                     android:hint="@string/care_notes_hint"
-                    android:minLines="10"
                     android:text="@{viewModel.notes}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/section_margin_top"
-                android:gravity="start">
-
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.App.Button.Secondary.Dark"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:onClick="@{() -> controller.discardNotes()}"
-                    android:text="@string/discard"
-                    app:icon="@drawable/ic_round_close_24" />
-
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.App.Button.Primary.Dark"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:onClick="@{() -> controller.saveNotes()}"
-                    android:text="@string/confirm"
-                    app:icon="@drawable/ic_round_check_24" />
-            </LinearLayout>
-
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent"
-            app:visibleOrGone="@{controller.mode == Mode.VIEW}">
+            android:layout_marginTop="@dimen/section_margin_top"
+            android:gravity="start"
+            app:layout_constraintTop_toBottomOf="@id/card_notes">
 
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.App.Card.Dark"
-                android:layout_width="match_parent"
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.App.Button.Secondary"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?selectableItemBackground"
-                android:onClick="@{() -> controller.editNotes()}">
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:onClick="@{() -> controller.discardNotes()}"
+                android:text="@string/discard"
+                app:icon="@drawable/ic_round_close_24" />
 
-                <LinearLayout
-                    android:id="@+id/box_notes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="256dp"
-                    android:orientation="vertical"
-                    android:padding="@dimen/section_container_padding">
-
-                    <TextView
-                        android:id="@+id/txv_notes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="12dp"
-                        android:text='@{Converter.careNotes(viewModel.notes), default="Zapisz swoje notatki, uwagi, obserwacje ..."}'
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        android:textColor="@color/text_color_primary" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.App.Button.Primary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:onClick="@{() -> controller.saveNotes()}"
+                android:text="@string/confirm"
+                app:icon="@drawable/ic_round_check_24" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

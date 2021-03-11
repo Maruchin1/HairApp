@@ -13,7 +13,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationContentDescription="Toolbar navigation"
-        app:navigationIcon="@drawable/ic_round_arrow_back_ios_24" />
+        app:navigationIcon="@drawable/ic_round_arrow_back_24" />
 
     <TextView
         android:id="@+id/toolbar_title"

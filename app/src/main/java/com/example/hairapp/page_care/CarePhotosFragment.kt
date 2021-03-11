@@ -34,7 +34,7 @@ class CarePhotosFragment : Fragment(), CarePhotoItemController {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = bindFragment(inflater, container, R.layout.fragment_cares_list, viewModel)
+        binding = bindFragment(inflater, container, R.layout.fragment_care_photos, viewModel)
         return binding?.root
     }
 
@@ -46,11 +46,6 @@ class CarePhotosFragment : Fragment(), CarePhotoItemController {
             layoutResId = R.layout.item_care_photo
         ).apply {
             setSource(viewModel.photos, viewLifecycleOwner)
-        }
-
-        viewModel.noPhotos.observe(viewLifecycleOwner) {
-            Binder.setVisibleOrGone(care_photos_no_photos, it)
-            Binder.setVisibleOrGone(care_photos_recycler, !it)
         }
     }
 
