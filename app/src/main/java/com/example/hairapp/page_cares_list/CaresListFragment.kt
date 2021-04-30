@@ -18,26 +18,26 @@ import com.example.hairapp.page_care.CareActivity
 import com.example.hairapp.page_peh_balance.PehBalanceActivity
 import com.example.hairapp.page_photos_gallery.PhotosGalleryActivity
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CaresListFragment : Fragment(), CareItemController {
 
     private val viewModel: CaresListViewModel by viewModel()
-    private val binding: FragmentCaresListBinding
-        get() = _binding!!
+    private val dialog: Dialog by inject()
 
-    private var _binding: FragmentCaresListBinding? = null
+    private var binding: FragmentCaresListBinding? = null
 
     fun openStatistics() {
-        startActivity(PehBalanceActivity.makeIntent(requireContext()))
+        PehBalanceActivity.start(requireContext())
     }
 
     fun openPhotos() {
-        startActivity(PhotosGalleryActivity.makeIntent(requireContext()))
+        PhotosGalleryActivity.start(requireContext())
     }
 
     fun addNewCare() = lifecycleScope.launch {
-        Dialog.selectCareSchema(
+        dialog.selectCareSchema(
             context = requireContext(),
             schemas = viewModel.getCareSchemas()
         )?.let { selectedSchema ->
@@ -50,14 +50,14 @@ class CaresListFragment : Fragment(), CareItemController {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = bindFragment(inflater, container, R.layout.fragment_cares_list, viewModel)
-        return binding.root
+        binding = bindFragment(inflater, container, R.layout.fragment_cares_list, viewModel)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerCares.adapter = BindingRecyclerAdapter<Care>(
+        binding?.recyclerCares?.adapter = BindingRecyclerAdapter<Care>(
             controller = this,
             layoutResId = R.layout.item_care,
         ).apply {
@@ -66,14 +66,14 @@ class CaresListFragment : Fragment(), CareItemController {
         }
 
         viewModel.noCares.observe(viewLifecycleOwner) {
-            Binder.setVisibleOrGone(binding.recyclerCares, !it)
-            Binder.setVisibleOrGone(binding.noCares, it)
+            Binder.setVisibleOrGone(binding!!.recyclerCares, !it)
+            Binder.setVisibleOrGone(binding!!.noCares, it)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 
     override fun onCareSelected(care: Care) {

@@ -56,8 +56,8 @@ class PhotosGalleryActivity : AppCompatActivity(), CarePhotoItemController {
     }
 
     companion object {
-        fun makeIntent(context: Context): Intent {
-            return Intent(context, PhotosGalleryActivity::class.java)
+        fun start(context: Context) {
+            context.startActivity(Intent(context, PhotosGalleryActivity::class.java))
         }
     }
 }

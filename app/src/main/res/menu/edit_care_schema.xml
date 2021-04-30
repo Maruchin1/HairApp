@@ -4,12 +4,14 @@
 
     <item
         android:id="@+id/option_change_name"
-        android:icon="@drawable/ic_round_edit_24"
-        android:title="Zmień nazwę"/>
+        android:icon="@drawable/ic_round_title_24"
+        android:title="Zmień nazwę"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/option_delete"
         android:icon="@drawable/ic_round_delete_24"
-        android:title="Usuń schemat"/>
+        android:title="Usuń schemat"
+        app:showAsAction="ifRoom" />
 
 </menu>

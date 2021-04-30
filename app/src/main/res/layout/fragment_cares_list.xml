@@ -113,9 +113,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> controller.openStatistics()}"
-                        android:text="peh"
+                        android:text="@string/peh"
                         app:icon="@drawable/ic_round_pie_chart_24"
-                        app:iconGravity="textStart"
                         app:layout_constraintBottom_toBottomOf="@id/btn_gallery"
                         app:layout_constraintEnd_toStartOf="@id/btn_gallery"
                         app:layout_constraintStart_toStartOf="parent"
@@ -125,10 +124,11 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                style="@style/Widget.App.Button.Text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/page_padding_top"
+                android:onClick="@{() -> controller.addNewCare()}"
                 android:text="@string/new_care"
                 app:icon="@drawable/ic_round_add_24"
                 app:iconGravity="textStart" />

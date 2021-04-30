@@ -10,12 +10,14 @@ import com.example.hairapp.databinding.ActivityProductBinding
 import com.example.hairapp.framework.*
 import com.example.hairapp.page_product_form.ProductFormActivity
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class ProductActivity : AppCompatActivity() {
 
     private val viewModel: ProductViewModel by viewModel()
+    private val dialog: Dialog by inject()
 
     fun editProduct() {
         viewModel.getProductId()?.let { productId ->
@@ -25,10 +27,10 @@ class ProductActivity : AppCompatActivity() {
     }
 
     fun deleteProduct() = lifecycleScope.launch {
-        val confirmed = Dialog.confirm(
+        val confirmed = dialog.confirm(
             context = this@ProductActivity,
-            getString(R.string.confirm_delete),
-            getString(R.string.product_activity_confirm_delete_message)
+            title = getString(R.string.confirm_delete),
+            message = getString(R.string.product_activity_confirm_delete_message)
         )
         if (confirmed) {
             viewModel.deleteProduct()

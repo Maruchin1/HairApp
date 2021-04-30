@@ -17,29 +17,31 @@ import kotlinx.android.synthetic.main.activity_care.*
 import kotlinx.android.synthetic.main.activity_care.tabs
 import kotlinx.android.synthetic.main.activity_care.tabs_pager
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CareActivity : AppCompatActivity() {
 
     private val viewModel: CareViewModel by viewModel()
+    private val dialog: Dialog by inject()
     private val stepsFragment by lazy { CareStepsFragment() }
     private val photosFragment by lazy { CarePhotosFragment() }
     private val notesFragment by lazy { CareNotesFragment() }
 
     fun selectDate() = lifecycleScope.launch {
-        Dialog.pickDate(supportFragmentManager)?.let { date ->
+        dialog.pickDate(supportFragmentManager)?.let { date ->
             viewModel.setDate(date)
         }
     }
 
     fun addStep() = lifecycleScope.launch {
-        Dialog.selectCareStep(this@CareActivity)?.let { type ->
+        dialog.selectCareStep(this@CareActivity)?.let { type ->
             stepsFragment.addStep(type)
         }
     }
 
     fun addPhoto() {
-        Dialog.pickImage(this)
+        dialog.pickImage(this)
     }
 
 

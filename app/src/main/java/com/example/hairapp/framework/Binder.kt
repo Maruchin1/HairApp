@@ -64,6 +64,12 @@ object Binder {
         view.visibility = if (visible == true) View.VISIBLE else View.GONE
     }
 
+    @BindingAdapter("app:visibleOrInvisible")
+    @JvmStatic
+    fun setVisibleOrInvisible(view: View, visible: Boolean?) {
+        view.visibility = if (visible == true) View.VISIBLE else View.INVISIBLE
+    }
+
     // EditText
 
     @BindingAdapter("app:date")

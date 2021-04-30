@@ -5,7 +5,7 @@
 
         <variable
             name="controller"
-            type="com.example.hairapp.page_care_schemas.CareSchemasActivity" />
+            type="com.example.hairapp.page_care_schemas.CareSchemasFragment" />
 
         <variable
             name="item"

@@ -122,7 +122,7 @@ object Converter {
 
     @JvmStatic
     fun dayAndMonth(date: LocalDate?): String? {
-        return date?.format(DateTimeFormatter.ofPattern("dd MMM"))
+        return date?.format(DateTimeFormatter.ofPattern("dd MMMM"))
     }
 
     @JvmStatic

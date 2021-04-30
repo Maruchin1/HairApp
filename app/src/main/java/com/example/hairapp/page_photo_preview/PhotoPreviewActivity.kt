@@ -14,9 +14,11 @@ import com.example.hairapp.framework.Dialog
 import com.example.hairapp.framework.SystemColors
 import com.example.hairapp.framework.bindActivity
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class PhotoPreviewActivity : AppCompatActivity() {
 
+    private val dialog: Dialog by inject()
     private val _photo = MutableLiveData<String>()
     private lateinit var binding: ActivityPhotoPreviewBinding
 
@@ -45,7 +47,7 @@ class PhotoPreviewActivity : AppCompatActivity() {
     }
 
     private fun deletePhoto() = lifecycleScope.launch {
-        val confirmed = Dialog.confirm(
+        val confirmed = dialog.confirm(
             context = this@PhotoPreviewActivity,
             title = "Usuń zdjęcie",
             message = "Czy chcesz usunąć wybrane zdjęcie z pielęgnacji? Tej operacji nie będzie można cofnąć."

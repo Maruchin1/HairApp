@@ -16,11 +16,13 @@ import com.example.hairapp.framework.Dialog
 import com.example.hairapp.page_select_product.SelectProductContract
 import kotlinx.android.synthetic.main.fragment_care_steps.*
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CareStepsFragment : Fragment() {
 
     private val viewModel: CareViewModel by sharedViewModel()
+    private val dialog: Dialog by inject()
 
     private val selectProductRequest = registerForActivityResult(SelectProductContract()) {
         lifecycleScope.launch {
@@ -58,7 +60,7 @@ class CareStepsFragment : Fragment() {
     }
 
     fun deleteStep(careStep: CareStep) = lifecycleScope.launch {
-        val confirmed = Dialog.confirm(
+        val confirmed = dialog.confirm(
             context = requireContext(),
             title = getString(R.string.confirm_delete),
             message = getString(R.string.care_activity_confirm_delete_step_message)

@@ -22,8 +22,7 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:elevation="0dp">
+            android:layout_height="wrap_content">
 
             <com.example.hairapp.views.ToolbarView
                 android:id="@+id/toolbar"
@@ -37,7 +36,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/color_primary"
+            android:background="@color/color_background"
             android:fillViewport="true"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
@@ -75,8 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="24dp"
-            android:onClick="@{() -> controller.addStep()}"
-            android:src="@drawable/ic_round_add_24" />
+            android:onClick="@{() -> controller.switchEditMode()}"
+            android:src="@drawable/ic_round_edit_24" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

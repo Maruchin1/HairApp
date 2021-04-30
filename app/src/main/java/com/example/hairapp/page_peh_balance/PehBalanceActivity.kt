@@ -11,15 +11,17 @@ import com.example.hairapp.framework.Dialog
 import com.example.hairapp.framework.SystemColors
 import com.example.hairapp.framework.bindActivity
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PehBalanceActivity : AppCompatActivity() {
 
     private val viewModel: PehBalanceViewModel by viewModel()
+    private val dialog: Dialog by inject()
     private lateinit var binding: ActivityPehBalanceBinding
 
     fun selectCaresForBalance() = lifecycleScope.launch {
-        Dialog.selectCaresForBalance(
+        dialog.selectCaresForBalance(
             context = this@PehBalanceActivity,
             currentValue = viewModel.getCaresForBalance()
         )?.let { newCaresForBalance ->
@@ -40,8 +42,8 @@ class PehBalanceActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun makeIntent(context: Context): Intent {
-            return Intent(context, PehBalanceActivity::class.java)
+        fun start(context: Context) {
+            context.startActivity(Intent(context, PehBalanceActivity::class.java))
         }
     }
 }

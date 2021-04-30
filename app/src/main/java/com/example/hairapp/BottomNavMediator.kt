@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
+import com.example.hairapp.page_care_schemas.CareSchemasFragment
 import com.example.hairapp.page_cares_list.CaresListFragment
 import com.example.hairapp.page_products_list.ProductsListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -15,6 +16,7 @@ class BottomNavMediator(
 
     private val caresListFragment by lazy { CaresListFragment() }
     private val productsListFragment by lazy { ProductsListFragment() }
+    private val careSchemasFragment by lazy { CareSchemasFragment() }
 
     init {
         listenForNavigationSelected()
@@ -27,6 +29,7 @@ class BottomNavMediator(
             when (it.itemId) {
                 R.id.nav_cares -> openCaresList()
                 R.id.nav_products -> openProductsList()
+                R.id.nav_schemas -> openSchemasList()
             }
             true
         }
@@ -40,6 +43,12 @@ class BottomNavMediator(
     private fun openProductsList() = fragmentManager.commit {
         setFadeAnimations()
         replace(productsListFragment)
+        addToBackStack()
+    }
+
+    private fun openSchemasList() = fragmentManager.commit {
+        setFadeAnimations()
+        replace(careSchemasFragment)
         addToBackStack()
     }
 

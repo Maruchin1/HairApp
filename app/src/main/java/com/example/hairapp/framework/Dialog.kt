@@ -19,7 +19,7 @@ import java.time.ZoneId
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-object Dialog {
+class Dialog {
 
     suspend fun pickNumber(
         context: Context,
@@ -88,9 +88,7 @@ object Dialog {
             .show()
     }
 
-    suspend fun selectCareStep(
-        context: Context
-    ): CareStep.Type? = suspendCoroutine {
+    suspend fun selectCareStep(context: Context): CareStep.Type? = suspendCoroutine {
         val values = CareStep.Type.values()
         val items = values.map { Converter.careStepType(it) }
         MaterialAlertDialogBuilder(context)

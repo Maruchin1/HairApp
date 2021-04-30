@@ -1,5 +1,6 @@
 package com.example.hairapp
 
+import com.example.hairapp.framework.Dialog
 import com.example.hairapp.page_care.CareViewModel
 import com.example.hairapp.page_care_schemas.CareSchemasViewModel
 import com.example.hairapp.page_cares_list.CaresListViewModel
@@ -11,10 +12,13 @@ import com.example.hairapp.page_product_form.ProductFormViewModel
 import com.example.hairapp.page_products_list.ProductsListViewModel
 import com.example.hairapp.page_products_ranking.ProductsRankingViewModel
 import com.example.hairapp.page_select_product.SelectProductViewModel
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
+
+    factory { Dialog() }
 
     viewModel {
         CareViewModel(
