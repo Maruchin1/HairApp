@@ -3,6 +3,8 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
       <module name="core" target="1.7" />
+      <module name="HairApp.app" target="11" />
+      <module name="HairApp.data" target="11" />
       <module name="test" target="1.7" />
     </bytecodeTargetLevel>
   </component>
