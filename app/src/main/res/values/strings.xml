@@ -97,5 +97,6 @@
     <string name="schemas">Schematy</string>
     <string name="new_care_schema">Nowy schemat pielęgnacji</string>
     <string name="peh">PEH</string>
+    <string name="title_care_schema_details_dynamic">Module Title</string>
 
 </resources>

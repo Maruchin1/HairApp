@@ -42,7 +42,7 @@ class CareSchemasFragment : Fragment() {
         val intent = Intent()
             .setClassName(
                 requireContext(),
-                "com.example.care_schema_details.CareSchemaDetailsActivity"
+                "com.example.care_schema_details_dynamic.CareSchemaDetailsActivity"
             )
 
 //        val intent = EditCareSchemaActivity.makeIntent(requireContext(), schemaId)
