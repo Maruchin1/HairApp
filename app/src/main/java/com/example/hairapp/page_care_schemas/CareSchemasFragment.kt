@@ -1,5 +1,6 @@
 package com.example.hairapp.page_care_schemas
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,7 +39,14 @@ class CareSchemasFragment : Fragment() {
     }
 
     fun openSchemaPage(schemaId: Int) {
-        val intent = EditCareSchemaActivity.makeIntent(requireContext(), schemaId)
+        val intent = Intent()
+            .setClassName(
+                requireContext(),
+                "com.example.care_schema_details.CareSchemaDetailsActivity"
+            )
+
+//        val intent = EditCareSchemaActivity.makeIntent(requireContext(), schemaId)
+
         startActivity(intent)
     }
 
