@@ -1,17 +1,16 @@
 package com.example.hairapp.page_care_schemas
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.example.common.navigation.AppNavigator
 import com.example.core.domain.CareSchema
 import com.example.hairapp.R
 import com.example.hairapp.databinding.FragmentCareSchemasBinding
 import com.example.hairapp.framework.*
-import com.example.hairapp.page_edit_care_schema.EditCareSchemaActivity
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,6 +19,7 @@ class CareSchemasFragment : Fragment() {
 
     private val viewModel: CareSchemasViewModel by viewModel()
     private val dialog: Dialog by inject()
+    private val appNavigator: AppNavigator by inject()
 
     private val adapter by lazy {
         BindingRecyclerAdapter<CareSchema>(this, R.layout.item_care_schema)
@@ -39,15 +39,7 @@ class CareSchemasFragment : Fragment() {
     }
 
     fun openSchemaPage(schemaId: Int) {
-        val intent = Intent()
-            .setClassName(
-                requireContext(),
-                "com.example.care_schema_details_dynamic.CareSchemaDetailsActivity"
-            )
-
-//        val intent = EditCareSchemaActivity.makeIntent(requireContext(), schemaId)
-
-        startActivity(intent)
+        appNavigator.toCareSchemaDetails(requireActivity(), schemaId)
     }
 
     override fun onCreateView(

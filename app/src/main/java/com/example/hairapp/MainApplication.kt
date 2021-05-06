@@ -1,6 +1,7 @@
 package com.example.hairapp
 
 import android.app.Application
+import com.example.common.commonModule
 import com.example.core.coreModule
 import com.example.data.dataModule
 import org.koin.android.ext.koin.androidContext
@@ -13,7 +14,7 @@ class MainApplication : Application() {
 
         startKoin {
             androidContext(applicationContext)
-            modules(appModule, coreModule, dataModule)
+            modules(appModule, coreModule, dataModule, commonModule)
         }
     }
 }

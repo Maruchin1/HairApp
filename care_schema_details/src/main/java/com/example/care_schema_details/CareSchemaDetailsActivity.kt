@@ -22,4 +22,8 @@ class CareSchemaDetailsActivity : AppCompatActivity() {
 
         val view: View = binding.appbar.toolbar
     }
+
+    companion object {
+        private const val CARE_SCHEMA_ID = "care_schema_id"
+    }
 }

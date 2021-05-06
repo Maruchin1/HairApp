@@ -44,7 +44,7 @@ android {
     testOptions {
         execution 'ANDROIDX_TEST_ORCHESTRATOR'
     }
-    dynamicFeatures = [':care_schema_details_dynamic']
+    dynamicFeatures = []
 }
 
 dependencies {
@@ -57,6 +57,7 @@ dependencies {
     // Project
     implementation project(':core')
     implementation project(':data')
+    implementation project(':common')
     implementation project(':care_schema_details')
 
     // Unit tests

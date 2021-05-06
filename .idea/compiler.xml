@@ -6,6 +6,7 @@
       <module name="HairApp.app" target="11" />
       <module name="HairApp.care_schema_details" target="11" />
       <module name="HairApp.care_schema_details_dynamic" target="11" />
+      <module name="HairApp.common" target="11" />
       <module name="HairApp.data" target="11" />
       <module name="test" target="1.7" />
     </bytecodeTargetLevel>

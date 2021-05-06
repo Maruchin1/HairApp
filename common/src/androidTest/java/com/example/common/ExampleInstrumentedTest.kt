@@ -1,4 +1,4 @@
-package com.example.care_schema_details_dynamic
+package com.example.common
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.care_schema_details_dynamic", appContext.packageName)
+        assertEquals("com.example.common.test", appContext.packageName)
     }
 }
