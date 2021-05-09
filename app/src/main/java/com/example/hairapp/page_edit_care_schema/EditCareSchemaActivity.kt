@@ -93,7 +93,7 @@ class EditCareSchemaActivity : AppCompatActivity() {
     private fun changSchemaName() = lifecycleScope.launch {
         dialog.typeText(
             context = this@EditCareSchemaActivity,
-            title = getString(R.string.change_schema_name)
+            title = getString(R.string.change_care_schema_name)
         )?.let { newName ->
             viewModel.changeSchemaName(newName)
         }

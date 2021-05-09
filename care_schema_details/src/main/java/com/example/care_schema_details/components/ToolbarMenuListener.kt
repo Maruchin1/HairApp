@@ -8,7 +8,6 @@ import com.example.common.modals.AppDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
-import org.koin.core.inject
 
 internal class ToolbarMenuListener(
     private val context: Context,
@@ -28,7 +27,7 @@ internal class ToolbarMenuListener(
     private fun changeSchemaName() = coroutineScope.launch {
         appDialog.typeText(
             context = context,
-            title = context.getString(R.string.change_schema_name)
+            title = context.getString(R.string.change_care_schema_name)
         )?.let { newName ->
             viewModel.changeSchemaName(newName)
         }

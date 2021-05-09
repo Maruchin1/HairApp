@@ -35,7 +35,7 @@
     <string name="care_schema_confirm_delete_message">Wybrany schemat zostanie usunięty. Czy chcesz kontynuować?</string>
     <string name="care_schema_confirm_delete_step_message">Wybrany krok zostanie usunięty ze schematu pielęgnacji. Czy chcesz kontynuować?</string>
     <string name="name_your_schema">Nazwij swój schemat</string>
-    <string name="change_schema_name">Zmień nazwę schematu</string>
+    <string name="change_care_schema_name">Zmień nazwę schematu</string>
 
     <!--PehBalance-->
     <string name="last_week">Ostatni tydzień</string>
