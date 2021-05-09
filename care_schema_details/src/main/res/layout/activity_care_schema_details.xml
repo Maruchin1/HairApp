@@ -4,8 +4,12 @@
     <data>
 
         <variable
-            name="controler"
+            name="controller"
             type="com.example.care_schema_details.CareSchemaDetailsActivity" />
+
+        <variable
+            name="viewModel"
+            type="com.example.care_schema_details.components.CareSchemaDetailsViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,7 +22,8 @@
         <include
             android:id="@+id/appbar"
             layout="@layout/view_care_schema_details_appbar"
-            app:controller="@{controler}" />
+            app:controller="@{controller}"
+            app:viewModel="@{viewModel}" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

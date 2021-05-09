@@ -4,3 +4,4 @@ include ':app'
 rootProject.name = "HairApp"
 include ':care_schema_details'
 include ':common'
+include ':testing'

@@ -6,16 +6,20 @@
         <variable
             name="controller"
             type="com.example.care_schema_details.CareSchemaDetailsActivity" />
+
+        <variable
+            name="viewModel"
+            type="com.example.care_schema_details.components.CareSchemaDetailsViewModel" />
     </data>
 
     <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <include
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="@{controller.toolbarTitle}" />
+            layout="@layout/view_app_toolbar"
+            app:handler="@{controller}"
+            app:title="@{viewModel.schemaName}" />
     </com.google.android.material.appbar.AppBarLayout>
 </layout>

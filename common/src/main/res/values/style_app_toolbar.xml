@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ToolbarOverlay" parent="">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryVariant">@color/color_primary_dark</item>
+        <item name="colorOnPrimary">@color/color_white</item>
+        <item name="android:textColorSecondary">@color/color_white</item>
+        <item name="toolbarNavigationButtonStyle">@style/ToolbarButton</item>
+    </style>
+
+    <style name="ToolbarOverlay.Dark" parent="ToolbarOverlay">
+        <item name="colorPrimary">@color/color_transparent</item>
+        <item name="colorPrimaryVariant">@color/color_transparent</item>
+    </style>
+
+    <style name="ToolbarButton" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="tint">@color/color_white</item>
+    </style>
+
+    <style name="ToolbarTitle" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:ellipsize">end</item>
+        <item name="maxLines">1</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/color_primary_light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginHorizontal">64dp</item>
+    </style>
+
+</resources>
