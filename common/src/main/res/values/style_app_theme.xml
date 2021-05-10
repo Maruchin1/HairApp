@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary</item>
+        <item name="colorAccent">@color/color_accent</item>
+
+        <item name="android:colorBackground">@color/color_background</item>
+        <item name="materialButtonStyle">@style/Button.Primary</item>
+        <item name="materialCardViewStyle">@style/Card</item>
+        <item name="chipStyle">@style/Chip.Choice</item>
+        <item name="textInputStyle">@style/TextInput</item>
+        <item name="floatingActionButtonStyle">@style/FloatingActionButton</item>
+        <item name="extendedFloatingActionButtonStyle">@style/ExtendedFloatingActionButon</item>
+        <item name="toolbarNavigationButtonStyle">@style/ToolbarButton</item>
+
+    </style>
+
+</resources>

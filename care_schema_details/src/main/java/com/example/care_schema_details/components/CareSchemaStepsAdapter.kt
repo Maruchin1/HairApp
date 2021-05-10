@@ -1,15 +1,21 @@
 package com.example.care_schema_details.components
 
 import android.annotation.SuppressLint
+import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.care_schema_details.CareSchemaDetailsActivity
 import com.example.care_schema_details.R
 import com.example.care_schema_details.databinding.ItemCareSchemaStepBinding
+import com.example.common.base.BaseRecyclerAdapter
+import com.example.common.base.BaseViewHolder
 import com.example.common.binding.BindingRecyclerAdapter
 import com.example.common.binding.BindingViewHolder
+import com.example.common.binding.Converter
+import com.example.common.extensions.visibleOrGone
 import com.example.core.domain.CareSchemaStep
 import com.example.core.domain.CareStep
 import java.lang.ref.WeakReference
@@ -19,7 +25,7 @@ internal class CareSchemaStepsAdapter(
     boundActivity: CareSchemaDetailsActivity,
     private val viewModel: CareSchemaDetailsViewModel,
     private val careSchemaStepsTouchHelperCallback: CareSchemaStepsTouchHelperCallback
-) : BindingRecyclerAdapter<CareSchemaStep, ItemCareSchemaStepBinding>(R.layout.item_care_schema_step) {
+) : BaseRecyclerAdapter<CareSchemaStep, ItemCareSchemaStepBinding>() {
 
     private val boundActivityRef = WeakReference(boundActivity)
     private val _noSteps = MutableLiveData(true)
@@ -49,23 +55,31 @@ internal class CareSchemaStepsAdapter(
         onStepsNumberChanged()
     }
 
-    override fun setupItemBinding(binding: ItemCareSchemaStepBinding, item: CareSchemaStep) {
-        binding.controller = boundActivityRef.get()
-        binding.item = item
-        binding.isEditMode = viewModel.isStepsEditModeEnabled()
+    override fun onBindItemView(
+        layoutInflater: LayoutInflater,
+        parent: ViewGroup
+    ): ItemCareSchemaStepBinding {
+        return ItemCareSchemaStepBinding.inflate(layoutInflater, parent, false)
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(
-        holder: BindingViewHolder<ItemCareSchemaStepBinding>,
+        holder: BaseViewHolder<ItemCareSchemaStepBinding>,
         position: Int
     ) {
         super.onBindViewHolder(holder, position)
-        holder.binding.itemCareSchemaStepDragHandle.setOnTouchListener { _, event ->
+        holder.binding.dragHandle.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 touchHelper.startDrag(holder)
             }
             false
+        }
+    }
+
+    override fun onBindItemData(binding: ItemCareSchemaStepBinding, item: CareSchemaStep) {
+        binding.run {
+            stepNumber.text = (item.order + 1).toString()
+            stepName.text = Converter.careStepType(item.type)
         }
     }
 
@@ -87,6 +101,8 @@ internal class CareSchemaStepsAdapter(
         }
         notifyItemMoved(fromPosition, toPosition)
         updateStepsOrder()
+        notifyItemChanged(fromPosition)
+        notifyItemChanged(toPosition)
     }
 
     private fun onStepsNumberChanged() {

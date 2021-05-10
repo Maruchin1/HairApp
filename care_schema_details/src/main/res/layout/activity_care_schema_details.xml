@@ -1,52 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CareSchemaDetailsActivity">
 
-    <data>
+    <com.example.care_schema_details.views.PageAppbarView
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-        <variable
-            name="controller"
-            type="com.example.care_schema_details.CareSchemaDetailsActivity" />
-
-        <variable
-            name="viewModel"
-            type="com.example.care_schema_details.components.CareSchemaDetailsViewModel" />
-    </data>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/steps_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".CareSchemaDetailsActivity">
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:paddingTop="8dp"
+        android:paddingBottom="128dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        tools:listitem="@layout/item_care_schema_step" />
 
-        <include
-            android:id="@+id/appbar"
-            layout="@layout/view_care_schema_details_appbar"
-            app:controller="@{controller}"
-            app:viewModel="@{viewModel}" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/steps_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:paddingTop="8dp"
-            android:paddingBottom="128dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            tools:listitem="@layout/item_care_schema_step" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/edit_steps_fab"
-            style="@style/FloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="24dp"
-            android:contentDescription="@string/edit_care_schema"
-            android:src="@drawable/ic_round_edit_24" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_step_fab"
+        style="@style/FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="24dp"
+        android:contentDescription="@string/add_care_step"
+        android:src="@drawable/ic_round_add_24" />
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</layout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

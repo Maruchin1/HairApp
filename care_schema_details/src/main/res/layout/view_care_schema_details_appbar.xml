@@ -1,25 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <data>
-
-        <variable
-            name="controller"
-            type="com.example.care_schema_details.CareSchemaDetailsActivity" />
-
-        <variable
-            name="viewModel"
-            type="com.example.care_schema_details.components.CareSchemaDetailsViewModel" />
-    </data>
-
-    <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/view_app_toolbar"
-            app:handler="@{controller}"
-            app:title="@{viewModel.schemaName}" />
-    </com.google.android.material.appbar.AppBarLayout>
-</layout>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/view_app_toolbar" />
+</merge>

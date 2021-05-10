@@ -8,6 +8,7 @@ import com.example.core.domain.CareSchemaStep
 import com.example.core.gateway.CareSchemaRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
@@ -37,6 +38,10 @@ internal class CareSchemaDetailsViewModel(
 
     suspend fun deleteSchema() {
         deleteCareSchemaUseCase(careSchemaId)
+    }
+
+    suspend fun getSchemaName(): String {
+        return careSchema.first().name
     }
 
     fun isStepsEditModeEnabled(): Boolean {

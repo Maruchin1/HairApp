@@ -29,7 +29,7 @@ class CareSchemaStepItem(parent: Matcher<View>) : KRecyclerItem<CareSchemaStepIt
 
     val card = KView(parent) { withId(R.id.item_care_schema_step_card) }
 
-    val name = KTextView(parent) { withId(R.id.item_care_schema_step_txv_step_name) }
+    val name = KTextView(parent) { withId(R.id.step_name) }
 
 }
 

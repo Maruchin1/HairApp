@@ -9,6 +9,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.widget.NumberPicker
 import androidx.fragment.app.FragmentManager
+import com.example.common.databinding.ViewSingleInputBinding
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
@@ -161,15 +162,16 @@ class AppDialog {
 
     suspend fun typeText(
         context: Context,
-        title: String
+        title: String,
+        currentValue: String? = null
     ): String? = suspendCoroutine {
         val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.view_single_input, null)
-        val editText: TextInputEditText = view.findViewById(R.id.input)
+        val binding = ViewSingleInputBinding.inflate(inflater, null, false)
+        currentValue?.let { binding.input.setText(it) }
         MaterialAlertDialogBuilder(context)
             .setTitle(title)
             .setPositiveButton("Zapisz") { _, _ ->
-                it.resume(editText.text?.toString())
+                it.resume(binding.input.text?.toString())
             }
             .setNeutralButton("Zamknij") { _, _ ->
                 it.resume(null)
@@ -177,7 +179,7 @@ class AppDialog {
             .setOnCancelListener { _ ->
                 it.resume(null)
             }
-            .setView(view)
+            .setView(binding.root)
             .show()
     }
 
