@@ -1,6 +1,7 @@
 package com.example.data.repo
 
 import com.example.core.domain.CareSchema
+import com.example.core.domain.CareSchemaStep
 import com.example.core.domain.CareStep
 import com.example.core.gateway.CareSchemaRepo
 import com.example.data.dao.CareSchemaDao
@@ -67,17 +68,17 @@ internal class RoomCareSchemaRepo(
             id = 0,
             name = "OMO",
             steps = listOf(
-                CareStep(type = CareStep.Type.CONDITIONER, order = 0, product = null),
-                CareStep(type = CareStep.Type.SHAMPOO, order = 1, product = null),
-                CareStep(type = CareStep.Type.CONDITIONER, order = 2, product = null)
+                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 0),
+                CareSchemaStep(type = CareStep.Type.SHAMPOO, order = 1),
+                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 2)
             )
         ),
         CareSchema(
             id = 0,
             name = "CG",
             steps = listOf(
-                CareStep(type = CareStep.Type.CONDITIONER, order = 0, product = null),
-                CareStep(type = CareStep.Type.CONDITIONER, order = 1, product = null)
+                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 0),
+                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 1)
             )
         )
     )

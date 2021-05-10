@@ -2,6 +2,7 @@ package com.example.core.use_case
 
 import com.example.core.base.UseCase
 import com.example.core.domain.CareSchema
+import com.example.core.domain.CareSchemaStep
 import com.example.core.domain.CareStep
 import com.example.core.errors.CareSchemaException
 import com.example.core.gateway.CareSchemaRepo
@@ -47,5 +48,5 @@ class UpdateCareSchema(
         careSchemaRepo.update(schema)
     }
 
-    data class Input(val id: Int, val name: String, val steps: List<CareStep>)
+    data class Input(val id: Int, val name: String, val steps: List<CareSchemaStep>)
 }

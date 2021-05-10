@@ -2,6 +2,7 @@ package com.example.hairapp.page_edit_care_schema
 
 import androidx.lifecycle.*
 import com.example.core.domain.CareSchema
+import com.example.core.domain.CareSchemaStep
 import com.example.core.domain.CareStep
 import com.example.core.use_case.DeleteCareSchema
 import com.example.core.use_case.ShowCareSchema
@@ -17,11 +18,11 @@ class EditCareSchemaViewModel(
 ) : ViewModel() {
 
     private val _schemaName = MutableLiveData<String>()
-    private val _schemaSteps = MutableLiveData<List<CareStep>>()
+    private val _schemaSteps = MutableLiveData<List<CareSchemaStep>>()
     private var selectedSchemaId: Int? = null
 
     val schemaName: LiveData<String> = _schemaName
-    val schemaSteps: LiveData<List<CareStep>> = _schemaSteps
+    val schemaSteps: LiveData<List<CareSchemaStep>> = _schemaSteps
 
     suspend fun selectCareSchema(schemaId: Int): Result<Unit> {
         selectedSchemaId = schemaId
@@ -41,7 +42,7 @@ class EditCareSchemaViewModel(
         return deleteCareSchema(input)
     }
 
-    fun saveChanges(updatedSteps: List<CareStep>) = GlobalScope.launch {
+    fun saveChanges(updatedSteps: List<CareSchemaStep>) = GlobalScope.launch {
         val schemaId = selectedSchemaId ?: return@launch
         val updatedName = _schemaName.value ?: return@launch
         val input = UpdateCareSchema.Input(schemaId, updatedName, updatedSteps)

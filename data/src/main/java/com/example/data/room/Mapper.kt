@@ -1,9 +1,6 @@
 package com.example.data.room
 
-import com.example.core.domain.Care
-import com.example.core.domain.CareSchema
-import com.example.core.domain.CareStep
-import com.example.core.domain.Product
+import com.example.core.domain.*
 import com.example.data.dao.ProductDao
 import com.example.data.entity.ProductEntity
 import com.example.data.relations.CareSchemaWithSteps
@@ -46,10 +43,9 @@ internal class Mapper(
         id = entity.careSchema.careSchemaId,
         name = entity.careSchema.name,
         steps = entity.steps.map { careSchemaStepEntity ->
-            CareStep(
+            CareSchemaStep(
                 type = careSchemaStepEntity.type,
                 order = careSchemaStepEntity.order,
-                product = null
             )
         }.sortedBy { it.order }
     )

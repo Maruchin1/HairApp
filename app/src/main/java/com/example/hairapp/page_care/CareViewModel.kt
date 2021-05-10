@@ -39,7 +39,7 @@ class CareViewModel(
         return showCareSchema(input).runCatching {
             val schema = this.first()
             _schemaName.postValue(schema.name)
-            _steps.postValue(schema.steps)
+            _steps.postValue(schema.steps.map { it.toCareStep() })
         }
     }
 

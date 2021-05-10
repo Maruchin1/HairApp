@@ -25,7 +25,20 @@
             app:controller="@{controller}"
             app:viewModel="@{viewModel}" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/steps_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="128dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            tools:listitem="@layout/item_care_schema_step" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/edit_steps_fab"
             style="@style/FloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

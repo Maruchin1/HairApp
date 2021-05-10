@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.liveData
 import com.example.core.domain.CareStep
 import com.example.hairapp.R
 import com.example.hairapp.databinding.ActivityEditCareSchemaBinding
@@ -21,18 +22,18 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class EditCareSchemaActivity : AppCompatActivity() {
 
     val noSteps: LiveData<Boolean>
-        get() = adapter.noSteps
+        get() = liveData {  }
 
     val editMode: LiveData<Boolean>
         get() = _editMode
 
     private val viewModel: EditCareSchemaViewModel by viewModel()
     private val dialog: Dialog by inject()
-    private val adapter: CareStepsAdapter = CareStepsAdapter(
-        controller = this,
-        layoutResId = R.layout.item_care_schema_step,
-        dragHandleResId = R.id.item_care_schema_step_drag_handle
-    )
+//    private val adapter: CareStepsAdapter = CareStepsAdapter(
+//        controller = this,
+//        layoutResId = R.layout.item_care_schema_step,
+//        dragHandleResId = R.id.item_care_schema_step_drag_handle
+//    )
     private val _editMode = MutableLiveData(false)
 
     fun switchEditMode() {
@@ -42,7 +43,7 @@ class EditCareSchemaActivity : AppCompatActivity() {
 
     fun addStep() = lifecycleScope.launch {
         dialog.selectCareStep(this@EditCareSchemaActivity)?.let { type ->
-            adapter.addStep(type, null)
+//            adapter.addStep(type, null)
         }
     }
 
@@ -53,7 +54,7 @@ class EditCareSchemaActivity : AppCompatActivity() {
             message = getString(R.string.care_schema_confirm_delete_step_message)
         )
         if (confirmed) {
-            adapter.removeStep(careStep.order)
+//            adapter.removeStep(careStep.order)
         }
     }
 
@@ -62,9 +63,9 @@ class EditCareSchemaActivity : AppCompatActivity() {
         bindActivity<ActivityEditCareSchemaBinding>(R.layout.activity_edit_care_schema, viewModel)
         SystemColors(this).allDark()
 
-        care_schema_steps_recycler.adapter = adapter
-        adapter.touchHelper.attachToRecyclerView(care_schema_steps_recycler)
-        adapter.setSource(viewModel.schemaSteps, this)
+//        care_schema_steps_recycler.adapter = adapter
+//        adapter.touchHelper.attachToRecyclerView(care_schema_steps_recycler)
+//        adapter.setSource(viewModel.schemaSteps, this)
 
         val schemaId = intent.getIntExtra(EXTRA_SCHEMA_ID, -1)
         if (schemaId != -1) {
@@ -80,8 +81,8 @@ class EditCareSchemaActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val updatedSteps = adapter.getAllCareSteps()
-        viewModel.saveChanges(updatedSteps)
+//        val updatedSteps = adapter.getAllCareSteps()
+//        viewModel.saveChanges(updatedSteps)
         super.onBackPressed()
     }
 

@@ -2,10 +2,10 @@ package com.example.care_schema_details.components
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asFlow
-import com.example.care_schema_details.components.CareSchemaDetailsViewModel
 import com.example.care_schema_details.use_case.ChangeSchemaNameUseCase
 import com.example.care_schema_details.use_case.DeleteCareSchemaUseCase
 import com.example.core.domain.CareSchema
+import com.example.core.domain.CareSchemaStep
 import com.example.core.domain.CareStep
 import com.example.core.gateway.CareSchemaRepo
 import com.example.testing.CoroutinesTestRule
@@ -14,6 +14,7 @@ import io.mockk.*
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -39,14 +40,19 @@ class CareSchemaDetailsViewModelTest {
         )
     }
 
+    @Before
+    fun before() {
+        every { careSchemaRepo.findById(any()) } returns flowOf()
+    }
+
     private fun mockCareSchema(): CareSchema {
         val careSchema = CareSchema(
             id = 1,
             name = "OMO",
             steps = listOf(
-                CareStep(type = CareStep.Type.CONDITIONER, order = 1),
-                CareStep(type = CareStep.Type.SHAMPOO, order = 2),
-                CareStep(type = CareStep.Type.CONDITIONER, order = 3)
+                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 1),
+                CareSchemaStep(type = CareStep.Type.SHAMPOO, order = 2),
+                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 3)
             )
         )
         every { careSchemaRepo.findById(careSchemaId) } returns flowOf(careSchema)
@@ -90,5 +96,33 @@ class CareSchemaDetailsViewModelTest {
         viewModel.deleteSchema()
 
         coVerify { deleteCareSchemaUseCase(careSchema.id) }
+    }
+
+    @Test
+    fun isStepsEditMode_FalseByDefault() = runBlocking {
+        val result = viewModel.stepsEditModeEnabled.asFlow().first()
+
+        assertThat(result).isFalse()
+    }
+
+    @Test
+    fun enableStepsEditMode_StepsEditModeChangesToTrue() = runBlocking {
+        val beforeEnabled = viewModel.stepsEditModeEnabled.asFlow().first()
+        viewModel.enableStepsEditMode()
+        val afterEnabled = viewModel.stepsEditModeEnabled.asFlow().first()
+
+        assertThat(beforeEnabled).isFalse()
+        assertThat(afterEnabled).isTrue()
+    }
+
+    @Test
+    fun saveStepsChanges_StepsEditModeChangesToFalse() = runBlocking {
+        viewModel.enableStepsEditMode()
+        val beforeSave = viewModel.stepsEditModeEnabled.asFlow().first()
+        viewModel.saveStepsChanges()
+        val afterSave = viewModel.stepsEditModeEnabled.asFlow().first()
+
+        assertThat(beforeSave).isTrue()
+        assertThat(afterSave).isFalse()
     }
 }
