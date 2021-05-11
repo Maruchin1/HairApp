@@ -3,6 +3,7 @@ package com.example.care_schema_details
 import com.example.care_schema_details.components.CareSchemaDetailsViewModel
 import com.example.care_schema_details.components.CareSchemaStepsAdapter
 import com.example.care_schema_details.components.CareSchemaStepsTouchHelperCallback
+import com.example.care_schema_details.use_case.AddSchemaStepUseCase
 import com.example.care_schema_details.use_case.ChangeSchemaNameUseCase
 import com.example.care_schema_details.use_case.ChangeSchemaStepsUseCase
 import com.example.care_schema_details.use_case.DeleteCareSchemaUseCase
@@ -26,6 +27,11 @@ internal val careSchemaDetailsModule = module {
     }
     factory {
         ChangeSchemaStepsUseCase(
+            careSchemaRepo = get()
+        )
+    }
+    factory {
+        AddSchemaStepUseCase(
             careSchemaRepo = get()
         )
     }

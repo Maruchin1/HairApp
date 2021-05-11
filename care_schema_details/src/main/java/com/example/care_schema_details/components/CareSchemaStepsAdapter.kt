@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.care_schema_details.CareSchemaDetailsActivity
@@ -13,8 +11,8 @@ import com.example.care_schema_details.databinding.ItemCareSchemaStepBinding
 import com.example.common.base.BaseRecyclerAdapter
 import com.example.common.base.BaseViewHolder
 import com.example.common.binding.Converter
+import com.example.common.extensions.visibleOrGone
 import com.example.core.domain.CareSchemaStep
-import com.example.core.domain.CareStep
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
@@ -27,9 +25,6 @@ internal class CareSchemaStepsAdapter(
 ) : BaseRecyclerAdapter<CareSchemaStep, ItemCareSchemaStepBinding>() {
 
     private val boundActivityRef = WeakReference(boundActivity)
-    private val _noSteps = MutableLiveData(true)
-
-    val noSteps: LiveData<Boolean> = _noSteps
 
     val touchHelper: ItemTouchHelper by lazy {
         careSchemaStepsTouchHelperCallback.setOnMoveListener(this::moveCareProduct)
@@ -38,22 +33,6 @@ internal class CareSchemaStepsAdapter(
 
     init {
         observeStepsEditModeEnabled()
-    }
-
-    fun addStep(type: CareStep.Type) {
-        val newStepPosition = itemCount
-        val newStep = CareSchemaStep(type, newStepPosition)
-        itemsList.add(newStep)
-        notifyItemInserted(newStepPosition)
-        onStepsNumberChanged()
-        saveStepsChanges()
-    }
-
-    fun removeStep(position: Int) {
-        itemsList.removeAt(position)
-        notifyItemRemoved(position)
-        onStepsNumberChanged()
-        saveStepsChanges()
     }
 
     override fun onBindItemView(
@@ -81,6 +60,7 @@ internal class CareSchemaStepsAdapter(
         binding.run {
             stepNumber.text = (item.order + 1).toString()
             stepName.text = Converter.careStepType(item.type)
+            dragHandle.visibleOrGone(viewModel.isStepsEditModeEnabled())
         }
     }
 
@@ -107,19 +87,10 @@ internal class CareSchemaStepsAdapter(
         saveStepsChanges()
     }
 
-    private fun onStepsNumberChanged() {
-        updateStepsOrder()
-        updateNoSteps()
-    }
-
     private fun updateStepsOrder() {
         itemsList.forEachIndexed { index, careSchemaStep ->
             careSchemaStep.order = index
         }
-    }
-
-    private fun updateNoSteps() {
-        _noSteps.value = itemsList.isEmpty()
     }
 
     private fun saveStepsChanges() {

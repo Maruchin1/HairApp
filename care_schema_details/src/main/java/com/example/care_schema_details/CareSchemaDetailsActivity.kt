@@ -6,6 +6,7 @@ import com.example.care_schema_details.components.CareSchemaActions
 import com.example.care_schema_details.components.CareSchemaDetailsViewModel
 import com.example.care_schema_details.components.CareSchemaStepsAdapter
 import com.example.care_schema_details.databinding.ActivityCareSchemaDetailsBinding
+import com.example.care_schema_details.use_case.AddSchemaStepUseCase
 import com.example.common.base.BaseFeatureActivity
 import com.example.common.modals.ActionsModal
 import com.example.common.modals.AppDialog
@@ -25,6 +26,7 @@ class CareSchemaDetailsActivity : BaseFeatureActivity<ActivityCareSchemaDetailsB
     private val viewModel: CareSchemaDetailsViewModel by viewModel { parametersOf(careSchemaId) }
     private val appDialog: AppDialog by inject()
     private val appModal: AppModal by inject()
+    private val addSchemaStep: AddSchemaStepUseCase by inject()
     private val stepsAdapter: CareSchemaStepsAdapter by inject { parametersOf(this, viewModel) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,7 +95,7 @@ class CareSchemaDetailsActivity : BaseFeatureActivity<ActivityCareSchemaDetailsB
         appDialog.selectCareStepType(
             context = this@CareSchemaDetailsActivity
         )?.let { type ->
-            stepsAdapter.addStep(type)
+            addSchemaStep(careSchemaId, type)
         }
     }
 
