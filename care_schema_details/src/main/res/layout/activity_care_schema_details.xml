@@ -24,14 +24,14 @@
         tools:listitem="@layout/item_care_schema_step" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_step_fab"
+        android:id="@+id/fab_edit_schema"
         style="@style/FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
-        android:contentDescription="@string/add_care_step"
-        android:src="@drawable/ic_round_add_24" />
+        android:contentDescription="@string/edit_care_schema"
+        android:src="@drawable/ic_round_edit_24" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

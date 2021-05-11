@@ -2,20 +2,19 @@ package com.example.care_schema_details.components
 
 import androidx.lifecycle.*
 import com.example.care_schema_details.use_case.ChangeSchemaNameUseCase
+import com.example.care_schema_details.use_case.ChangeSchemaStepsUseCase
 import com.example.care_schema_details.use_case.DeleteCareSchemaUseCase
 import com.example.core.domain.CareSchema
 import com.example.core.domain.CareSchemaStep
 import com.example.core.gateway.CareSchemaRepo
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 internal class CareSchemaDetailsViewModel(
     private val careSchemaId: Int,
     private val careSchemaRepo: CareSchemaRepo,
     private val changeSchemaNameUseCase: ChangeSchemaNameUseCase,
+    private val changeSchemaStepsUseCase: ChangeSchemaStepsUseCase,
     private val deleteCareSchemaUseCase: DeleteCareSchemaUseCase
 ) : ViewModel() {
 
@@ -52,8 +51,8 @@ internal class CareSchemaDetailsViewModel(
         _stepsEditModeEnabled.emit(true)
     }
 
-    fun saveStepsChanges() = viewModelScope.launch {
-        //todo save changes is
+    suspend fun saveStepsChanges(changedSteps: List<CareSchemaStep>) {
+        changeSchemaStepsUseCase(careSchemaId, changedSteps)
         _stepsEditModeEnabled.emit(false)
     }
 }

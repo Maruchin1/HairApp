@@ -6,18 +6,17 @@ import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.care_schema_details.CareSchemaDetailsActivity
-import com.example.care_schema_details.R
 import com.example.care_schema_details.databinding.ItemCareSchemaStepBinding
 import com.example.common.base.BaseRecyclerAdapter
 import com.example.common.base.BaseViewHolder
-import com.example.common.binding.BindingRecyclerAdapter
-import com.example.common.binding.BindingViewHolder
 import com.example.common.binding.Converter
-import com.example.common.extensions.visibleOrGone
 import com.example.core.domain.CareSchemaStep
 import com.example.core.domain.CareStep
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 import java.util.*
 
@@ -47,12 +46,14 @@ internal class CareSchemaStepsAdapter(
         itemsList.add(newStep)
         notifyItemInserted(newStepPosition)
         onStepsNumberChanged()
+        saveStepsChanges()
     }
 
     fun removeStep(position: Int) {
         itemsList.removeAt(position)
         notifyItemRemoved(position)
         onStepsNumberChanged()
+        saveStepsChanges()
     }
 
     override fun onBindItemView(
@@ -103,6 +104,7 @@ internal class CareSchemaStepsAdapter(
         updateStepsOrder()
         notifyItemChanged(fromPosition)
         notifyItemChanged(toPosition)
+        saveStepsChanges()
     }
 
     private fun onStepsNumberChanged() {
@@ -118,5 +120,14 @@ internal class CareSchemaStepsAdapter(
 
     private fun updateNoSteps() {
         _noSteps.value = itemsList.isEmpty()
+    }
+
+    private fun saveStepsChanges() {
+        boundActivityRef.get()?.run {
+            lifecycleScope.launch {
+                delay(500)
+                viewModel.saveStepsChanges(itemsList)
+            }
+        }
     }
 }

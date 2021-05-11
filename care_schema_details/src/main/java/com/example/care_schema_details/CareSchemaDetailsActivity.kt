@@ -2,11 +2,14 @@ package com.example.care_schema_details
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import com.example.care_schema_details.components.CareSchemaActions
 import com.example.care_schema_details.components.CareSchemaDetailsViewModel
 import com.example.care_schema_details.components.CareSchemaStepsAdapter
 import com.example.care_schema_details.databinding.ActivityCareSchemaDetailsBinding
 import com.example.common.base.BaseFeatureActivity
+import com.example.common.modals.ActionsModal
 import com.example.common.modals.AppDialog
+import com.example.common.modals.AppModal
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,6 +24,7 @@ class CareSchemaDetailsActivity : BaseFeatureActivity<ActivityCareSchemaDetailsB
 
     private val viewModel: CareSchemaDetailsViewModel by viewModel { parametersOf(careSchemaId) }
     private val appDialog: AppDialog by inject()
+    private val appModal: AppModal by inject()
     private val stepsAdapter: CareSchemaStepsAdapter by inject { parametersOf(this, viewModel) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,12 +39,39 @@ class CareSchemaDetailsActivity : BaseFeatureActivity<ActivityCareSchemaDetailsB
     }
 
     private fun setupAppbar() {
-        binding.appbar.run {
-            setOnChangeSchemaName { changeSchemaName() }
-            setOnDeleteSchema { deleteSchema() }
-        }
+        binding.appbar.setOnNavigationClick { onBackPressed() }
         viewModel.schemaName.observe(this) {
             binding.appbar.title = it
+        }
+    }
+
+
+    private fun setupStepsRecycler() {
+        binding.stepsRecycler.adapter = stepsAdapter
+        stepsAdapter.touchHelper.attachToRecyclerView(binding.stepsRecycler)
+        stepsAdapter.addSource(viewModel.schemaSteps, this)
+        stepsAdapter.setItemComparator { oldItem, newItem -> oldItem == newItem }
+    }
+
+    private fun setupAddStepFab() {
+        binding.fabEditSchema.setOnClickListener {
+            openActionsModal()
+        }
+    }
+
+    private fun openActionsModal() = lifecycleScope.launch {
+        appModal.openActions(
+            manager = supportFragmentManager,
+            actions = CareSchemaActions.values().toList()
+        )?.let { action -> onSchemaAction(action) }
+    }
+
+    private fun onSchemaAction(action: CareSchemaActions) {
+        when (action) {
+            CareSchemaActions.CHANGE_SCHEMA_NAME -> changeSchemaName()
+            CareSchemaActions.CHANGE_STEPS_ORDER -> changeStepsOrder()
+            CareSchemaActions.ADD_STEP -> addCareSchemaStep()
+            CareSchemaActions.DELETE_SCHEMA -> deleteSchema()
         }
     }
 
@@ -54,6 +85,18 @@ class CareSchemaDetailsActivity : BaseFeatureActivity<ActivityCareSchemaDetailsB
         }
     }
 
+    private fun changeStepsOrder() {
+        viewModel.enableStepsEditMode()
+    }
+
+    private fun addCareSchemaStep() = lifecycleScope.launch {
+        appDialog.selectCareStepType(
+            context = this@CareSchemaDetailsActivity
+        )?.let { type ->
+            stepsAdapter.addStep(type)
+        }
+    }
+
     private fun deleteSchema() = lifecycleScope.launch {
         val confirmed = appDialog.confirm(
             context = this@CareSchemaDetailsActivity,
@@ -64,17 +107,9 @@ class CareSchemaDetailsActivity : BaseFeatureActivity<ActivityCareSchemaDetailsB
         }
     }
 
-    private fun setupStepsRecycler() {
-        binding.stepsRecycler.adapter = stepsAdapter
-        stepsAdapter.touchHelper.attachToRecyclerView(binding.stepsRecycler)
-        stepsAdapter.addSource(viewModel.schemaSteps, this)
-    }
-
-    private fun setupAddStepFab() = binding.addStepFab.setOnClickListener {
-
-    }
-
     companion object {
         private const val CARE_SCHEMA_ID = "care_schema_id"
     }
+
+
 }

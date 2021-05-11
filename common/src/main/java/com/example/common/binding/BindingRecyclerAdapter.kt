@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class BindingRecyclerAdapter<T, V : ViewDataBinding>(
     private val layoutResId: Int
-): RecyclerView.Adapter<BindingViewHolder<V>>() {
+) : RecyclerView.Adapter<BindingViewHolder<V>>() {
 
     protected val itemsList = mutableListOf<T>()
 

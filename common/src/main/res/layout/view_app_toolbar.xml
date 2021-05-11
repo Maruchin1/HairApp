@@ -1,43 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?android:actionBarSize"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_primary"
+    android:clipToPadding="false">
 
-    <data>
-
-        <variable
-            name="title"
-            type="String" />
-
-        <variable
-            name="handler"
-            type="com.example.common.view_handlers.AppToolbarHandler" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?android:actionBarSize"
-        android:background="@color/color_primary"
-        android:clipToPadding="false">
+        android:layout_height="wrap_content"
+        android:theme="@style/ToolbarOverlay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_round_arrow_back_24"/>
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ToolbarOverlay"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_round_arrow_back_24"
-            app:onNavigationClick="@{() -> handler.onNavigationClick()}" />
+    <TextView
+        android:id="@+id/title"
+        style="@style/ToolbarTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="HairApp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/title"
-            style="@style/ToolbarTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text='@{title, default="HairApp"}'
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

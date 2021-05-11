@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
+abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
-    lateinit var binding: T
+    lateinit var binding: VB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,5 +14,5 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    abstract fun bindActivity(): T
+    protected abstract fun bindActivity(): VB
 }

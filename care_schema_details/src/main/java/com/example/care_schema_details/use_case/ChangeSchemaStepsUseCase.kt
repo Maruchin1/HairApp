@@ -1,18 +1,19 @@
 package com.example.care_schema_details.use_case
 
+import com.example.core.domain.CareSchemaStep
 import com.example.core.gateway.CareSchemaRepo
 import kotlinx.coroutines.flow.firstOrNull
 
-internal class ChangeSchemaNameUseCase(
+internal class ChangeSchemaStepsUseCase(
     private val careSchemaRepo: CareSchemaRepo
 ) {
 
-    suspend operator fun invoke(careSchemaId: Int, newName: String) {
+    suspend operator fun invoke(careSchemaId: Int, newSteps: List<CareSchemaStep>) {
         careSchemaRepo
             .findById(careSchemaId)
             .firstOrNull()
             ?.let { careSchema ->
-                val update = careSchema.copy(name = newName)
+                val update = careSchema.copy(steps = newSteps)
                 careSchemaRepo.update(update)
             }
     }

@@ -18,6 +18,11 @@ abstract class BaseRecyclerAdapter<T, B : ViewBinding> : RecyclerView.Adapter<Ba
         source.observe(lifecycleOwner) { updateItems(it) }
     }
 
+    fun setItemComparator(itemsComparator: ItemsComparator<T>) {
+        diffCallback = BaseDiffCallback(itemsComparator)
+    }
+
+
     open fun updateItems(newItemsList: List<T>?) {
         if (diffCallback == null) {
             itemsList.clear()

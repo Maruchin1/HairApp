@@ -1,6 +1,5 @@
 package com.example.common.modals
 
-import com.example.common.R
 import com.example.common.binding.Converter
 import com.example.core.domain.CareSchema
 import com.example.core.domain.CareStep
@@ -12,7 +11,6 @@ import androidx.fragment.app.FragmentManager
 import com.example.common.databinding.ViewSingleInputBinding
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.TextInputEditText
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -106,7 +104,7 @@ class AppDialog {
             .show()
     }
 
-    suspend fun selectCareStep(context: Context): CareStep.Type? = suspendCoroutine {
+    suspend fun selectCareStepType(context: Context): CareStep.Type? = suspendCoroutine {
         val values = CareStep.Type.values()
         val items = values.map { Converter.careStepType(it) }
         MaterialAlertDialogBuilder(context)

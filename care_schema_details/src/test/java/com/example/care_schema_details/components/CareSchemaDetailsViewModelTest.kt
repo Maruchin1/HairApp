@@ -3,6 +3,7 @@ package com.example.care_schema_details.components
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asFlow
 import com.example.care_schema_details.use_case.ChangeSchemaNameUseCase
+import com.example.care_schema_details.use_case.ChangeSchemaStepsUseCase
 import com.example.care_schema_details.use_case.DeleteCareSchemaUseCase
 import com.example.core.domain.CareSchema
 import com.example.core.domain.CareSchemaStep
@@ -29,6 +30,7 @@ class CareSchemaDetailsViewModelTest {
     private val careSchemaId = 1
     private val careSchemaRepo: CareSchemaRepo = mockk()
     private val changeSchemaNameUseCase: ChangeSchemaNameUseCase = mockk()
+    private val changeSchemaStepsUseCase: ChangeSchemaStepsUseCase = mockk()
     private val deleteCareSchemaUseCase: DeleteCareSchemaUseCase = mockk()
 
     private val viewModel by lazy {
@@ -36,6 +38,7 @@ class CareSchemaDetailsViewModelTest {
             careSchemaId,
             careSchemaRepo,
             changeSchemaNameUseCase,
+            changeSchemaStepsUseCase,
             deleteCareSchemaUseCase
         )
     }
@@ -117,12 +120,28 @@ class CareSchemaDetailsViewModelTest {
 
     @Test
     fun saveStepsChanges_StepsEditModeChangesToFalse() = runBlocking {
+        coJustRun { changeSchemaStepsUseCase.invoke(any(), any()) }
+
         viewModel.enableStepsEditMode()
         val beforeSave = viewModel.stepsEditModeEnabled.asFlow().first()
-        viewModel.saveStepsChanges()
+        viewModel.saveStepsChanges(listOf())
         val afterSave = viewModel.stepsEditModeEnabled.asFlow().first()
 
         assertThat(beforeSave).isTrue()
         assertThat(afterSave).isFalse()
+    }
+
+    @Test
+    fun saveStepsChanges_ExecuteChangeStepsUseCase() = runBlocking {
+        val newSteps = listOf(
+            CareSchemaStep(type = CareStep.Type.SHAMPOO, order = 0)
+        )
+        coJustRun { changeSchemaStepsUseCase.invoke(any(), any()) }
+
+        viewModel.saveStepsChanges(newSteps)
+
+        coVerify {
+            changeSchemaStepsUseCase(careSchemaId, newSteps)
+        }
     }
 }

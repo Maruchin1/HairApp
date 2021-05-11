@@ -2,8 +2,10 @@ package com.example.common.base
 
 import androidx.recyclerview.widget.DiffUtil
 
+typealias ItemsComparator<T> = (oldItem: T, newItem: T) -> Boolean
+
 class BaseDiffCallback<T>(
-    private val compareBy: (item: T) -> Any
+    private val compareItems: ItemsComparator<T>
 ) : DiffUtil.Callback() {
 
     private var oldList: List<T> = emptyList()
@@ -25,7 +27,7 @@ class BaseDiffCallback<T>(
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldItem = oldList[oldItemPosition]
         val newItem = newList[newItemPosition]
-        return compareBy(oldItem) == compareBy(newItem)
+        return compareItems(oldItem, newItem)
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
