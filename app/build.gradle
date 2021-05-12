@@ -58,6 +58,7 @@ dependencies {
     implementation project(':core')
     implementation project(':data')
     implementation project(':common')
+    implementation project(':navigation')
     implementation project(':care_schema_details')
 
     // Unit tests
@@ -86,6 +87,10 @@ dependencies {
     // Koin
     implementation "org.koin:koin-android:2.1.6"
     implementation "org.koin:koin-androidx-viewmodel:2.1.6"
+
+    // Navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
     // Coil - image loading
     implementation("io.coil-kt:coil:0.13.0")

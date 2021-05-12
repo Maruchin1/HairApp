@@ -13,9 +13,11 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/care_schema_details" />
+            <option value="$PROJECT_DIR$/care_schemas_list" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/data" />
+            <option value="$PROJECT_DIR$/navigation" />
             <option value="$PROJECT_DIR$/testing" />
           </set>
         </option>

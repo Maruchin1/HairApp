@@ -6,7 +6,7 @@
     <color name="color_primary_light">#ffcccb</color>
     <color name="color_accent">#9b0000</color>
 
-    <color name="color_background">#f5f5f5</color>
+    <color name="color_background">#fafafa</color>
     <color name="color_background_darker">#e0e0e0</color>
     <color name="color_background_dark">@android:color/darker_gray</color>
 
@@ -25,5 +25,7 @@
     <color name="text_color_primary_dark">@android:color/primary_text_dark</color>
     <color name="text_color_secondary_dark">@android:color/secondary_text_dark</color>
     <color name="text_color_tertiary_dark">@android:color/tertiary_text_dark</color>
+
+    <color name="card_stroke">#e0e0e0</color>
 
 </resources>

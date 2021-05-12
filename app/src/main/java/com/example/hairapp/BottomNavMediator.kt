@@ -18,78 +18,78 @@ class BottomNavMediator(
     private val productsListFragment by lazy { ProductsListFragment() }
     private val careSchemasFragment by lazy { CareSchemasFragment() }
 
-    init {
-        listenForNavigationSelected()
-        listenForBackEvents()
-        setDefaultPage()
-    }
-
-    private fun listenForNavigationSelected() {
-        bottomNav.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_cares -> openCaresList()
-                R.id.nav_products -> openProductsList()
-                R.id.nav_schemas -> openSchemasList()
-            }
-            true
-        }
-    }
-
-    private fun openCaresList() = fragmentManager.commit {
-        setFadeAnimations()
-        replace(caresListFragment)
-    }
-
-    private fun openProductsList() = fragmentManager.commit {
-        setFadeAnimations()
-        replace(productsListFragment)
-        addToBackStack()
-    }
-
-    private fun openSchemasList() = fragmentManager.commit {
-        setFadeAnimations()
-        replace(careSchemasFragment)
-        addToBackStack()
-    }
-
-    private fun FragmentTransaction.setFadeAnimations() {
-        setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
-    }
-
-    private fun FragmentTransaction.replace(fragment: Fragment) {
-        replace(R.id.fragment_container, fragment)
-    }
-
-    private fun FragmentTransaction.addToBackStack() {
-        addToBackStack(null)
-    }
-
-    private fun listenForBackEvents() {
-        var lastNumOfFragments = 0
-        fragmentManager.addOnBackStackChangedListener {
-            val newNumOfFragments = fragmentManager.backStackEntryCount
-            if (newNumOfFragments < lastNumOfFragments) {
-                setBottomNavByVisibleFragment()
-            }
-            lastNumOfFragments = newNumOfFragments
-        }
-    }
-
-    private fun setBottomNavByVisibleFragment() {
-        fragmentManager.fragments
-            .find { it.isVisible }
-            ?.let { setBottomNavByFragment(it) }
-    }
-
-    private fun setBottomNavByFragment(fragment: Fragment) {
-        bottomNav.selectedItemId = when (fragment) {
-            is CaresListFragment -> R.id.nav_cares
-            is ProductsListFragment -> R.id.nav_products
-            else -> -1
-        }
-    }
-
-    private fun setDefaultPage() {
-        bottomNav.selectedItemId = R.id.nav_cares
-    }
+//    init {
+//        listenForNavigationSelected()
+//        listenForBackEvents()
+//        setDefaultPage()
+//    }
+//
+//    private fun listenForNavigationSelected() {
+//        bottomNav.setOnNavigationItemSelectedListener {
+//            when (it.itemId) {
+//                R.id.nav_cares -> openCaresList()
+//                R.id.nav_products -> openProductsList()
+//                R.id.nav_schemas -> openSchemasList()
+//            }
+//            true
+//        }
+//    }
+//
+//    private fun openCaresList() = fragmentManager.commit {
+//        setFadeAnimations()
+//        replace(caresListFragment)
+//    }
+//
+//    private fun openProductsList() = fragmentManager.commit {
+//        setFadeAnimations()
+//        replace(productsListFragment)
+//        addToBackStack()
+//    }
+//
+//    private fun openSchemasList() = fragmentManager.commit {
+//        setFadeAnimations()
+//        replace(careSchemasFragment)
+//        addToBackStack()
+//    }
+//
+//    private fun FragmentTransaction.setFadeAnimations() {
+//        setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+//    }
+//
+//    private fun FragmentTransaction.replace(fragment: Fragment) {
+//        replace(R.id.fragment_container, fragment)
+//    }
+//
+//    private fun FragmentTransaction.addToBackStack() {
+//        addToBackStack(null)
+//    }
+//
+//    private fun listenForBackEvents() {
+//        var lastNumOfFragments = 0
+//        fragmentManager.addOnBackStackChangedListener {
+//            val newNumOfFragments = fragmentManager.backStackEntryCount
+//            if (newNumOfFragments < lastNumOfFragments) {
+//                setBottomNavByVisibleFragment()
+//            }
+//            lastNumOfFragments = newNumOfFragments
+//        }
+//    }
+//
+//    private fun setBottomNavByVisibleFragment() {
+//        fragmentManager.fragments
+//            .find { it.isVisible }
+//            ?.let { setBottomNavByFragment(it) }
+//    }
+//
+//    private fun setBottomNavByFragment(fragment: Fragment) {
+//        bottomNav.selectedItemId = when (fragment) {
+//            is CaresListFragment -> R.id.nav_cares
+//            is ProductsListFragment -> R.id.nav_products
+//            else -> -1
+//        }
+//    }
+//
+//    private fun setDefaultPage() {
+//        bottomNav.selectedItemId = R.id.nav_cares
+//    }
 }

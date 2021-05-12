@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseRecyclerAdapter<T, B : ViewBinding> : RecyclerView.Adapter<BaseViewHolder<B>>() {
+abstract class BaseRecyclerAdapter<T, VB : ViewBinding> : RecyclerView.Adapter<BaseViewHolder<VB>>() {
 
     protected val itemsList = mutableListOf<T>()
 
@@ -44,17 +44,17 @@ abstract class BaseRecyclerAdapter<T, B : ViewBinding> : RecyclerView.Adapter<Ba
         return itemsList.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<B> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<VB> {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: B = onBindItemView(inflater, parent)
+        val binding: VB = onBindItemView(inflater, parent)
         return BaseViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<B>, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder<VB>, position: Int) {
         onBindItemData(binding = holder.binding, item = itemsList[position])
     }
 
-    protected abstract fun onBindItemView(layoutInflater: LayoutInflater, parent: ViewGroup): B
+    protected abstract fun onBindItemView(layoutInflater: LayoutInflater, parent: ViewGroup): VB
 
-    protected abstract fun onBindItemData(binding: B, item: T)
+    protected abstract fun onBindItemData(binding: VB, item: T)
 }

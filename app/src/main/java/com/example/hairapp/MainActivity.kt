@@ -2,6 +2,9 @@ package com.example.hairapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.hairapp.framework.bindActivity
 import com.example.hairapp.databinding.ActivityMainBinding
 import com.example.hairapp.framework.SystemColors
@@ -18,7 +21,9 @@ class MainActivity : AppCompatActivity() {
             .darkNavigationBar()
             .apply()
 
-        BottomNavMediator(binding.bottomNav, supportFragmentManager)
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        binding.bottomNav.setupWithNavController(navHostFragment.navController)
     }
 
 }
