@@ -1,5 +1,6 @@
 package com.example.care_schemas_list
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.care_schemas_list.databinding.ItemSchemaBinding
@@ -10,10 +11,10 @@ import com.example.core.domain.CareSchema
 import com.example.core.domain.CareSchemaStep
 
 internal class SchemasAdapter(
-    private val onSchemaClicked: (schema: CareSchema) -> Unit
+    private val onSchemaClicked: (schema: CareSchema) -> Unit,
+    private val context: Context,
+    private val stepsAdapter: SchemaStepsAdapter
 ) : BaseRecyclerAdapter<CareSchema, ItemSchemaBinding>() {
-
-    private val stepsAdapter: SchemaStepsAdapter by lazy { SchemaStepsAdapter() }
 
     override fun onBindItemView(
         layoutInflater: LayoutInflater,
@@ -25,10 +26,15 @@ internal class SchemasAdapter(
     override fun onBindItemData(binding: ItemSchemaBinding, item: CareSchema) {
         binding.apply {
             card.setOnClickListener { onSchemaClicked(item) }
-            schemaName.text = item.name
+            schemaName.text = makeSchemaName(item)
             item.steps.forEach { addStepToList(binding, it) }
         }
         stepsAdapter.updateItems(item.steps)
+    }
+
+    private fun makeSchemaName(schema: CareSchema): String {
+        val careText = context.getString(R.string.care)
+        return "$careText ${schema.name}"
     }
 
     private fun addStepToList(binding: ItemSchemaBinding, step: CareSchemaStep) {

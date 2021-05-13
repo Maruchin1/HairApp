@@ -7,14 +7,16 @@ import android.view.ViewGroup
 import com.example.care_schemas_list.databinding.FragmentCareSchemasListBinding
 import com.example.common.base.BaseFeatureFragment
 import com.example.core.domain.CareSchema
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class CareSchemasListFragment : BaseFeatureFragment<FragmentCareSchemasListBinding>(
     careSchemasListModule
 ) {
 
     private val viewModel: CareSchemasListViewModel by viewModel()
-    private val schemasAdapter by lazy { SchemasAdapter(this::openSchemaDetails) }
+    private val schemasAdapter: SchemasAdapter by inject { parametersOf(this::openSchemaDetails) }
 
     override fun bindLayout(
         inflater: LayoutInflater,

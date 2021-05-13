@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="new_care_schema">Nowy schemat pielęgnacji</string>
+    <string name="care">Pielęgnacja</string>
 </resources>
