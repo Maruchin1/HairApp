@@ -58,9 +58,7 @@ dependencies {
     implementation project(':core')
     implementation project(':data')
     implementation project(':common')
-    implementation project(':navigation')
     implementation project(':home')
-    implementation project(':care_schemas_list')
     implementation project(':care_schema_details')
 
     // Unit tests
