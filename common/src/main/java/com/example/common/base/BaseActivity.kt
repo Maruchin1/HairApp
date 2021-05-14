@@ -14,5 +14,15 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    override fun onResume() {
+        super.onResume()
+        SystemColors(this).run {
+            setupSystemColors(this)
+            apply()
+        }
+    }
+
     protected abstract fun bindActivity(): VB
+
+    protected abstract fun setupSystemColors(systemColors: SystemColors)
 }

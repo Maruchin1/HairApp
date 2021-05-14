@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.common.base.BaseRecyclerAdapter
 import com.example.common.binding.Converter
+import com.example.common.extensions.visibleOrGone
 import com.example.core.domain.CareSchema
 import com.example.core.domain.CareSchemaStep
 import com.example.home.R
@@ -29,6 +30,7 @@ internal class SchemasAdapter(
             card.setOnClickListener { onSchemaClicked(item) }
             schemaName.text = makeSchemaName(item)
             item.steps.forEach { addStepToList(binding, it) }
+            noStepsInSchema.container.visibleOrGone(item.steps.isEmpty())
         }
         stepsAdapter.updateItems(item.steps)
     }

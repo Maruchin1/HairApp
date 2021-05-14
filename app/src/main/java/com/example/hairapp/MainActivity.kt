@@ -20,10 +20,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = bindActivity(R.layout.activity_main, viewModel = null)
-        SystemColors(this)
-            .lightStatusBar()
-            .darkNavigationBar()
-            .apply()
 
         appNavigator.toDestination(this, HomeDestination())
     }

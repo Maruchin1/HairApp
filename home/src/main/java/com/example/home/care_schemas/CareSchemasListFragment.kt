@@ -4,11 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.example.common.base.BaseFragment
+import com.example.common.modals.AppDialog
 import com.example.common.navigation.AppNavigator
 import com.example.common.navigation.CareSchemaDetailsDestination
 import com.example.core.domain.CareSchema
+import com.example.home.R
 import com.example.home.databinding.FragmentCareSchemasListBinding
+import com.example.home.use_case.AddCareSchemaUseCase
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -18,6 +23,8 @@ class CareSchemasListFragment : BaseFragment<FragmentCareSchemasListBinding>() {
     private val viewModel: CareSchemasListViewModel by viewModel()
     private val schemasAdapter: SchemasAdapter by inject { parametersOf(this::openSchemaDetails) }
     private val appNavigator: AppNavigator by inject()
+    private val appDialog: AppDialog by inject()
+    private val addCareSchemaUseCase: AddCareSchemaUseCase by inject()
 
     override fun bindLayout(
         inflater: LayoutInflater,
@@ -28,7 +35,21 @@ class CareSchemasListFragment : BaseFragment<FragmentCareSchemasListBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupAddCareSchemaButton()
         setupSchemasRecycler()
+    }
+
+    private fun setupAddCareSchemaButton() = binding.btnAddCareSchema.setOnClickListener {
+        addCareSchema()
+    }
+
+    private fun addCareSchema() = lifecycleScope.launch {
+        appDialog.typeText(
+            context = requireContext(),
+            title = getString(R.string.new_schema_name)
+        )?.let { newSchemaName ->
+            addCareSchemaUseCase(newSchemaName)
+        }
     }
 
     private fun setupSchemasRecycler() {

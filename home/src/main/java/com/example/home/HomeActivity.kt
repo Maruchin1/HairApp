@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.common.base.BaseFeatureActivity
+import com.example.common.base.SystemColors
 import com.example.home.databinding.ActivityHomeBinding
 
 class HomeActivity : BaseFeatureActivity<ActivityHomeBinding>(
@@ -17,6 +18,13 @@ class HomeActivity : BaseFeatureActivity<ActivityHomeBinding>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupBottomNav()
+    }
+
+    override fun setupSystemColors(systemColors: SystemColors) {
+        systemColors.apply {
+            darkStatusBar()
+            darkNavigationBar()
+        }
     }
 
     private fun setupBottomNav() {

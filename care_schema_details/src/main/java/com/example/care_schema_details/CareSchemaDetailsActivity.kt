@@ -8,6 +8,7 @@ import com.example.care_schema_details.components.CareSchemaStepsAdapter
 import com.example.care_schema_details.databinding.ActivityCareSchemaDetailsBinding
 import com.example.care_schema_details.use_case.AddSchemaStepUseCase
 import com.example.common.base.BaseFeatureActivity
+import com.example.common.base.SystemColors
 import com.example.common.modals.ActionsModal
 import com.example.common.modals.AppDialog
 import com.example.common.modals.AppModal
@@ -29,6 +30,10 @@ class CareSchemaDetailsActivity : BaseFeatureActivity<ActivityCareSchemaDetailsB
     private val addSchemaStep: AddSchemaStepUseCase by inject()
     private val stepsAdapter: CareSchemaStepsAdapter by inject { parametersOf(this, viewModel) }
 
+    override fun bindActivity(): ActivityCareSchemaDetailsBinding {
+        return ActivityCareSchemaDetailsBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupAppbar()
@@ -36,8 +41,11 @@ class CareSchemaDetailsActivity : BaseFeatureActivity<ActivityCareSchemaDetailsB
         setupAddStepFab()
     }
 
-    override fun bindActivity(): ActivityCareSchemaDetailsBinding {
-        return ActivityCareSchemaDetailsBinding.inflate(layoutInflater)
+    override fun setupSystemColors(systemColors: SystemColors) {
+        systemColors.apply {
+            darkStatusBar()
+            lightNavigationBar()
+        }
     }
 
     private fun setupAppbar() {
