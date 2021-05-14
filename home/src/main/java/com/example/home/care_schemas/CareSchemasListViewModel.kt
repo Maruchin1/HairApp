@@ -5,10 +5,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.example.core.domain.CareSchema
 import com.example.core.gateway.CareSchemaRepo
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 internal class CareSchemasListViewModel(
     private val careSchemaRepo: CareSchemaRepo
 ) : ViewModel() {
 
-    val careSchemas: LiveData<List<CareSchema>> = careSchemaRepo.findAll().asLiveData()
+    private val allSchemas = careSchemaRepo.findAll()
+
+    val careSchemas: LiveData<List<CareSchema>> = allSchemas
+        .map { sortSchemasAlphabetically(it) }
+        .asLiveData()
+
+    private fun sortSchemasAlphabetically(schemas: List<CareSchema>): List<CareSchema> {
+        return schemas.sortedBy { it.name }
+    }
 }
