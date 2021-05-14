@@ -1,21 +1,4 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorPrimaryDark">@color/color_primary</item>
-        <item name="colorAccent">@color/color_accent</item>
-
-        <item name="android:colorBackground">@color/color_background</item>
-        <item name="materialButtonStyle">@style/Widget.App.Button.Primary</item>
-        <item name="materialCardViewStyle">@style/Widget.App.Card</item>
-        <item name="chipStyle">@style/Widget.App.Chip.Choice</item>
-        <item name="textInputStyle">@style/Widget.App.TextInput</item>
-        <item name="floatingActionButtonStyle">@style/Widget.App.Fab</item>
-        <item name="extendedFloatingActionButtonStyle">@style/Widget.App.ExtendedFab</item>
-        <item name="toolbarNavigationButtonStyle">@style/Widget.App.ToolbarButton</item>
-
-    </style>
 
     <style name="ThemeOverlay.App.EditText" parent="">
         <item name="colorPrimary">@color/color_primary</item>

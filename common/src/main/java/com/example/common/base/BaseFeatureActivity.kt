@@ -6,9 +6,9 @@ import androidx.viewbinding.ViewBinding
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
 
-abstract class BaseFeatureActivity<T : ViewBinding>(
+abstract class BaseFeatureActivity<VB : ViewBinding>(
     private val featureModule: Module
-) : BaseActivity<T>() {
+) : BaseActivity<VB>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         loadKoinModules(featureModule)

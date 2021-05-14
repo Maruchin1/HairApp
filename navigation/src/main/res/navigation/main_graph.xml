@@ -9,5 +9,19 @@
         android:id="@+id/careSchemasListFragment"
         android:name="com.example.care_schemas_list.CareSchemasListFragment"
         android:label="CareSchemasListFragment"
-        tools:layout="@layout/fragment_care_schemas_list" />
+        tools:layout="@layout/fragment_care_schemas_list" >
+        <action
+            android:id="@+id/action_careSchemasListFragment_to_editCareSchemaFragment"
+            app:destination="@id/editCareSchemaFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editCareSchemaFragment"
+        android:name="com.example.care_schema_details.EditCareSchemaFragment"
+        android:label="EditCareSchemaFragment"
+        tools:layout="@layout/activity_care_schema_details" >
+        <argument
+            android:name="careSchemaId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

@@ -39,6 +39,7 @@ android {
 dependencies {
     implementation project(':common')
     implementation project(':core')
+    implementation project(':navigation')
     implementation kotlinCore
     implementation androidCore
     implementation koinDi

@@ -5,12 +5,16 @@ import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.common.navigation.AppNavigator
+import com.example.common.navigation.HomeDestination
 import com.example.hairapp.framework.bindActivity
 import com.example.hairapp.databinding.ActivityMainBinding
 import com.example.hairapp.framework.SystemColors
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
+    private val appNavigator: AppNavigator by inject()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,9 +25,11 @@ class MainActivity : AppCompatActivity() {
             .darkNavigationBar()
             .apply()
 
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        binding.bottomNav.setupWithNavController(navHostFragment.navController)
+        appNavigator.toDestination(this, HomeDestination())
+
+//        val navHostFragment = supportFragmentManager
+//            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+//        binding.bottomNav.setupWithNavController(navHostFragment.navController)
     }
 
 }

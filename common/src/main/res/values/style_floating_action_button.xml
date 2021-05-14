@@ -7,7 +7,7 @@
         <item name="tint">@color/color_white</item>
     </style>
 
-    <style name="ExtendedFloatingActionButon" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+    <style name="ExtendedFloatingActionButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="shapeAppearanceOverlay">@style/FabShapeOverlay</item>
         <item name="backgroundTint">@color/color_primary</item>
         <item name="iconTint">@color/color_white</item>

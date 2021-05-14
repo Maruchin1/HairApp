@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -33,8 +34,8 @@ android {
 }
 
 dependencies {
-    implementation project(':care_schemas_list')
-    implementation project(':care_schema_details')
+//    implementation project(':care_schemas_list')
+//    implementation project(':care_schema_details')
     implementation kotlinCore
     implementation androidCore
     implementation koinDi

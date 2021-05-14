@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary</item>
         <item name="colorAccent">@color/color_accent</item>
+        <item name="colorSurface">@color/color_white</item>
 
         <item name="android:colorBackground">@color/color_background</item>
         <item name="materialButtonStyle">@style/Button.Primary</item>
@@ -13,7 +14,7 @@
         <item name="chipStyle">@style/Chip.Choice</item>
         <item name="textInputStyle">@style/TextInput</item>
         <item name="floatingActionButtonStyle">@style/FloatingActionButton</item>
-        <item name="extendedFloatingActionButtonStyle">@style/ExtendedFloatingActionButon</item>
+        <item name="extendedFloatingActionButtonStyle">@style/ExtendedFloatingActionButton</item>
         <item name="toolbarNavigationButtonStyle">@style/ToolbarButton</item>
 
     </style>

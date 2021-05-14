@@ -9,6 +9,7 @@
       <module name="HairApp.care_schemas_list" target="11" />
       <module name="HairApp.common" target="11" />
       <module name="HairApp.data" target="11" />
+      <module name="HairApp.home" target="11" />
       <module name="HairApp.navigation" target="11" />
       <module name="HairApp.testing" target="11" />
       <module name="test" target="1.7" />
