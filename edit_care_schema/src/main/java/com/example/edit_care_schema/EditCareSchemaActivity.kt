@@ -1,17 +1,18 @@
-package com.example.care_schema_details
+package com.example.edit_care_schema
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.example.care_schema_details.components.EditCareSchemaViewModel
-import com.example.care_schema_details.components.CareSchemaStepsAdapter
-import com.example.care_schema_details.databinding.ActivityCareSchemaDetailsBinding
-import com.example.care_schema_details.use_case.AddSchemaStepUseCase
-import com.example.care_schema_details.use_case.ChangeSchemaNameUseCase
-import com.example.care_schema_details.use_case.DeleteSchemaUseCase
+import com.example.edit_care_schema.components.EditCareSchemaViewModel
+import com.example.edit_care_schema.components.CareSchemaStepsAdapter
+import com.example.edit_care_schema.use_case.AddSchemaStepUseCase
+import com.example.edit_care_schema.use_case.ChangeSchemaNameUseCase
+import com.example.edit_care_schema.use_case.DeleteSchemaUseCase
 import com.example.common.base.BaseFeatureActivity
 import com.example.common.base.SystemColors
 import com.example.common.extensions.visibleOrGone
 import com.example.common.modals.AppDialog
+import com.example.edit_care_schema.databinding.ActivityCareSchemaDetailsBinding
+import com.example.edit_care_schema.use_case.ChangeSchemaStepsUseCase
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -29,6 +30,7 @@ class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBind
     private val addSchemaStep: AddSchemaStepUseCase by inject()
     private val stepsAdapter: CareSchemaStepsAdapter by inject { parametersOf(this, viewModel) }
     private val changeSchemaNameUseCase: ChangeSchemaNameUseCase by inject()
+    private val changeSchemaStepsUseCase: ChangeSchemaStepsUseCase by inject()
     private val deleteSchemaUseCase: DeleteSchemaUseCase by inject()
 
     override fun bindActivity(): ActivityCareSchemaDetailsBinding {
@@ -41,6 +43,11 @@ class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBind
         setupStepsRecycler()
         setupNoStepsInfo()
         setupAddStepFab()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        saveStepsIfOrderChanged()
     }
 
     override fun setupSystemColors(systemColors: SystemColors) {
@@ -88,7 +95,6 @@ class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBind
         binding.stepsRecycler.adapter = stepsAdapter
         stepsAdapter.touchHelper.attachToRecyclerView(binding.stepsRecycler)
         stepsAdapter.addSource(viewModel.schemaSteps, this)
-        stepsAdapter.setItemComparator { oldItem, newItem -> oldItem == newItem }
     }
 
     private fun setupNoStepsInfo() {
@@ -109,6 +115,14 @@ class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBind
             context = this@EditCareSchemaActivity
         )?.let { type ->
             addSchemaStep(careSchemaId, type)
+        }
+    }
+
+    private fun saveStepsIfOrderChanged() {
+        if (stepsAdapter.stepsOrderChanged) {
+            lifecycleScope.launch {
+                changeSchemaStepsUseCase(careSchemaId, stepsAdapter.currentSteps)
+            }
         }
     }
 

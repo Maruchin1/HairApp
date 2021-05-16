@@ -1,33 +1,39 @@
-package com.example.care_schema_details.components
+package com.example.edit_care_schema.components
 
 import android.annotation.SuppressLint
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.example.care_schema_details.EditCareSchemaActivity
-import com.example.care_schema_details.databinding.ItemCareSchemaStepBinding
 import com.example.common.base.BaseRecyclerAdapter
 import com.example.common.base.BaseViewHolder
 import com.example.common.binding.Converter
 import com.example.core.domain.CareSchemaStep
+import com.example.edit_care_schema.databinding.ItemCareSchemaStepBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.lang.ref.WeakReference
 import java.util.*
 
 internal class CareSchemaStepsAdapter(
-    boundActivityEdit: EditCareSchemaActivity,
     private val careSchemaStepsTouchHelperCallback: CareSchemaStepsTouchHelperCallback
 ) : BaseRecyclerAdapter<CareSchemaStep, ItemCareSchemaStepBinding>() {
-
-    private val boundActivityRef = WeakReference(boundActivityEdit)
 
     val touchHelper: ItemTouchHelper by lazy {
         careSchemaStepsTouchHelperCallback.setOnMoveListener(this::moveCareProduct)
         ItemTouchHelper(careSchemaStepsTouchHelperCallback)
     }
+
+    val currentSteps: List<CareSchemaStep>
+        get() = itemsList
+
+    var stepsOrderChanged: Boolean = false
+        private set
 
     override fun onBindItemView(
         layoutInflater: LayoutInflater,
@@ -58,6 +64,7 @@ internal class CareSchemaStepsAdapter(
     }
 
     private fun moveCareProduct(fromPosition: Int, toPosition: Int) {
+        stepsOrderChanged = true
         if (fromPosition < toPosition) {
             for (i in fromPosition until toPosition) {
                 Collections.swap(itemsList, i, i + 1)
@@ -68,24 +75,26 @@ internal class CareSchemaStepsAdapter(
             }
         }
         notifyItemMoved(fromPosition, toPosition)
-        updateStepsOrder()
-        notifyItemChanged(fromPosition)
-        notifyItemChanged(toPosition)
-        saveStepsChanges()
+        updateStepsOrderDelayed()
     }
 
-    private fun updateStepsOrder() {
-        itemsList.forEachIndexed { index, careSchemaStep ->
-            careSchemaStep.order = index
+    private fun updateStepsOrderDelayed() {
+        GlobalScope.launch(Dispatchers.Main) {
+            delay(500)
+            updateStepsOrder()
         }
     }
 
-    private fun saveStepsChanges() {
-        boundActivityRef.get()?.run {
-            lifecycleScope.launch {
-                delay(500)
-//                viewModel.saveStepsChanges(itemsList)
+    private fun updateStepsOrder() {
+        val changedPositions = mutableListOf<Int>()
+        itemsList.forEachIndexed { index, careSchemaStep ->
+            if (careSchemaStep.order != index) {
+                careSchemaStep.order = index
+                changedPositions.add(index)
             }
+        }
+        changedPositions.forEach { position ->
+            notifyItemChanged(position)
         }
     }
 }

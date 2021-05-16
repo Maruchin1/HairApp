@@ -15,7 +15,7 @@ data class EditCareSchemaDestination(
 
     companion object {
         private const val ACTIVITY_NAME =
-            "com.example.care_schema_details.EditCareSchemaActivity"
+            "com.example.edit_care_schema.EditCareSchemaActivity"
         private const val CARE_SCHEMA_ID = "care_schema_id"
     }
 }

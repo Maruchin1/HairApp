@@ -1,4 +1,4 @@
-package com.example.care_schema_details.components
+package com.example.edit_care_schema.components
 
 import androidx.lifecycle.*
 import com.example.core.domain.CareSchema

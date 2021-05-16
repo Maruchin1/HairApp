@@ -1,18 +1,19 @@
-package com.example.care_schema_details.use_case
+package com.example.edit_care_schema.use_case
 
 import com.example.core.gateway.CareSchemaRepo
 import kotlinx.coroutines.flow.firstOrNull
 
-class DeleteSchemaUseCase(
+internal class ChangeSchemaNameUseCase(
     private val careSchemaRepo: CareSchemaRepo
 ) {
 
-    suspend operator fun invoke(careSchemaId: Int) {
+    suspend operator fun invoke(careSchemaId: Int, newName: String) {
         careSchemaRepo
             .findById(careSchemaId)
             .firstOrNull()
             ?.let { careSchema ->
-                careSchemaRepo.delete(careSchema)
+                val update = careSchema.copy(name = newName)
+                careSchemaRepo.update(update)
             }
     }
 }

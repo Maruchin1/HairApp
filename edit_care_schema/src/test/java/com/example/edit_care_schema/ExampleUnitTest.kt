@@ -1,4 +1,4 @@
-package com.example.care_schema_details
+package com.example.edit_care_schema
 
 import org.junit.Test
 

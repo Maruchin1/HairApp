@@ -1,6 +1,7 @@
 package com.example.data.repo
 
 import android.content.Context
+import android.util.Log
 import com.example.core.domain.CareSchema
 import com.example.core.domain.CareSchemaStep
 import com.example.core.domain.CareStep
@@ -14,10 +15,7 @@ import com.example.data.room.Mapper
 import com.example.data.room.mapList
 import com.example.data.room.patch
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 internal class RoomCareSchemaRepo(
@@ -57,6 +55,7 @@ internal class RoomCareSchemaRepo(
 
     override fun findAll(): Flow<List<CareSchema>> {
         return careSchemaDao.findAll()
+            .onEach { Log.d("RoomCareSchemaRepo", "$it") }
             .mapList { mapper.toDomain(it) }
     }
 

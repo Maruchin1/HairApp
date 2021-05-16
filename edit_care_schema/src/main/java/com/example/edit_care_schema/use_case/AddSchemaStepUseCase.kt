@@ -1,4 +1,4 @@
-package com.example.care_schema_details.use_case
+package com.example.edit_care_schema.use_case
 
 import com.example.core.domain.CareSchemaStep
 import com.example.core.domain.CareStep

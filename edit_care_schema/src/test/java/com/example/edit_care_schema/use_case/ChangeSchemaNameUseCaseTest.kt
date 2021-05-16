@@ -1,6 +1,6 @@
-package com.example.care_schema_details.use_case
+package com.example.edit_care_schema.use_case
 
-import com.example.care_schema_details.createOmoCareSchema
+import com.example.edit_care_schema.createOmoCareSchema
 import com.example.core.domain.CareSchema
 import com.example.core.gateway.CareSchemaRepo
 import io.mockk.coJustRun

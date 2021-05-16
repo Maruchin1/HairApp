@@ -1,4 +1,4 @@
-package com.example.care_schema_details.use_case
+package com.example.edit_care_schema.use_case
 
 import com.example.core.domain.CareSchema
 import com.example.core.domain.CareSchemaStep
@@ -9,37 +9,40 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
-class AddSchemaStepUseCaseTest {
+class ChangeSchemaStepsUseCaseTest {
     private val careSchemaRepo: CareSchemaRepo = mockk()
 
-    private val addSchemaStep by lazy {
-        AddSchemaStepUseCase(careSchemaRepo)
+    private val useCase by lazy {
+        ChangeSchemaStepsUseCase(careSchemaRepo)
     }
 
     @Test
     fun invoke_UpdateCareSchemaInRepo() = runBlocking {
-        val schemaFromRepo = CareSchema(
-            id = 0,
+        val careSchemaFromRepo = CareSchema(
+            id = 1,
             name = "OMO",
             steps = listOf(
                 CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 0),
                 CareSchemaStep(type = CareStep.Type.SHAMPOO, order = 1),
-                CareSchemaStep(type = CareStep.Type.CONDITIONER, 2)
+                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 2)
             )
         )
-        val careSchemaId = 0
-        val type = CareStep.Type.OIL
-        every { careSchemaRepo.findById(schemaFromRepo.id) } returns flowOf(schemaFromRepo)
+        every { careSchemaRepo.findById(careSchemaFromRepo.id) } returns flowOf(careSchemaFromRepo)
         coJustRun { careSchemaRepo.update(any()) }
+        val careSchemaId = 1
+        val newSteps = listOf(
+            CareSchemaStep(type = CareStep.Type.SHAMPOO, order = 0),
+            CareSchemaStep(type = CareStep.Type.OIL, order = 1),
+        )
 
-        addSchemaStep(careSchemaId, type)
+        useCase(careSchemaId, newSteps)
 
         coVerify {
             careSchemaRepo.update(
                 CareSchema(
-                    id = schemaFromRepo.id,
-                    name = schemaFromRepo.name,
-                    steps = schemaFromRepo.steps + CareSchemaStep(type, order = 3)
+                    id = careSchemaFromRepo.id,
+                    name = careSchemaFromRepo.name,
+                    steps = newSteps
                 )
             )
         }
