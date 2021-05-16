@@ -23,7 +23,6 @@
         style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:labelVisibilityMode="auto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/home_bottom_nav" />
 

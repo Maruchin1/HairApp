@@ -18,7 +18,6 @@ internal val homeModule = module {
     factory { (onSchemaClicked: (schema: CareSchema) -> Unit) ->
         SchemasAdapter(
             onSchemaClicked = onSchemaClicked,
-            context = androidContext(),
             stepsAdapter = get()
         )
     }

@@ -6,4 +6,5 @@
     <string name="new_care_schema">Nowy schemat pielęgnacji</string>
     <string name="new_schema_name">Nazwa nowego schematu</string>
     <string name="tap_to_set_schema_steps">Dotknij aby ustawić kroki dla tego schematu pielgnacji</string>
+    <string name="add_schema">Dodaj schemat</string>
 </resources>

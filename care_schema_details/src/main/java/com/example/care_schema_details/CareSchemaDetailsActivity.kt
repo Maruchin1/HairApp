@@ -43,16 +43,13 @@ class CareSchemaDetailsActivity : BaseFeatureActivity<ActivityCareSchemaDetailsB
 
     override fun setupSystemColors(systemColors: SystemColors) {
         systemColors.apply {
-            darkStatusBar()
+            lightStatusBar()
             lightNavigationBar()
         }
     }
 
     private fun setupAppbar() {
-        binding.appbar.setOnNavigationClick { onBackPressed() }
-        viewModel.schemaName.observe(this) {
-            binding.appbar.title = it
-        }
+
     }
 
 

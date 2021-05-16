@@ -60,6 +60,7 @@ val dataModule = module {
 
     single<CareSchemaRepo> {
         RoomCareSchemaRepo(
+            context = androidContext(),
             mapper = get(),
             careSchemaDao = get(),
             careSchemaStepDao = get()

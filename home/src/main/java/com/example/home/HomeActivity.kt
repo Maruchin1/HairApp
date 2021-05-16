@@ -22,7 +22,7 @@ class HomeActivity : BaseFeatureActivity<ActivityHomeBinding>(
 
     override fun setupSystemColors(systemColors: SystemColors) {
         systemColors.apply {
-            darkStatusBar()
+            lightStatusBar()
             darkNavigationBar()
         }
     }

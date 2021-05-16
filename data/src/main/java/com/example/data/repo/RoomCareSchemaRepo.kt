@@ -1,9 +1,11 @@
 package com.example.data.repo
 
+import android.content.Context
 import com.example.core.domain.CareSchema
 import com.example.core.domain.CareSchemaStep
 import com.example.core.domain.CareStep
 import com.example.core.gateway.CareSchemaRepo
+import com.example.data.R
 import com.example.data.dao.CareSchemaDao
 import com.example.data.dao.CareSchemaStepDao
 import com.example.data.entity.CareSchemaEntity
@@ -18,6 +20,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 internal class RoomCareSchemaRepo(
+    private val context: Context,
     private val mapper: Mapper,
     private val careSchemaDao: CareSchemaDao,
     private val careSchemaStepDao: CareSchemaStepDao
@@ -66,7 +69,7 @@ internal class RoomCareSchemaRepo(
     private fun getDefaultSchemas() = arrayOf(
         CareSchema(
             id = 0,
-            name = "OMO",
+            name = context.getString(R.string.care_omo),
             steps = listOf(
                 CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 0),
                 CareSchemaStep(type = CareStep.Type.SHAMPOO, order = 1),
@@ -75,7 +78,7 @@ internal class RoomCareSchemaRepo(
         ),
         CareSchema(
             id = 0,
-            name = "CG",
+            name = context.getString(R.string.care_cg),
             steps = listOf(
                 CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 0),
                 CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 1)

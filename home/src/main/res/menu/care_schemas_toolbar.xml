@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_add_schema"
+        android:icon="@drawable/ic_round_add_24"
+        android:iconTint="@color/color_primary"
+        android:title="@string/add_schema"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_sort_schemas"
+        android:icon="@drawable/ic_round_sort_24"
+        android:iconTint="@color/color_primary"
+        android:title="Sortuj"
+        app:showAsAction="ifRoom" />
+
+</menu>

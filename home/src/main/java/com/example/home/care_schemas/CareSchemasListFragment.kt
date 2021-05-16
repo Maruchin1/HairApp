@@ -35,12 +35,16 @@ class CareSchemasListFragment : BaseFragment<FragmentCareSchemasListBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupAddCareSchemaButton()
+        setupToolbarMenu()
         setupSchemasRecycler()
     }
 
-    private fun setupAddCareSchemaButton() = binding.btnAddCareSchema.setOnClickListener {
-        addCareSchema()
+    private fun setupToolbarMenu() = binding.toolbar.setOnMenuItemClickListener {
+        when (it.itemId) {
+            R.id.action_add_schema -> addCareSchema()
+            R.id.action_sort_schemas -> openSortSchemasModal()
+        }
+        true
     }
 
     private fun addCareSchema() = lifecycleScope.launch {
@@ -50,6 +54,10 @@ class CareSchemasListFragment : BaseFragment<FragmentCareSchemasListBinding>() {
         )?.let { newSchemaName ->
             addCareSchemaUseCase(newSchemaName)
         }
+    }
+
+    private fun openSortSchemasModal() {
+
     }
 
     private fun setupSchemasRecycler() {
