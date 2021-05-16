@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.common.base.BaseFragment
 import com.example.common.modals.AppDialog
 import com.example.common.navigation.AppNavigator
-import com.example.common.navigation.CareSchemaDetailsDestination
+import com.example.common.navigation.EditCareSchemaDestination
 import com.example.core.domain.CareSchema
 import com.example.home.R
 import com.example.home.databinding.FragmentCareSchemasListBinding
@@ -69,7 +69,7 @@ class CareSchemasListFragment : BaseFragment<FragmentCareSchemasListBinding>() {
     private fun openSchemaDetails(schema: CareSchema) {
         appNavigator.toDestination(
             originActivity = requireActivity(),
-            destination = CareSchemaDetailsDestination(schema.id)
+            destination = EditCareSchemaDestination(schema.id)
         )
     }
 }

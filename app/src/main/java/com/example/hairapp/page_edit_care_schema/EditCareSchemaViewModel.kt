@@ -3,16 +3,12 @@ package com.example.hairapp.page_edit_care_schema
 import androidx.lifecycle.*
 import com.example.core.domain.CareSchema
 import com.example.core.domain.CareSchemaStep
-import com.example.core.domain.CareStep
 import com.example.core.use_case.DeleteCareSchema
-import com.example.core.use_case.ShowCareSchema
 import com.example.core.use_case.UpdateCareSchema
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class EditCareSchemaViewModel(
-    private val showCareSchema: ShowCareSchema,
     private val updateCareSchema: UpdateCareSchema,
     private val deleteCareSchema: DeleteCareSchema
 ) : ViewModel() {
@@ -26,10 +22,11 @@ class EditCareSchemaViewModel(
 
     suspend fun selectCareSchema(schemaId: Int): Result<Unit> {
         selectedSchemaId = schemaId
-        val input = ShowCareSchema.Input(schemaId)
-        return showCareSchema(input).runCatching {
-            applyData(first())
-        }
+        return Result.success(Unit)
+//        val input = ShowCareSchema.Input(schemaId)
+//        return showCareSchema(input).runCatching {
+//            applyData(first())
+//        }
     }
 
     fun changeSchemaName(newName: String) {

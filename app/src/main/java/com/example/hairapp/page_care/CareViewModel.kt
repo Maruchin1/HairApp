@@ -12,7 +12,6 @@ import java.time.LocalDate
 class CareViewModel(
     private val showSelectedProduct: ShowSelectedProduct,
     private val showSelectedCare: ShowSelectedCare,
-    private val showCareSchema: ShowCareSchema,
     private val addCare: AddCare,
     private val updateCare: UpdateCare,
     private val deleteCare: DeleteCare
@@ -35,12 +34,13 @@ class CareViewModel(
     val pehBalance: LiveData<PehBalance> = _productsProportion
 
     suspend fun setNewCareSchema(schemaId: Int): Result<Unit> {
-        val input = ShowCareSchema.Input(schemaId)
-        return showCareSchema(input).runCatching {
-            val schema = this.first()
-            _schemaName.postValue(schema.name)
-            _steps.postValue(schema.steps.map { it.toCareStep() })
-        }
+//        val input = ShowCareSchema.Input(schemaId)
+//        return showCareSchema(input).runCatching {
+//            val schema = this.first()
+//            _schemaName.postValue(schema.name)
+//            _steps.postValue(schema.steps.map { it.toCareStep() })
+//        }
+        return Result.success(Unit)
     }
 
     suspend fun setEditCare(careId: Int): Result<Unit> {

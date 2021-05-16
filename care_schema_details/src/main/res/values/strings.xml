@@ -1,8 +1,0 @@
-<resources>
-
-    <string name="delete_care_schema">Usuń schemat pielęgnacji</string>
-    <string name="change_care_schema_name">Zmień nazwę schematu</string>
-    <string name="edit_care_schema">Edytuj schemat pielęgnacji</string>
-    <string name="add_care_step">Dodaj krok pielęgnacji</string>
-    <string name="change_steps_order">Zmień kolejność kroków</string>
-</resources>

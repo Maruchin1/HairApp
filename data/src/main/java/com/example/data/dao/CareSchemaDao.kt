@@ -19,8 +19,9 @@ internal interface CareSchemaDao {
     @Delete
     suspend fun delete(vararg entity: CareSchemaEntity)
 
+    @Transaction
     @Query("select * from CareSchemaEntity where careSchemaId = :id")
-    fun findById(id: Int): Flow<CareSchemaWithSteps>
+    fun findById(id: Int): Flow<CareSchemaWithSteps?>
 
     @Query("select * from CareSchemaEntity")
     fun findAll(): Flow<List<CareSchemaWithSteps>>

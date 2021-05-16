@@ -11,7 +11,7 @@ interface CareSchemaRepo {
 
     suspend fun delete(careSchema: CareSchema)
 
-    fun findById(id: Int): Flow<CareSchema>
+    fun findById(id: Int): Flow<CareSchema?>
 
     fun findAll(): Flow<List<CareSchema>>
 }

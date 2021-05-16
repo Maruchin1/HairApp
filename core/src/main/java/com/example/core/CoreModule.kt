@@ -20,8 +20,6 @@ val coreModule = module {
 
     factory { DeleteProduct(get()) }
 
-    factory { ShowCareSchema(get()) }
-
     factory { ShowCareSchemas(get()) }
 
     factory { ShowCaresList(get()) }

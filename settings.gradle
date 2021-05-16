@@ -2,7 +2,7 @@ include ':data'
 include ':core'
 include ':app'
 rootProject.name = "HairApp"
-include ':care_schema_details'
+include ':edit_care_schema'
 include ':common'
 include ':testing'
 include ':navigation'

@@ -17,6 +17,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 
 internal class RoomCareSchemaRepo(
@@ -49,9 +50,9 @@ internal class RoomCareSchemaRepo(
         careSchemaDao.delete(CareSchemaEntity(careSchema))
     }
 
-    override fun findById(id: Int): Flow<CareSchema> {
+    override fun findById(id: Int): Flow<CareSchema?> {
         return careSchemaDao.findById(id)
-            .map { mapper.toDomain(it) }
+            .map { value -> value?.let { mapper.toDomain(it) } }
     }
 
     override fun findAll(): Flow<List<CareSchema>> {

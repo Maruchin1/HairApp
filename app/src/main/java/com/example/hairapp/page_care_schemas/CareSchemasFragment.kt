@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.common.navigation.AppNavigator
-import com.example.common.navigation.CareSchemaDetailsDestination
+import com.example.common.navigation.EditCareSchemaDestination
 import com.example.core.domain.CareSchema
 import com.example.hairapp.R
 import com.example.hairapp.databinding.FragmentCareSchemasBinding
@@ -42,7 +42,7 @@ class CareSchemasFragment : Fragment() {
     fun openSchemaPage(schemaId: Int) {
         appNavigator.toDestination(
             originActivity = requireActivity(),
-            destination = CareSchemaDetailsDestination(schemaId)
+            destination = EditCareSchemaDestination(schemaId)
         )
     }
 
