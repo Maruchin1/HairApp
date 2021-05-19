@@ -16,9 +16,6 @@
             android:name=".page_peh_balance.PehBalanceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".page_care_schemas.CareSchemasFragment"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".page_photos_gallery.PhotosGalleryActivity"
             android:screenOrientation="portrait" />
         <activity
