@@ -1,7 +1,7 @@
 package com.example.edit_care_schema.use_case
 
-import com.example.common.repository.CareSchemaRepo
 import com.example.edit_care_schema.createOmoCareSchema
+import com.example.core.gateway.CareSchemaRepo
 import io.mockk.coJustRun
 import io.mockk.coVerify
 import io.mockk.every

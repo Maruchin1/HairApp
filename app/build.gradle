@@ -58,7 +58,6 @@ dependencies {
     implementation project(':core')
     implementation project(':data')
     implementation project(':common')
-    implementation project(':room_database')
     implementation project(':home')
     implementation project(':edit_care_schema')
 

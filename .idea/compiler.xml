@@ -10,7 +10,6 @@
       <module name="HairApp.data" target="11" />
       <module name="HairApp.edit_care_schema" target="11" />
       <module name="HairApp.home" target="11" />
-      <module name="HairApp.room_database" target="11" />
       <module name="HairApp.testing" target="11" />
       <module name="test" target="1.7" />
     </bytecodeTargetLevel>

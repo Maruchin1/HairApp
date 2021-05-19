@@ -6,7 +6,6 @@ import com.example.core.domain.CareSchema
 import com.example.core.domain.CareSchemaStep
 import com.example.core.domain.CareStep
 import com.example.core.gateway.CareSchemaRepo
-import com.example.edit_care_schema.createOmoCareSchema
 import com.example.testing.CoroutinesTestRule
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
@@ -41,7 +40,15 @@ class EditCareSchemaViewModelTest {
     }
 
     private fun mockCareSchema(): CareSchema {
-        val careSchema = createOmoCareSchema()
+        val careSchema = CareSchema(
+            id = 1,
+            name = "OMO",
+            steps = listOf(
+                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 1),
+                CareSchemaStep(type = CareStep.Type.SHAMPOO, order = 2),
+                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 3)
+            )
+        )
         every { careSchemaRepo.findById(careSchemaId) } returns flowOf(careSchema)
         return careSchema
     }

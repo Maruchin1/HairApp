@@ -1,8 +1,8 @@
 package com.example.edit_care_schema.use_case
 
-import com.example.common.repository.CareSchemaRepo
 import com.example.core.domain.CareSchemaStep
 import com.example.core.domain.CareStep
+import com.example.core.gateway.CareSchemaRepo
 import kotlinx.coroutines.flow.firstOrNull
 
 class AddSchemaStepUseCase(
@@ -14,11 +14,7 @@ class AddSchemaStepUseCase(
             .findById(careSchemaId)
             .firstOrNull()
             ?.let { careSchema ->
-                val newSchemaStep = CareSchemaStep(
-                    id = -1,
-                    type = type,
-                    order = careSchema.steps.size
-                )
+                val newSchemaStep = CareSchemaStep(type = type, order = careSchema.steps.size)
                 val update = careSchema.copy(steps = careSchema.steps + newSchemaStep)
                 careSchemaRepo.update(update)
             }
