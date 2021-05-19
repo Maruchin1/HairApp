@@ -5,5 +5,4 @@ rootProject.name = "HairApp"
 include ':edit_care_schema'
 include ':common'
 include ':testing'
-include ':navigation'
 include ':home'
