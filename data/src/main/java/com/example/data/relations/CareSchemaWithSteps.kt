@@ -11,7 +11,7 @@ internal data class CareSchemaWithSteps(
     val careSchema: CareSchemaEntity,
 
     @Relation(
-        parentColumn = "careSchemaId",
+        parentColumn = "id",
         entityColumn = "careSchemaId"
     )
     val steps: List<CareSchemaStepEntity>

@@ -14,7 +14,11 @@ class AddSchemaStepUseCase(
             .findById(careSchemaId)
             .firstOrNull()
             ?.let { careSchema ->
-                val newSchemaStep = CareSchemaStep(type = type, order = careSchema.steps.size)
+                val newSchemaStep = CareSchemaStep(
+                    id = -1,
+                    type = type,
+                    order = careSchema.steps.size
+                )
                 val update = careSchema.copy(steps = careSchema.steps + newSchemaStep)
                 careSchemaRepo.update(update)
             }

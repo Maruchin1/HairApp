@@ -12,13 +12,13 @@ internal data class CareWithPhotosAndProducts(
     val care: CareEntity,
 
     @Relation(
-        parentColumn = "careId",
+        parentColumn = "id",
         entityColumn = "careId"
     )
     val photos: List<CarePhotoEntity>,
 
     @Relation(
-        parentColumn = "careId",
+        parentColumn = "id",
         entityColumn = "careId"
     )
     val steps: List<CareStepEntity>

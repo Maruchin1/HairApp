@@ -9,7 +9,7 @@ import com.example.core.domain.Product
 internal data class ProductEntity(
 
     @PrimaryKey(autoGenerate = true)
-    val productId: Int,
+    override val id: Int,
 
     @Embedded
     val composition: Product.Composition,
@@ -21,10 +21,10 @@ internal data class ProductEntity(
     var applications: Set<Product.Application>,
 
     var photoData: String?
-) {
+) : BaseEntity {
 
     constructor(product: Product) : this(
-        productId = product.id,
+        id = product.id,
         composition = product.composition,
         name = product.name,
         manufacturer = product.manufacturer,

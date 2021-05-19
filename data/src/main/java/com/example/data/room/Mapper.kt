@@ -12,7 +12,7 @@ internal class Mapper(
 ) {
 
     suspend fun toDomain(entity: CareWithPhotosAndProducts) = Care(
-        id = entity.care.careId,
+        id = entity.care.id,
         schemaName = entity.care.schemaName,
         date = entity.care.date,
         photos = entity.photos.map { it.data },
@@ -31,7 +31,7 @@ internal class Mapper(
     )
 
     fun toDomain(entity: ProductEntity) = Product(
-        id = entity.productId,
+        id = entity.id,
         name = entity.name,
         composition = entity.composition,
         manufacturer = entity.manufacturer,
@@ -40,10 +40,11 @@ internal class Mapper(
     )
 
     fun toDomain(entity: CareSchemaWithSteps) = CareSchema(
-        id = entity.careSchema.careSchemaId,
+        id = entity.careSchema.id,
         name = entity.careSchema.name,
         steps = entity.steps.map { careSchemaStepEntity ->
             CareSchemaStep(
+                id = careSchemaStepEntity.id,
                 type = careSchemaStepEntity.type,
                 order = careSchemaStepEntity.order,
             )

@@ -9,16 +9,16 @@ import java.time.LocalDate
 internal data class CareEntity(
 
     @PrimaryKey(autoGenerate = true)
-    val careId: Int,
+    override val id: Int,
 
     val schemaName: String,
 
     val date: LocalDate,
 
     val notes: String
-) {
+) : BaseEntity {
     constructor(care: Care) : this(
-        careId = care.id,
+        id = care.id,
         schemaName = care.schemaName,
         date = care.date,
         notes = care.notes

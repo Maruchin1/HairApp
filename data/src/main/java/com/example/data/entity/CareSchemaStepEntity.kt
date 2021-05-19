@@ -10,7 +10,7 @@ import com.example.core.domain.CareStep
     foreignKeys = [
         ForeignKey(
             entity = CareSchemaEntity::class,
-            parentColumns = ["careSchemaId"],
+            parentColumns = ["id"],
             childColumns = ["careSchemaId"],
             onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE
@@ -20,16 +20,16 @@ import com.example.core.domain.CareStep
 internal data class CareSchemaStepEntity(
 
     @PrimaryKey(autoGenerate = true)
-    val careSchemaStepId: Int,
+    override val id: Int,
 
     val type: CareStep.Type,
 
     var order: Int,
 
     val careSchemaId: Int
-) {
+) : BaseEntity {
     constructor(careStep: CareSchemaStep, careSchemaId: Int) : this(
-        careSchemaStepId = 0,
+        id = 0,
         type = careStep.type,
         order = careStep.order,
         careSchemaId = careSchemaId

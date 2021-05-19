@@ -18,7 +18,7 @@ internal interface CareDao {
     suspend fun delete(vararg entity: CareEntity)
 
     @Transaction
-    @Query("select * from CareEntity where careId = :id")
+    @Query("select * from CareEntity where id = :id")
     fun findById(id: Int): Flow<CareWithPhotosAndProducts>
 
     @Transaction

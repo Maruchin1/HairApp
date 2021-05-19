@@ -8,12 +8,12 @@ import com.example.core.domain.CareSchema
 internal data class CareSchemaEntity(
 
     @PrimaryKey(autoGenerate = true)
-    val careSchemaId: Int,
+    override val id: Int,
 
     var name: String
-) {
+) : BaseEntity {
     constructor(careSchema: CareSchema) : this(
-        careSchemaId = careSchema.id,
+        id = careSchema.id,
         name = careSchema.name
     )
 }

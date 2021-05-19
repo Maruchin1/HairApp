@@ -26,10 +26,15 @@ internal class SchemasAdapter(
         binding.apply {
             card.setOnClickListener { onSchemaClicked(item) }
             schemaName.text = item.name
-            item.steps.forEach { addStepToList(binding, it) }
+            setSteps(binding, item.steps)
             noStepsInSchema.container.visibleOrGone(item.steps.isEmpty())
         }
         stepsAdapter.updateItems(item.steps)
+    }
+
+    private fun setSteps(binding: ItemSchemaBinding, steps: List<CareSchemaStep>) {
+        binding.stepsList.removeAllViews()
+        steps.forEach { addStepToList(binding, it) }
     }
 
     private fun addStepToList(binding: ItemSchemaBinding, step: CareSchemaStep) {

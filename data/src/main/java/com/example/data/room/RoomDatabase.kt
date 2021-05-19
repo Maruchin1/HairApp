@@ -15,7 +15,7 @@ import com.example.data.entity.*
         CareStepEntity::class,
         ProductEntity::class
     ],
-    version = 1
+    version = 2
 )
 @TypeConverters(RoomConverter::class)
 internal abstract class RoomDatabase : RoomDatabase() {

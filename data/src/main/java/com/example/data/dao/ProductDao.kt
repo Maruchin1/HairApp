@@ -17,7 +17,7 @@ internal interface ProductDao {
     suspend fun delete(vararg entity: ProductEntity)
 
     @Transaction
-    @Query("select * from ProductEntity where productId = :id")
+    @Query("select * from ProductEntity where id = :id")
     fun findById(id: Int): Flow<ProductEntity>
 
     @Transaction

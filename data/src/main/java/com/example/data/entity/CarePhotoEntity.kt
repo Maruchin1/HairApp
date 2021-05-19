@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
     foreignKeys = [
         ForeignKey(
             entity = CareEntity::class,
-            parentColumns = ["careId"],
+            parentColumns = ["id"],
             childColumns = ["careId"],
             onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE
@@ -18,15 +18,15 @@ import androidx.room.PrimaryKey
 internal data class CarePhotoEntity(
 
     @PrimaryKey(autoGenerate = true)
-    val photoId: Int,
+    override val id: Int,
 
     val data: String,
 
     val careId: Int
-) {
+) : BaseEntity {
 
     constructor(photoData: String, careId: Int) : this(
-        photoId = 0,
+        id = 0,
         data = photoData,
         careId = careId
     )
