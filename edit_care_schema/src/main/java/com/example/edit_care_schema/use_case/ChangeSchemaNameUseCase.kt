@@ -1,6 +1,6 @@
 package com.example.edit_care_schema.use_case
 
-import com.example.core.gateway.CareSchemaRepo
+import com.example.common.repository.CareSchemaRepo
 import kotlinx.coroutines.flow.firstOrNull
 
 internal class ChangeSchemaNameUseCase(

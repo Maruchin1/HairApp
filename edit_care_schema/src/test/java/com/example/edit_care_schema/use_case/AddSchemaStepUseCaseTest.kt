@@ -1,9 +1,10 @@
 package com.example.edit_care_schema.use_case
 
+import com.example.common.repository.CareSchemaRepo
 import com.example.core.domain.CareSchema
 import com.example.core.domain.CareSchemaStep
 import com.example.core.domain.CareStep
-import com.example.core.gateway.CareSchemaRepo
+import com.example.edit_care_schema.createOmoCareSchema
 import io.mockk.*
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
@@ -18,28 +19,19 @@ class AddSchemaStepUseCaseTest {
 
     @Test
     fun invoke_UpdateCareSchemaInRepo() = runBlocking {
-        val schemaFromRepo = CareSchema(
-            id = 0,
-            name = "OMO",
-            steps = listOf(
-                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 0),
-                CareSchemaStep(type = CareStep.Type.SHAMPOO, order = 1),
-                CareSchemaStep(type = CareStep.Type.CONDITIONER, 2)
-            )
-        )
-        val careSchemaId = 0
+        val schemaFromRepo = createOmoCareSchema()
         val type = CareStep.Type.OIL
         every { careSchemaRepo.findById(schemaFromRepo.id) } returns flowOf(schemaFromRepo)
         coJustRun { careSchemaRepo.update(any()) }
 
-        addSchemaStep(careSchemaId, type)
+        addSchemaStep(schemaFromRepo.id, type)
 
         coVerify {
             careSchemaRepo.update(
                 CareSchema(
                     id = schemaFromRepo.id,
                     name = schemaFromRepo.name,
-                    steps = schemaFromRepo.steps + CareSchemaStep(type, order = 3)
+                    steps = schemaFromRepo.steps + CareSchemaStep(-1, type, order = 3)
                 )
             )
         }

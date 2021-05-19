@@ -44,6 +44,7 @@ internal class Mapper(
         name = entity.careSchema.name,
         steps = entity.steps.map { careSchemaStepEntity ->
             CareSchemaStep(
+                id = -1,
                 type = careSchemaStepEntity.type,
                 order = careSchemaStepEntity.order,
             )

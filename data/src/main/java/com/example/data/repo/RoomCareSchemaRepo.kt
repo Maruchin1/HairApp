@@ -71,17 +71,17 @@ internal class RoomCareSchemaRepo(
             id = 0,
             name = context.getString(R.string.care_omo),
             steps = listOf(
-                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 0),
-                CareSchemaStep(type = CareStep.Type.SHAMPOO, order = 1),
-                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 2)
+                CareSchemaStep(id = -1, type = CareStep.Type.CONDITIONER, order = 0),
+                CareSchemaStep(id = -1, type = CareStep.Type.SHAMPOO, order = 1),
+                CareSchemaStep(id = -1, type = CareStep.Type.CONDITIONER, order = 2)
             )
         ),
         CareSchema(
             id = 0,
             name = context.getString(R.string.care_cg),
             steps = listOf(
-                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 0),
-                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 1)
+                CareSchemaStep(id = -1, type = CareStep.Type.CONDITIONER, order = 0),
+                CareSchemaStep(id = -1, type = CareStep.Type.CONDITIONER, order = 1)
             )
         )
     )
