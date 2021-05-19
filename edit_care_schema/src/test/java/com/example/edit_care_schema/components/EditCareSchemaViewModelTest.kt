@@ -6,6 +6,9 @@ import com.example.core.domain.CareSchema
 import com.example.core.domain.CareSchemaStep
 import com.example.core.domain.CareStep
 import com.example.core.gateway.CareSchemaRepo
+import com.example.edit_care_schema.use_case.ChangeSchemaNameUseCase
+import com.example.edit_care_schema.use_case.ChangeSchemaStepsUseCase
+import com.example.edit_care_schema.use_case.DeleteSchemaUseCase
 import com.example.testing.CoroutinesTestRule
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
@@ -26,11 +29,17 @@ class EditCareSchemaViewModelTest {
 
     private val careSchemaId = 1
     private val careSchemaRepo: CareSchemaRepo = mockk()
+    private val changeSchemaNameUseCase: ChangeSchemaNameUseCase = mockk()
+    private val changeSchemaStepUseCase: ChangeSchemaStepsUseCase = mockk()
+    private val deleteSchemaUseCase: DeleteSchemaUseCase = mockk()
 
     private val viewModel by lazy {
         EditCareSchemaViewModel(
             careSchemaId,
             careSchemaRepo,
+            changeSchemaNameUseCase,
+            changeSchemaStepUseCase,
+            deleteSchemaUseCase
         )
     }
 
@@ -44,9 +53,9 @@ class EditCareSchemaViewModelTest {
             id = 1,
             name = "OMO",
             steps = listOf(
-                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 1),
-                CareSchemaStep(type = CareStep.Type.SHAMPOO, order = 2),
-                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 3)
+                CareSchemaStep(id = -1, type = CareStep.Type.CONDITIONER, order = 1),
+                CareSchemaStep(id = -1, type = CareStep.Type.SHAMPOO, order = 2),
+                CareSchemaStep(id = -1, type = CareStep.Type.CONDITIONER, order = 3)
             )
         )
         every { careSchemaRepo.findById(careSchemaId) } returns flowOf(careSchema)

@@ -29,9 +29,6 @@ class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBind
     private val appDialog: AppDialog by inject()
     private val addSchemaStep: AddSchemaStepUseCase by inject()
     private val stepsAdapter: CareSchemaStepsAdapter by inject { parametersOf(this, viewModel) }
-    private val changeSchemaNameUseCase: ChangeSchemaNameUseCase by inject()
-    private val changeSchemaStepsUseCase: ChangeSchemaStepsUseCase by inject()
-    private val deleteSchemaUseCase: DeleteSchemaUseCase by inject()
 
     override fun bindActivity(): ActivityCareSchemaDetailsBinding {
         return ActivityCareSchemaDetailsBinding.inflate(layoutInflater)
@@ -76,7 +73,7 @@ class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBind
             title = getString(R.string.change_care_schema_name),
             currentValue = viewModel.getSchemaName()
         )?.let { newName ->
-            changeSchemaNameUseCase(careSchemaId, newName)
+            viewModel.changeSchemaName(careSchemaId, newName)
         }
     }
 
@@ -86,7 +83,7 @@ class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBind
             title = getString(R.string.delete_care_schema)
         )
         if (confirmed) {
-            deleteSchemaUseCase(careSchemaId)
+            viewModel.deleteSchema(careSchemaId)
             onBackPressed()
         }
     }
@@ -121,7 +118,7 @@ class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBind
     private fun saveStepsIfOrderChanged() {
         if (stepsAdapter.stepsOrderChanged) {
             lifecycleScope.launch {
-                changeSchemaStepsUseCase(careSchemaId, stepsAdapter.currentSteps)
+                viewModel.changeSchemaSteps(careSchemaId, stepsAdapter.currentSteps)
             }
         }
     }

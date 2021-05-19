@@ -22,9 +22,9 @@ class AddSchemaStepUseCaseTest {
             id = 0,
             name = "OMO",
             steps = listOf(
-                CareSchemaStep(type = CareStep.Type.CONDITIONER, order = 0),
-                CareSchemaStep(type = CareStep.Type.SHAMPOO, order = 1),
-                CareSchemaStep(type = CareStep.Type.CONDITIONER, 2)
+                CareSchemaStep(id = -1, type = CareStep.Type.CONDITIONER, order = 0),
+                CareSchemaStep(id = -1, type = CareStep.Type.SHAMPOO, order = 1),
+                CareSchemaStep(id = -1, type = CareStep.Type.CONDITIONER, 2)
             )
         )
         val careSchemaId = 0
@@ -39,7 +39,7 @@ class AddSchemaStepUseCaseTest {
                 CareSchema(
                     id = schemaFromRepo.id,
                     name = schemaFromRepo.name,
-                    steps = schemaFromRepo.steps + CareSchemaStep(type, order = 3)
+                    steps = schemaFromRepo.steps + CareSchemaStep(id = -1, type, order = 3)
                 )
             )
         }

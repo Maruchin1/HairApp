@@ -15,6 +15,9 @@ internal val careSchemaDetailsModule = module {
         EditCareSchemaViewModel(
             careSchemaId = careSchemaId,
             careSchemaRepo = get(),
+            changeSchemaName = get(),
+            changeSchemaSteps = get(),
+            deleteSchema = get()
         )
     }
     factory {
