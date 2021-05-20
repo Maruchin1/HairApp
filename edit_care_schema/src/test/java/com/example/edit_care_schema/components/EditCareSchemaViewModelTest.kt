@@ -6,9 +6,8 @@ import com.example.core.domain.CareSchema
 import com.example.core.domain.CareSchemaStep
 import com.example.core.domain.CareStep
 import com.example.core.gateway.CareSchemaRepo
-import com.example.edit_care_schema.use_case.ChangeSchemaNameUseCase
-import com.example.edit_care_schema.use_case.ChangeSchemaStepsUseCase
-import com.example.edit_care_schema.use_case.DeleteSchemaUseCase
+import com.example.edit_care_schema.EditCareSchemaViewModel
+import com.example.edit_care_schema.use_case.*
 import com.example.testing.CoroutinesTestRule
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
@@ -32,6 +31,8 @@ class EditCareSchemaViewModelTest {
     private val changeSchemaNameUseCase: ChangeSchemaNameUseCase = mockk()
     private val changeSchemaStepUseCase: ChangeSchemaStepsUseCase = mockk()
     private val deleteSchemaUseCase: DeleteSchemaUseCase = mockk()
+    private val addSchemaStepUseCase: AddSchemaStepUseCase = mockk()
+    private val deleteSchemaStepUseCase: DeleteSchemaStepUseCase = mockk()
 
     private val viewModel by lazy {
         EditCareSchemaViewModel(
@@ -39,7 +40,9 @@ class EditCareSchemaViewModelTest {
             careSchemaRepo,
             changeSchemaNameUseCase,
             changeSchemaStepUseCase,
-            deleteSchemaUseCase
+            deleteSchemaUseCase,
+            addSchemaStepUseCase,
+            deleteSchemaStepUseCase
         )
     }
 

@@ -1,12 +1,10 @@
 package com.example.edit_care_schema
 
-import com.example.edit_care_schema.components.EditCareSchemaViewModel
-import com.example.edit_care_schema.components.CareSchemaStepsAdapter
-import com.example.edit_care_schema.components.CareSchemaStepsTouchHelperCallback
+import com.example.edit_care_schema.use_case.*
 import com.example.edit_care_schema.use_case.AddSchemaStepUseCase
 import com.example.edit_care_schema.use_case.ChangeSchemaNameUseCase
 import com.example.edit_care_schema.use_case.ChangeSchemaStepsUseCase
-import com.example.edit_care_schema.use_case.DeleteSchemaUseCase
+import com.example.edit_care_schema.use_case.DeleteSchemaStepUseCase
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -17,7 +15,9 @@ internal val careSchemaDetailsModule = module {
             careSchemaRepo = get(),
             changeSchemaName = get(),
             changeSchemaSteps = get(),
-            deleteSchema = get()
+            deleteSchema = get(),
+            addSchemaStep = get(),
+            deleteSchemaStep = get()
         )
     }
     factory {
@@ -41,7 +41,13 @@ internal val careSchemaDetailsModule = module {
         )
     }
     factory {
+        DeleteSchemaStepUseCase(
+            careSchemaRepo = get()
+        )
+    }
+    factory { (callback: CareSchemaStepsAdapter.Callback) ->
         CareSchemaStepsAdapter(
+            callback = callback,
             careSchemaStepsTouchHelperCallback = get()
         )
     }

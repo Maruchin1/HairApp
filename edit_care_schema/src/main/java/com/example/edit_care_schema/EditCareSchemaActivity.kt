@@ -2,17 +2,13 @@ package com.example.edit_care_schema
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.example.edit_care_schema.components.EditCareSchemaViewModel
-import com.example.edit_care_schema.components.CareSchemaStepsAdapter
-import com.example.edit_care_schema.use_case.AddSchemaStepUseCase
-import com.example.edit_care_schema.use_case.ChangeSchemaNameUseCase
-import com.example.edit_care_schema.use_case.DeleteSchemaUseCase
 import com.example.common.base.BaseFeatureActivity
 import com.example.common.base.SystemColors
+import com.example.common.binding.Converter
 import com.example.common.extensions.visibleOrGone
 import com.example.common.modals.AppDialog
+import com.example.core.domain.CareSchemaStep
 import com.example.edit_care_schema.databinding.ActivityCareSchemaDetailsBinding
-import com.example.edit_care_schema.use_case.ChangeSchemaStepsUseCase
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,15 +16,14 @@ import org.koin.core.parameter.parametersOf
 
 class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBinding>(
     featureModule = careSchemaDetailsModule,
-) {
+), CareSchemaStepsAdapter.Callback {
 
     private val careSchemaId: Int
         get() = intent.getIntExtra(CARE_SCHEMA_ID, -1)
 
     private val viewModel: EditCareSchemaViewModel by viewModel { parametersOf(careSchemaId) }
     private val appDialog: AppDialog by inject()
-    private val addSchemaStep: AddSchemaStepUseCase by inject()
-    private val stepsAdapter: CareSchemaStepsAdapter by inject { parametersOf(this, viewModel) }
+    private val stepsAdapter: CareSchemaStepsAdapter by inject { parametersOf(this) }
 
     override fun bindActivity(): ActivityCareSchemaDetailsBinding {
         return ActivityCareSchemaDetailsBinding.inflate(layoutInflater)
@@ -51,6 +46,19 @@ class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBind
         systemColors.apply {
             lightStatusBar()
             lightNavigationBar()
+        }
+    }
+
+    override fun deleteSchemaStep(step: CareSchemaStep) {
+        lifecycleScope.launch {
+            appDialog.confirm(
+                context = this@EditCareSchemaActivity,
+                title = "Usunąć krok ${step.order + 1} ${Converter.careStepType(step.type)}?"
+            ).let { confirmed ->
+                if (confirmed) {
+                    viewModel.deleteSchemaStep(careSchemaId, step.id)
+                }
+            }
         }
     }
 
@@ -111,7 +119,7 @@ class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBind
         appDialog.selectCareStepType(
             context = this@EditCareSchemaActivity
         )?.let { type ->
-            addSchemaStep(careSchemaId, type)
+            viewModel.addSchemaStep(careSchemaId, type)
         }
     }
 

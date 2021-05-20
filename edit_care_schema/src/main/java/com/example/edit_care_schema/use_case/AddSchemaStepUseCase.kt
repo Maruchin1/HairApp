@@ -5,7 +5,7 @@ import com.example.core.domain.CareStep
 import com.example.core.gateway.CareSchemaRepo
 import kotlinx.coroutines.flow.firstOrNull
 
-class AddSchemaStepUseCase(
+internal class AddSchemaStepUseCase(
     private val careSchemaRepo: CareSchemaRepo
 ) {
 

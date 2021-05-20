@@ -1,12 +1,8 @@
-package com.example.edit_care_schema.components
+package com.example.edit_care_schema
 
 import android.annotation.SuppressLint
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.common.base.BaseRecyclerAdapter
@@ -21,6 +17,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 internal class CareSchemaStepsAdapter(
+    private val callback: Callback,
     private val careSchemaStepsTouchHelperCallback: CareSchemaStepsTouchHelperCallback
 ) : BaseRecyclerAdapter<CareSchemaStep, ItemCareSchemaStepBinding>() {
 
@@ -34,6 +31,10 @@ internal class CareSchemaStepsAdapter(
 
     var stepsOrderChanged: Boolean = false
         private set
+
+    init {
+        setItemComparator { oldItem, newItem -> oldItem.id == newItem.id }
+    }
 
     override fun onBindItemView(
         layoutInflater: LayoutInflater,
@@ -60,6 +61,10 @@ internal class CareSchemaStepsAdapter(
         binding.run {
             stepNumber.text = (item.order + 1).toString()
             stepName.text = Converter.careStepType(item.type)
+            card.setOnLongClickListener {
+                callback.deleteSchemaStep(item)
+                true
+            }
         }
     }
 
@@ -96,5 +101,9 @@ internal class CareSchemaStepsAdapter(
         changedPositions.forEach { position ->
             notifyItemChanged(position)
         }
+    }
+
+    interface Callback {
+        fun deleteSchemaStep(step: CareSchemaStep)
     }
 }

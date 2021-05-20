@@ -1,12 +1,14 @@
-package com.example.edit_care_schema.components
+package com.example.edit_care_schema
 
 import androidx.lifecycle.*
 import com.example.core.domain.CareSchema
 import com.example.core.domain.CareSchemaStep
 import com.example.core.gateway.CareSchemaRepo
+import com.example.edit_care_schema.use_case.*
+import com.example.edit_care_schema.use_case.AddSchemaStepUseCase
 import com.example.edit_care_schema.use_case.ChangeSchemaNameUseCase
 import com.example.edit_care_schema.use_case.ChangeSchemaStepsUseCase
-import com.example.edit_care_schema.use_case.DeleteSchemaUseCase
+import com.example.edit_care_schema.use_case.DeleteSchemaStepUseCase
 import kotlinx.coroutines.flow.*
 
 internal class EditCareSchemaViewModel(
@@ -14,7 +16,9 @@ internal class EditCareSchemaViewModel(
     private val careSchemaRepo: CareSchemaRepo,
     val changeSchemaName: ChangeSchemaNameUseCase,
     val changeSchemaSteps: ChangeSchemaStepsUseCase,
-    val deleteSchema: DeleteSchemaUseCase
+    val deleteSchema: DeleteSchemaUseCase,
+    val addSchemaStep: AddSchemaStepUseCase,
+    val deleteSchemaStep: DeleteSchemaStepUseCase
 ) : ViewModel() {
 
     private val careSchema: Flow<CareSchema?> = careSchemaRepo.findById(careSchemaId)
