@@ -7,6 +7,7 @@
       <module name="HairApp.care_schema_details_dynamic" target="11" />
       <module name="HairApp.care_schemas_list" target="11" />
       <module name="HairApp.common" target="11" />
+      <module name="HairApp.corev2" target="11" />
       <module name="HairApp.data" target="11" />
       <module name="HairApp.edit_care_schema" target="11" />
       <module name="HairApp.home" target="11" />
