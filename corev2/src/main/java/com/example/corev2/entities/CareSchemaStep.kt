@@ -19,11 +19,11 @@ data class CareSchemaStep(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
 
-    val type: CareSchemaStep.Type,
+    val type: Type,
 
     var order: Int,
 
-    val careSchemaId: Int
+    val careSchemaId: Long
 ) {
 
     enum class Type {

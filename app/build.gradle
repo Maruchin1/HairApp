@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'koin'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion 29
@@ -56,6 +57,7 @@ dependencies {
 
     // Project
     implementation project(':core')
+    implementation project(':corev2')
     implementation project(':data')
     implementation project(':common')
     implementation project(':home')
@@ -110,4 +112,8 @@ dependencies {
 
     // Chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:2.35.1"
+    kapt "com.google.dagger:hilt-compiler:2.35.1"
 }

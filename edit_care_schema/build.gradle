@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -39,11 +40,15 @@ android {
 
 dependencies {
     implementation project(':common')
-    implementation project(':core')
+//    implementation project(':core')
+    implementation project(':corev2')
     implementation kotlinCore
     implementation androidCore
-    implementation koinDi
     implementation viewModel
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:2.35.1"
+    kapt "com.google.dagger:hilt-compiler:2.35.1"
 
     testImplementation project(':testing')
     testImplementation unitTesting

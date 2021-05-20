@@ -18,8 +18,8 @@ interface CareSchemaDao {
     suspend fun delete(vararg careSchema: CareSchema)
 
     @Query("SELECT * FROM CareSchema")
-    fun getAllSchemasWithSteps(): Flow<List<CareSchemaWithSteps>>
+    fun getAll(): Flow<List<CareSchemaWithSteps>>
 
     @Query("SELECT * FROM CareSchema WHERE id = :careSchemaId")
-    fun getSchemaWithStepsById(careSchemaId: Long): Flow<CareSchemaWithSteps?>
+    fun getById(careSchemaId: Long): Flow<CareSchemaWithSteps?>
 }

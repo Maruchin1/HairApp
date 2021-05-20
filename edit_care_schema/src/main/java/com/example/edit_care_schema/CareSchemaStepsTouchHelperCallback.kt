@@ -2,10 +2,11 @@ package com.example.edit_care_schema
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import javax.inject.Inject
 
 typealias OnMoveListener = (fromPosition: Int, toPosition: Int) -> Unit
 
-internal class CareSchemaStepsTouchHelperCallback: ItemTouchHelper.Callback() {
+class CareSchemaStepsTouchHelperCallback @Inject constructor() : ItemTouchHelper.Callback() {
 
     private var onMoveListener: OnMoveListener? = null
 

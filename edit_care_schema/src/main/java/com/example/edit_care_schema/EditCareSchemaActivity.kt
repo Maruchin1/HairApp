@@ -1,29 +1,32 @@
 package com.example.edit_care_schema
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.common.base.BaseFeatureActivity
+import com.example.common.base.BaseActivity
 import com.example.common.base.SystemColors
-import com.example.common.binding.Converter
 import com.example.common.extensions.visibleOrGone
 import com.example.common.modals.AppDialog
-import com.example.core.domain.CareSchemaStep
+import com.example.corev2.entities.CareSchemaStep
 import com.example.edit_care_schema.databinding.ActivityCareSchemaDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
+import javax.inject.Inject
 
-class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBinding>(
-    featureModule = careSchemaDetailsModule,
-), CareSchemaStepsAdapter.Callback {
+@AndroidEntryPoint
+class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBinding>(),
+    CareSchemaStepsAdapter.Callback {
 
     private val careSchemaId: Int
         get() = intent.getIntExtra(CARE_SCHEMA_ID, -1)
 
-    private val viewModel: EditCareSchemaViewModel by viewModel { parametersOf(careSchemaId) }
-    private val appDialog: AppDialog by inject()
-    private val stepsAdapter: CareSchemaStepsAdapter by inject { parametersOf(this) }
+    private val viewModel: EditCareSchemaViewModel by viewModels()
+
+//    @Inject
+//    lateinit var appDialog: AppDialog
+
+    @Inject
+    lateinit var stepsAdapter: CareSchemaStepsAdapter
 
     override fun bindActivity(): ActivityCareSchemaDetailsBinding {
         return ActivityCareSchemaDetailsBinding.inflate(layoutInflater)
@@ -31,6 +34,9 @@ class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBind
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycleScope.launch {
+            viewModel.selectSchema(careSchemaId.toLong())
+        }
         setupToolbar()
         setupStepsRecycler()
         setupNoStepsInfo()
@@ -51,14 +57,14 @@ class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBind
 
     override fun deleteSchemaStep(step: CareSchemaStep) {
         lifecycleScope.launch {
-            appDialog.confirm(
-                context = this@EditCareSchemaActivity,
-                title = "Usunąć krok ${step.order + 1} ${Converter.careStepType(step.type)}?"
-            ).let { confirmed ->
-                if (confirmed) {
-                    viewModel.deleteSchemaStep(careSchemaId, step.id)
-                }
-            }
+//            appDialog.confirm(
+//                context = this@EditCareSchemaActivity,
+//                title = "Usunąć krok ${step.order + 1} ${step.type}?"
+//            ).let { confirmed ->
+//                if (confirmed) {
+//                    viewModel.deleteStep(step)
+//                }
+//            }
         }
     }
 
@@ -76,24 +82,24 @@ class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBind
     }
 
     private fun changeSchemaName() = lifecycleScope.launch {
-        appDialog.typeText(
-            context = this@EditCareSchemaActivity,
-            title = getString(R.string.change_care_schema_name),
-            currentValue = viewModel.getSchemaName()
-        )?.let { newName ->
-            viewModel.changeSchemaName(careSchemaId, newName)
-        }
+//        appDialog.typeText(
+//            context = this@EditCareSchemaActivity,
+//            title = getString(R.string.change_care_schema_name),
+//            currentValue = viewModel.getSchemaName()
+//        )?.let { newName ->
+//            viewModel.changeSchemaName(newName)
+//        }
     }
 
     private fun deleteSchema() = lifecycleScope.launch {
-        val confirmed = appDialog.confirm(
-            context = this@EditCareSchemaActivity,
-            title = getString(R.string.delete_care_schema)
-        )
-        if (confirmed) {
-            viewModel.deleteSchema(careSchemaId)
-            onBackPressed()
-        }
+//        val confirmed = appDialog.confirm(
+//            context = this@EditCareSchemaActivity,
+//            title = getString(R.string.delete_care_schema)
+//        )
+//        if (confirmed) {
+//            viewModel.deleteSchema()
+//            onBackPressed()
+//        }
     }
 
     private fun setupStepsRecycler() {
@@ -116,17 +122,17 @@ class EditCareSchemaActivity : BaseFeatureActivity<ActivityCareSchemaDetailsBind
     }
 
     private fun addCareSchemaStep() = lifecycleScope.launch {
-        appDialog.selectCareStepType(
-            context = this@EditCareSchemaActivity
-        )?.let { type ->
-            viewModel.addSchemaStep(careSchemaId, type)
-        }
+//        appDialog.selectCareStepType(
+//            context = this@EditCareSchemaActivity
+//        )?.let { type ->
+////            viewModel.addStep(type)
+//        }
     }
 
     private fun saveStepsIfOrderChanged() {
         if (stepsAdapter.stepsOrderChanged) {
             lifecycleScope.launch {
-                viewModel.changeSchemaSteps(careSchemaId, stepsAdapter.currentSteps)
+                viewModel.updateSteps(stepsAdapter.currentSteps)
             }
         }
     }

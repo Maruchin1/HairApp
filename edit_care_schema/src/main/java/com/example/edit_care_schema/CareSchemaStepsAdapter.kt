@@ -7,17 +7,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.common.base.BaseRecyclerAdapter
 import com.example.common.base.BaseViewHolder
-import com.example.common.binding.Converter
-import com.example.core.domain.CareSchemaStep
+import com.example.corev2.entities.CareSchemaStep
 import com.example.edit_care_schema.databinding.ItemCareSchemaStepBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
+import javax.inject.Inject
 
-internal class CareSchemaStepsAdapter(
-    private val callback: Callback,
+class CareSchemaStepsAdapter @Inject constructor(
     private val careSchemaStepsTouchHelperCallback: CareSchemaStepsTouchHelperCallback
 ) : BaseRecyclerAdapter<CareSchemaStep, ItemCareSchemaStepBinding>() {
 
@@ -60,9 +59,9 @@ internal class CareSchemaStepsAdapter(
     override fun onBindItemData(binding: ItemCareSchemaStepBinding, item: CareSchemaStep) {
         binding.run {
             stepNumber.text = (item.order + 1).toString()
-            stepName.text = Converter.careStepType(item.type)
+            stepName.text = item.type.toString()
             card.setOnLongClickListener {
-                callback.deleteSchemaStep(item)
+//                callback.deleteSchemaStep(item)
                 true
             }
         }

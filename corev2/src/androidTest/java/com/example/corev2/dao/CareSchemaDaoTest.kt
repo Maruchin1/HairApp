@@ -34,7 +34,7 @@ class CareSchemaDaoTest {
 
     @Test
     fun getAllSchemasWitSteps() = runBlocking {
-        val result = careSchemaDao.getAllSchemasWithSteps().first()
+        val result = careSchemaDao.getAll().first()
 
         assertThat(result).containsExactly(
             CareSchemaWithSteps(
@@ -57,7 +57,7 @@ class CareSchemaDaoTest {
 
     @Test
     fun getSchemaWithStepsById() = runBlocking {
-        val result = careSchemaDao.getSchemaWithStepsById(1).first()
+        val result = careSchemaDao.getById(1).first()
 
         assertThat(result).isEqualTo(
             CareSchemaWithSteps(

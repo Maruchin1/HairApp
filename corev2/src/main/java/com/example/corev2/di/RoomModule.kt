@@ -26,6 +26,11 @@ class RoomModule {
 
     @Provides
     fun provideCareSchemaDao(
-        hairAppDatabase: HairAppDatabase
-    ) = hairAppDatabase.careSchemaDao()
+        database: HairAppDatabase
+    ) = database.careSchemaDao()
+
+    @Provides
+    fun provideCareSchemaStepDao(
+        database: HairAppDatabase
+    ) = database.careSchemaStepDao()
 }
