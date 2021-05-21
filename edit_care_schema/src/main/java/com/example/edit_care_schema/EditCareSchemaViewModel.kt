@@ -31,16 +31,13 @@ internal class EditCareSchemaViewModel @Inject constructor(
     val schemaSteps: LiveData<List<CareSchemaStep>> = careSchemaWithSteps
         .filterNotNull()
         .map { it.steps }
+        .map { getSortedByOrder(it) }
         .asLiveData()
 
     val noSteps: LiveData<Boolean> = schemaSteps.map { it.isEmpty() }
 
     suspend fun selectSchema(careSchemaId: Long) {
         this.careSchemaId.emit(careSchemaId)
-    }
-
-    suspend fun getSchemaName(): String {
-        return careSchemaWithSteps.first()!!.careSchema.name
     }
 
     suspend fun changeSchemaName(newName: String) {
@@ -59,7 +56,7 @@ internal class EditCareSchemaViewModel @Inject constructor(
     suspend fun addStep(type: ProductType) {
         withCurrentCareSchema {
             val newStep = CareSchemaStep(
-                id = 1,
+                id = 0,
                 prouctType = type,
                 order = it.steps.size,
                 careSchemaId = it.careSchema.id
@@ -78,5 +75,9 @@ internal class EditCareSchemaViewModel @Inject constructor(
 
     private suspend fun withCurrentCareSchema(action: suspend (CareSchemaWithSteps) -> Unit) {
         careSchemaWithSteps.firstOrNull()?.let { action(it) }
+    }
+
+    private fun getSortedByOrder(steps: List<CareSchemaStep>): List<CareSchemaStep> {
+        return steps.sortedBy { it.order }
     }
 }

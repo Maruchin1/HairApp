@@ -85,7 +85,7 @@ class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBinding>(),
         dialogService.typeText(
             context = this@EditCareSchemaActivity,
             title = getString(R.string.change_care_schema_name),
-            currentValue = viewModel.getSchemaName()
+            currentValue = viewModel.schemaName.value
         )?.let { newName ->
             viewModel.changeSchemaName(newName)
         }
