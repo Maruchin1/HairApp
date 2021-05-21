@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="conditioner">"Odżywka</string>
+    <string name="shampoo">Shampoo</string>
+    <string name="oil">Olej</string>
+    <string name="emulsifier">Emulgator</string>
+    <string name="stylizer">Stylizator</string>
+    <string name="other">Inne</string>
+    <string name="save">Zapisz</string>
+    <string name="close">Zamknij</string>
+    <string name="confirm">Potwierdź</string>
+    <string name="cancel">Anuluj</string>
+    <string name="product_type">Rodzaj produktu</string>
+
+</resources>

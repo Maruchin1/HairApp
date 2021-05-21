@@ -19,19 +19,9 @@ data class CareSchemaStep(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
 
-    val type: Type,
+    val type: ProductType,
 
     var order: Int,
 
     val careSchemaId: Long
-) {
-
-    enum class Type {
-        CONDITIONER,
-        SHAMPOO,
-        OIL,
-        EMULSIFIER,
-        STYLIZER,
-        OTHER
-    }
-}
+)

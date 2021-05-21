@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.dao.CareSchemaStepDao
 import com.example.corev2.entities.CareSchemaStep
+import com.example.corev2.entities.ProductType
 import com.example.corev2.relations.CareSchemaWithSteps
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -55,7 +56,7 @@ class EditCareSchemaViewModel @Inject constructor(
         }
     }
 
-    suspend fun addStep(type: CareSchemaStep.Type) {
+    suspend fun addStep(type: ProductType) {
         withCurrentCareSchema {
             val newStep = CareSchemaStep(
                 id = 1,
