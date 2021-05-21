@@ -8,6 +8,7 @@ import com.example.corev2.entities.ProductType
 import com.example.corev2.relations.CareSchemaWithSteps
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,10 +19,9 @@ internal class EditCareSchemaViewModel @Inject constructor(
 
     private val careSchemaId = MutableStateFlow<Long?>(null)
 
-    private val careSchemaWithSteps: SharedFlow<CareSchemaWithSteps?> = careSchemaId
+    private val careSchemaWithSteps: Flow<CareSchemaWithSteps?> = careSchemaId
         .filterNotNull()
         .flatMapLatest { careSchemaDao.getById(it) }
-        .shareIn(viewModelScope, SharingStarted.Lazily)
 
     val schemaName: LiveData<String> = careSchemaWithSteps
         .filterNotNull()
@@ -74,7 +74,9 @@ internal class EditCareSchemaViewModel @Inject constructor(
     }
 
     private suspend fun withCurrentCareSchema(action: suspend (CareSchemaWithSteps) -> Unit) {
-        careSchemaWithSteps.firstOrNull()?.let { action(it) }
+        careSchemaWithSteps
+            .firstOrNull()
+            ?.let { action(it) }
     }
 
     private fun getSortedByOrder(steps: List<CareSchemaStep>): List<CareSchemaStep> {

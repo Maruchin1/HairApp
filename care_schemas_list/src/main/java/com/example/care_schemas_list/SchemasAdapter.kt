@@ -39,7 +39,9 @@ internal class SchemasAdapter @Inject constructor(
 
     private fun setSteps(binding: ItemSchemaBinding, steps: List<CareSchemaStep>) {
         binding.stepsList.removeAllViews()
-        steps.forEach { addStepToList(binding, it) }
+        steps
+            .sortedBy { it.order }
+            .forEach { addStepToList(binding, it) }
     }
 
     private fun addStepToList(binding: ItemSchemaBinding, step: CareSchemaStep) {

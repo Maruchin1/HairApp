@@ -15,10 +15,10 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBinding>(),
-    CareSchemaStepsAdapter.Callback {
+    CareSchemaStepsAdapter.Handler {
 
-    private val careSchemaId: Int
-        get() = intent.getIntExtra(CARE_SCHEMA_ID, -1)
+    private val careSchemaId: Long
+        get() = intent.getLongExtra(CARE_SCHEMA_ID, -1)
 
     private val viewModel: EditCareSchemaViewModel by viewModels()
 
@@ -28,6 +28,7 @@ class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBinding>(),
     @Inject
     internal lateinit var stepsAdapter: CareSchemaStepsAdapter
 
+
     override fun bindActivity(): ActivityCareSchemaDetailsBinding {
         return ActivityCareSchemaDetailsBinding.inflate(layoutInflater)
     }
@@ -35,7 +36,7 @@ class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBinding>(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycleScope.launch {
-            viewModel.selectSchema(careSchemaId.toLong())
+            viewModel.selectSchema(careSchemaId)
         }
         setupToolbar()
         setupStepsRecycler()
@@ -55,11 +56,11 @@ class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBinding>(),
         }
     }
 
-    override fun deleteSchemaStep(step: CareSchemaStep) {
+    override fun onStepLongClick(step: CareSchemaStep) {
         lifecycleScope.launch {
             dialogService.confirm(
                 context = this@EditCareSchemaActivity,
-                title = "Usunąć krok ${step.order + 1} ${step.prouctType}?"
+                title = "Usunąć krok ${step.order + 1} ${getString(step.prouctType.resId)}?"
             ).let { confirmed ->
                 if (confirmed) {
                     viewModel.deleteStep(step)
@@ -104,6 +105,7 @@ class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBinding>(),
     }
 
     private fun setupStepsRecycler() {
+        stepsAdapter.handler = this
         binding.stepsRecycler.adapter = stepsAdapter
         stepsAdapter.touchHelper.attachToRecyclerView(binding.stepsRecycler)
         stepsAdapter.addSource(viewModel.schemaSteps, this)

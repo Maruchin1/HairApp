@@ -1,6 +1,7 @@
 package com.example.edit_care_schema
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.example.common.base.BaseRecyclerAdapter
 import com.example.common.base.BaseViewHolder
 import com.example.corev2.entities.CareSchemaStep
 import com.example.edit_care_schema.databinding.ItemCareSchemaStepBinding
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -17,6 +19,7 @@ import java.util.*
 import javax.inject.Inject
 
 internal class CareSchemaStepsAdapter @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val careSchemaStepsTouchHelperCallback: CareSchemaStepsTouchHelperCallback
 ) : BaseRecyclerAdapter<CareSchemaStep, ItemCareSchemaStepBinding>() {
 
@@ -30,6 +33,8 @@ internal class CareSchemaStepsAdapter @Inject constructor(
 
     var stepsOrderChanged: Boolean = false
         private set
+
+    var handler: Handler? = null
 
     init {
         setItemComparator { oldItem, newItem -> oldItem.id == newItem.id }
@@ -59,9 +64,9 @@ internal class CareSchemaStepsAdapter @Inject constructor(
     override fun onBindItemData(binding: ItemCareSchemaStepBinding, item: CareSchemaStep) {
         binding.run {
             stepNumber.text = (item.order + 1).toString()
-            stepName.text = item.prouctType.toString()
+            stepName.text = context.getString(item.prouctType.resId)
             card.setOnLongClickListener {
-//                callback.deleteSchemaStep(item)
+                handler?.onStepLongClick(item)
                 true
             }
         }
@@ -102,7 +107,7 @@ internal class CareSchemaStepsAdapter @Inject constructor(
         }
     }
 
-    interface Callback {
-        fun deleteSchemaStep(step: CareSchemaStep)
+    interface Handler {
+        fun onStepLongClick(step: CareSchemaStep)
     }
 }

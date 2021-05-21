@@ -8,10 +8,7 @@ import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.entities.CareSchema
 import com.example.corev2.relations.CareSchemaWithSteps
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,9 +16,7 @@ internal class CareSchemasListViewModel @Inject constructor(
     private val careSchemaDao: CareSchemaDao
 ) : ViewModel() {
 
-    private val allSchemas: SharedFlow<List<CareSchemaWithSteps>> = careSchemaDao
-        .getAll()
-        .shareIn(viewModelScope, SharingStarted.Lazily)
+    private val allSchemas: Flow<List<CareSchemaWithSteps>> = careSchemaDao.getAll()
 
     val careSchemas: LiveData<List<CareSchemaWithSteps>> = allSchemas
         .map { sortSchemasAlphabetically(it) }

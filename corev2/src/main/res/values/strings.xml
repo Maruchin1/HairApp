@@ -2,7 +2,7 @@
 <resources>
     
     <string name="conditioner">"Odżywka</string>
-    <string name="shampoo">Shampoo</string>
+    <string name="shampoo">Szampon</string>
     <string name="oil">Olej</string>
     <string name="emulsifier">Emulgator</string>
     <string name="stylizer">Stylizator</string>
