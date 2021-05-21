@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
-class EditCareSchemaViewModel @Inject constructor(
+internal class EditCareSchemaViewModel @Inject constructor(
     private val careSchemaDao: CareSchemaDao,
     private val careSchemaStepDao: CareSchemaStepDao
 ) : ViewModel() {
@@ -60,7 +60,7 @@ class EditCareSchemaViewModel @Inject constructor(
         withCurrentCareSchema {
             val newStep = CareSchemaStep(
                 id = 1,
-                type = type,
+                prouctType = type,
                 order = it.steps.size,
                 careSchemaId = it.careSchema.id
             )

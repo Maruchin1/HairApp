@@ -19,7 +19,7 @@ data class CareSchemaStep(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
 
-    val type: ProductType,
+    val prouctType: ProductType,
 
     var order: Int,
 

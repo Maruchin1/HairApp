@@ -3,13 +3,14 @@ package com.example.home
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.common.base.BaseActivity
 import com.example.common.base.BaseFeatureActivity
 import com.example.common.base.SystemColors
 import com.example.home.databinding.ActivityHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class HomeActivity : BaseFeatureActivity<ActivityHomeBinding>(
-    featureModule = homeModule
-) {
+@AndroidEntryPoint
+class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     override fun bindActivity(): ActivityHomeBinding {
         return ActivityHomeBinding.inflate(layoutInflater)

@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
-class CareSchemaStepsAdapter @Inject constructor(
+internal class CareSchemaStepsAdapter @Inject constructor(
     private val careSchemaStepsTouchHelperCallback: CareSchemaStepsTouchHelperCallback
 ) : BaseRecyclerAdapter<CareSchemaStep, ItemCareSchemaStepBinding>() {
 
@@ -59,7 +59,7 @@ class CareSchemaStepsAdapter @Inject constructor(
     override fun onBindItemData(binding: ItemCareSchemaStepBinding, item: CareSchemaStep) {
         binding.run {
             stepNumber.text = (item.order + 1).toString()
-            stepName.text = item.type.toString()
+            stepName.text = item.prouctType.toString()
             card.setOnLongClickListener {
 //                callback.deleteSchemaStep(item)
                 true

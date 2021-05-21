@@ -23,10 +23,10 @@ class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBinding>(),
     private val viewModel: EditCareSchemaViewModel by viewModels()
 
     @Inject
-    lateinit var dialogService: DialogService
+    internal lateinit var dialogService: DialogService
 
     @Inject
-    lateinit var stepsAdapter: CareSchemaStepsAdapter
+    internal lateinit var stepsAdapter: CareSchemaStepsAdapter
 
     override fun bindActivity(): ActivityCareSchemaDetailsBinding {
         return ActivityCareSchemaDetailsBinding.inflate(layoutInflater)
@@ -59,7 +59,7 @@ class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBinding>(),
         lifecycleScope.launch {
             dialogService.confirm(
                 context = this@EditCareSchemaActivity,
-                title = "Usunąć krok ${step.order + 1} ${step.type}?"
+                title = "Usunąć krok ${step.order + 1} ${step.prouctType}?"
             ).let { confirmed ->
                 if (confirmed) {
                     viewModel.deleteStep(step)

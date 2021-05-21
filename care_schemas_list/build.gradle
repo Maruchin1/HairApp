@@ -38,12 +38,9 @@ android {
 }
 
 dependencies {
-    implementation project(':common')
-    implementation project(':core')
-    implementation project(':care_schemas_list')
+    implementation project(':corev2')
     implementation kotlinCore
     implementation androidCore
-    implementation koinDi
     implementation viewModel
 
     // Hilt

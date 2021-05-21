@@ -1,19 +1,24 @@
-package com.example.home.care_schemas
+package com.example.care_schemas_list
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.example.common.base.BaseRecyclerAdapter
-import com.example.common.binding.Converter
-import com.example.common.extensions.visibleOrGone
-import com.example.core.domain.CareSchema
-import com.example.core.domain.CareSchemaStep
-import com.example.home.databinding.ItemSchemaBinding
-import com.example.home.databinding.ItemSchemaStepBinding
+import com.example.care_schemas_list.databinding.ItemSchemaBinding
+import com.example.care_schemas_list.databinding.ItemSchemaStepBinding
+import com.example.corev2.entities.CareSchema
+import com.example.corev2.entities.CareSchemaStep
+import com.example.corev2.relations.CareSchemaWithSteps
+import com.example.corev2.ui.BaseRecyclerAdapter
+import com.example.corev2.ui.setVisibleOrGone
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-internal class SchemasAdapter(
-    private val onSchemaClicked: (schema: CareSchema) -> Unit,
+internal class SchemasAdapter @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val stepsAdapter: SchemaStepsAdapter
-) : BaseRecyclerAdapter<CareSchema, ItemSchemaBinding>() {
+) : BaseRecyclerAdapter<CareSchemaWithSteps, ItemSchemaBinding>() {
+
+    var handler: Handler? = null
 
     override fun onBindItemView(
         layoutInflater: LayoutInflater,
@@ -22,12 +27,12 @@ internal class SchemasAdapter(
         return ItemSchemaBinding.inflate(layoutInflater, parent, false)
     }
 
-    override fun onBindItemData(binding: ItemSchemaBinding, item: CareSchema) {
+    override fun onBindItemData(binding: ItemSchemaBinding, item: CareSchemaWithSteps) {
         binding.apply {
-            card.setOnClickListener { onSchemaClicked(item) }
-            schemaName.text = item.name
+            card.setOnClickListener { handler?.onCareSchemaClicked(item.careSchema) }
+            schemaName.text = item.careSchema.name
             setSteps(binding, item.steps)
-            noStepsInSchema.container.visibleOrGone(item.steps.isEmpty())
+            noStepsInSchema.container.setVisibleOrGone(item.steps.isEmpty())
         }
         stepsAdapter.updateItems(item.steps)
     }
@@ -47,12 +52,16 @@ internal class SchemasAdapter(
     private fun bindStepData(binding: ItemSchemaStepBinding, step: CareSchemaStep) {
         binding.apply {
             stepOrdinalNumber.text = (step.order + 1).toString()
-            stepName.text = Converter.careStepType(step.type)
+            stepName.text = context.getString(step.prouctType.resId)
         }
     }
 
     private fun bindStepView(parent: ViewGroup): ItemSchemaStepBinding {
         val inflater = LayoutInflater.from(parent.context)
         return ItemSchemaStepBinding.inflate(inflater)
+    }
+
+    interface Handler {
+        fun onCareSchemaClicked(careSchema: CareSchema)
     }
 }

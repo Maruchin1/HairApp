@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/careSchemasListFragment"
-        android:name="com.example.home.care_schemas.CareSchemasListFragment"
+        android:name="com.example.care_schemas_list.CareSchemasListFragment"
         android:label="CareSchemasListFragment"
         tools:layout="@layout/fragment_care_schemas_list" />
 </navigation>

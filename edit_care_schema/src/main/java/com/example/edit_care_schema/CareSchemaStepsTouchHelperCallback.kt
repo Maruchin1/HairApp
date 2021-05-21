@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 typealias OnMoveListener = (fromPosition: Int, toPosition: Int) -> Unit
 
-class CareSchemaStepsTouchHelperCallback @Inject constructor() : ItemTouchHelper.Callback() {
+internal class CareSchemaStepsTouchHelperCallback @Inject constructor() : ItemTouchHelper.Callback() {
 
     private var onMoveListener: OnMoveListener? = null
 
