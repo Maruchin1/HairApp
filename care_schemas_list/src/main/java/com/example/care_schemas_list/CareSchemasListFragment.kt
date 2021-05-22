@@ -9,7 +9,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.care_schemas_list.databinding.FragmentCareSchemasListBinding
 import com.example.corev2.entities.CareSchema
 import com.example.corev2.navigation.EditCareSchemaDestination
-import com.example.corev2.navigation.NavigationService
 import com.example.corev2.ui.BaseFragment
 import com.example.corev2.ui.DialogService
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,9 +27,6 @@ class CareSchemasListFragment : BaseFragment<FragmentCareSchemasListBinding>(),
     @Inject
     internal lateinit var dialogService: DialogService
 
-    @Inject
-    internal lateinit var navigationService: NavigationService
-
     override fun bindLayout(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -45,10 +41,7 @@ class CareSchemasListFragment : BaseFragment<FragmentCareSchemasListBinding>(),
     }
 
     override fun onCareSchemaClicked(careSchema: CareSchema) {
-        navigationService.toDestination(
-            originActivity = requireActivity(),
-            destination = EditCareSchemaDestination(careSchema.id)
-        )
+        viewModel.openSchema(requireActivity(), careSchema.id)
     }
 
     private fun setupToolbarMenu() = binding.toolbar.setOnMenuItemClickListener {

@@ -40,6 +40,7 @@ android {
 dependencies {
     implementation project(':common')
     implementation project(':core')
+    implementation project(':corev2')
     implementation project(':care_schemas_list')
     implementation kotlinCore
     implementation androidCore

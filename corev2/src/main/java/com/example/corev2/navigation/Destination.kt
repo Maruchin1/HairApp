@@ -3,16 +3,12 @@ package com.example.corev2.navigation
 import android.app.Activity
 import android.content.Intent
 
-abstract class Destination {
+abstract class Destination<T> {
 
-    protected abstract val activityClassname: String
-
-    internal fun makeIntent(originActivity: Activity): Intent {
-        val intent = Intent()
-            .setClassName(originActivity, activityClassname)
-        setupIntent(intent)
-        return intent
+    fun navigate(originActivity: Activity, params: T) {
+        val intent = createIntent(originActivity, params)
+        originActivity.startActivity(intent)
     }
 
-    protected open fun setupIntent(intent: Intent) = Unit
+    protected abstract fun createIntent(originActivity: Activity, params: T): Intent
 }

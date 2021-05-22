@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBinding>(),
+internal class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBinding>(),
     CareSchemaStepsAdapter.Handler {
 
     private val careSchemaId: Long
@@ -141,7 +141,7 @@ class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBinding>(),
     }
 
     companion object {
-        private const val CARE_SCHEMA_ID = "care_schema_id"
+        const val CARE_SCHEMA_ID = "care_schema_id"
     }
 
 
