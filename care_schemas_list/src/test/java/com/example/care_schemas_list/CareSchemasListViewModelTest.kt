@@ -1,9 +1,11 @@
 package com.example.care_schemas_list
 
+import android.app.Activity
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asFlow
 import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.entities.CareSchema
+import com.example.corev2.navigation.EditCareSchemaDestination
 import com.example.corev2.relations.CareSchemaWithSteps
 import com.example.testing.CoroutinesTestRule
 import com.google.common.truth.Truth.assertThat
@@ -27,9 +29,9 @@ class CareSchemasListViewModelTest {
     val coroutinesTestRule = CoroutinesTestRule()
 
     private val careSchemaDao: CareSchemaDao = mockk()
-
+    private val editCareSchemaDestination: EditCareSchemaDestination = mockk()
     private val viewModel by lazy {
-        CareSchemasListViewModel(careSchemaDao)
+        CareSchemasListViewModel(careSchemaDao, editCareSchemaDestination)
     }
 
     @Before
@@ -83,6 +85,21 @@ class CareSchemasListViewModelTest {
 
         coVerify {
             careSchemaDao.insert(CareSchema(id = 0, name = "Własny"))
+        }
+    }
+
+    @Test
+    fun openSchema_NavigateToEditCareSchemaDestination() {
+        val activity: Activity = mockk()
+        coJustRun { editCareSchemaDestination.navigate(any(), any()) }
+
+        viewModel.openSchema(activity, 1)
+
+        coVerify {
+            editCareSchemaDestination.navigate(
+                activity,
+                EditCareSchemaDestination.Params(1)
+            )
         }
     }
 }
