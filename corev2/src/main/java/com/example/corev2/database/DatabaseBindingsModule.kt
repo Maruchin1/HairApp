@@ -1,6 +1,5 @@
-package com.example.corev2.room
+package com.example.corev2.database
 
-import com.example.corev2.DatabaseInitializer
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

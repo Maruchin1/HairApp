@@ -1,7 +1,6 @@
-package com.example.corev2.room
+package com.example.corev2.database
 
 import android.content.Context
-import com.example.corev2.DatabaseInitializer
 import com.example.corev2.R
 import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.dao.CareSchemaStepDao

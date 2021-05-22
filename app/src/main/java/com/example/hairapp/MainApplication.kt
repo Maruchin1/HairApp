@@ -3,7 +3,7 @@ package com.example.hairapp
 import android.app.Application
 import com.example.common.commonModule
 import com.example.core.coreModule
-import com.example.corev2.DatabaseInitializer
+import com.example.corev2.database.DatabaseInitializer
 import com.example.data.dataModule
 import dagger.hilt.android.HiltAndroidApp
 import org.koin.android.ext.koin.androidContext

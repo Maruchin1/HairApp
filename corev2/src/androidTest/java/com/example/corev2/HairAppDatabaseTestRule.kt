@@ -3,7 +3,7 @@ package com.example.corev2
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.example.corev2.room.HairAppDatabase
+import com.example.corev2.database.HairAppDatabase
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 

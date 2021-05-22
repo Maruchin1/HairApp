@@ -1,4 +1,4 @@
-package com.example.corev2
+package com.example.corev2.database
 
 import kotlinx.coroutines.Job
 

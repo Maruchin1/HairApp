@@ -1,4 +1,4 @@
-package com.example.corev2.room
+package com.example.corev2.database
 
 import androidx.room.TypeConverter
 import com.example.corev2.entities.ProductType
