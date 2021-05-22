@@ -43,6 +43,12 @@ ext {
             'androidx.navigation:navigation-fragment-ktx:2.3.5',
             'androidx.navigation:navigation-ui-ktx:2.3.5'
     ]
+    hiltDi = [
+            "com.google.dagger:hilt-android:2.35.1"
+    ]
+    hiltDiKapt = [
+            "com.google.dagger:hilt-compiler:2.35.1"
+    ]
     koinDi = [
             "org.koin:koin-android:2.1.6",
             "org.koin:koin-androidx-viewmodel:2.1.6",
@@ -51,6 +57,20 @@ ext {
             "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0",
             "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
     ]
+
+    room_version = "2.2.5"
+    roomDatabase = [
+            "androidx.room:room-runtime:$room_version",
+            "androidx.room:room-ktx:$room_version"
+    ]
+    roomDatabaseKapt = [
+            "androidx.room:room-compiler:$room_version"
+    ]
+
+    dataStore = [
+            "androidx.datastore:datastore-preferences:1.0.0-beta01"
+    ]
+
     unitTesting = [
             'junit:junit:4.+',
             "org.koin:koin-test:2.1.6",

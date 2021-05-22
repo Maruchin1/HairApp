@@ -42,10 +42,8 @@ dependencies {
     implementation kotlinCore
     implementation androidCore
     implementation viewModel
-
-    // Hilt
-    implementation "com.google.dagger:hilt-android:2.35.1"
-    kapt "com.google.dagger:hilt-compiler:2.35.1"
+    implementation hiltDi
+    kapt hiltDiKapt
 
     testImplementation project(':testing')
     testImplementation unitTesting

@@ -1,8 +1,7 @@
-package com.example.corev2.di
+package com.example.corev2.room
 
 import android.content.Context
 import androidx.room.Room
-import com.example.corev2.HairAppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,7 +11,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class RoomModule {
+internal class DatabaseProvidersModule {
 
     @Singleton
     @Provides
