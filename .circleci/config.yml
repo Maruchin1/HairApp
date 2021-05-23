@@ -33,9 +33,8 @@ jobs:
       resource-class: xlarge
     steps:
       - checkout
-      - android/run-ui-tests:
-          # Use pre-steps and post-steps if necessary
-          # to execute custom steps before and afer any of the built-in steps
+      - android/start-emulator-and-run-tests:
+          test-command: ./gradlew connectedDebugAndroidTest
           system-image: system-images;android-29;default;x86
       - run:
           name: Save test results
