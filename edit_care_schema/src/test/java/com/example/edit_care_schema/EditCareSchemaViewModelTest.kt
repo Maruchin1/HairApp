@@ -6,7 +6,7 @@ import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.dao.CareSchemaStepDao
 import com.example.corev2.entities.CareSchema
 import com.example.corev2.entities.CareSchemaStep
-import com.example.corev2.entities.ProductType
+import com.example.corev2.entities.Product
 import com.example.corev2.relations.CareSchemaWithSteps
 import com.example.testing.rules.CoroutinesTestRule
 import com.google.common.truth.Truth.assertThat
@@ -40,19 +40,19 @@ class EditCareSchemaViewModelTest {
         steps = listOf(
             CareSchemaStep(
                 id = 2,
-                prouctType = ProductType.SHAMPOO,
+                prouctType = Product.Type.SHAMPOO,
                 order = 1,
                 careSchemaId = 1
             ),
             CareSchemaStep(
                 id = 1,
-                prouctType = ProductType.CONDITIONER,
+                prouctType = Product.Type.CONDITIONER,
                 order = 0,
                 careSchemaId = 1
             ),
             CareSchemaStep(
                 id = 3,
-                prouctType = ProductType.CONDITIONER,
+                prouctType = Product.Type.CONDITIONER,
                 order = 2,
                 careSchemaId = 1
             )
@@ -115,13 +115,13 @@ class EditCareSchemaViewModelTest {
         coJustRun { careSchemaStepDao.insert(*anyVararg()) }
 
         viewModel.selectSchema(1)
-        viewModel.addStep(ProductType.OIL)
+        viewModel.addStep(Product.Type.OIL)
 
         coVerify {
             careSchemaStepDao.insert(
                 CareSchemaStep(
                     id = 0,
-                    prouctType = ProductType.OIL,
+                    prouctType = Product.Type.OIL,
                     order = 3,
                     careSchemaId = 1
                 )

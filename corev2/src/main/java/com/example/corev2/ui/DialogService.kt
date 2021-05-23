@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import com.example.corev2.R
 import com.example.corev2.databinding.ViewSingleInputBinding
-import com.example.corev2.entities.ProductType
+import com.example.corev2.entities.Product
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import javax.inject.Inject
 import kotlin.coroutines.resume
@@ -58,8 +58,8 @@ class DialogService @Inject constructor() {
 
     suspend fun selectProductType(
         context: Context
-    ): ProductType? = suspendCoroutine {
-        val values = ProductType.values()
+    ): Product.Type? = suspendCoroutine {
+        val values = Product.Type.values()
         val items = values.map { context.getString(it.resId) }
         MaterialAlertDialogBuilder(context).apply {
             setTitle(R.string.product_type)

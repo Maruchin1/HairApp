@@ -7,13 +7,15 @@ import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.dao.CareSchemaStepDao
 import com.example.corev2.entities.CareSchema
 import com.example.corev2.entities.CareSchemaStep
+import com.example.corev2.entities.Product
 
 @Database(
     entities = [
         CareSchema::class,
-        CareSchemaStep::class
+        CareSchemaStep::class,
+        Product::class
     ],
-    version = 1
+    version = 2
 )
 @TypeConverters(DatabaseTypesConverter::class)
 abstract class HairAppDatabase : RoomDatabase() {

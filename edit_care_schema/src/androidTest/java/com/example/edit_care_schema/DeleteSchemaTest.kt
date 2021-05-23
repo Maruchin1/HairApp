@@ -67,7 +67,7 @@ class DeleteSchemaTest {
         alertDialog {
             positiveButton.click()
         }
-        delay(500)
+        delay(1_000)
         assertThat(scenario.state).isEqualTo(Lifecycle.State.DESTROYED)
     }
 
@@ -79,7 +79,7 @@ class DeleteSchemaTest {
         alertDialog {
             positiveButton.click()
         }
-        delay(500)
+        delay(1_000)
         val careSchema = database.careSchemaDao().getById(schemaId).firstOrNull()
         assertThat(careSchema).isNull()
     }

@@ -7,7 +7,7 @@ import com.example.corev2.dao.CareSchemaStepDao
 import com.example.corev2.data_store.InitializationCompletionStore
 import com.example.corev2.entities.CareSchema
 import com.example.corev2.entities.CareSchemaStep
-import com.example.corev2.entities.ProductType
+import com.example.corev2.entities.Product
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
@@ -54,19 +54,19 @@ internal class DatabaseInitializerImpl @Inject constructor(
     private fun createOmoSteps(omoSchemaId: Long) = arrayOf(
         CareSchemaStep(
             id = 0,
-            prouctType = ProductType.CONDITIONER,
+            prouctType = Product.Type.CONDITIONER,
             order = 0,
             careSchemaId = omoSchemaId
         ),
         CareSchemaStep(
             id = 0,
-            prouctType = ProductType.SHAMPOO,
+            prouctType = Product.Type.SHAMPOO,
             order = 1,
             careSchemaId = omoSchemaId
         ),
         CareSchemaStep(
             id = 0,
-            prouctType = ProductType.CONDITIONER,
+            prouctType = Product.Type.CONDITIONER,
             order = 2,
             careSchemaId = omoSchemaId
         )
@@ -75,13 +75,13 @@ internal class DatabaseInitializerImpl @Inject constructor(
     private fun createCgSteps(cgSchemaId: Long) = arrayOf(
         CareSchemaStep(
             id = 0,
-            prouctType = ProductType.CONDITIONER,
+            prouctType = Product.Type.CONDITIONER,
             order = 0,
             careSchemaId = cgSchemaId
         ),
         CareSchemaStep(
             id = 0,
-            prouctType = ProductType.CONDITIONER,
+            prouctType = Product.Type.CONDITIONER,
             order = 1,
             careSchemaId = cgSchemaId
         ),

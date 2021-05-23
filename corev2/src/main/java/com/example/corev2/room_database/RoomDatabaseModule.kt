@@ -21,5 +21,5 @@ class RoomDatabaseModule {
         context,
         HairAppDatabase::class.java,
         "hair-app-database.db"
-    ).build()
+    ).fallbackToDestructiveMigration().build()
 }

@@ -6,7 +6,7 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import com.example.corev2.entities.CareSchema
 import com.example.corev2.entities.CareSchemaStep
-import com.example.corev2.entities.ProductType
+import com.example.corev2.entities.Product
 import com.example.corev2.room_database.HairAppDatabase
 import com.example.edit_care_schema.EditCareSchemaActivity
 import kotlinx.coroutines.runBlocking
@@ -35,19 +35,19 @@ private fun populateSchemaInDatabase(hairAppDatabase: HairAppDatabase): Long = r
     hairAppDatabase.careSchemaStepDao().insert(
         CareSchemaStep(
             id = 0,
-            prouctType = ProductType.CONDITIONER,
+            prouctType = Product.Type.CONDITIONER,
             order = 0,
             careSchemaId = addedSchemaId
         ),
         CareSchemaStep(
             id = 0,
-            prouctType = ProductType.SHAMPOO,
+            prouctType = Product.Type.SHAMPOO,
             order = 1,
             careSchemaId = addedSchemaId
         ),
         CareSchemaStep(
             id = 0,
-            prouctType = ProductType.CONDITIONER,
+            prouctType = Product.Type.CONDITIONER,
             order = 2,
             careSchemaId = addedSchemaId
         ),

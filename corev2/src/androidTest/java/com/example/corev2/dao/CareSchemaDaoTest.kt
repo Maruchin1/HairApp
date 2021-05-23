@@ -2,7 +2,7 @@ package com.example.corev2.dao
 
 import com.example.corev2.entities.CareSchema
 import com.example.corev2.entities.CareSchemaStep
-import com.example.corev2.entities.ProductType
+import com.example.corev2.entities.Product
 import com.example.corev2.relations.CareSchemaWithSteps
 import com.example.testing.rules.DatabaseTestRule
 import com.google.common.truth.Truth.assertThat
@@ -31,19 +31,19 @@ class CareSchemaDaoTest {
     private val omoSteps = arrayOf(
         CareSchemaStep(
             id = 0,
-            prouctType = ProductType.CONDITIONER,
+            prouctType = Product.Type.CONDITIONER,
             order = 0,
             careSchemaId = 1
         ),
         CareSchemaStep(
             id = 0,
-            prouctType = ProductType.SHAMPOO,
+            prouctType = Product.Type.SHAMPOO,
             order = 1,
             careSchemaId = 1
         ),
         CareSchemaStep(
             id = 0,
-            prouctType = ProductType.CONDITIONER,
+            prouctType = Product.Type.CONDITIONER,
             order = 2,
             careSchemaId = 1
         ),
@@ -51,13 +51,13 @@ class CareSchemaDaoTest {
     private val cgSteps = arrayOf(
         CareSchemaStep(
             id = 0,
-            prouctType = ProductType.CONDITIONER,
+            prouctType = Product.Type.CONDITIONER,
             order = 0,
             careSchemaId = 2
         ),
         CareSchemaStep(
             id = 0,
-            prouctType = ProductType.CONDITIONER,
+            prouctType = Product.Type.CONDITIONER,
             order = 1,
             careSchemaId = 2
         )
