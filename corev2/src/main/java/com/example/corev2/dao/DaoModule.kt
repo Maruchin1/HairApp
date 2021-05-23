@@ -19,4 +19,9 @@ class DaoModule {
     fun provideCareSchemaStepDao(
         database: HairAppDatabase
     ) = database.careSchemaStepDao()
+
+    @Provides
+    fun provideProductDao(
+        database: HairAppDatabase
+    ) = database.productDao()
 }

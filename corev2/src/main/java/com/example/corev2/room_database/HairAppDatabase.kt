@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.dao.CareSchemaStepDao
+import com.example.corev2.dao.ProductDao
 import com.example.corev2.entities.CareSchema
 import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.entities.Product
@@ -23,4 +24,6 @@ abstract class HairAppDatabase : RoomDatabase() {
     abstract fun careSchemaDao(): CareSchemaDao
 
     abstract fun careSchemaStepDao(): CareSchemaStepDao
+
+    abstract fun productDao(): ProductDao
 }
