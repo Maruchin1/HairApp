@@ -7,7 +7,7 @@ import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.entities.CareSchema
 import com.example.corev2.navigation.EditCareSchemaDestination
 import com.example.corev2.relations.CareSchemaWithSteps
-import com.example.testing.CoroutinesTestRule
+import com.example.testing.rules.CoroutinesTestRule
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coJustRun
 import io.mockk.coVerify

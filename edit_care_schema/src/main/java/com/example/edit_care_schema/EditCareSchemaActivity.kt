@@ -8,16 +8,16 @@ import com.example.common.base.SystemColors
 import com.example.common.extensions.visibleOrGone
 import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.ui.DialogService
-import com.example.edit_care_schema.databinding.ActivityCareSchemaDetailsBinding
+import com.example.edit_care_schema.databinding.ActivityEditCareSchemaBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-internal class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBinding>(),
+internal class EditCareSchemaActivity : BaseActivity<ActivityEditCareSchemaBinding>(),
     CareSchemaStepsAdapter.Handler {
 
-    private val careSchemaId: Long
+    val careSchemaId: Long
         get() = intent.getLongExtra(CARE_SCHEMA_ID, -1)
 
     private val viewModel: EditCareSchemaViewModel by viewModels()
@@ -29,8 +29,8 @@ internal class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBi
     internal lateinit var stepsAdapter: CareSchemaStepsAdapter
 
 
-    override fun bindActivity(): ActivityCareSchemaDetailsBinding {
-        return ActivityCareSchemaDetailsBinding.inflate(layoutInflater)
+    override fun bindActivity(): ActivityEditCareSchemaBinding {
+        return ActivityEditCareSchemaBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +47,11 @@ internal class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBi
     override fun onPause() {
         super.onPause()
         saveStepsIfOrderChanged()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val x = 1
     }
 
     override fun setupSystemColors(systemColors: SystemColors) {
@@ -99,7 +104,7 @@ internal class EditCareSchemaActivity : BaseActivity<ActivityCareSchemaDetailsBi
         ).let { confirmed ->
             if (confirmed) {
                 viewModel.deleteSchema()
-                onBackPressed()
+                finish()
             }
         }
     }

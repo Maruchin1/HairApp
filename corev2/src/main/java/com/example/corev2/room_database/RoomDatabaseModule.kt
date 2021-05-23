@@ -1,4 +1,4 @@
-package com.example.corev2.database
+package com.example.corev2.room_database
 
 import android.content.Context
 import androidx.room.Room
@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal class DatabaseProvidersModule {
+class RoomDatabaseModule {
 
     @Singleton
     @Provides
@@ -20,16 +20,6 @@ internal class DatabaseProvidersModule {
     ) = Room.databaseBuilder(
         context,
         HairAppDatabase::class.java,
-        "hair-app-database"
+        "hair-app-database.db"
     ).build()
-
-    @Provides
-    fun provideCareSchemaDao(
-        database: HairAppDatabase
-    ) = database.careSchemaDao()
-
-    @Provides
-    fun provideCareSchemaStepDao(
-        database: HairAppDatabase
-    ) = database.careSchemaStepDao()
 }

@@ -16,7 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.example.edit_care_schema.framework.HiltTestRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
 
@@ -49,4 +49,8 @@ dependencies {
 
     testImplementation project(':testing')
     testImplementation unitTesting
+
+    androidTestImplementation project(':corev2')
+    androidTestImplementation uiTesting
+    kaptAndroidTest uiTestingKapt
 }

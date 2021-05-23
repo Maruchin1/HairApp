@@ -8,7 +8,7 @@ import com.example.corev2.entities.CareSchema
 import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.entities.ProductType
 import com.example.corev2.relations.CareSchemaWithSteps
-import com.example.testing.CoroutinesTestRule
+import com.example.testing.rules.CoroutinesTestRule
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coJustRun
 import io.mockk.coVerify
@@ -149,12 +149,30 @@ class EditCareSchemaViewModelTest {
     fun deleteStep_DeleteStepFromDb() = runBlocking {
         val stepToDelete = selectedSchema.steps[1]
         coJustRun { careSchemaStepDao.delete(*anyVararg()) }
+        coJustRun { careSchemaStepDao.update(*anyVararg()) }
 
         viewModel.selectSchema(1)
         viewModel.deleteStep(stepToDelete)
 
         coVerify {
             careSchemaStepDao.delete(stepToDelete)
+        }
+    }
+
+    @Test
+    fun deleteStep_UpdateStepsOrderInDb() = runBlocking {
+        val stepToDelete = selectedSchema.steps[1]
+        coJustRun { careSchemaStepDao.delete(*anyVararg()) }
+        coJustRun { careSchemaStepDao.update(*anyVararg()) }
+
+        viewModel.selectSchema(1)
+        viewModel.deleteStep(stepToDelete)
+
+        coVerify {
+            careSchemaStepDao.update(
+                selectedSchema.steps[0].copy(order = 0),
+                selectedSchema.steps[2].copy(order = 1)
+            )
         }
     }
 }

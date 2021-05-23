@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="ThemeOverlay.AppBar" parent="">
+    <style name="ThemeOverlay.AppBar" parent="AppTheme">
         <item name="android:textColorSecondary">@color/color_primary</item>
     </style>
 

@@ -1,12 +1,12 @@
 package com.example.corev2.dao
 
-import com.example.corev2.HairAppDatabaseTestRule
 import com.example.corev2.entities.CareSchema
 import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.entities.ProductType
 import com.example.corev2.relations.CareSchemaWithSteps
+import com.example.testing.rules.DatabaseTestRule
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
@@ -15,7 +15,7 @@ import org.junit.Test
 class CareSchemaDaoTest {
 
     @get:Rule
-    val hairAppDatabaseTestRule = HairAppDatabaseTestRule()
+    val hairAppDatabaseTestRule = DatabaseTestRule()
 
     private val careSchemaDao by lazy { hairAppDatabaseTestRule.db.careSchemaDao() }
     private val careSchemaStepDao by lazy { hairAppDatabaseTestRule.db.careSchemaStepDao() }
@@ -74,7 +74,7 @@ class CareSchemaDaoTest {
 
     @Test
     fun getAllSchemasWitSteps() = runBlocking {
-        val result = careSchemaDao.getAll().first()
+        val result = careSchemaDao.getAll().firstOrNull()
 
         assertThat(result).containsExactly(
             CareSchemaWithSteps(
@@ -98,7 +98,7 @@ class CareSchemaDaoTest {
 
     @Test
     fun getSchemaWithStepsById() = runBlocking {
-        val result = careSchemaDao.getById(1).first()
+        val result = careSchemaDao.getById(1).firstOrNull()
 
         assertThat(result).isEqualTo(
             CareSchemaWithSteps(

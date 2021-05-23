@@ -1,13 +1,13 @@
-package com.example.corev2
+package com.example.testing.rules
 
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.example.corev2.database.HairAppDatabase
+import com.example.corev2.room_database.HairAppDatabase
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
-class HairAppDatabaseTestRule : TestWatcher() {
+class DatabaseTestRule : TestWatcher() {
     lateinit var db: HairAppDatabase
 
     override fun starting(description: Description?) {

@@ -8,7 +8,6 @@ import com.example.corev2.entities.ProductType
 import com.example.corev2.relations.CareSchemaWithSteps
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,16 +18,16 @@ internal class EditCareSchemaViewModel @Inject constructor(
 
     private val careSchemaId = MutableStateFlow<Long?>(null)
 
-    private val careSchemaWithSteps: Flow<CareSchemaWithSteps?> = careSchemaId
+    private val careSchemaWithStepsFlow: Flow<CareSchemaWithSteps?> = careSchemaId
         .filterNotNull()
         .flatMapLatest { careSchemaDao.getById(it) }
 
-    val schemaName: LiveData<String> = careSchemaWithSteps
+    val schemaName: LiveData<String> = careSchemaWithStepsFlow
         .filterNotNull()
         .map { it.careSchema.name }
         .asLiveData()
 
-    val schemaSteps: LiveData<List<CareSchemaStep>> = careSchemaWithSteps
+    val schemaSteps: LiveData<List<CareSchemaStep>> = careSchemaWithStepsFlow
         .filterNotNull()
         .map { it.steps }
         .map { getSortedByOrder(it) }
@@ -71,10 +70,18 @@ internal class EditCareSchemaViewModel @Inject constructor(
 
     suspend fun deleteStep(step: CareSchemaStep) {
         careSchemaStepDao.delete(step)
+        withCurrentCareSchema {
+            val mutableSteps = it.steps.toMutableList()
+            mutableSteps.remove(step)
+            mutableSteps.forEachIndexed { index, careSchemaStep ->
+                careSchemaStep.order = index
+            }
+            careSchemaStepDao.update(*mutableSteps.toTypedArray())
+        }
     }
 
     private suspend fun withCurrentCareSchema(action: suspend (CareSchemaWithSteps) -> Unit) {
-        careSchemaWithSteps
+        careSchemaWithStepsFlow
             .firstOrNull()
             ?.let { action(it) }
     }

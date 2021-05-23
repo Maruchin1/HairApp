@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.edit_care_schema">
 
-    <application>
-        <activity android:name="com.example.edit_care_schema.EditCareSchemaActivity"></activity>
+    <application android:theme="@style/HairAppTheme">
+        <activity android:name="com.example.edit_care_schema.EditCareSchemaActivity" />
     </application>
 
 </manifest>

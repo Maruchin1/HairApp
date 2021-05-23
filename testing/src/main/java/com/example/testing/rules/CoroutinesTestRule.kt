@@ -1,4 +1,4 @@
-package com.example.testing
+package com.example.testing.rules
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.TestCoroutineDispatcher
