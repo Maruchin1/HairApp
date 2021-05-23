@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  android: "1.0.3"
+  android: circleci/android@1.0
 
 jobs:
   unit-test:
@@ -33,9 +33,10 @@ jobs:
       resource-class: xlarge
     steps:
       - checkout
-      - android/start-emulator-and-run-tests:
-          test-command: ./gradlew connectedDebugAndroidTest
-          system-image: system-images;android-30;default;x86
+      - android/run-ui-tests:
+          # Use pre-steps and post-steps if necessary
+          # to execute custom steps before and afer any of the built-in steps
+          system-image: system-images;android-29;default;x86
       - run:
           name: Save test results
           command: |
