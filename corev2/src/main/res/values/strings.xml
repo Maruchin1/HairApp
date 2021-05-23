@@ -14,5 +14,6 @@
     <string name="product_type">Rodzaj produktu</string>
     <string name="omo">OMO</string>
     <string name="cg">CG</string>
+    <string name="sort">Sortuj</string>
 
 </resources>

@@ -3,11 +3,11 @@
 
     <string name="cares">Pielęgnacje</string>
     <string name="products">Produkty</string>
-    <string name="schemas">Schematy</string>
     <string name="care">Pielęgnacja</string>
     <string name="new_care_schema">Nowy schemat pielęgnacji</string>
     <string name="new_schema_name">Nazwa nowego schematu</string>
     <string name="tap_to_set_schema_steps">Dotknij aby ustawić kroki dla tego schematu pielgnacji</string>
     <string name="add_schema">Dodaj schemat</string>
+    <string name="schemas">Schematy</string>
 
 </resources>

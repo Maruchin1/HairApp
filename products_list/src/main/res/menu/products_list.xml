@@ -3,17 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_add_schema"
+        android:id="@+id/add_product"
         android:icon="@drawable/ic_round_add_24"
         android:iconTint="@color/color_primary"
-        android:title="@string/add_schema"
+        android:title="@string/add_product"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_sort_schemas"
+        android:id="@+id/open_stats"
+        android:icon="@drawable/ic_round_bar_chart_24"
+        android:iconTint="@color/color_primary"
+        android:title="@string/products_stats"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/sort_products"
         android:icon="@drawable/ic_round_sort_24"
         android:iconTint="@color/color_primary"
         android:title="@string/sort"
         app:showAsAction="ifRoom" />
-
 </menu>

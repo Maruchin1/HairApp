@@ -17,20 +17,21 @@
             style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:actionBarSize"
-            app:menu="@menu/care_schemas_toolbar"
-            app:title="@string/schemas" />
+            app:menu="@menu/products_list"
+            app:title="Produkty" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/schemas_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:paddingHorizontal="8dp"
+        android:paddingHorizontal="4dp"
         android:paddingTop="24dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:paddingBottom="128dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:listitem="@layout/item_schema" />
+        app:spanCount="2"
+        tools:listitem="@layout/item_product" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
