@@ -33,7 +33,7 @@ class AddStepTest {
     }
 
     @Test
-    fun displaySelectProductTypeDialog() = testFlow(database) { scenario, careSchemaId ->
+    fun displaySelectProductTypeDialog() = testFlow(database) { _, _ ->
         screen {
             addStepButton.click()
         }
@@ -51,7 +51,7 @@ class AddStepTest {
     }
 
     @Test
-    fun addOilAsLastItem() = testFlow(database) { scenario, careSchemaId ->
+    fun addOilAsLastItem() = testFlow(database) { _, _ ->
         screen {
             addStepButton.click()
         }

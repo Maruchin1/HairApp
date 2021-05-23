@@ -37,7 +37,6 @@ dependencies {
     implementation project(':corev2')
     implementation unitTesting
     implementation uiTesting
-    implementation roomDatabase
 
     kapt uiTestingKapt
     kapt roomDatabaseKapt

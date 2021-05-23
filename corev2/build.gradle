@@ -46,11 +46,12 @@ android {
 
 dependencies {
 
+    api roomDatabase
+
     implementation kotlinCore
     implementation androidCore
     implementation dataStore
     implementation hiltDi
-    implementation roomDatabase
 
     kapt roomDatabaseKapt
     kapt hiltDiKapt
