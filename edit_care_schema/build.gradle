@@ -17,6 +17,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "com.example.edit_care_schema.framework.HiltTestRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
         consumerProguardFiles "consumer-rules.pro"
     }
 
@@ -32,6 +33,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    testOptions {
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
     }
     buildFeatures {
         viewBinding true
@@ -60,4 +64,7 @@ dependencies {
     androidTestImplementation project(':corev2')
     androidTestImplementation uiTesting
     kaptAndroidTest uiTestingKapt
+
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestUtil 'androidx.test:orchestrator:1.3.0'
 }

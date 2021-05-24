@@ -34,7 +34,7 @@ jobs:
     steps:
       - checkout
       - android/start-emulator-and-run-tests:
-          test-command: ./gradlew connectedDebugAndroidTest
+          test-command: ./gradlew connectedCheck
           system-image: system-images;android-29;default;x86
       - run:
           name: Save test results
