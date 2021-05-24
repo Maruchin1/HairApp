@@ -6,6 +6,7 @@ import com.example.edit_care_schema.framework.EditCareSchemaScreen
 import com.example.edit_care_schema.framework.testFlow
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.delay
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -63,6 +64,7 @@ class ChangeSchemaNameTest {
         alertDialog {
             positiveButton.click()
         }
+        delay(1_000)
         screen {
             toolbar.hasTitle("Custom")
         }
