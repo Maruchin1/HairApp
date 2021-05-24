@@ -30,7 +30,7 @@ class NoContentView(context: Context, attrs: AttributeSet) : FrameLayout(context
         }
 
     init {
-        inflate(context, R.layout.view_no_content, this)
+        inflate(context, R.layout.view_no_content_message, this)
         context.obtainStyledAttributes(attrs, R.styleable.NoContentView).run {
             icon = getDrawable(R.styleable.NoContentView_icon)
             title = getString(R.styleable.NoContentView_title)

@@ -9,18 +9,18 @@ import com.example.corev2.R
 data class Product(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long = 0,
 
     @Embedded
-    val compositionOfIngredients: CompositionOfIngredients,
+    val compositionOfIngredients: CompositionOfIngredients = CompositionOfIngredients(),
 
-    var name: String,
+    var name: String = "",
 
-    var manufacturer: String,
+    var manufacturer: String = "",
 
-    var applications: Set<Application>,
+    var applications: Set<Application> = setOf(),
 
-    var photoData: String?
+    var photoData: String? = null
 ) {
 
     enum class Type(val resId: Int, val applications: Array<Application>) {

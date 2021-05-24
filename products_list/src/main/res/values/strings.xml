@@ -2,4 +2,6 @@
 <resources>
     <string name="add_product">Dodaj produkt</string>
     <string name="products_stats">Statystyki produktów</string>
+    <string name="products">Produkty</string>
+    <string name="no_products_message">Nie zapisano jeszcze żadnych produktów</string>
 </resources>

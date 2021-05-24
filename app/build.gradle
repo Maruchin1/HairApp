@@ -67,6 +67,7 @@ dependencies {
     implementation project(':data')
     implementation project(':common')
     implementation project(':home')
+    implementation project(':products_list')
     implementation project(':care_schemas_list')
     implementation project(':edit_care_schema')
 
