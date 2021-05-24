@@ -28,7 +28,7 @@ class ProductFormActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bindActivity<ActivityProductFormBinding>(R.layout.activity_product_form, viewModel)
+        bindActivity<ActivityProductFormBinding>(R.layout.activity_product_form2, viewModel)
         SystemColors(this).darkStatusBar().lightNavigationBar().apply()
 
         val editProductId = intent.getIntExtra(IN_EDIT_PRODUCT_ID, -1)

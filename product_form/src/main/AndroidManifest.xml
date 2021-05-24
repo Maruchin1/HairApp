@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.product_form">
+
+    <application>
+        <activity android:name=".ProductFormActivity"></activity>
+    </application>
+
+</manifest>

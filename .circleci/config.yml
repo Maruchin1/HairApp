@@ -66,11 +66,11 @@ workflows:
   test-and-build:
     jobs:
       - unit-test
-      - android-test
+#      - android-test
       - release-build:
           requires:
             - unit-test
-            - android-test
+#            - android-test
           filters:
             branches:
               only: main # Commits to main branch

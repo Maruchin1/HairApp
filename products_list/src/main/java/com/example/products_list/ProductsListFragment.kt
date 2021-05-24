@@ -25,6 +25,7 @@ class ProductsListFragment : BaseFragment<FragmentTestBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupNoProductsMessage()
+        setupToolbarMenu()
     }
 
     private fun setupNoProductsMessage() {
@@ -36,4 +37,14 @@ class ProductsListFragment : BaseFragment<FragmentTestBinding>() {
             binding.noProducts.container.setVisibleOrGone(noProducts)
         }
     }
+
+    private fun setupToolbarMenu() {
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.add_product -> viewModel.onAddProductClick(requireActivity())
+            }
+            true
+        }
+    }
+
 }
