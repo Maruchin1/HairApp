@@ -23,7 +23,8 @@ fun View.setVisibleOrGoneSource(source: LiveData<Boolean>, lifecycleOwner: Lifec
     }
 }
 
-fun ImageView.setPicassoUri(uri: Uri?) {
+fun ImageView.setPicassoUri(uriString: String?) {
+    val uri = uriString?.let { Uri.parse(it) }
     Picasso.get().load(uri).into(this)
 }
 

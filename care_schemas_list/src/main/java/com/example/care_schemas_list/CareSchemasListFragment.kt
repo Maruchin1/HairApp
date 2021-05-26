@@ -10,6 +10,7 @@ import com.example.care_schemas_list.databinding.FragmentCareSchemasListBinding
 import com.example.corev2.entities.CareSchema
 import com.example.corev2.ui.BaseFragment
 import com.example.corev2.ui.DialogService
+import com.example.corev2.ui.InflateBinding
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,16 +18,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class CareSchemasListFragment : BaseFragment<FragmentCareSchemasListBinding>(),
     SchemasAdapter.Handler {
 
+    override val inflateBinding: InflateBinding<FragmentCareSchemasListBinding>
+        get() = FragmentCareSchemasListBinding::inflate
+
     private val viewModel: CareSchemasListViewModel by viewModel()
     private val schemasAdapter: SchemasAdapter by inject()
     private val dialogService: DialogService by inject()
-
-    override fun bindLayout(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentCareSchemasListBinding {
-        return FragmentCareSchemasListBinding.inflate(inflater, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

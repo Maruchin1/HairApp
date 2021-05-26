@@ -9,6 +9,7 @@ import com.example.corev2.entities.CareSchema
 import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.relations.CareSchemaWithSteps
 import com.example.corev2.ui.BaseRecyclerAdapter
+import com.example.corev2.ui.InflateBinding
 import com.example.corev2.ui.setVisibleOrGone
 
 internal class SchemasAdapter(
@@ -16,14 +17,10 @@ internal class SchemasAdapter(
     private val stepsAdapter: SchemaStepsAdapter
 ) : BaseRecyclerAdapter<CareSchemaWithSteps, ItemSchemaBinding>() {
 
-    var handler: Handler? = null
+    override val inflateBinding: InflateBinding<ItemSchemaBinding>
+        get() = ItemSchemaBinding::inflate
 
-    override fun onBindItemView(
-        layoutInflater: LayoutInflater,
-        parent: ViewGroup
-    ): ItemSchemaBinding {
-        return ItemSchemaBinding.inflate(layoutInflater, parent, false)
-    }
+    var handler: Handler? = null
 
     override fun onBindItemData(binding: ItemSchemaBinding, item: CareSchemaWithSteps) {
         binding.apply {

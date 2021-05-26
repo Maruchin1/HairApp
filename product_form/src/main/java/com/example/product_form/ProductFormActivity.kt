@@ -4,10 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.example.corev2.ui.BaseActivity
-import com.example.corev2.ui.SystemColors
-import com.example.corev2.ui.setIsCheckedSource
-import com.example.corev2.ui.setPicassoUriSource
+import com.example.corev2.ui.*
 import com.example.product_form.databinding.ActivityProductForm2Binding
 import com.github.dhaval2404.imagepicker.ImagePicker
 import kotlinx.coroutines.launch
@@ -15,11 +12,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 internal class ProductFormActivity : BaseActivity<ActivityProductForm2Binding>() {
 
-    private val viewModel: ProductFormViewModel by viewModel()
+    override val inflateBinding: InflateActivityBinding<ActivityProductForm2Binding>
+        get() = ActivityProductForm2Binding::inflate
 
-    override fun bindActivity(): ActivityProductForm2Binding {
-        return ActivityProductForm2Binding.inflate(layoutInflater)
-    }
+    private val viewModel: ProductFormViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

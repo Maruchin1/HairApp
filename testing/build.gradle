@@ -49,6 +49,5 @@ dependencies {
     implementation unitTesting
     implementation uiTesting
 
-    kapt uiTestingKapt
     kapt roomDatabaseKapt
 }

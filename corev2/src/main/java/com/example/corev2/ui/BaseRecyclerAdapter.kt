@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseRecyclerAdapter<T, VB : ViewBinding> : RecyclerView.Adapter<BaseViewHolder<VB>>() {
+abstract class BaseRecyclerAdapter<T, VB : ViewBinding> :
+    RecyclerView.Adapter<BaseViewHolder<VB>>() {
 
     protected val itemsList = mutableListOf<T>()
+
+    protected abstract val inflateBinding: InflateBinding<VB>
 
     private var diffCallback: BaseDiffCallback<T>? = null
 
@@ -21,7 +24,6 @@ abstract class BaseRecyclerAdapter<T, VB : ViewBinding> : RecyclerView.Adapter<B
     fun setItemComparator(itemsComparator: ItemsComparator<T>) {
         diffCallback = BaseDiffCallback(itemsComparator)
     }
-
 
     open fun updateItems(newItemsList: List<T>?) {
         if (diffCallback == null) {
@@ -46,15 +48,13 @@ abstract class BaseRecyclerAdapter<T, VB : ViewBinding> : RecyclerView.Adapter<B
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<VB> {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: VB = onBindItemView(inflater, parent)
+        val binding: VB = inflateBinding(inflater, parent, false)
         return BaseViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<VB>, position: Int) {
         onBindItemData(binding = holder.binding, item = itemsList[position])
     }
-
-    protected abstract fun onBindItemView(layoutInflater: LayoutInflater, parent: ViewGroup): VB
 
     protected abstract fun onBindItemData(binding: VB, item: T)
 }

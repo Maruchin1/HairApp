@@ -6,17 +6,14 @@ import android.view.ViewGroup
 import com.example.care_schemas_list.databinding.ItemSchemaStepBinding
 import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.ui.BaseRecyclerAdapter
+import com.example.corev2.ui.InflateBinding
 
 internal class SchemaStepsAdapter(
     private val context: Context
 ) : BaseRecyclerAdapter<CareSchemaStep, ItemSchemaStepBinding>() {
 
-    override fun onBindItemView(
-        layoutInflater: LayoutInflater,
-        parent: ViewGroup
-    ): ItemSchemaStepBinding {
-        return ItemSchemaStepBinding.inflate(layoutInflater, parent, false)
-    }
+    override val inflateBinding: InflateBinding<ItemSchemaStepBinding>
+        get() = ItemSchemaStepBinding::inflate
 
     override fun onBindItemData(binding: ItemSchemaStepBinding, item: CareSchemaStep) {
         binding.apply {

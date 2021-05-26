@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.corev2.ui.BaseFragment
+import com.example.corev2.ui.InflateBinding
 import com.example.corev2.ui.setVisibleOrGoneSource
 import com.example.products_list.databinding.FragmentProductsListBinding
 import org.koin.android.ext.android.inject
@@ -12,15 +13,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProductsListFragment : BaseFragment<FragmentProductsListBinding>() {
 
+    override val inflateBinding: InflateBinding<FragmentProductsListBinding>
+        get() = FragmentProductsListBinding::inflate
+
     private val viewModel: ProductsListViewModel by viewModel()
     private val productsAdapter: ProductsAdapter by inject()
-
-    override fun bindLayout(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentProductsListBinding {
-        return FragmentProductsListBinding.inflate(inflater, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

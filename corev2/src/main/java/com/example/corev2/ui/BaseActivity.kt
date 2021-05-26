@@ -6,11 +6,13 @@ import androidx.viewbinding.ViewBinding
 
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
+    protected abstract val inflateBinding: InflateActivityBinding<VB>
+
     lateinit var binding: VB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = bindActivity()
+        binding = inflateBinding(layoutInflater)
         setContentView(binding.root)
     }
 
@@ -21,8 +23,6 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
             apply()
         }
     }
-
-    protected abstract fun bindActivity(): VB
 
     protected abstract fun setupSystemColors(systemColors: SystemColors)
 }

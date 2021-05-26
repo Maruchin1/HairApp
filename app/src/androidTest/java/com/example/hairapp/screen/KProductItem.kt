@@ -1,9 +1,10 @@
-package com.example.e2e_test
+package com.example.hairapp.screen
 
 import android.view.View
 import com.agoda.kakao.image.KImageView
 import com.agoda.kakao.recycler.KRecyclerItem
 import com.agoda.kakao.text.KTextView
+import com.example.hairapp.R
 import org.hamcrest.Matcher
 
 class KProductItem(parent: Matcher<View>) : KRecyclerItem<KProductItem>(parent) {
