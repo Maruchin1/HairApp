@@ -14,11 +14,13 @@
         android:theme="@style/ThemeOverlay.AppBar">
 
         <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="@string/product_details"
-            app:layout_scrollFlags="scroll"/>
+            app:layout_scrollFlags="scroll"
+            app:navigationIcon="@drawable/ic_round_arrow_back_ios_24"
+            app:title="@string/new_product" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -36,15 +38,54 @@
             android:paddingHorizontal="16dp"
             android:paddingTop="24dp">
 
-            <include layout="@layout/view_product_image_card" />
+            <include
+                android:id="@+id/product_photo"
+                layout="@layout/view_product_image_card" />
 
-            <include layout="@layout/view_product_fields" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:hint="@string/product_name">
 
-            <include layout="@layout/view_product_type" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/product_name_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <include layout="@layout/view_product_application" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:hint="@string/manufacturer">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/manufacturer_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <include
+                android:id="@+id/composition_of_ingredients"
+                layout="@layout/view_product_type" />
+
+            <include
+                android:id="@+id/product_applications"
+                layout="@layout/view_product_application" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="16dp"
+        android:text="@string/save_product"
+        app:icon="@drawable/ic_round_save_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

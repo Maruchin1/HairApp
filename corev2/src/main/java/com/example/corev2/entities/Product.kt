@@ -23,6 +23,10 @@ data class Product(
     var photoData: String? = null
 ) {
 
+    fun isValid(): Boolean {
+        return name.isNotEmpty()
+    }
+
     enum class Type(val resId: Int, val applications: Array<Application>) {
         CONDITIONER(
             resId = R.string.conditioner,
@@ -70,21 +74,21 @@ data class Product(
                 Application.GEL,
                 Application.OTHER
             )
-        )
+        );
     }
 
-    enum class Application {
-        MILD_SHAMPOO,
-        MEDIUM_SHAMPOO,
-        STRONG_SHAMPOO,
-        CONDITIONER,
-        CREAM,
-        MASK,
-        LEAVE_IN_CONDITIONER,
-        OIL,
-        FOAM,
-        SERUM,
-        GEL,
-        OTHER
+    enum class Application(val resId: Int) {
+        MILD_SHAMPOO(R.string.mild_shampoo),
+        MEDIUM_SHAMPOO(R.string.medium_shampoo),
+        STRONG_SHAMPOO(R.string.strong_shampoo),
+        CONDITIONER(R.string.conditioner),
+        CREAM(R.string.cream),
+        MASK(R.string.mask),
+        LEAVE_IN_CONDITIONER(R.string.leave_in_conditioner),
+        OIL(R.string.oil),
+        FOAM(R.string.foam),
+        SERUM(R.string.serum),
+        GEL(R.string.gel),
+        OTHER(R.string.other)
     }
 }

@@ -53,11 +53,14 @@ dependencies {
     implementation androidCore
     implementation viewModel
     implementation hiltDi
+    implementation 'com.github.dhaval2404:imagepicker:1.7.5'
+    implementation 'com.squareup.picasso:picasso:2.8'
     kapt hiltDiKapt
 
     testImplementation project(':testing')
     testImplementation unitTesting
 
+    androidTestImplementation project(':e2e_test')
     androidTestImplementation uiTesting
     kaptAndroidTest uiTestingKapt
 

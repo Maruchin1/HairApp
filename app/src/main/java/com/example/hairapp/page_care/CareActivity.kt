@@ -26,7 +26,6 @@ class CareActivity : AppCompatActivity() {
     private val dialog: Dialog by inject()
     private val stepsFragment by lazy { CareStepsFragment() }
     private val photosFragment by lazy { CarePhotosFragment() }
-    private val notesFragment by lazy { CareNotesFragment() }
 
     fun selectDate() = lifecycleScope.launch {
         dialog.pickDate(supportFragmentManager)?.let { date ->
@@ -107,7 +106,7 @@ class CareActivity : AppCompatActivity() {
             return when (CareTab.byPosition(position)) {
                 CareTab.STEPS -> stepsFragment
                 CareTab.PHOTOS -> photosFragment
-                CareTab.NOTES -> notesFragment
+                CareTab.NOTES -> photosFragment
             }
         }
 

@@ -13,13 +13,13 @@
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         android:textColor="@color/text_color_primary"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/chip_group_type"
+        app:layout_constraintBottom_toTopOf="@id/chip_group"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chip_group_type"
+        android:id="@+id/chip_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -28,13 +28,15 @@
         app:singleSelection="false">
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/proteins_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/humectants"
-            app:chipBackgroundColor="@color/chip_humectant_bg"
-            app:chipStrokeColor="@color/color_humectants" />
+            android:text="@string/proteins"
+            app:chipBackgroundColor="@color/chip_protein_bg"
+            app:chipStrokeColor="@color/color_proteins" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/emollients_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/emollients"
@@ -42,11 +44,12 @@
             app:chipStrokeColor="@color/color_emollients" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/humectants_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/proteins"
-            app:chipBackgroundColor="@color/chip_protein_bg"
-            app:chipStrokeColor="@color/color_proteins" />
+            android:text="@string/humectants"
+            app:chipBackgroundColor="@color/chip_humectant_bg"
+            app:chipStrokeColor="@color/color_humectants" />
     </com.google.android.material.chip.ChipGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

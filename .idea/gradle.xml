@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/corev2" />
             <option value="$PROJECT_DIR$/data" />
+            <option value="$PROJECT_DIR$/e2e_test" />
             <option value="$PROJECT_DIR$/edit_care_schema" />
             <option value="$PROJECT_DIR$/home" />
             <option value="$PROJECT_DIR$/product_form" />

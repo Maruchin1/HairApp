@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -32,26 +31,12 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    packagingOptions {
-        exclude 'win32-x86-64/attach_hotspot_windows.dll'
-        exclude 'win32-x86/attach_hotspot_windows.dll'
-        exclude 'META-INF/AL2.0'
-        exclude 'META-INF/LGPL2.1'
-        exclude 'META-INF/licenses/ASM'
-    }
 }
 
 dependencies {
 
     implementation project(':app')
-    implementation project(':products_list')
-
     implementation project(':corev2')
-    implementation unitTesting
+    implementation project(':products_list')
     implementation uiTesting
-    implementation hiltDi
-
-    kapt hiltDiKapt
-    kapt uiTestingKapt
-    kapt roomDatabaseKapt
 }

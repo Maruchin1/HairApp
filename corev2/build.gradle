@@ -51,6 +51,7 @@ dependencies {
     implementation kotlinCore
     implementation androidCore
     implementation dataStore
+    implementation 'com.squareup.picasso:picasso:2.8'
     implementation hiltDi
 
     kapt roomDatabaseKapt

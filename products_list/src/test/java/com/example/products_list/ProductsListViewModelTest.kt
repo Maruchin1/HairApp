@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asFlow
 import com.example.corev2.dao.ProductDao
 import com.example.corev2.entities.Product
+import com.example.corev2.navigation.ProductFormDestination
 import com.example.testing.rules.CoroutinesTestRule
 import com.google.common.truth.Truth.*
 import io.mockk.every
@@ -23,8 +24,9 @@ class ProductsListViewModelTest {
     val coroutinesTestRule = CoroutinesTestRule()
 
     private val productDao: ProductDao = mockk()
+    private val productFormDestination: ProductFormDestination = mockk()
     private val viewModel by lazy {
-        ProductsListViewModel(productDao)
+        ProductsListViewModel(productDao, productFormDestination)
     }
 
     @Test

@@ -18,5 +18,14 @@
     <string name="humectants">Humektanty</string>
     <string name="emollients">Emolienty</string>
     <string name="proteins">Proteiny</string>
+    <string name="mild_shampoo">Łagodny szampon</string>
+    <string name="medium_shampoo">Średni szampon</string>
+    <string name="strong_shampoo">Mocny szampon</string>
+    <string name="cream">Krem</string>
+    <string name="mask">Maska</string>
+    <string name="leave_in_conditioner">Odżywka b/s</string>
+    <string name="foam">Pianka</string>
+    <string name="serum">Serum</string>
+    <string name="gel">Żel</string>
 
 </resources>

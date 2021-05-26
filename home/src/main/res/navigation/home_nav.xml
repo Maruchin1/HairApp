@@ -14,5 +14,5 @@
         android:id="@+id/productsListFragment"
         android:name="com.example.products_list.ProductsListFragment"
         android:label="ProductsListFragment"
-        tools:layout="@layout/fragment_test" />
+        tools:layout="@layout/fragment_products_list" />
 </navigation>
