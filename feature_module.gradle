@@ -1,8 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'androidx.navigation.safeargs.kotlin'
-apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'koin'
 
 android {
     compileSdkVersion 30
@@ -52,10 +51,9 @@ dependencies {
     implementation kotlinCore
     implementation androidCore
     implementation viewModel
-    implementation hiltDi
+    implementation koinDi
     implementation 'com.github.dhaval2404:imagepicker:1.7.5'
     implementation 'com.squareup.picasso:picasso:2.8'
-    kapt hiltDiKapt
 
     testImplementation project(':testing')
     testImplementation unitTesting

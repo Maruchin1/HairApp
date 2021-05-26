@@ -2,7 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
+    id 'koin'
 }
 
 android {
@@ -54,8 +54,7 @@ dependencies {
     implementation androidCore
     implementation koinDi
     implementation viewModel
-    implementation hiltDi
-    kapt hiltDiKapt
+    implementation koinDi
 
     testImplementation project(':testing')
     testImplementation unitTesting

@@ -10,7 +10,6 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.koin:koin-gradle-plugin:2.1.6"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
-        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.35.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -42,12 +41,6 @@ ext {
             'androidx.activity:activity-ktx:1.3.0-alpha03',
             'androidx.navigation:navigation-fragment-ktx:2.3.5',
             'androidx.navigation:navigation-ui-ktx:2.3.5'
-    ]
-    hiltDi = [
-            "com.google.dagger:hilt-android:2.35.1"
-    ]
-    hiltDiKapt = [
-            "com.google.dagger:hilt-compiler:2.35.1"
     ]
     koinDi = [
             "org.koin:koin-android:2.1.6",

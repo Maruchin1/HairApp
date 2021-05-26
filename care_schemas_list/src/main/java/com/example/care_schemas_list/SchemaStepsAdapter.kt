@@ -6,11 +6,9 @@ import android.view.ViewGroup
 import com.example.care_schemas_list.databinding.ItemSchemaStepBinding
 import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.ui.BaseRecyclerAdapter
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
 
-internal class SchemaStepsAdapter @Inject constructor(
-    @ApplicationContext private val context: Context
+internal class SchemaStepsAdapter(
+    private val context: Context
 ) : BaseRecyclerAdapter<CareSchemaStep, ItemSchemaStepBinding>() {
 
     override fun onBindItemView(

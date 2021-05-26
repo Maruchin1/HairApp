@@ -6,11 +6,10 @@ import com.example.corev2.R
 import com.example.corev2.databinding.ViewSingleInputBinding
 import com.example.corev2.entities.Product
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class DialogService @Inject constructor() {
+class DialogService {
 
     suspend fun confirm(
         context: Context,

@@ -6,12 +6,9 @@ import com.example.corev2.dao.CareSchemaStepDao
 import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.entities.Product
 import com.example.corev2.relations.CareSchemaWithSteps
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import javax.inject.Inject
 
-@HiltViewModel
-internal class EditCareSchemaViewModel @Inject constructor(
+internal class EditCareSchemaViewModel(
     private val careSchemaDao: CareSchemaDao,
     private val careSchemaStepDao: CareSchemaStepDao
 ) : ViewModel() {

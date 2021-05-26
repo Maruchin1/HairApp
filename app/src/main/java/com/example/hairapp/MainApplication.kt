@@ -1,27 +1,41 @@
 package com.example.hairapp
 
 import android.app.Application
+import com.example.care_schemas_list.careSchemasListModule
 import com.example.common.commonModule
 import com.example.core.coreModule
+import com.example.corev2.corev2Module
 import com.example.corev2.room_database.DatabaseInitializer
 import com.example.data.dataModule
-import dagger.hilt.android.HiltAndroidApp
+import com.example.edit_care_schema.editCareSchemaModule
+import com.example.home.homeModule
+import com.example.product_form.productFormModule
+import com.example.products_list.productsListModule
+import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import javax.inject.Inject
 
-@HiltAndroidApp
 class MainApplication : Application() {
 
-    @Inject
-    lateinit var databaseInitializer: DatabaseInitializer
+    private val databaseInitializer: DatabaseInitializer by inject()
 
     override fun onCreate() {
         super.onCreate()
 
         startKoin {
             androidContext(applicationContext)
-            modules(appModule, coreModule, dataModule, commonModule)
+            modules(
+                appModule,
+                coreModule,
+                dataModule,
+                commonModule,
+                corev2Module,
+                editCareSchemaModule,
+                careSchemasListModule,
+                homeModule,
+                productFormModule,
+                productsListModule
+            )
         }
 
         databaseInitializer.checkIfInitialized()

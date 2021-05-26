@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -49,9 +48,7 @@ dependencies {
     implementation project(':corev2')
     implementation unitTesting
     implementation uiTesting
-    implementation hiltDi
 
-    kapt hiltDiKapt
     kapt uiTestingKapt
     kapt roomDatabaseKapt
 }

@@ -4,20 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import com.example.corev2.ui.BaseFragment
 import com.example.corev2.ui.setVisibleOrGoneSource
 import com.example.products_list.databinding.FragmentProductsListBinding
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class ProductsListFragment : BaseFragment<FragmentProductsListBinding>() {
 
-    private val viewModel: ProductsListViewModel by viewModels()
-
-    @Inject
-    internal lateinit var productsAdapter: ProductsAdapter
+    private val viewModel: ProductsListViewModel by viewModel()
+    private val productsAdapter: ProductsAdapter by inject()
 
     override fun bindLayout(
         inflater: LayoutInflater,

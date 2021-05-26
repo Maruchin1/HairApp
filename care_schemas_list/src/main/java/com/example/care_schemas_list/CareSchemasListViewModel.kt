@@ -4,17 +4,13 @@ import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
 import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.entities.CareSchema
 import com.example.corev2.navigation.EditCareSchemaDestination
 import com.example.corev2.relations.CareSchemaWithSteps
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import javax.inject.Inject
 
-@HiltViewModel
-internal class CareSchemasListViewModel @Inject constructor(
+internal class CareSchemasListViewModel(
     private val careSchemaDao: CareSchemaDao,
     private val editCareSchemaDestination: EditCareSchemaDestination
 ) : ViewModel() {

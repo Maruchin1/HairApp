@@ -10,16 +10,14 @@ import com.example.common.base.BaseRecyclerAdapter
 import com.example.common.base.BaseViewHolder
 import com.example.corev2.entities.CareSchemaStep
 import com.example.edit_care_schema.databinding.ItemCareSchemaStepBinding
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
-import javax.inject.Inject
 
-internal class CareSchemaStepsAdapter @Inject constructor(
-    @ApplicationContext private val context: Context,
+internal class CareSchemaStepsAdapter(
+    private val context: Context,
     private val careSchemaStepsTouchHelperCallback: CareSchemaStepsTouchHelperCallback
 ) : BaseRecyclerAdapter<CareSchemaStep, ItemCareSchemaStepBinding>() {
 

@@ -1,7 +1,6 @@
 package com.example.edit_care_schema
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.common.base.BaseActivity
 import com.example.common.base.SystemColors
@@ -9,24 +8,19 @@ import com.example.common.extensions.visibleOrGone
 import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.ui.DialogService
 import com.example.edit_care_schema.databinding.ActivityEditCareSchemaBinding
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 internal class EditCareSchemaActivity : BaseActivity<ActivityEditCareSchemaBinding>(),
     CareSchemaStepsAdapter.Handler {
 
     val careSchemaId: Long
         get() = intent.getLongExtra(CARE_SCHEMA_ID, -1)
 
-    private val viewModel: EditCareSchemaViewModel by viewModels()
-
-    @Inject
-    internal lateinit var dialogService: DialogService
-
-    @Inject
-    internal lateinit var stepsAdapter: CareSchemaStepsAdapter
+    private val viewModel: EditCareSchemaViewModel by viewModel()
+    private val dialogService: DialogService by inject()
+    private val stepsAdapter: CareSchemaStepsAdapter by inject()
 
 
     override fun bindActivity(): ActivityEditCareSchemaBinding {

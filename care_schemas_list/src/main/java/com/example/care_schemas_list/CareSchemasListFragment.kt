@@ -8,24 +8,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.care_schemas_list.databinding.FragmentCareSchemasListBinding
 import com.example.corev2.entities.CareSchema
-import com.example.corev2.navigation.EditCareSchemaDestination
 import com.example.corev2.ui.BaseFragment
 import com.example.corev2.ui.DialogService
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class CareSchemasListFragment : BaseFragment<FragmentCareSchemasListBinding>(),
     SchemasAdapter.Handler {
 
-    private val viewModel: CareSchemasListViewModel by viewModels()
-
-    @Inject
-    internal lateinit var schemasAdapter: SchemasAdapter
-
-    @Inject
-    internal lateinit var dialogService: DialogService
+    private val viewModel: CareSchemasListViewModel by viewModel()
+    private val schemasAdapter: SchemasAdapter by inject()
+    private val dialogService: DialogService by inject()
 
     override fun bindLayout(
         inflater: LayoutInflater,

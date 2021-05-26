@@ -7,9 +7,8 @@ import com.example.corev2.entities.Product
 import com.example.corev2.ui.BaseRecyclerAdapter
 import com.example.corev2.ui.setPicassoUri
 import com.example.products_list.databinding.ItemProductBinding
-import javax.inject.Inject
 
-internal class ProductsAdapter @Inject constructor() :
+internal class ProductsAdapter :
     BaseRecyclerAdapter<Product, ItemProductBinding>() {
 
     override fun onBindItemView(

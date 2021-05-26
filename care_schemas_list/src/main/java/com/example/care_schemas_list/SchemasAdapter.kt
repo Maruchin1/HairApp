@@ -10,11 +10,9 @@ import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.relations.CareSchemaWithSteps
 import com.example.corev2.ui.BaseRecyclerAdapter
 import com.example.corev2.ui.setVisibleOrGone
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
 
-internal class SchemasAdapter @Inject constructor(
-    @ApplicationContext private val context: Context,
+internal class SchemasAdapter(
+    private val context: Context,
     private val stepsAdapter: SchemaStepsAdapter
 ) : BaseRecyclerAdapter<CareSchemaWithSteps, ItemSchemaBinding>() {
 

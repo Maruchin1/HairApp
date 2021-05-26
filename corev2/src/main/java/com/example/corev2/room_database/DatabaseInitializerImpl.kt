@@ -8,14 +8,11 @@ import com.example.corev2.data_store.InitializationCompletionStore
 import com.example.corev2.entities.CareSchema
 import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.entities.Product
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-internal class DatabaseInitializerImpl @Inject constructor(
-    @ApplicationContext
+internal class DatabaseInitializerImpl(
     private val context: Context,
     private val initializationCompletionStore: InitializationCompletionStore,
     private val careSchemaDao: CareSchemaDao,

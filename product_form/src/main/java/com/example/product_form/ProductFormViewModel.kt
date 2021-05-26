@@ -3,16 +3,12 @@ package com.example.product_form
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.corev2.dao.ProductDao
 import com.example.corev2.entities.CompositionOfIngredients
 import com.example.corev2.entities.Product
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-internal class ProductFormViewModel @Inject constructor(
+
+internal class ProductFormViewModel(
     private val productDao: ProductDao
 ) : ViewModel() {
 
