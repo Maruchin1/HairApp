@@ -36,7 +36,7 @@ internal class ProductFormActivity : BaseActivity<ActivityProductForm2Binding>()
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            viewModel.productPhoto.value = data?.data
+            viewModel.form.productPhoto.value = data?.data
         }
     }
 
@@ -47,7 +47,7 @@ internal class ProductFormActivity : BaseActivity<ActivityProductForm2Binding>()
     private fun setupProductPhoto() {
         binding.productPhoto.let {
             it.card.setOnClickListener { takePhoto() }
-            it.image.setPicassoUriSource(viewModel.productPhoto, this)
+            it.image.setPicassoUriSource(viewModel.form.productPhoto, this)
         }
     }
 
@@ -60,15 +60,15 @@ internal class ProductFormActivity : BaseActivity<ActivityProductForm2Binding>()
     }
 
     private fun setupProductFields() {
-        binding.productNameInput.setPicassoUriSource(viewModel.productName, this)
-        binding.manufacturerInput.setPicassoUriSource(viewModel.manufacturer, this)
+        binding.productNameInput.setPicassoUriSource(viewModel.form.productName, this)
+        binding.manufacturerInput.setPicassoUriSource(viewModel.form.manufacturer, this)
     }
 
     private fun setupCompositionOfIngredients() {
         binding.compositionOfIngredients.let {
-            it.proteinsChip.setIsCheckedSource(viewModel.proteins, this)
-            it.emollientsChip.setIsCheckedSource(viewModel.emollients, this)
-            it.humectantsChip.setIsCheckedSource(viewModel.humectants, this)
+            it.proteinsChip.setIsCheckedSource(viewModel.form.proteins, this)
+            it.emollientsChip.setIsCheckedSource(viewModel.form.emollients, this)
+            it.humectantsChip.setIsCheckedSource(viewModel.form.humectants, this)
         }
     }
 
@@ -76,7 +76,7 @@ internal class ProductFormActivity : BaseActivity<ActivityProductForm2Binding>()
         ProductApplicationsMediator(
             activity = this,
             chipGroup = binding.productApplications.chipGroup,
-            selectedApplications = viewModel.productApplications
+            selectedApplications = viewModel.form.productApplications
         )
     }
 
@@ -84,6 +84,7 @@ internal class ProductFormActivity : BaseActivity<ActivityProductForm2Binding>()
         binding.saveButton.setOnClickListener {
             lifecycleScope.launch {
                 viewModel.onSaveClick()
+                finish()
             }
         }
     }

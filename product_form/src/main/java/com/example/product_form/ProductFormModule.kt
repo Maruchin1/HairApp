@@ -6,9 +6,12 @@ import org.koin.dsl.module
 
 val productFormModule = module {
     viewModel {
-        ProductFormViewModel(get())
+        ProductFormViewModel(get(), get())
     }
     factory<ProductFormDestination> {
         DestinationImpl()
+    }
+    factory {
+        ProductForm()
     }
 }

@@ -1,5 +1,6 @@
 package com.example.products_list
 
+import android.app.Activity
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asFlow
 import com.example.corev2.dao.ProductDao
@@ -8,10 +9,13 @@ import com.example.corev2.navigation.ProductFormDestination
 import com.example.testing.rules.CoroutinesTestRule
 import com.google.common.truth.Truth.*
 import io.mockk.every
+import io.mockk.justRun
 import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -27,6 +31,11 @@ class ProductsListViewModelTest {
     private val productFormDestination: ProductFormDestination = mockk()
     private val viewModel by lazy {
         ProductsListViewModel(productDao, productFormDestination)
+    }
+
+    @Before
+    fun before() {
+        every { productDao.getAll() } returns flowOf(listOf())
     }
 
     @Test
@@ -49,9 +58,6 @@ class ProductsListViewModelTest {
 
     @Test
     fun noProducts_EmitTrue_WhenNoProductsInDb() = runBlocking {
-        val productsFromDb = listOf<Product>()
-        every { productDao.getAll() } returns flowOf(productsFromDb)
-
         val result = viewModel.noProducts.asFlow().firstOrNull()
 
         assertThat(result).isTrue()
@@ -67,5 +73,20 @@ class ProductsListViewModelTest {
         val result = viewModel.noProducts.asFlow().firstOrNull()
 
         assertThat(result).isFalse()
+    }
+
+    @Test
+    fun onAddProductClick_NavigateToProductForm() {
+        justRun { productFormDestination.navigate(any(), any()) }
+        val activity: Activity = mockk()
+
+        viewModel.onAddProductClick(activity)
+
+        verify {
+            productFormDestination.navigate(
+                originActivity = activity,
+                params = ProductFormDestination.Params(null)
+            )
+        }
     }
 }

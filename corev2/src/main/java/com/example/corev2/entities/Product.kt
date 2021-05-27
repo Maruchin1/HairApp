@@ -23,10 +23,6 @@ data class Product(
     var photoData: String? = null
 ) {
 
-    fun isValid(): Boolean {
-        return name.isNotEmpty()
-    }
-
     enum class Type(val resId: Int, val applications: Array<Application>) {
         CONDITIONER(
             resId = R.string.conditioner,

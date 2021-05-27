@@ -9,9 +9,6 @@
     <string name="name">Nazwa</string>
     <string name="manufacturer">Producent</string>
     <string name="type">Typ</string>
-    <string name="emollients">Emolienty</string>
-    <string name="humectants">Humektanty</string>
-    <string name="proteins">Proteiny</string>
     <string name="application">Zastosowanie</string>
     <string name="save">Zapisz</string>
     <string name="product">Produkt</string>

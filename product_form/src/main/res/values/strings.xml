@@ -4,4 +4,5 @@
     <string name="new_product">Nowy produkt</string>
     <string name="product_name">Nazwa produktu</string>
     <string name="manufacturer">Producent</string>
+    <string name="product_composition">Skład produktu</string>
 </resources>
