@@ -3,7 +3,7 @@
     package="com.example.edit_care_schema">
 
     <application android:theme="@style/HairAppTheme">
-        <activity android:name="com.example.edit_care_schema.EditCareSchemaActivity" />
+        <activity android:name="com.example.edit_care_schema.components.EditCareSchemaActivity" />
     </application>
 
 </manifest>

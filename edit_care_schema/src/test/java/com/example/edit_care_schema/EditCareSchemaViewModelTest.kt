@@ -12,6 +12,8 @@ import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.entities.Product
 import com.example.corev2.relations.CareSchemaWithSteps
 import com.example.corev2.ui.DialogService
+import com.example.edit_care_schema.components.EditCareSchemaViewModel
+import com.example.edit_care_schema.use_case.ChangeSchemaNameUseCase
 import com.example.edit_care_schema.use_case.DeleteSchemaUseCase
 import com.example.testing.rules.CoroutinesTestRule
 import com.google.common.truth.Truth.assertThat
@@ -34,12 +36,14 @@ class EditCareSchemaViewModelTest {
     private val careSchemaDao: CareSchemaDao = mockk()
     private val careSchemaStepDao: CareSchemaStepDao = mockk()
     private val dialogService: DialogService = mockk()
+    private val changeSchemaNameUseCase: ChangeSchemaNameUseCase = mockk()
     private val deleteSchemaUseCase: DeleteSchemaUseCase = mockk()
     private val viewModel by lazy {
         EditCareSchemaViewModel(
             careSchemaDao,
             careSchemaStepDao,
             dialogService,
+            changeSchemaNameUseCase,
             deleteSchemaUseCase
         )
     }

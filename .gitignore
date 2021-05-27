@@ -12,3 +12,4 @@
 /captures
 .externalNativeBuild
 .cxx
+/room_database/build/

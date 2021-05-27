@@ -1,4 +1,4 @@
-package com.example.edit_care_schema
+package com.example.edit_care_schema.components
 
 import android.annotation.SuppressLint
 import android.content.Context

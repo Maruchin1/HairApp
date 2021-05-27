@@ -1,4 +1,4 @@
-package com.example.edit_care_schema
+package com.example.edit_care_schema.components
 
 import android.content.Context
 import androidx.lifecycle.*
@@ -9,6 +9,8 @@ import com.example.corev2.dao.CareSchemaStepDao
 import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.relations.CareSchemaWithSteps
 import com.example.corev2.ui.DialogService
+import com.example.edit_care_schema.R
+import com.example.edit_care_schema.use_case.ChangeSchemaNameUseCase
 import com.example.edit_care_schema.use_case.DeleteSchemaUseCase
 import kotlinx.coroutines.flow.*
 
@@ -16,6 +18,7 @@ internal class EditCareSchemaViewModel(
     private val careSchemaDao: CareSchemaDao,
     private val careSchemaStepDao: CareSchemaStepDao,
     private val dialogService: DialogService,
+    private val changeSchemaNameUseCase: ChangeSchemaNameUseCase,
     private val deleteSchemaUseCase: DeleteSchemaUseCase
 ) : ViewModel() {
 
@@ -42,24 +45,18 @@ internal class EditCareSchemaViewModel(
         this.careSchemaId.emit(careSchemaId)
     }
 
-    suspend fun changeSchemaName(context: Context) {
-        dialogService.typeText(
-            context = context,
-            title = context.getString(R.string.change_care_schema_name),
-            currentValue = careSchemaWithStepsFlow.firstOrNull()?.careSchema?.name
-        )?.let { newName ->
-            withCurrentCareSchema {
-                val update = it.careSchema.copy(name = newName)
-                careSchemaDao.update(update)
-            }
-        }
+    suspend fun changeSchemaName(
+        context: Context
+    ): Either<ChangeSchemaNameUseCase.Fail, Unit> = either {
+        val careSchema = careSchemaWithStepsFlow.firstOrNull()?.careSchema
+        changeSchemaNameUseCase(context, careSchema).bind()
     }
 
-    suspend fun deleteSchema(context: Context): Either<DeleteSchemaUseCase.Fail, Unit> {
+    suspend fun deleteSchema(
+        context: Context
+    ): Either<DeleteSchemaUseCase.Fail, Unit> = either {
         val careSchema = careSchemaWithStepsFlow.firstOrNull()?.careSchema
-        return either {
-            deleteSchemaUseCase(context, careSchema).bind()
-        }
+        deleteSchemaUseCase(context, careSchema).bind()
     }
 
     suspend fun addStep(context: Context) {

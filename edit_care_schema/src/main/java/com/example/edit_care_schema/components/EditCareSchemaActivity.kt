@@ -1,13 +1,13 @@
-package com.example.edit_care_schema
+package com.example.edit_care_schema.components
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import arrow.core.computations.either
 import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.ui.BaseActivity
 import com.example.corev2.ui.InflateActivityBinding
 import com.example.corev2.ui.SystemColors
 import com.example.corev2.ui.setVisibleOrGoneSource
+import com.example.edit_care_schema.R
 import com.example.edit_care_schema.databinding.ActivityEditCareSchemaBinding
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -43,7 +43,6 @@ internal class EditCareSchemaActivity : BaseActivity<ActivityEditCareSchemaBindi
 
     override fun onDestroy() {
         super.onDestroy()
-        val x = 1
     }
 
     override fun setupSystemColors(systemColors: SystemColors) {

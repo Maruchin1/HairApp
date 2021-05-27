@@ -1,4 +1,4 @@
-package com.example.edit_care_schema
+package com.example.edit_care_schema.components
 
 import android.app.Activity
 import android.content.Intent

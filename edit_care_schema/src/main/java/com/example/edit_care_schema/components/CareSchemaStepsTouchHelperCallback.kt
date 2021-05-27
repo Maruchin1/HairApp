@@ -1,4 +1,4 @@
-package com.example.edit_care_schema
+package com.example.edit_care_schema.components
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
