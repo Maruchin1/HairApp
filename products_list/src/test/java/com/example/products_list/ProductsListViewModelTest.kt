@@ -46,4 +46,26 @@ class ProductsListViewModelTest {
             productsFromDb[2]
         ).inOrder()
     }
+
+    @Test
+    fun noProducts_EmitTrue_WhenNoProductsInDb() = runBlocking {
+        val productsFromDb = listOf<Product>()
+        every { productDao.getAll() } returns flowOf(productsFromDb)
+
+        val result = viewModel.noProducts.asFlow().firstOrNull()
+
+        assertThat(result).isTrue()
+    }
+
+    @Test
+    fun noProducts_EmitFalse_WhenProductsAvailableInDb() = runBlocking {
+        val productsFromDb = listOf(
+            Product(id = 1, name = "Super szampon")
+        )
+        every { productDao.getAll() } returns flowOf(productsFromDb)
+
+        val result = viewModel.noProducts.asFlow().firstOrNull()
+
+        assertThat(result).isFalse()
+    }
 }
