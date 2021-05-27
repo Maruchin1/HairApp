@@ -1,4 +1,4 @@
-package com.example.edit_care_schema.framework
+package com.example.hairapp.screen
 
 import android.view.View
 import com.agoda.kakao.recycler.KRecyclerItem

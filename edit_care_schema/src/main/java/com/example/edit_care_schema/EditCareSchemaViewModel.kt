@@ -1,16 +1,22 @@
 package com.example.edit_care_schema
 
+import android.content.Context
 import androidx.lifecycle.*
+import arrow.core.Either
+import arrow.core.computations.either
 import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.dao.CareSchemaStepDao
 import com.example.corev2.entities.CareSchemaStep
-import com.example.corev2.entities.Product
 import com.example.corev2.relations.CareSchemaWithSteps
+import com.example.corev2.ui.DialogService
+import com.example.edit_care_schema.use_case.DeleteSchemaUseCase
 import kotlinx.coroutines.flow.*
 
 internal class EditCareSchemaViewModel(
     private val careSchemaDao: CareSchemaDao,
-    private val careSchemaStepDao: CareSchemaStepDao
+    private val careSchemaStepDao: CareSchemaStepDao,
+    private val dialogService: DialogService,
+    private val deleteSchemaUseCase: DeleteSchemaUseCase
 ) : ViewModel() {
 
     private val careSchemaId = MutableStateFlow<Long?>(null)
@@ -36,28 +42,39 @@ internal class EditCareSchemaViewModel(
         this.careSchemaId.emit(careSchemaId)
     }
 
-    suspend fun changeSchemaName(newName: String) {
-        withCurrentCareSchema {
-            val update = it.careSchema.copy(name = newName)
-            careSchemaDao.update(update)
+    suspend fun changeSchemaName(context: Context) {
+        dialogService.typeText(
+            context = context,
+            title = context.getString(R.string.change_care_schema_name),
+            currentValue = careSchemaWithStepsFlow.firstOrNull()?.careSchema?.name
+        )?.let { newName ->
+            withCurrentCareSchema {
+                val update = it.careSchema.copy(name = newName)
+                careSchemaDao.update(update)
+            }
         }
     }
 
-    suspend fun deleteSchema() {
-        withCurrentCareSchema {
-            careSchemaDao.delete(it.careSchema)
+    suspend fun deleteSchema(context: Context): Either<DeleteSchemaUseCase.Fail, Unit> {
+        val careSchema = careSchemaWithStepsFlow.firstOrNull()?.careSchema
+        return either {
+            deleteSchemaUseCase(context, careSchema).bind()
         }
     }
 
-    suspend fun addStep(type: Product.Type) {
-        withCurrentCareSchema {
-            val newStep = CareSchemaStep(
-                id = 0,
-                prouctType = type,
-                order = it.steps.size,
-                careSchemaId = it.careSchema.id
-            )
-            careSchemaStepDao.insert(newStep)
+    suspend fun addStep(context: Context) {
+        dialogService.selectProductType(
+            context = context
+        )?.let { type ->
+            withCurrentCareSchema {
+                val newStep = CareSchemaStep(
+                    id = 0,
+                    prouctType = type,
+                    order = it.steps.size,
+                    careSchemaId = it.careSchema.id
+                )
+                careSchemaStepDao.insert(newStep)
+            }
         }
     }
 
@@ -65,15 +82,22 @@ internal class EditCareSchemaViewModel(
         careSchemaStepDao.update(*steps.toTypedArray())
     }
 
-    suspend fun deleteStep(step: CareSchemaStep) {
-        careSchemaStepDao.delete(step)
-        withCurrentCareSchema {
-            val mutableSteps = it.steps.toMutableList()
-            mutableSteps.remove(step)
-            mutableSteps.forEachIndexed { index, careSchemaStep ->
-                careSchemaStep.order = index
+    suspend fun deleteStep(context: Context, step: CareSchemaStep) {
+        dialogService.confirm(
+            context = context,
+            title = "Usunąć krok ${step.order + 1} ${context.getString(step.prouctType.resId)}?"
+        ).let { confirmed ->
+            if (confirmed) {
+                careSchemaStepDao.delete(step)
+                withCurrentCareSchema {
+                    val mutableSteps = it.steps.toMutableList()
+                    mutableSteps.remove(step)
+                    mutableSteps.forEachIndexed { index, careSchemaStep ->
+                        careSchemaStep.order = index
+                    }
+                    careSchemaStepDao.update(*mutableSteps.toTypedArray())
+                }
             }
-            careSchemaStepDao.update(*mutableSteps.toTypedArray())
         }
     }
 

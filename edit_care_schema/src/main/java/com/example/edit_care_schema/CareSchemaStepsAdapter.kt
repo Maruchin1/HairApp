@@ -2,13 +2,12 @@ package com.example.edit_care_schema
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.example.common.base.BaseRecyclerAdapter
-import com.example.common.base.BaseViewHolder
 import com.example.corev2.entities.CareSchemaStep
+import com.example.corev2.ui.BaseRecyclerAdapter
+import com.example.corev2.ui.BaseViewHolder
+import com.example.corev2.ui.InflateBinding
 import com.example.edit_care_schema.databinding.ItemCareSchemaStepBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -20,6 +19,9 @@ internal class CareSchemaStepsAdapter(
     private val context: Context,
     private val careSchemaStepsTouchHelperCallback: CareSchemaStepsTouchHelperCallback
 ) : BaseRecyclerAdapter<CareSchemaStep, ItemCareSchemaStepBinding>() {
+
+    override val inflateBinding: InflateBinding<ItemCareSchemaStepBinding>
+        get() = ItemCareSchemaStepBinding::inflate
 
     val touchHelper: ItemTouchHelper by lazy {
         careSchemaStepsTouchHelperCallback.setOnMoveListener(this::moveCareProduct)
@@ -36,13 +38,6 @@ internal class CareSchemaStepsAdapter(
 
     init {
         setItemComparator { oldItem, newItem -> oldItem.id == newItem.id }
-    }
-
-    override fun onBindItemView(
-        layoutInflater: LayoutInflater,
-        parent: ViewGroup
-    ): ItemCareSchemaStepBinding {
-        return ItemCareSchemaStepBinding.inflate(layoutInflater, parent, false)
     }
 
     @SuppressLint("ClickableViewAccessibility")

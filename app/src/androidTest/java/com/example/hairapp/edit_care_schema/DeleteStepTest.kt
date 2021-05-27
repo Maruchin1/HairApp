@@ -1,39 +1,20 @@
-package com.example.edit_care_schema
+package com.example.hairapp.edit_care_schema
 
 import com.agoda.kakao.dialog.KAlertDialog
-import com.example.corev2.room_database.HairAppDatabase
-import com.example.edit_care_schema.framework.EditCareSchemaScreen
-import com.example.edit_care_schema.framework.KCareSchemaStepItem
-import com.example.edit_care_schema.framework.testFlow
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
+import com.example.hairapp.R
+import com.example.hairapp.screen.EditCareSchemaScreen
+import com.example.hairapp.screen.KCareSchemaStepItem
 import kotlinx.coroutines.delay
-import org.junit.Before
-import org.junit.Rule
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import javax.inject.Inject
 
-@HiltAndroidTest
-class DeleteStepTest {
+class DeleteStepTest : EditCareSchemaTest() {
 
-    @get:Rule
-    val hiltRule = HiltAndroidRule(this)
-
-    val screen = EditCareSchemaScreen()
-    val alertDialog = KAlertDialog()
-
-    @Inject
-    lateinit var database: HairAppDatabase
-
-    @Before
-    fun before() {
-        hiltRule.inject()
-        database.clearAllTables()
-    }
+    private val alertDialog = KAlertDialog()
 
     @Test
-    fun displayConfirmDialog() = testFlow(database) { _, _ ->
-        screen {
+    fun displayConfirmDialog() {
+        EditCareSchemaScreen {
             stepsRecycler {
                 childAt<KCareSchemaStepItem>(1) {
                     longClick()
@@ -49,8 +30,8 @@ class DeleteStepTest {
     }
 
     @Test
-    fun whenCancel_StillDisplayStep() = testFlow(database) { _, _ ->
-        screen {
+    fun whenCancel_StillDisplayStep() {
+        EditCareSchemaScreen {
             stepsRecycler {
                 childAt<KCareSchemaStepItem>(1) {
                     longClick()
@@ -60,7 +41,7 @@ class DeleteStepTest {
         alertDialog {
             negativeButton.click()
         }
-        screen {
+        EditCareSchemaScreen {
             stepsRecycler {
                 hasSize(3)
 
@@ -74,8 +55,8 @@ class DeleteStepTest {
     }
 
     @Test
-    fun whenConfirm_RemoveStepFromList() = testFlow(database) { _, _ ->
-        screen {
+    fun whenConfirm_RemoveStepFromList() = runBlocking {
+        EditCareSchemaScreen {
             stepsRecycler {
                 childAt<KCareSchemaStepItem>(1) {
                     longClick()
@@ -86,7 +67,7 @@ class DeleteStepTest {
             positiveButton.click()
         }
         delay(1_000)
-        screen {
+        EditCareSchemaScreen {
             stepsRecycler {
                 hasSize(2)
 

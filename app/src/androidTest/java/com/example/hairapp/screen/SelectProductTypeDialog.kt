@@ -1,10 +1,10 @@
-package com.example.edit_care_schema.framework
+package com.example.hairapp.screen
 
 import com.agoda.kakao.screen.Screen
 import com.agoda.kakao.text.KTextView
 import com.example.edit_care_schema.R
 
-class KSelectProductTypeDialog : Screen<KSelectProductTypeDialog>() {
+object SelectProductTypeDialog : Screen<SelectProductTypeDialog>() {
 
     val conditioner = KTextView { withText(R.string.conditioner) }
 

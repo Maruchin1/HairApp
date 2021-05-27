@@ -52,6 +52,7 @@ dependencies {
     implementation androidCore
     implementation viewModel
     implementation koinDi
+    implementation arrow
     implementation 'com.squareup.picasso:picasso:2.8'
 
     testImplementation project(':testing')

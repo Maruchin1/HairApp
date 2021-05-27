@@ -66,6 +66,11 @@ ext {
             "androidx.datastore:datastore-preferences:1.0.0-beta01"
     ]
 
+    arrow_version = "0.13.2"
+    arrow = [
+            "io.arrow-kt:arrow-core:$arrow_version"
+    ]
+
     unitTesting = [
             'junit:junit:4.+',
             "org.koin:koin-test:2.1.6",

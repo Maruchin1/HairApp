@@ -2,11 +2,12 @@ package com.example.edit_care_schema
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.example.common.base.BaseActivity
-import com.example.common.base.SystemColors
-import com.example.common.extensions.visibleOrGone
+import arrow.core.computations.either
 import com.example.corev2.entities.CareSchemaStep
-import com.example.corev2.ui.DialogService
+import com.example.corev2.ui.BaseActivity
+import com.example.corev2.ui.InflateActivityBinding
+import com.example.corev2.ui.SystemColors
+import com.example.corev2.ui.setVisibleOrGoneSource
 import com.example.edit_care_schema.databinding.ActivityEditCareSchemaBinding
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -15,17 +16,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 internal class EditCareSchemaActivity : BaseActivity<ActivityEditCareSchemaBinding>(),
     CareSchemaStepsAdapter.Handler {
 
-    val careSchemaId: Long
+    override val inflateBinding: InflateActivityBinding<ActivityEditCareSchemaBinding>
+        get() = ActivityEditCareSchemaBinding::inflate
+
+    private val careSchemaId: Long
         get() = intent.getLongExtra(CARE_SCHEMA_ID, -1)
 
     private val viewModel: EditCareSchemaViewModel by viewModel()
-    private val dialogService: DialogService by inject()
     private val stepsAdapter: CareSchemaStepsAdapter by inject()
-
-
-    override fun bindActivity(): ActivityEditCareSchemaBinding {
-        return ActivityEditCareSchemaBinding.inflate(layoutInflater)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,14 +55,7 @@ internal class EditCareSchemaActivity : BaseActivity<ActivityEditCareSchemaBindi
 
     override fun onStepLongClick(step: CareSchemaStep) {
         lifecycleScope.launch {
-            dialogService.confirm(
-                context = this@EditCareSchemaActivity,
-                title = "Usunąć krok ${step.order + 1} ${getString(step.prouctType.resId)}?"
-            ).let { confirmed ->
-                if (confirmed) {
-                    viewModel.deleteStep(step)
-                }
-            }
+            viewModel.deleteStep(this@EditCareSchemaActivity, step)
         }
     }
 
@@ -79,28 +70,18 @@ internal class EditCareSchemaActivity : BaseActivity<ActivityEditCareSchemaBindi
             }
             true
         }
+        binding.toolbar.setNavigationOnClickListener { finish() }
     }
 
     private fun changeSchemaName() = lifecycleScope.launch {
-        dialogService.typeText(
-            context = this@EditCareSchemaActivity,
-            title = getString(R.string.change_care_schema_name),
-            currentValue = viewModel.schemaName.value
-        )?.let { newName ->
-            viewModel.changeSchemaName(newName)
-        }
+        viewModel.changeSchemaName(this@EditCareSchemaActivity)
     }
 
     private fun deleteSchema() = lifecycleScope.launch {
-        dialogService.confirm(
-            context = this@EditCareSchemaActivity,
-            title = getString(R.string.delete_care_schema)
-        ).let { confirmed ->
-            if (confirmed) {
-                viewModel.deleteSchema()
-                finish()
-            }
-        }
+        viewModel.deleteSchema(this@EditCareSchemaActivity).fold(
+            ifLeft = {},
+            ifRight = { finish() }
+        )
     }
 
     private fun setupStepsRecycler() {
@@ -111,10 +92,7 @@ internal class EditCareSchemaActivity : BaseActivity<ActivityEditCareSchemaBindi
     }
 
     private fun setupNoStepsInfo() {
-        viewModel.noSteps.observe(this) { noSteps ->
-            binding.noSteps.container.visibleOrGone(noSteps)
-            binding.stepsRecycler.visibleOrGone(!noSteps)
-        }
+        binding.noSteps.container.setVisibleOrGoneSource(viewModel.noSteps, this)
     }
 
     private fun setupAddStepFab() {
@@ -124,11 +102,7 @@ internal class EditCareSchemaActivity : BaseActivity<ActivityEditCareSchemaBindi
     }
 
     private fun addCareSchemaStep() = lifecycleScope.launch {
-        dialogService.selectProductType(
-            context = this@EditCareSchemaActivity
-        )?.let { type ->
-            viewModel.addStep(type)
-        }
+        viewModel.addStep(this@EditCareSchemaActivity)
     }
 
     private fun saveStepsIfOrderChanged() {
