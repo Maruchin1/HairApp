@@ -24,4 +24,10 @@ internal class InitializationCompletionStore(
             it[databaseInitialized] = initialized
         }
     }
+
+    suspend fun clear() {
+        context.dataStore.edit {
+            it.clear()
+        }
+    }
 }

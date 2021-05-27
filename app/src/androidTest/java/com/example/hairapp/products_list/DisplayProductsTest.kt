@@ -2,6 +2,7 @@ package com.example.hairapp.products_list
 
 import com.example.hairapp.R
 import com.example.hairapp.screen.KProductItem
+import com.example.hairapp.screen.ProductsListScreen
 import org.junit.Test
 
 
@@ -9,7 +10,7 @@ class DisplayProductsTest : ProductsListTest() {
 
     @Test
     fun noProductsInDb() {
-        listScreen {
+        ProductsListScreen {
             productsRecycler {
                 hasSize(0)
             }
@@ -25,7 +26,7 @@ class DisplayProductsTest : ProductsListTest() {
     @Test
     fun displayProductsFromDb() {
         populateProducts()
-        listScreen {
+        ProductsListScreen {
             productsRecycler {
                 hasSize(2)
 

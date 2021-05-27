@@ -2,20 +2,21 @@ package com.example.hairapp.product_form
 
 import com.agoda.kakao.common.utilities.getResourceString
 import com.example.hairapp.R
+import com.example.hairapp.screen.ProductFormScreen
 import org.junit.Test
 
 class OpenNewProductFormTest : ProductFormTest() {
 
     @Test
     fun displayNewProductTitle() {
-        productFormScreen {
+        ProductFormScreen {
             toolbar.hasTitle(R.string.new_product)
         }
     }
 
     @Test
     fun displayEmptyInputs() {
-        productFormScreen {
+        ProductFormScreen {
             productNameInput.hasText("")
 
             manufacturerInput.hasText("")
@@ -24,7 +25,7 @@ class OpenNewProductFormTest : ProductFormTest() {
 
     @Test
     fun displayCompositionOfIngredientsOptions() {
-        productFormScreen {
+        ProductFormScreen {
             compositionOfIngredients {
                 scrollTo()
                 hasSize(3)
@@ -37,7 +38,7 @@ class OpenNewProductFormTest : ProductFormTest() {
 
     @Test
     fun displayApplicationsOptions() {
-        productFormScreen {
+        ProductFormScreen {
             applications {
                 scrollTo()
                 hasSize(12)

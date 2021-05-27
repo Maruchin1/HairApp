@@ -5,4 +5,6 @@ import kotlinx.coroutines.Job
 interface DatabaseInitializer {
 
     fun checkIfInitialized(): Job
+
+    fun reset(): Job
 }

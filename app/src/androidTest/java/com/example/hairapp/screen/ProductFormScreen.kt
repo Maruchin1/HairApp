@@ -8,7 +8,7 @@ import com.agoda.kakao.text.KButton
 import com.agoda.kakao.toolbar.KToolbar
 import com.example.hairapp.R
 
-class KProductFormScreen : Screen<KProductFormScreen>() {
+object ProductFormScreen : Screen<ProductFormScreen>() {
 
     val toolbar = KToolbar { withId(R.id.toolbar) }
 

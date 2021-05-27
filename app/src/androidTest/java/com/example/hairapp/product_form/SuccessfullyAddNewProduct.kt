@@ -4,13 +4,15 @@ import androidx.test.espresso.Espresso
 import com.agoda.kakao.common.utilities.getResourceString
 import com.example.hairapp.R
 import com.example.hairapp.screen.KProductItem
+import com.example.hairapp.screen.ProductFormScreen
+import com.example.hairapp.screen.ProductsListScreen
 import org.junit.Test
 
 class SuccessfullyAddNewProduct : ProductFormTest() {
 
     @Test
     fun typeProductName() {
-        productFormScreen {
+        ProductFormScreen {
             productNameInput {
                 scrollTo()
                 typeText("Produkt testowy")
@@ -21,7 +23,7 @@ class SuccessfullyAddNewProduct : ProductFormTest() {
 
     @Test
     fun typeManufacturer() {
-        productFormScreen {
+        ProductFormScreen {
             manufacturerInput {
                 scrollTo()
                 typeText("Producent testowy")
@@ -32,7 +34,7 @@ class SuccessfullyAddNewProduct : ProductFormTest() {
 
     @Test
     fun selectCompositionOfIngredients() {
-        productFormScreen {
+        ProductFormScreen {
             compositionOfIngredients {
                 selectChip(getResourceString(R.string.proteins))
                 selectChip(getResourceString(R.string.humectants))
@@ -45,7 +47,7 @@ class SuccessfullyAddNewProduct : ProductFormTest() {
 
     @Test
     fun selectProductApplications() {
-        productFormScreen {
+        ProductFormScreen {
             applications {
                 selectChip(getResourceString(R.string.foam))
                 selectChip(getResourceString(R.string.gel))
@@ -58,7 +60,7 @@ class SuccessfullyAddNewProduct : ProductFormTest() {
 
     @Test
     fun saveProductWithOnlyName() {
-        productFormScreen {
+        ProductFormScreen {
             productNameInput {
                 typeText("Produkt testowy")
             }
@@ -67,7 +69,7 @@ class SuccessfullyAddNewProduct : ProductFormTest() {
                 click()
             }
         }
-        listScreen {
+        ProductsListScreen {
             toolbar {
                 isDisplayed()
                 hasTitle(getResourceString(R.string.products))
@@ -84,7 +86,7 @@ class SuccessfullyAddNewProduct : ProductFormTest() {
 
     @Test
     fun saveProductWithAllData() {
-        productFormScreen {
+        ProductFormScreen {
             productNameInput {
                 typeText("Produkt testowy")
             }
@@ -107,7 +109,7 @@ class SuccessfullyAddNewProduct : ProductFormTest() {
                 click()
             }
         }
-        listScreen {
+        ProductsListScreen {
             toolbar {
                 isDisplayed()
                 hasTitle(getResourceString(R.string.products))

@@ -4,9 +4,8 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.example.corev2.entities.Product
 import com.example.corev2.room_database.HairAppDatabase
 import com.example.hairapp.MainActivity
-import com.example.hairapp.screen.KProductFormScreen
-import com.example.hairapp.screen.KProductsListScreen
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.koin.test.KoinTest
@@ -18,11 +17,9 @@ abstract class ProductsListTest : KoinTest {
     val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     protected val database: HairAppDatabase by inject()
-    protected val listScreen = KProductsListScreen()
-    protected val productFormScreen = KProductFormScreen()
 
-    @Before
-    fun before() {
+    @After
+    fun after() {
         database.clearAllTables()
     }
 

@@ -21,7 +21,7 @@ val corev2Module = module {
     factory<DatabaseInitializer> {
         DatabaseInitializerImpl(androidContext(), get(), get(), get())
     }
-    factory {
+    single {
         InitializationCompletionStore(androidContext())
     }
     factory {

@@ -9,6 +9,7 @@ import com.example.corev2.entities.CareSchema
 import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.entities.Product
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -19,12 +20,16 @@ internal class DatabaseInitializerImpl(
     private val careSchemaStepDao: CareSchemaStepDao
 ) : DatabaseInitializer {
 
-    override fun checkIfInitialized() = GlobalScope.launch {
+    override fun checkIfInitialized(): Job = GlobalScope.launch {
         val isInitialized = initializationCompletionStore.databaseInitializedFlow.first()
         if (!isInitialized) {
             initializeDatabase()
             initializationCompletionStore.setDatabaseInitialized(true)
         }
+    }
+
+    override fun reset(): Job = GlobalScope.launch {
+        initializationCompletionStore.clear()
     }
 
     private suspend fun initializeDatabase() {

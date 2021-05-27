@@ -9,7 +9,7 @@ import com.agoda.kakao.text.KTextView
 import com.agoda.kakao.toolbar.KToolbar
 import com.example.hairapp.R
 
-class KProductsListScreen : Screen<KProductsListScreen>() {
+object ProductsListScreen : Screen<ProductsListScreen>() {
 
     val toolbar = KToolbar { withId(R.id.toolbar) }
 
