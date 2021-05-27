@@ -53,6 +53,7 @@ dependencies {
     implementation dataStore
     implementation koinDi
     implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'com.github.dhaval2404:imagepicker:1.7.5'
 
     kapt roomDatabaseKapt
 

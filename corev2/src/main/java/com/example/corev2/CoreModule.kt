@@ -6,6 +6,7 @@ import com.example.corev2.room_database.DatabaseInitializer
 import com.example.corev2.room_database.DatabaseInitializerImpl
 import com.example.corev2.room_database.HairAppDatabase
 import com.example.corev2.ui.DialogService
+import com.example.corev2.ui.ImagePickerService
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -34,5 +35,8 @@ val corev2Module = module {
     }
     factory {
         DialogService()
+    }
+    factory {
+        ImagePickerService()
     }
 }

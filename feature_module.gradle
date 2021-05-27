@@ -52,7 +52,6 @@ dependencies {
     implementation androidCore
     implementation viewModel
     implementation koinDi
-    implementation 'com.github.dhaval2404:imagepicker:1.7.5'
     implementation 'com.squareup.picasso:picasso:2.8'
 
     testImplementation project(':testing')
