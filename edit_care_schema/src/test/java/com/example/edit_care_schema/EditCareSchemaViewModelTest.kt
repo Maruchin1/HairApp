@@ -13,6 +13,7 @@ import com.example.corev2.entities.Product
 import com.example.corev2.relations.CareSchemaWithSteps
 import com.example.corev2.ui.DialogService
 import com.example.edit_care_schema.components.EditCareSchemaViewModel
+import com.example.edit_care_schema.use_case.AddSchemaStepUseCase
 import com.example.edit_care_schema.use_case.ChangeSchemaNameUseCase
 import com.example.edit_care_schema.use_case.DeleteSchemaUseCase
 import com.example.testing.rules.CoroutinesTestRule
@@ -38,13 +39,15 @@ class EditCareSchemaViewModelTest {
     private val dialogService: DialogService = mockk()
     private val changeSchemaNameUseCase: ChangeSchemaNameUseCase = mockk()
     private val deleteSchemaUseCase: DeleteSchemaUseCase = mockk()
+    private val addSchemaStepUseCase: AddSchemaStepUseCase = mockk()
     private val viewModel by lazy {
         EditCareSchemaViewModel(
             careSchemaDao,
             careSchemaStepDao,
             dialogService,
             changeSchemaNameUseCase,
-            deleteSchemaUseCase
+            deleteSchemaUseCase,
+            addSchemaStepUseCase
         )
     }
 
@@ -53,19 +56,19 @@ class EditCareSchemaViewModelTest {
         steps = listOf(
             CareSchemaStep(
                 id = 2,
-                prouctType = Product.Type.SHAMPOO,
+                productType = Product.Type.SHAMPOO,
                 order = 1,
                 careSchemaId = 1
             ),
             CareSchemaStep(
                 id = 1,
-                prouctType = Product.Type.CONDITIONER,
+                productType = Product.Type.CONDITIONER,
                 order = 0,
                 careSchemaId = 1
             ),
             CareSchemaStep(
                 id = 3,
-                prouctType = Product.Type.CONDITIONER,
+                productType = Product.Type.CONDITIONER,
                 order = 2,
                 careSchemaId = 1
             )
@@ -97,20 +100,44 @@ class EditCareSchemaViewModelTest {
         ).inOrder()
     }
 
-    //    @Test
-//    fun changeSchemaName_UpdateSelectedSchemaInDb_WithNewName() = runBlocking {
-//        coJustRun { careSchemaDao.update(*anyVararg()) }
-//
-//        viewModel.selectSchema(1)
-//        viewModel.changeSchemaName("Moje OMO")
-//
-//        coVerify {
-//            careSchemaDao.update(
-//                selectedSchema.careSchema.copy(name = "Moje OMO")
-//            )
-//        }
-//    }
-//
+    @Test
+    fun changeSchemaName_InvokeChangeSchemaNameUseCase_WithSelectedSchema() = runBlocking {
+        val context: Context = mockk()
+        coEvery { changeSchemaNameUseCase(any(), any()) } returns Either.Right(Unit)
+
+        viewModel.selectSchema(1)
+        viewModel.changeSchemaName(context)
+
+        coVerify {
+            changeSchemaNameUseCase(context, selectedSchema.careSchema)
+        }
+    }
+
+    @Test
+    fun changeSchemaName_ReturnRight_WhenUseCaseIsRight() = runBlocking {
+        coEvery { changeSchemaNameUseCase(any(), any()) } returns Either.Right(Unit)
+
+        viewModel.selectSchema(1)
+        val result = viewModel.changeSchemaName(mockk())
+
+        assertThat(result.isRight()).isTrue()
+    }
+
+    @Test
+    fun changeSchemaName_ReturnLeft_WhenUseCaseFailed() = runBlocking {
+        coEvery {
+            changeSchemaNameUseCase(any(), any())
+        } returns Either.Left(ChangeSchemaNameUseCase.Fail.NewNameNotTyped)
+
+        viewModel.selectSchema(1)
+        val result = viewModel.changeSchemaName(mockk())
+
+        assertThat(result.isLeft()).isTrue()
+        result.getOrHandle {
+            assertThat(it).isInstanceOf(ChangeSchemaNameUseCase.Fail.NewNameNotTyped::class.java)
+        }
+    }
+
     @Test
     fun deleteSchema_InvokeDeleteSchemaUseCase_WithSelectedSchema() = runBlocking {
         val context: Context = mockk()
@@ -148,25 +175,44 @@ class EditCareSchemaViewModelTest {
             assertThat(it).isInstanceOf(DeleteSchemaUseCase.Fail.NotConfirmed::class.java)
         }
     }
-//
-//    @Test
-//    fun addStep_InsertNewStepToDb_WithGivenType_WithLastOrder_ForSelectedSchema() = runBlocking {
-//        coJustRun { careSchemaStepDao.insert(*anyVararg()) }
-//
-//        viewModel.selectSchema(1)
-//        viewModel.addStep(Product.Type.OIL)
-//
-//        coVerify {
-//            careSchemaStepDao.insert(
-//                CareSchemaStep(
-//                    id = 0,
-//                    prouctType = Product.Type.OIL,
-//                    order = 3,
-//                    careSchemaId = 1
-//                )
-//            )
-//        }
-//    }
+
+    @Test
+    fun addStep_InvokeAddSchemaStepUseCase_WithSelectedSchemaWithSteps() = runBlocking {
+        val context: Context = mockk()
+        coEvery { addSchemaStepUseCase(any(), any()) } returns Either.Right(Unit)
+
+        viewModel.selectSchema(1)
+        viewModel.addStep(context)
+
+        coVerify {
+            addSchemaStepUseCase(context, selectedSchema)
+        }
+    }
+
+    @Test
+    fun addStep_ReturnRight_WhenUseCaseIsRight() = runBlocking {
+        coEvery { addSchemaStepUseCase(any(), any()) } returns Either.Right(Unit)
+
+        viewModel.selectSchema(1)
+        val result = viewModel.addStep(mockk())
+
+        assertThat(result.isRight()).isTrue()
+    }
+
+    @Test
+    fun addStep_ReturnLeft_WhenUseCaseFailed() = runBlocking {
+        coEvery {
+            addSchemaStepUseCase(any(), any())
+        } returns Either.Left(AddSchemaStepUseCase.Fail.ProductTypeNotSelected)
+
+        viewModel.selectSchema(1)
+        val result = viewModel.addStep(mockk())
+
+        assertThat(result.isLeft()).isTrue()
+        result.getOrHandle {
+            assertThat(it).isInstanceOf(AddSchemaStepUseCase.Fail.ProductTypeNotSelected::class.java)
+        }
+    }
 //
 //    @Test
 //    fun updateSteps_UpdateGivenStepsInDb() = runBlocking {

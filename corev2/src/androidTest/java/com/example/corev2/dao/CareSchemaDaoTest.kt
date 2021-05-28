@@ -31,19 +31,19 @@ class CareSchemaDaoTest {
     private val omoSteps = arrayOf(
         CareSchemaStep(
             id = 0,
-            prouctType = Product.Type.CONDITIONER,
+            productType = Product.Type.CONDITIONER,
             order = 0,
             careSchemaId = 1
         ),
         CareSchemaStep(
             id = 0,
-            prouctType = Product.Type.SHAMPOO,
+            productType = Product.Type.SHAMPOO,
             order = 1,
             careSchemaId = 1
         ),
         CareSchemaStep(
             id = 0,
-            prouctType = Product.Type.CONDITIONER,
+            productType = Product.Type.CONDITIONER,
             order = 2,
             careSchemaId = 1
         ),
@@ -51,13 +51,13 @@ class CareSchemaDaoTest {
     private val cgSteps = arrayOf(
         CareSchemaStep(
             id = 0,
-            prouctType = Product.Type.CONDITIONER,
+            productType = Product.Type.CONDITIONER,
             order = 0,
             careSchemaId = 2
         ),
         CareSchemaStep(
             id = 0,
-            prouctType = Product.Type.CONDITIONER,
+            productType = Product.Type.CONDITIONER,
             order = 1,
             careSchemaId = 2
         )

@@ -17,9 +17,9 @@ import androidx.room.PrimaryKey
 data class CareSchemaStep(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long = 0,
 
-    val prouctType: Product.Type,
+    val productType: Product.Type,
 
     var order: Int,
 

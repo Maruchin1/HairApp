@@ -9,7 +9,7 @@ import com.example.corev2.dao.CareSchemaStepDao
 import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.relations.CareSchemaWithSteps
 import com.example.corev2.ui.DialogService
-import com.example.edit_care_schema.R
+import com.example.edit_care_schema.use_case.AddSchemaStepUseCase
 import com.example.edit_care_schema.use_case.ChangeSchemaNameUseCase
 import com.example.edit_care_schema.use_case.DeleteSchemaUseCase
 import kotlinx.coroutines.flow.*
@@ -19,7 +19,8 @@ internal class EditCareSchemaViewModel(
     private val careSchemaStepDao: CareSchemaStepDao,
     private val dialogService: DialogService,
     private val changeSchemaNameUseCase: ChangeSchemaNameUseCase,
-    private val deleteSchemaUseCase: DeleteSchemaUseCase
+    private val deleteSchemaUseCase: DeleteSchemaUseCase,
+    private val addSchemaStepUseCase: AddSchemaStepUseCase
 ) : ViewModel() {
 
     private val careSchemaId = MutableStateFlow<Long?>(null)
@@ -59,20 +60,9 @@ internal class EditCareSchemaViewModel(
         deleteSchemaUseCase(context, careSchema).bind()
     }
 
-    suspend fun addStep(context: Context) {
-        dialogService.selectProductType(
-            context = context
-        )?.let { type ->
-            withCurrentCareSchema {
-                val newStep = CareSchemaStep(
-                    id = 0,
-                    prouctType = type,
-                    order = it.steps.size,
-                    careSchemaId = it.careSchema.id
-                )
-                careSchemaStepDao.insert(newStep)
-            }
-        }
+    suspend fun addStep(context: Context): Either<AddSchemaStepUseCase.Fail, Unit> = either {
+        val careSchemaWithSteps = careSchemaWithStepsFlow.firstOrNull()
+        addSchemaStepUseCase(context, careSchemaWithSteps).bind()
     }
 
     suspend fun updateSteps(steps: List<CareSchemaStep>) {
@@ -82,7 +72,7 @@ internal class EditCareSchemaViewModel(
     suspend fun deleteStep(context: Context, step: CareSchemaStep) {
         dialogService.confirm(
             context = context,
-            title = "Usunąć krok ${step.order + 1} ${context.getString(step.prouctType.resId)}?"
+            title = "Usunąć krok ${step.order + 1} ${context.getString(step.productType.resId)}?"
         ).let { confirmed ->
             if (confirmed) {
                 careSchemaStepDao.delete(step)

@@ -56,19 +56,19 @@ internal class DatabaseInitializerImpl(
     private fun createOmoSteps(omoSchemaId: Long) = arrayOf(
         CareSchemaStep(
             id = 0,
-            prouctType = Product.Type.CONDITIONER,
+            productType = Product.Type.CONDITIONER,
             order = 0,
             careSchemaId = omoSchemaId
         ),
         CareSchemaStep(
             id = 0,
-            prouctType = Product.Type.SHAMPOO,
+            productType = Product.Type.SHAMPOO,
             order = 1,
             careSchemaId = omoSchemaId
         ),
         CareSchemaStep(
             id = 0,
-            prouctType = Product.Type.CONDITIONER,
+            productType = Product.Type.CONDITIONER,
             order = 2,
             careSchemaId = omoSchemaId
         )
@@ -77,13 +77,13 @@ internal class DatabaseInitializerImpl(
     private fun createCgSteps(cgSchemaId: Long) = arrayOf(
         CareSchemaStep(
             id = 0,
-            prouctType = Product.Type.CONDITIONER,
+            productType = Product.Type.CONDITIONER,
             order = 0,
             careSchemaId = cgSchemaId
         ),
         CareSchemaStep(
             id = 0,
-            prouctType = Product.Type.CONDITIONER,
+            productType = Product.Type.CONDITIONER,
             order = 1,
             careSchemaId = cgSchemaId
         ),

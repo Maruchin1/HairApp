@@ -5,6 +5,7 @@ import com.example.edit_care_schema.components.CareSchemaStepsAdapter
 import com.example.edit_care_schema.components.CareSchemaStepsTouchHelperCallback
 import com.example.edit_care_schema.components.DestinationImpl
 import com.example.edit_care_schema.components.EditCareSchemaViewModel
+import com.example.edit_care_schema.use_case.AddSchemaStepUseCase
 import com.example.edit_care_schema.use_case.ChangeSchemaNameUseCase
 import com.example.edit_care_schema.use_case.DeleteSchemaUseCase
 import org.koin.android.ext.koin.androidContext
@@ -13,7 +14,7 @@ import org.koin.dsl.module
 
 val editCareSchemaModule = module {
     viewModel {
-        EditCareSchemaViewModel(get(), get(), get(), get(), get())
+        EditCareSchemaViewModel(get(), get(), get(), get(), get(), get())
     }
     factory<EditCareSchemaDestination> {
         DestinationImpl()
@@ -35,6 +36,12 @@ val editCareSchemaModule = module {
         DeleteSchemaUseCase(
             dialogService = get(),
             careSchemaDao = get()
+        )
+    }
+    factory {
+        AddSchemaStepUseCase(
+            dialogService = get(),
+            careSchemaStepDao = get()
         )
     }
 }

@@ -57,7 +57,7 @@ internal class CareSchemaStepsAdapter(
     override fun onBindItemData(binding: ItemCareSchemaStepBinding, item: CareSchemaStep) {
         binding.run {
             stepNumber.text = (item.order + 1).toString()
-            stepName.text = context.getString(item.prouctType.resId)
+            stepName.text = context.getString(item.productType.resId)
             card.setOnLongClickListener {
                 handler?.onStepLongClick(item)
                 true

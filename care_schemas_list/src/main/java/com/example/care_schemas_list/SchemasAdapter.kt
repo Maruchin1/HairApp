@@ -49,7 +49,7 @@ internal class SchemasAdapter(
     private fun bindStepData(binding: ItemSchemaStepBinding, step: CareSchemaStep) {
         binding.apply {
             stepOrdinalNumber.text = (step.order + 1).toString()
-            stepName.text = context.getString(step.prouctType.resId)
+            stepName.text = context.getString(step.productType.resId)
         }
     }
 
