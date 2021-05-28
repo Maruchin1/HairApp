@@ -6,7 +6,6 @@ import com.example.corev2.entities.CareSchema
 import com.example.corev2.entities.CareSchemaStep
 import com.example.corev2.entities.Product
 import com.example.corev2.relations.CareSchemaWithSteps
-import com.example.corev2.ui.DialogService
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.coJustRun
@@ -17,7 +16,7 @@ import org.junit.Before
 import org.junit.Test
 
 class AddSchemaStepUseCaseTest {
-    private val dialogService: DialogService = mockk()
+    private val actions: AddSchemaStepUseCase.Actions = mockk()
     private val careSchemaStepDao: CareSchemaStepDao = mockk()
     private val careSchemaWithSteps = CareSchemaWithSteps(
         careSchema = CareSchema(id = 1, name = "OMO"),
@@ -43,7 +42,7 @@ class AddSchemaStepUseCaseTest {
         )
     )
     private val addSchemaStepUseCase by lazy {
-        AddSchemaStepUseCase(dialogService, careSchemaStepDao)
+        AddSchemaStepUseCase(actions, careSchemaStepDao)
     }
 
     @Before
@@ -52,8 +51,8 @@ class AddSchemaStepUseCaseTest {
     }
 
     @Test
-    fun whenCareSchemaIsNull_ReturnNoCareSchemaFail() = runBlocking {
-        coEvery { dialogService.selectProductType(any()) } returns Product.Type.OIL
+    fun careSchemaIsNull() = runBlocking {
+        coEvery { actions.askForProductType(any()) } returns Product.Type.OIL
 
         val result = addSchemaStepUseCase(mockk(), null)
 
@@ -61,22 +60,14 @@ class AddSchemaStepUseCaseTest {
         result.getOrHandle {
             assertThat(it).isInstanceOf(AddSchemaStepUseCase.Fail.NoCareSchema::class.java)
         }
-    }
-
-    @Test
-    fun whenCareSchemaIsNull_DoNotInsertNewStepToDb() = runBlocking {
-        coEvery { dialogService.selectProductType(any()) } returns Product.Type.OIL
-
-        addSchemaStepUseCase(mockk(), null)
-
         coVerify(exactly = 0) {
             careSchemaStepDao.insert(*anyVararg())
         }
     }
 
     @Test
-    fun whenProductTypeNotSelected_ReturnProductNotSelectedFail() = runBlocking {
-        coEvery { dialogService.selectProductType(any()) } returns null
+    fun productTypeNotSelected() = runBlocking {
+        coEvery { actions.askForProductType(any()) } returns null
 
         val result = addSchemaStepUseCase(mockk(), careSchemaWithSteps)
 
@@ -84,34 +75,18 @@ class AddSchemaStepUseCaseTest {
         result.getOrHandle {
             assertThat(it).isInstanceOf(AddSchemaStepUseCase.Fail.ProductTypeNotSelected::class.java)
         }
-    }
-
-    @Test
-    fun whenProductTypeNotSelected_DoNotInsertNewStepToDb() = runBlocking {
-        coEvery { dialogService.selectProductType(any()) } returns null
-
-        addSchemaStepUseCase(mockk(), careSchemaWithSteps)
-
         coVerify(exactly = 0) {
             careSchemaStepDao.insert(*anyVararg())
         }
     }
 
     @Test
-    fun whenProductTypeSelected_ReturnRight() = runBlocking {
-        coEvery { dialogService.selectProductType(any()) } returns Product.Type.OIL
+    fun successfullyAddedStep() = runBlocking {
+        coEvery { actions.askForProductType(any()) } returns Product.Type.OIL
 
         val result = addSchemaStepUseCase(mockk(), careSchemaWithSteps)
 
         assertThat(result.isRight()).isTrue()
-    }
-
-    @Test
-    fun whenProductTypeSelected_InsertNewStepToDb() = runBlocking {
-        coEvery { dialogService.selectProductType(any()) } returns Product.Type.OIL
-
-        addSchemaStepUseCase(mockk(), careSchemaWithSteps)
-
         coVerify {
             careSchemaStepDao.insert(
                 CareSchemaStep(

@@ -7,7 +7,6 @@ import com.example.corev2.room_database.HairAppDatabase
 import com.example.hairapp.MainActivity
 import com.example.hairapp.screen.ProductsListScreen
 import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.koin.test.KoinTest
@@ -22,15 +21,11 @@ abstract class ProductFormTest : KoinTest {
 
     @Before
     fun before() {
+        database.clearAllTables()
         populateProducts()
         ProductsListScreen {
             addProductButton.click()
         }
-    }
-
-    @After
-    fun after() {
-        database.clearAllTables()
     }
 
     protected fun populateProducts() = runBlocking {

@@ -5,4 +5,5 @@
     <string name="edit_care_schema">Edytuj schemat pielęgnacji</string>
     <string name="change_steps_order">Zmień kolejność kroków</string>
     <string name="add_care_step">Dodaj krok pielęgnacji</string>
+    <string name="delete_step">Usunąć krok</string>
 </resources>

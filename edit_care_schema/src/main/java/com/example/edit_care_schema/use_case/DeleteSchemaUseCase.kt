@@ -5,11 +5,9 @@ import arrow.core.Either
 import arrow.core.computations.either
 import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.entities.CareSchema
-import com.example.corev2.ui.DialogService
-import com.example.edit_care_schema.R
 
 internal class DeleteSchemaUseCase(
-    private val dialogService: DialogService,
+    private val actions: Actions,
     private val careSchemaDao: CareSchemaDao
 ) {
 
@@ -24,10 +22,7 @@ internal class DeleteSchemaUseCase(
     }
 
     private suspend fun confirmDeletion(context: Context): Either<Fail, Unit> {
-        val confirmed = dialogService.confirm(
-            context = context,
-            title = context.getString(R.string.delete_care_schema)
-        )
+        val confirmed = actions.confirmDeletion(context)
         return if (confirmed) {
             Either.Right(Unit)
         } else {
@@ -42,5 +37,9 @@ internal class DeleteSchemaUseCase(
     sealed class Fail {
         object NoCareSchema : Fail()
         object NotConfirmed : Fail()
+    }
+
+    interface Actions {
+        suspend fun confirmDeletion(context: Context): Boolean
     }
 }

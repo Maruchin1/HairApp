@@ -11,16 +11,17 @@ import com.example.corev2.relations.CareSchemaWithSteps
 import com.example.corev2.ui.DialogService
 import com.example.edit_care_schema.use_case.AddSchemaStepUseCase
 import com.example.edit_care_schema.use_case.ChangeSchemaNameUseCase
+import com.example.edit_care_schema.use_case.DeleteSchemaStepUseCase
 import com.example.edit_care_schema.use_case.DeleteSchemaUseCase
 import kotlinx.coroutines.flow.*
 
 internal class EditCareSchemaViewModel(
     private val careSchemaDao: CareSchemaDao,
     private val careSchemaStepDao: CareSchemaStepDao,
-    private val dialogService: DialogService,
     private val changeSchemaNameUseCase: ChangeSchemaNameUseCase,
     private val deleteSchemaUseCase: DeleteSchemaUseCase,
-    private val addSchemaStepUseCase: AddSchemaStepUseCase
+    private val addSchemaStepUseCase: AddSchemaStepUseCase,
+    private val deleteSchemaStepUseCase: DeleteSchemaStepUseCase
 ) : ViewModel() {
 
     private val careSchemaId = MutableStateFlow<Long?>(null)
@@ -69,29 +70,12 @@ internal class EditCareSchemaViewModel(
         careSchemaStepDao.update(*steps.toTypedArray())
     }
 
-    suspend fun deleteStep(context: Context, step: CareSchemaStep) {
-        dialogService.confirm(
-            context = context,
-            title = "Usunąć krok ${step.order + 1} ${context.getString(step.productType.resId)}?"
-        ).let { confirmed ->
-            if (confirmed) {
-                careSchemaStepDao.delete(step)
-                withCurrentCareSchema {
-                    val mutableSteps = it.steps.toMutableList()
-                    mutableSteps.remove(step)
-                    mutableSteps.forEachIndexed { index, careSchemaStep ->
-                        careSchemaStep.order = index
-                    }
-                    careSchemaStepDao.update(*mutableSteps.toTypedArray())
-                }
-            }
-        }
-    }
-
-    private suspend fun withCurrentCareSchema(action: suspend (CareSchemaWithSteps) -> Unit) {
-        careSchemaWithStepsFlow
-            .firstOrNull()
-            ?.let { action(it) }
+    suspend fun deleteStep(
+        context: Context,
+        step: CareSchemaStep
+    ): Either<DeleteSchemaStepUseCase.Fail, Unit> = either {
+        val careSchema = careSchemaWithStepsFlow.firstOrNull()
+        deleteSchemaStepUseCase(context, careSchema, step).bind()
     }
 
     private fun getSortedByOrder(steps: List<CareSchemaStep>): List<CareSchemaStep> {

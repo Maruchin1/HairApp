@@ -2,10 +2,8 @@ package com.example.edit_care_schema.use_case
 
 import android.content.Context
 import arrow.core.getOrHandle
-import arrow.core.handleError
 import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.entities.CareSchema
-import com.example.corev2.ui.DialogService
 import com.example.edit_care_schema.R
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
@@ -16,10 +14,10 @@ import org.junit.Test
 class DeleteSchemaUseCaseTest {
     private val context: Context = mockk()
     private val schema = CareSchema(id = 1, name = "OMO")
-    private val dialogService: DialogService = mockk()
+    private val actions: DeleteSchemaUseCase.Actions = mockk()
     private val careSchemaDao: CareSchemaDao = mockk()
     private val deleteSchemaUseCase by lazy {
-        DeleteSchemaUseCase(dialogService, careSchemaDao)
+        DeleteSchemaUseCase(actions, careSchemaDao)
     }
 
     @Before
@@ -29,8 +27,8 @@ class DeleteSchemaUseCaseTest {
     }
 
     @Test
-    fun whenSchemaIsNull_ReturnNoCareSchemaFail() = runBlocking {
-        coEvery { dialogService.confirm(any(), any(), any()) } returns true
+    fun schemaIsNull() = runBlocking {
+        coEvery { actions.confirmDeletion(any()) } returns true
 
         val result = deleteSchemaUseCase(context, null)
 
@@ -38,31 +36,14 @@ class DeleteSchemaUseCaseTest {
         result.getOrHandle {
             assertThat(it).isInstanceOf(DeleteSchemaUseCase.Fail.NoCareSchema::class.java)
         }
-    }
-
-    @Test
-    fun whenConfirmed_ReturnRight() = runBlocking {
-        coEvery { dialogService.confirm(any(), any(), any()) } returns true
-
-        val result = deleteSchemaUseCase(context, schema)
-
-        assertThat(result.isRight()).isTrue()
-    }
-
-    @Test
-    fun whenConfirmed_DeleteSchemaFormDb() = runBlocking {
-        coEvery { dialogService.confirm(any(), any(), any()) } returns true
-
-        deleteSchemaUseCase(context, schema)
-
-        coVerify {
-            careSchemaDao.delete(schema)
+        coVerify(exactly = 0) {
+            careSchemaDao.delete(*anyVararg())
         }
     }
 
     @Test
-    fun whenNotConfirmed_IsNotConfirmed() = runBlocking {
-        coEvery { dialogService.confirm(any(), any(), any()) } returns false
+    fun deletionNotConfirmed() = runBlocking {
+        coEvery { actions.confirmDeletion(any()) } returns false
 
         val result = deleteSchemaUseCase(context, schema)
 
@@ -70,16 +51,20 @@ class DeleteSchemaUseCaseTest {
         result.getOrHandle {
             assertThat(it).isInstanceOf(DeleteSchemaUseCase.Fail.NotConfirmed::class.java)
         }
+        coVerify(exactly = 0) {
+            careSchemaDao.delete(*anyVararg())
+        }
     }
 
     @Test
-    fun whenNotConfirmed_DoNotDeleteSchemaFromDb() = runBlocking {
-        coEvery { dialogService.confirm(any(), any(), any()) } returns false
+    fun successfullyDeleted() = runBlocking {
+        coEvery { actions.confirmDeletion(any()) } returns true
 
-        deleteSchemaUseCase(context, schema)
+        val result = deleteSchemaUseCase(context, schema)
 
-        coVerify(exactly = 0) {
-            careSchemaDao.delete(*anyVararg())
+        assertThat(result.isRight()).isTrue()
+        coVerify {
+            careSchemaDao.delete(schema)
         }
     }
 }

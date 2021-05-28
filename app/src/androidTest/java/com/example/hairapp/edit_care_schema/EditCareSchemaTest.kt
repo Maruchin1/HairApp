@@ -9,7 +9,6 @@ import com.example.hairapp.screen.HomeScreen
 import com.example.hairapp.screen.KCareSchemaItem
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.koin.test.KoinTest
@@ -25,6 +24,7 @@ abstract class EditCareSchemaTest : KoinTest {
 
     @Before
     fun before() {
+        database.clearAllTables()
         HomeScreen {
             careSchemasListButton.click()
         }
@@ -42,10 +42,5 @@ abstract class EditCareSchemaTest : KoinTest {
                 }
             }
         }
-    }
-
-    @After
-    fun after() {
-        database.clearAllTables()
     }
 }

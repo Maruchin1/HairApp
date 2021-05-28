@@ -5,7 +5,6 @@ import com.example.corev2.entities.Product
 import com.example.corev2.room_database.HairAppDatabase
 import com.example.hairapp.MainActivity
 import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.koin.test.KoinTest
@@ -18,8 +17,8 @@ abstract class ProductsListTest : KoinTest {
 
     protected val database: HairAppDatabase by inject()
 
-    @After
-    fun after() {
+    @Before
+    fun before() {
         database.clearAllTables()
     }
 

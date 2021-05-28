@@ -8,9 +8,8 @@ import com.example.corev2.entities.CareSchema
 import com.example.corev2.ui.DialogService
 
 internal class ChangeSchemaNameUseCase(
-    private val dialogService: DialogService,
+    private val actions: Actions,
     private val careSchemaDao: CareSchemaDao,
-    private val changeSchemaNameTitle: String
 ) {
 
     suspend operator fun invoke(
@@ -31,11 +30,7 @@ internal class ChangeSchemaNameUseCase(
         context: Context,
         currentName: String
     ): Either<Fail, String> {
-        val newName = dialogService.typeText(
-            context = context,
-            title = changeSchemaNameTitle,
-            currentValue = currentName
-        )
+        val newName = actions.askForNewName(context, currentName)
         return if (newName == null) {
             Either.Left(Fail.NewNameNotTyped)
         } else {
@@ -58,5 +53,9 @@ internal class ChangeSchemaNameUseCase(
     sealed class Fail {
         object NoCareSchema : Fail()
         object NewNameNotTyped : Fail()
+    }
+
+    interface Actions {
+        suspend fun askForNewName(context: Context, currentName: String): String?
     }
 }

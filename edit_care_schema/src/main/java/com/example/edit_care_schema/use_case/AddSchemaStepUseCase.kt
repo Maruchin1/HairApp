@@ -10,7 +10,7 @@ import com.example.corev2.relations.CareSchemaWithSteps
 import com.example.corev2.ui.DialogService
 
 internal class AddSchemaStepUseCase(
-    private val dialogService: DialogService,
+    private val actions: Actions,
     private val careSchemaStepDao: CareSchemaStepDao
 ) {
 
@@ -29,9 +29,9 @@ internal class AddSchemaStepUseCase(
     }
 
     private suspend fun askForProductType(context: Context): Either<Fail, Product.Type> {
-        val selectedType = dialogService.selectProductType(context)
+        val selectedType = actions.askForProductType(context)
         return if (selectedType == null) {
-            Either.Left(Fail.ProductTypeNotSelected);
+            Either.Left(Fail.ProductTypeNotSelected)
         } else {
             Either.Right(selectedType)
         }
@@ -49,5 +49,9 @@ internal class AddSchemaStepUseCase(
     sealed class Fail {
         object NoCareSchema : Fail()
         object ProductTypeNotSelected : Fail()
+    }
+
+    interface Actions {
+        suspend fun askForProductType(context: Context): Product.Type?
     }
 }
