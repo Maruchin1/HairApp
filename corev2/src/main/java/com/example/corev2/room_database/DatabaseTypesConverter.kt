@@ -2,6 +2,7 @@ package com.example.corev2.room_database
 
 import androidx.room.TypeConverter
 import com.example.corev2.entities.Product
+import java.time.LocalDate
 
 internal class DatabaseTypesConverter {
 
@@ -42,5 +43,15 @@ internal class DatabaseTypesConverter {
             .split(",")
             .map { Product.Application.valueOf(it) }
             .toSet()
+    }
+
+    @TypeConverter
+    fun fromLocalDate(value: LocalDate?): String? {
+        return value?.toString()
+    }
+
+    @TypeConverter
+    fun toLocalDate(value: String?): LocalDate? {
+        return value?.let { LocalDate.parse(it) }
     }
 }

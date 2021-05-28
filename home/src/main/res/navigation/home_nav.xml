@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/caresListFragment"
-        android:name="com.example.cares_list.CaresListFragment"
+        android:name="com.example.cares_list.components.CaresListFragment"
         android:label="CaresListFragment"
         tools:layout="@layout/fragment_cares_list" />
 </navigation>

@@ -5,6 +5,7 @@ import com.example.corev2.data_store.InitializationCompletionStore
 import com.example.corev2.room_database.DatabaseInitializer
 import com.example.corev2.room_database.DatabaseInitializerImpl
 import com.example.corev2.room_database.HairAppDatabase
+import com.example.corev2.service.ClockService
 import com.example.corev2.ui.DialogService
 import com.example.corev2.ui.ImagePickerService
 import org.koin.android.ext.koin.androidContext
@@ -34,9 +35,21 @@ val corev2Module = module {
         get<HairAppDatabase>().productDao()
     }
     factory {
+        get<HairAppDatabase>().careDao()
+    }
+    factory {
+        get<HairAppDatabase>().carePhotoDao()
+    }
+    factory {
+        get<HairAppDatabase>().careStepDao()
+    }
+    factory {
         DialogService()
     }
     factory {
         ImagePickerService()
+    }
+    factory {
+        ClockService()
     }
 }

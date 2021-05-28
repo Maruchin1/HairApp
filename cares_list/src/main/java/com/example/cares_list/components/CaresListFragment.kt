@@ -1,4 +1,4 @@
-package com.example.cares_list
+package com.example.cares_list.components
 
 import android.os.Bundle
 import android.view.View

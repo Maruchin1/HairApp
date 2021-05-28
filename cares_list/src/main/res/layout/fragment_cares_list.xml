@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppBar">
 
-        <com.example.cares_list.ViewCaresHeader
+        <com.example.cares_list.components.ViewCaresHeader
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll" />
