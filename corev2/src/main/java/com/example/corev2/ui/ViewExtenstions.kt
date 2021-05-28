@@ -1,12 +1,17 @@
 package com.example.corev2.ui
 
 import android.net.Uri
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.core.view.updateLayoutParams
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.viewbinding.ViewBinding
 import com.example.corev2.entities.Product
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -52,4 +57,12 @@ fun Chip.setIsCheckedSource(source: MutableLiveData<Boolean>, lifecycleOwner: Li
     setOnCheckedChangeListener { _, isChecked ->
         source.value = isChecked
     }
+}
+
+fun <VB : ViewBinding> ViewGroup.bindLayout(bindingInflater: (LayoutInflater, ViewGroup, Boolean) -> VB): VB {
+    return bindingInflater(LayoutInflater.from(context), this, true)
+}
+
+fun View.setWeight(weight: Double) {
+    updateLayoutParams<LinearLayout.LayoutParams> { this.weight = weight.toFloat() }
 }

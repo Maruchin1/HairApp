@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_schema">Dodaj schema</string>
+    <string name="peh_stats">Statystyki PEH</string>
+    <string name="photos_gallery">Galeria zdjęć</string>
+    <string name="last_care">Ostatnia pielęgnacja</string>
+    <string name="photos">Zdjęcia</string>
+    <string name="peh">PEH</string>
+    <string name="add_care">Dodaj pielęgnację</string>
+</resources>

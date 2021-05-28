@@ -7,10 +7,9 @@ import com.example.product_form.databinding.ActivityProductForm2Binding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-internal class ProductFormActivity : BaseActivity<ActivityProductForm2Binding>() {
-
-    override val inflateBinding: InflateActivityBinding<ActivityProductForm2Binding>
-        get() = ActivityProductForm2Binding::inflate
+internal class ProductFormActivity : BaseActivity<ActivityProductForm2Binding>(
+    bindingInflater = ActivityProductForm2Binding::inflate
+) {
 
     private val viewModel: ProductFormViewModel by viewModel()
 

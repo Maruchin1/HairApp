@@ -27,5 +27,9 @@
     <string name="foam">Pianka</string>
     <string name="serum">Serum</string>
     <string name="gel">Żel</string>
+    <string name="letter_h">H</string>
+    <string name="letter_e">E</string>
+    <string name="letter_p">P</string>
+    <string name="proportion_of_ingredients">Proporcje składników</string>
 
 </resources>

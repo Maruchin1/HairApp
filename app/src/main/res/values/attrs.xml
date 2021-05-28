@@ -34,9 +34,4 @@
         <attr name="titleResId" format="reference" />
     </declare-styleable>
 
-    <declare-styleable name="StatCounterView">
-        <attr name="value" format="string" />
-        <attr name="label" format="string" />
-    </declare-styleable>
-
 </resources>

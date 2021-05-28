@@ -73,34 +73,33 @@
                     android:textColor="@color/color_white"
                     app:drawableEndCompat="@drawable/ic_round_arrow_drop_down_24"
                     app:drawableTint="@color/color_white"
-                    app:layout_constraintBottom_toTopOf="@id/stat_last_month_cares"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/peh_balance_chart" />
 
-                <com.example.hairapp.views.StatCounterView
-                    android:id="@+id/stat_last_month_cares"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="16dp"
-                    app:label="@string/num_of_last_month_cares"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/stat_avg_days_between_cares"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:value='@{`` + viewModel.numOfLastMonthCares, default="12"}' />
+<!--                <com.example.hairapp.views.StatCounterView-->
+<!--                    android:id="@+id/stat_last_month_cares"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:layout_marginBottom="16dp"-->
+<!--                    app:label="@string/num_of_last_month_cares"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toStartOf="@id/stat_avg_days_between_cares"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:value='@{`` + viewModel.numOfLastMonthCares, default="12"}' />-->
 
-                <com.example.hairapp.views.StatCounterView
-                    android:id="@+id/stat_avg_days_between_cares"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="16dp"
-                    app:label="@string/avg_days_interval_between_cares"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/stat_last_month_cares"
-                    app:value='@{`` + viewModel.avgDaysIntervalBetweenCares, default="17"}' />
+<!--                <com.example.hairapp.views.StatCounterView-->
+<!--                    android:id="@+id/stat_avg_days_between_cares"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="8dp"-->
+<!--                    android:layout_marginBottom="16dp"-->
+<!--                    app:label="@string/avg_days_interval_between_cares"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/stat_last_month_cares"-->
+<!--                    app:value='@{`` + viewModel.avgDaysIntervalBetweenCares, default="17"}' />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

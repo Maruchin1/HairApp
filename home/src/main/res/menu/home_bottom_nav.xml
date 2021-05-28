@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_cares"
+        android:id="@+id/caresListFragment"
         android:icon="@drawable/ic_round_bathtub_24"
         android:title="@string/cares" />
 

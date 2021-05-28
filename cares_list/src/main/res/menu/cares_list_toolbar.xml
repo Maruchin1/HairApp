@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/add_care"
+        android:icon="@drawable/ic_round_add_24"
+        android:title="@string/add_schema"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/open_peh_stats"
+        android:icon="@drawable/ic_round_pie_chart_24"
+        android:title="@string/peh_stats"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/open_gallery"
+        android:icon="@drawable/ic_round_photo_library_24"
+        android:title="@string/photos_gallery"
+        app:showAsAction="ifRoom" />
+
+</menu>

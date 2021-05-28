@@ -13,11 +13,10 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-internal class EditCareSchemaActivity : BaseActivity<ActivityEditCareSchemaBinding>(),
+internal class EditCareSchemaActivity : BaseActivity<ActivityEditCareSchemaBinding>(
+    bindingInflater = ActivityEditCareSchemaBinding::inflate
+),
     CareSchemaStepsAdapter.Handler {
-
-    override val inflateBinding: InflateActivityBinding<ActivityEditCareSchemaBinding>
-        get() = ActivityEditCareSchemaBinding::inflate
 
     private val careSchemaId: Long
         get() = intent.getLongExtra(CARE_SCHEMA_ID, -1)

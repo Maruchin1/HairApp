@@ -11,10 +11,9 @@ import com.example.products_list.databinding.FragmentProductsListBinding
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ProductsListFragment : BaseFragment<FragmentProductsListBinding>() {
-
-    override val inflateBinding: InflateBinding<FragmentProductsListBinding>
-        get() = FragmentProductsListBinding::inflate
+class ProductsListFragment : BaseFragment<FragmentProductsListBinding>(
+    bindingInflater = FragmentProductsListBinding::inflate
+) {
 
     private val viewModel: ProductsListViewModel by viewModel()
     private val productsAdapter: ProductsAdapter by inject()

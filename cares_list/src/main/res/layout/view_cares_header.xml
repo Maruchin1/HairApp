@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/color_primary">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/today_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_round_event_24"
+            android:tint="@color/color_white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/today"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="Wtorek 09 Marzec"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/color_white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/today_icon"
+            app:layout_constraintEnd_toStartOf="@id/counter_days_from_last_care"
+            app:layout_constraintStart_toEndOf="@id/today_icon"
+            app:layout_constraintTop_toTopOf="@id/today_icon" />
+
+        <TextView
+            android:id="@+id/label_last_care"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/last_care"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            android:textColor="@color/color_white"
+            app:layout_constraintBottom_toBottomOf="@id/counter_days_from_last_care"
+            app:layout_constraintEnd_toStartOf="@id/counter_days_from_last_care"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/today"
+            app:layout_constraintVertical_bias="1" />
+
+        <com.example.corev2.ui.StatCounterView
+            android:id="@+id/counter_days_from_last_care"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gallery"
+            style="@style/Button.Text.Dark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/photos"
+            app:icon="@drawable/ic_round_photo_library_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_open_statistics"
+            app:layout_constraintTop_toBottomOf="@id/counter_days_from_last_care" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_open_statistics"
+            style="@style/Button.Text.Dark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/peh"
+            app:icon="@drawable/ic_round_pie_chart_24"
+            app:layout_constraintBottom_toBottomOf="@id/btn_gallery"
+            app:layout_constraintEnd_toStartOf="@id/btn_gallery"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_gallery" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

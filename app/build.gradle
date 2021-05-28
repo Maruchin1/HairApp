@@ -70,6 +70,7 @@ dependencies {
     implementation project(':product_form')
     implementation project(':care_schemas_list')
     implementation project(':edit_care_schema')
+    implementation project(':cares_list')
 
     // Unit tests
     testImplementation 'junit:junit:4.12'

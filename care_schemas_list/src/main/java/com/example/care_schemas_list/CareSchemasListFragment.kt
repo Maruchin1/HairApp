@@ -15,11 +15,10 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CareSchemasListFragment : BaseFragment<FragmentCareSchemasListBinding>(),
+class CareSchemasListFragment : BaseFragment<FragmentCareSchemasListBinding>(
+    bindingInflater = FragmentCareSchemasListBinding::inflate
+),
     SchemasAdapter.Handler {
-
-    override val inflateBinding: InflateBinding<FragmentCareSchemasListBinding>
-        get() = FragmentCareSchemasListBinding::inflate
 
     private val viewModel: CareSchemasListViewModel by viewModel()
     private val schemasAdapter: SchemasAdapter by inject()

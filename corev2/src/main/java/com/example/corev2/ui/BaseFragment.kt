@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<VB : ViewBinding> : Fragment() {
-
-    protected abstract val inflateBinding: InflateBinding<VB>
+abstract class BaseFragment<VB : ViewBinding>(
+    private val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
+) : Fragment() {
 
     private var _binding: VB? = null
 
@@ -21,7 +21,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = inflateBinding(inflater, container, false)
+        _binding = bindingInflater(inflater, container, false)
         return binding.root
     }
 
