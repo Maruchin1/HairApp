@@ -7,14 +7,8 @@ class CareDetailsDestination(
     override val activityClass: Class<*>
 ) : Destination<CareDetailsDestination.Params>() {
 
-    sealed class Params : Parcelable {
-
-        @Parcelize
-        data class AddNewCare(val careSchemaId: Long) : Params()
-
-        @Parcelize
-        data class OpenCare(val careId: Long) : Params()
-    }
+    @Parcelize
+    data class Params(val careId: Long) : Parcelable
 
     companion object {
         const val ACTIVITY = "care_details_activity"

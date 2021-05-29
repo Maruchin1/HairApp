@@ -8,6 +8,7 @@ import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.databinding.ViewSingleInputBinding
 import com.example.corev2.entities.CareSchema
 import com.example.corev2.entities.Product
+import com.example.corev2.relations.CareSchemaWithSteps
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.first
@@ -111,15 +112,19 @@ class DialogService(
 
     suspend fun selectCareSchema(
         context: Context,
-    ): CareSchema? {
+    ): CareSchemaWithSteps? {
         val schemas = careSchemaDao.getAll()
             .firstOrNull()
-            ?.map { it.careSchema }
-            ?: emptyList()
-        val noSchema = CareSchema(id = -1, name = context.getString(R.string.without_schema))
+            ?: listOf()
+        val noSchema = CareSchemaWithSteps(
+            careSchema = CareSchema(id = -1, name = context.getString(R.string.without_schema)),
+            steps = listOf()
+        )
         val schemasOptions = schemas + noSchema
+        val items = schemasOptions
+            .map { it.careSchema.name }
+            .toTypedArray()
         return suspendCoroutine {
-            val items = schemasOptions.map { it.name }.toTypedArray()
             MaterialAlertDialogBuilder(context)
                 .setTitle("Schemat pielęgnacji")
                 .setItems(items) { _, which ->

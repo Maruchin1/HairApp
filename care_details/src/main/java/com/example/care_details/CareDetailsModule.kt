@@ -9,7 +9,7 @@ import org.koin.dsl.module
 
 val careDetailsModule = module {
     viewModel {
-        CareDetailsViewModel(get())
+        CareDetailsViewModel(get(), get())
     }
     factory(named(CareDetailsDestination.ACTIVITY)) {
         CareDetailsActivity::class.java

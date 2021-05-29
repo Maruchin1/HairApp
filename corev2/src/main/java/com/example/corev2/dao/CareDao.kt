@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface CareDao {
 
     @Insert
-    suspend fun insert(vararg care: Care)
+    suspend fun insert(vararg care: Care): Array<Long>
 
     @Update
     suspend fun update(vararg care: Care)

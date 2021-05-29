@@ -24,4 +24,7 @@ data class CareSchemaStep(
     var order: Int,
 
     val careSchemaId: Long
-)
+) {
+
+    fun toCareStep() = CareStep(-1, productType, order, null, -1)
+}
