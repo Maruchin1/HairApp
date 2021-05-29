@@ -3,15 +3,18 @@ package com.example.care_details
 import com.example.care_details.components.CareDetailsActivity
 import com.example.care_details.components.CareDetailsViewModel
 import com.example.care_details.components.CareStepsAdapter
+import com.example.care_details.components.UseCaseActions
+import com.example.care_details.use_case.ChangeCareDateUseCase
 import com.example.corev2.navigation.CareDetailsDestination
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
+import org.koin.dsl.binds
 import org.koin.dsl.module
 
 val careDetailsModule = module {
     viewModel {
-        CareDetailsViewModel(get(), get())
+        CareDetailsViewModel(get(), get(), get())
     }
     factory(named(CareDetailsDestination.ACTIVITY)) {
         CareDetailsActivity::class.java
@@ -19,4 +22,12 @@ val careDetailsModule = module {
     factory {
         CareStepsAdapter(androidContext())
     }
+    factory {
+        ChangeCareDateUseCase(get(), get())
+    }
+    single {
+        UseCaseActions(get())
+    } binds arrayOf(
+        ChangeCareDateUseCase.Actions::class
+    )
 }

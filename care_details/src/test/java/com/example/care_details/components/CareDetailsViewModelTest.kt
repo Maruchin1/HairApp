@@ -2,24 +2,23 @@ package com.example.care_details.components
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asFlow
+import arrow.core.Either
+import com.example.care_details.use_case.ChangeCareDateUseCase
 import com.example.corev2.dao.CareDao
-import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.entities.*
-import com.example.corev2.relations.CareSchemaWithSteps
 import com.example.corev2.relations.CareStepWithProduct
 import com.example.corev2.relations.CareWithStepsAndPhotos
 import com.example.corev2.service.ClockService
 import com.example.testing.rules.CoroutinesTestRule
 import com.google.common.truth.Truth.assertThat
-import io.mockk.every
-import io.mockk.mockk
+import io.mockk.*
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 class CareDetailsViewModelTest {
 
@@ -31,18 +30,64 @@ class CareDetailsViewModelTest {
 
     private val clockService: ClockService = mockk()
     private val careDao: CareDao = mockk()
+    private val changeCareDateUseCase: ChangeCareDateUseCase = mockk()
     private val viewModel by lazy {
-        CareDetailsViewModel(clockService, careDao)
+        CareDetailsViewModel(clockService, careDao, changeCareDateUseCase)
     }
+
+    private val careWithStepsAndPhotosFromDb = CareWithStepsAndPhotos(
+        care = Care(
+            id = 1,
+            schemaName = "OMO",
+            date = LocalDateTime.now(),
+            notes = "Lorem ipsum"
+        ),
+        steps = listOf(
+            CareStepWithProduct(
+                careStep = CareStep(
+                    id = 1,
+                    productType = Product.Type.CONDITIONER,
+                    order = 0,
+                    productId = null,
+                    careId = 1
+                ),
+                product = null
+            ),
+            CareStepWithProduct(
+                careStep = CareStep(
+                    id = 2,
+                    productType = Product.Type.SHAMPOO,
+                    order = 0,
+                    productId = null,
+                    careId = 1
+                ),
+                product = null
+            ),
+            CareStepWithProduct(
+                careStep = CareStep(
+                    id = 3,
+                    productType = Product.Type.CONDITIONER,
+                    order = 0,
+                    productId = null,
+                    careId = 1
+                ),
+                product = null
+            )
+        ),
+        photos = listOf(
+            CarePhoto(id = 1, data = "abc", careId = 1)
+        )
+    )
 
     @Before
     fun before() {
-        every { clockService.getNow() } returns LocalDate.now()
+        every { clockService.getNow() } returns LocalDateTime.now()
+        every { careDao.getById(1) } returns flowOf(careWithStepsAndPhotosFromDb)
     }
 
     @Test
     fun careDate_IsCurrentDateByDefault() = runBlocking {
-        val fakeNow = LocalDate.now()
+        val fakeNow = LocalDateTime.now()
         every { clockService.getNow() } returns fakeNow
 
         val result = viewModel.careDate.asFlow().firstOrNull()
@@ -51,62 +96,7 @@ class CareDetailsViewModelTest {
     }
 
     @Test
-    fun onCareDateSelected_ChangeCareDate() = runBlocking {
-        val newDate = LocalDate.now()
-
-        viewModel.onCareDateSelected(newDate)
-        val result = viewModel.careDate.asFlow().firstOrNull()
-
-        assertThat(result).isEqualTo(newDate)
-    }
-
-    @Test
     fun onCareSelected_ApplyCareData() = runBlocking {
-        val careWithStepsAndPhotosFromDb = CareWithStepsAndPhotos(
-            care = Care(
-                id = 1,
-                schemaName = "OMO",
-                date = LocalDate.now(),
-                notes = "Lorem ipsum"
-            ),
-            steps = listOf(
-                CareStepWithProduct(
-                    careStep = CareStep(
-                        id = 1,
-                        productType = Product.Type.CONDITIONER,
-                        order = 0,
-                        productId = null,
-                        careId = 1
-                    ),
-                    product = null
-                ),
-                CareStepWithProduct(
-                    careStep = CareStep(
-                        id = 2,
-                        productType = Product.Type.SHAMPOO,
-                        order = 0,
-                        productId = null,
-                        careId = 1
-                    ),
-                    product = null
-                ),
-                CareStepWithProduct(
-                    careStep = CareStep(
-                        id = 3,
-                        productType = Product.Type.CONDITIONER,
-                        order = 0,
-                        productId = null,
-                        careId = 1
-                    ),
-                    product = null
-                )
-            ),
-            photos = listOf(
-                CarePhoto(id = 1, data = "abc", careId = 1)
-            )
-        )
-        every { careDao.getById(any()) } returns flowOf(careWithStepsAndPhotosFromDb)
-
         viewModel.onCareSelected(1)
         val schemaName = viewModel.schemaName.asFlow().firstOrNull()
         val steps = viewModel.steps.asFlow().firstOrNull()
@@ -117,5 +107,17 @@ class CareDetailsViewModelTest {
         assertThat(steps).isEqualTo(careWithStepsAndPhotosFromDb.steps)
         assertThat(notes).isEqualTo(careWithStepsAndPhotosFromDb.care.notes)
         assertThat(photos).isEqualTo(careWithStepsAndPhotosFromDb.photos)
+    }
+
+    @Test
+    fun onChangeDateClicked_InvokeChangeCareDateUseCase() {
+        coEvery { changeCareDateUseCase(any()) } returns Either.Right(Unit)
+
+        viewModel.onCareSelected(1)
+        viewModel.onChangeDateClicked()
+
+        coVerify {
+            changeCareDateUseCase.invoke(careWithStepsAndPhotosFromDb.care)
+        }
     }
 }

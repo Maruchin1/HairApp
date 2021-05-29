@@ -3,6 +3,7 @@ package com.example.corev2.room_database
 import androidx.room.TypeConverter
 import com.example.corev2.entities.Product
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 internal class DatabaseTypesConverter {
 
@@ -53,5 +54,15 @@ internal class DatabaseTypesConverter {
     @TypeConverter
     fun toLocalDate(value: String?): LocalDate? {
         return value?.let { LocalDate.parse(it) }
+    }
+
+    @TypeConverter
+    fun fromLocalDateTime(value: LocalDateTime?): String? {
+        return value?.toString()
+    }
+
+    @TypeConverter
+    fun toLocalDateTime(value: String?): LocalDateTime? {
+        return value?.let { LocalDateTime.parse(it) }
     }
 }

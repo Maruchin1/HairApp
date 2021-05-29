@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 internal class CaresListViewModel(
     private val careDao: CareDao,
@@ -27,7 +28,7 @@ internal class CaresListViewModel(
     private val orderedCaresFlow = careDao.getAllCares()
         .map { sortCaresFromNewest(it) }
 
-    val today: LiveData<LocalDate> = liveData {
+    val today: LiveData<LocalDateTime> = liveData {
         emit(clockService.getNow())
     }
 

@@ -16,6 +16,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 class AddNewCareUseCaseTest {
     private val actions: AddNewCareUseCase.Actions = mockk()
@@ -50,7 +51,7 @@ class AddNewCareUseCaseTest {
             ),
         )
     )
-    private val today = LocalDate.now()
+    private val today = LocalDateTime.now()
 
     @Before
     fun before() {

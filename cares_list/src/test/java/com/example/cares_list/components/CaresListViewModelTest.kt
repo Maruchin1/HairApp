@@ -20,6 +20,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 class CaresListViewModelTest {
 
@@ -40,12 +41,12 @@ class CaresListViewModelTest {
     @Before
     fun before() {
         every { careDao.getAllCares() } returns flowOf(listOf())
-        every { clockService.getNow() } returns LocalDate.now()
+        every { clockService.getNow() } returns LocalDateTime.now()
     }
 
     @Test
     fun emitToday() = runBlocking {
-        val fakeNow = LocalDate.now()
+        val fakeNow = LocalDateTime.now()
         coEvery { clockService.getNow() } returns fakeNow
 
         val result = viewModel.today.asFlow().firstOrNull()
@@ -60,7 +61,7 @@ class CaresListViewModelTest {
                 care = Care(
                     id = 1,
                     schemaName = "OMO",
-                    date = LocalDate.of(2021, 5, 11),
+                    date = LocalDateTime.of(2021, 5, 11, 0, 0),
                     notes = ""
                 ),
                 steps = listOf(),
@@ -70,7 +71,7 @@ class CaresListViewModelTest {
                 care = Care(
                     id = 2,
                     schemaName = "OMO",
-                    date = LocalDate.of(2021, 5, 20),
+                    date = LocalDateTime.of(2021, 5, 20, 0, 0),
                     notes = ""
                 ),
                 steps = listOf(),
@@ -80,14 +81,14 @@ class CaresListViewModelTest {
                 care = Care(
                     id = 3,
                     schemaName = "OMO",
-                    date = LocalDate.of(2021, 5, 16),
+                    date = LocalDateTime.of(2021, 5, 16, 0, 0),
                     notes = ""
                 ),
                 steps = listOf(),
                 photos = listOf()
             )
         )
-        val fakeNow = LocalDate.of(2021, 5, 25)
+        val fakeNow = LocalDateTime.of(2021, 5, 25, 0, 0)
         every { careDao.getAllCares() } returns flowOf(caresFromDb)
         every { clockService.getNow() } returns fakeNow
 
@@ -103,7 +104,7 @@ class CaresListViewModelTest {
                 care = Care(
                     id = 1,
                     schemaName = "OMO",
-                    date = LocalDate.of(2021, 5, 11),
+                    date = LocalDateTime.of(2021, 5, 11, 0, 0),
                     notes = ""
                 ),
                 steps = listOf(),
@@ -113,7 +114,7 @@ class CaresListViewModelTest {
                 care = Care(
                     id = 2,
                     schemaName = "OMO",
-                    date = LocalDate.of(2021, 5, 20),
+                    date = LocalDateTime.of(2021, 5, 20, 0, 0),
                     notes = ""
                 ),
                 steps = listOf(),
@@ -123,7 +124,7 @@ class CaresListViewModelTest {
                 care = Care(
                     id = 3,
                     schemaName = "OMO",
-                    date = LocalDate.of(2021, 5, 16),
+                    date = LocalDateTime.of(2021, 5, 16, 0, 0),
                     notes = ""
                 ),
                 steps = listOf(),
@@ -155,7 +156,7 @@ class CaresListViewModelTest {
                 care = Care(
                     id = 1,
                     schemaName = "OMO",
-                    date = LocalDate.of(2021, 5, 11),
+                    date = LocalDateTime.of(2021, 5, 11, 0, 0),
                     notes = ""
                 ),
                 steps = listOf(),

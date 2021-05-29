@@ -8,13 +8,14 @@ import com.example.cares_list.databinding.ViewCaresHeaderBinding
 import com.example.corev2.service.formatDayOfWeekAndMonth
 import com.example.corev2.ui.bindLayout
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 internal class ViewCaresHeader(context: Context, attrs: AttributeSet) :
     FrameLayout(context, attrs) {
 
     private val binding = bindLayout(ViewCaresHeaderBinding::inflate)
 
-    var today: LocalDate? = null
+    var today: LocalDateTime? = null
         set(value) {
             field = value
             binding.today.text = value?.formatDayOfWeekAndMonth()

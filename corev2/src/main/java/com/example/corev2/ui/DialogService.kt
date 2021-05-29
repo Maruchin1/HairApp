@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
@@ -85,12 +86,14 @@ class DialogService(
         }.show()
     }
 
-    suspend fun selectDate(
+    suspend fun selectDateTime(
         manager: FragmentManager,
-        selectedDate: LocalDate? = null
-    ): LocalDate? = suspendCoroutine {
-        val epochDays = selectedDate?.toEpochDay()
-        val epochMillis = epochDays?.let { TimeUnit.DAYS.toMillis(it) }
+        selectedDate: LocalDateTime? = null
+    ): LocalDateTime? = suspendCoroutine {
+        val epochMillis = selectedDate
+            ?.atZone(ZoneId.systemDefault())
+            ?.toInstant()
+            ?.toEpochMilli()
         val dialog = MaterialDatePicker.Builder
             .datePicker()
             .setSelection(epochMillis)
@@ -100,7 +103,7 @@ class DialogService(
             addOnPositiveButtonClickListener { millis ->
                 val date = Instant.ofEpochMilli(millis)
                     .atZone(ZoneId.systemDefault())
-                    .toLocalDate()
+                    .toLocalDateTime()
                 it.resume(date)
             }
             addOnCancelListener { _ ->
