@@ -2,10 +2,16 @@ package com.example.corev2.ui
 
 import android.content.Context
 import android.view.LayoutInflater
+import androidx.fragment.app.FragmentManager
 import com.example.corev2.R
 import com.example.corev2.databinding.ViewSingleInputBinding
 import com.example.corev2.entities.Product
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -70,5 +76,30 @@ class DialogService {
                 it.resume(null)
             }
         }.show()
+    }
+
+    suspend fun selectDate(
+        manager: FragmentManager,
+        selectedDate: LocalDate? = null
+    ): LocalDate? = suspendCoroutine {
+        val epochDays = selectedDate?.toEpochDay()
+        val epochMillis = epochDays?.let { TimeUnit.DAYS.toMillis(it) }
+        val dialog = MaterialDatePicker.Builder
+            .datePicker()
+            .setSelection(epochMillis)
+            .setTitleText("Wybierz datę")
+            .build()
+        dialog.run {
+            addOnPositiveButtonClickListener { millis ->
+                val date = Instant.ofEpochMilli(millis)
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate()
+                it.resume(date)
+            }
+            addOnCancelListener { _ ->
+                it.resume(null)
+            }
+            show(manager, "DatePicker")
+        }
     }
 }
