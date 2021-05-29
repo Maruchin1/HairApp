@@ -28,7 +28,7 @@ class DeleteSchemaUseCaseTest {
 
     @Test
     fun schemaIsNull() = runBlocking {
-        coEvery { actions.confirmDeletion(any()) } returns true
+        coEvery { actions.confirmSchemaDeletion(any()) } returns true
 
         val result = deleteSchemaUseCase(context, null)
 
@@ -43,7 +43,7 @@ class DeleteSchemaUseCaseTest {
 
     @Test
     fun deletionNotConfirmed() = runBlocking {
-        coEvery { actions.confirmDeletion(any()) } returns false
+        coEvery { actions.confirmSchemaDeletion(any()) } returns false
 
         val result = deleteSchemaUseCase(context, schema)
 
@@ -58,7 +58,7 @@ class DeleteSchemaUseCaseTest {
 
     @Test
     fun successfullyDeleted() = runBlocking {
-        coEvery { actions.confirmDeletion(any()) } returns true
+        coEvery { actions.confirmSchemaDeletion(any()) } returns true
 
         val result = deleteSchemaUseCase(context, schema)
 

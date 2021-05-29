@@ -32,7 +32,7 @@ internal class DeleteSchemaStepUseCase(
         context: Context,
         stepToDelete: CareSchemaStep
     ): Either<Fail, Unit> {
-        val confirmed = actions.askForConfirmation(context, stepToDelete)
+        val confirmed = actions.confirmStepDeletion(context, stepToDelete)
         return if (confirmed) {
             Either.Right(Unit)
         } else {
@@ -59,6 +59,6 @@ internal class DeleteSchemaStepUseCase(
     }
 
     interface Actions {
-        suspend fun askForConfirmation(context: Context, stepToDelete: CareSchemaStep): Boolean
+        suspend fun confirmStepDeletion(context: Context, stepToDelete: CareSchemaStep): Boolean
     }
 }

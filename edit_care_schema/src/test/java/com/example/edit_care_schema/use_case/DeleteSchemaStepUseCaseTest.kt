@@ -58,7 +58,7 @@ class DeleteSchemaStepUseCaseTest {
     fun before() {
         coJustRun { careSchemaStepDao.delete(*anyVararg()) }
         coJustRun { updateStepsOrderUseCase(any()) }
-        coEvery { actions.askForConfirmation(any(), any()) } returns true
+        coEvery { actions.confirmStepDeletion(any(), any()) } returns true
     }
 
     @Test
@@ -77,7 +77,7 @@ class DeleteSchemaStepUseCaseTest {
 
     @Test
     fun deletionNotConfirmed() = runBlocking {
-        coEvery { actions.askForConfirmation(any(), any()) } returns false
+        coEvery { actions.confirmStepDeletion(any(), any()) } returns false
 
         val result = deleteSchemaStepUseCase(context, careSchemaWithSteps, stepToDelete)
 
@@ -93,7 +93,7 @@ class DeleteSchemaStepUseCaseTest {
 
     @Test
     fun deletionConfirmed() = runBlocking {
-        coEvery { actions.askForConfirmation(any(), any()) } returns true
+        coEvery { actions.confirmStepDeletion(any(), any()) } returns true
 
         val result = deleteSchemaStepUseCase(context, careSchemaWithSteps, stepToDelete)
 

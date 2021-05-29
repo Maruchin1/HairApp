@@ -22,7 +22,7 @@ internal class DeleteSchemaUseCase(
     }
 
     private suspend fun confirmDeletion(context: Context): Either<Fail, Unit> {
-        val confirmed = actions.confirmDeletion(context)
+        val confirmed = actions.confirmSchemaDeletion(context)
         return if (confirmed) {
             Either.Right(Unit)
         } else {
@@ -40,6 +40,6 @@ internal class DeleteSchemaUseCase(
     }
 
     interface Actions {
-        suspend fun confirmDeletion(context: Context): Boolean
+        suspend fun confirmSchemaDeletion(context: Context): Boolean
     }
 }
