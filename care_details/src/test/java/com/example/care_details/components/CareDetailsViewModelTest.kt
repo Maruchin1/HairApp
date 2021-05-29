@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asFlow
 import arrow.core.Either
 import com.example.care_details.use_case.ChangeCareDateUseCase
+import com.example.care_details.use_case.DeleteCareUseCase
 import com.example.corev2.dao.CareDao
 import com.example.corev2.entities.*
 import com.example.corev2.relations.CareStepWithProduct
@@ -31,8 +32,9 @@ class CareDetailsViewModelTest {
     private val clockService: ClockService = mockk()
     private val careDao: CareDao = mockk()
     private val changeCareDateUseCase: ChangeCareDateUseCase = mockk()
+    private val deleteCareUseCase: DeleteCareUseCase = mockk()
     private val viewModel by lazy {
-        CareDetailsViewModel(clockService, careDao, changeCareDateUseCase)
+        CareDetailsViewModel(clockService, careDao, changeCareDateUseCase, deleteCareUseCase)
     }
 
     private val careWithStepsAndPhotosFromDb = CareWithStepsAndPhotos(
@@ -110,14 +112,26 @@ class CareDetailsViewModelTest {
     }
 
     @Test
-    fun onChangeDateClicked_InvokeChangeCareDateUseCase() {
+    fun onChangeDateClicked_InvokeChangeCareDateUseCase() = runBlocking {
         coEvery { changeCareDateUseCase(any()) } returns Either.Right(Unit)
 
         viewModel.onCareSelected(1)
         viewModel.onChangeDateClicked()
 
         coVerify {
-            changeCareDateUseCase.invoke(careWithStepsAndPhotosFromDb.care)
+            changeCareDateUseCase(careWithStepsAndPhotosFromDb.care)
+        }
+    }
+
+    @Test
+    fun onDeleteCareClicked_InvokeDeleteCareUseCase() = runBlocking {
+        coEvery { deleteCareUseCase(any()) } returns Either.Right(Unit)
+
+        viewModel.onCareSelected(1)
+        viewModel.onDeleteCareClicked()
+
+        coVerify {
+            deleteCareUseCase(careWithStepsAndPhotosFromDb.care)
         }
     }
 }

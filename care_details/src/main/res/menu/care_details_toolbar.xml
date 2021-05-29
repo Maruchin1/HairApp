@@ -9,7 +9,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/delete"
+        android:id="@+id/delete_care"
         android:icon="@drawable/ic_round_delete_24"
         android:title="@string/delete_care"
         app:showAsAction="ifRoom" />

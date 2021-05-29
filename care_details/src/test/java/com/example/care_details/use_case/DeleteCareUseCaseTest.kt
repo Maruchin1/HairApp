@@ -13,14 +13,13 @@ import org.junit.Before
 import org.junit.Test
 import java.time.LocalDateTime
 
-class ChangeCareDateUseCaseTest {
-    private val actions: ChangeCareDateUseCase.Actions = mockk()
+class DeleteCareUseCaseTest {
+    private val actions: DeleteCareUseCase.Actions = mockk()
     private val careDao: CareDao = mockk()
-    private val changeCareDateUseCase by lazy {
-        ChangeCareDateUseCase(actions, careDao)
+    private val deleteCareUseCase by lazy {
+        DeleteCareUseCase(actions, careDao)
     }
 
-    private val selectedNewDate = LocalDateTime.of(2021, 5, 20, 0, 0)
     private val care = Care(
         id = 1,
         schemaName = "OMO",
@@ -30,45 +29,45 @@ class ChangeCareDateUseCaseTest {
 
     @Before
     fun before() {
-        coEvery { actions.askForNewDate(any()) } returns selectedNewDate
-        coJustRun { careDao.update(*anyVararg()) }
+        coEvery { actions.confirmCareDeletion() } returns true
+        coJustRun { careDao.delete(*anyVararg()) }
     }
 
     @Test
     fun noCare() = runBlocking {
-        val result = changeCareDateUseCase(null)
+        val result = deleteCareUseCase(null)
 
         assertThat(result.isLeft()).isTrue()
         result.handleError {
-            assertThat(it).isInstanceOf(ChangeCareDateUseCase.Fail.NoCare::class.java)
+            assertThat(it).isInstanceOf(DeleteCareUseCase.Fail.NoCare::class.java)
         }
         coVerify(exactly = 0) {
-            careDao.update(*anyVararg())
+            careDao.delete(*anyVararg())
         }
     }
 
     @Test
-    fun newDateNotSelected() = runBlocking {
-        coEvery { actions.askForNewDate(any()) } returns null
+    fun deletionNotConfirmed() = runBlocking {
+        coEvery { actions.confirmCareDeletion() } returns false
 
-        val result = changeCareDateUseCase(care)
+        val result = deleteCareUseCase(care)
 
         assertThat(result.isLeft()).isTrue()
         result.handleError {
-            assertThat(it).isInstanceOf(ChangeCareDateUseCase.Fail.NewDateNotSelected::class.java)
+            assertThat(it).isInstanceOf(DeleteCareUseCase.Fail.DeletionNotConfirmed::class.java)
         }
         coVerify(exactly = 0) {
-            careDao.update(*anyVararg())
+            careDao.delete(*anyVararg())
         }
     }
 
     @Test
-    fun successfullyChangedDate() = runBlocking {
-        val result = changeCareDateUseCase(care)
+    fun successfullyDeleted() = runBlocking {
+        val result = deleteCareUseCase(care)
 
         assertThat(result.isRight()).isTrue()
         coVerify {
-            careDao.update(care.copy(date = selectedNewDate))
+            careDao.delete(care)
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.example.care_details.components
 
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
+import arrow.core.computations.either
 import com.example.care_details.R
 import com.example.care_details.databinding.ActivityCareDetailsBinding
 import com.example.corev2.entities.PehBalance
@@ -9,6 +11,7 @@ import com.example.corev2.navigation.Destination
 import com.example.corev2.service.formatDayOfWeekAndMonth
 import com.example.corev2.ui.BaseActivity
 import com.example.corev2.ui.SystemColors
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -50,7 +53,8 @@ class CareDetailsActivity : BaseActivity<ActivityCareDetailsBinding>(
             setNavigationOnClickListener { finish() }
             setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.select_date -> viewModel.onChangeDateClicked()
+                    R.id.select_date -> onChangeDateClicked()
+                    R.id.delete_care -> onDeleteCareClicked()
                 }
                 true
             }
@@ -62,5 +66,14 @@ class CareDetailsActivity : BaseActivity<ActivityCareDetailsBinding>(
             val products = steps.mapNotNull { it.product }
             binding.pehBalanceBar.pehBalance = PehBalance.fromProducts(products)
         }
+    }
+
+    private fun onChangeDateClicked() = lifecycleScope.launch {
+        viewModel.onChangeDateClicked()
+    }
+
+    private fun onDeleteCareClicked() = lifecycleScope.launch {
+        viewModel.onDeleteCareClicked()
+            .map { finish() }
     }
 }

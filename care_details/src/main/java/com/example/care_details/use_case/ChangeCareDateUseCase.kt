@@ -2,6 +2,7 @@ package com.example.care_details.use_case
 
 import arrow.core.Either
 import arrow.core.computations.either
+import arrow.core.rightIfNotNull
 import com.example.corev2.dao.CareDao
 import com.example.corev2.entities.Care
 import java.time.LocalDateTime
@@ -11,8 +12,9 @@ internal class ChangeCareDateUseCase(
     private val careDao: CareDao
 ) {
 
-    suspend operator fun invoke(care: Care): Either<Fail, Unit> {
+    suspend operator fun invoke(careToUpdate: Care?): Either<Fail, Unit> {
         return either {
+            val care = careToUpdate.rightIfNotNull { Fail.NoCare }.bind()
             val newDate = askForNewDate(care).bind()
             val update = care.copy(date = newDate)
             updateCareInDb(update)
@@ -30,6 +32,7 @@ internal class ChangeCareDateUseCase(
     }
 
     sealed class Fail {
+        object NoCare : Fail()
         object NewDateNotSelected : Fail()
     }
 
