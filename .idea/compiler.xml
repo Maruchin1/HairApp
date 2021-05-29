@@ -4,6 +4,7 @@
     <bytecodeTargetLevel target="1.8">
       <module name="core" target="1.7" />
       <module name="HairApp.app" target="11" />
+      <module name="HairApp.care_details" target="11" />
       <module name="HairApp.care_schema_details_dynamic" target="11" />
       <module name="HairApp.care_schemas_list" target="11" />
       <module name="HairApp.cares_list" target="11" />

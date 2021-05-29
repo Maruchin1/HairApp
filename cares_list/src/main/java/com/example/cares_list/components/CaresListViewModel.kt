@@ -6,6 +6,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import com.example.corev2.dao.CareDao
 import com.example.corev2.entities.Care
+import com.example.corev2.navigation.CareDetailsDestination
 import com.example.corev2.service.ClockService
 import com.example.corev2.service.daysBetween
 import kotlinx.coroutines.flow.map
@@ -14,7 +15,8 @@ import java.time.LocalDate
 
 internal class CaresListViewModel(
     private val careDao: CareDao,
-    private val clockService: ClockService
+    private val clockService: ClockService,
+    private val careDetailsDestination: CareDetailsDestination
 ) : ViewModel() {
 
     private val orderedCaresFlow = careDao.getAllCares()

@@ -23,7 +23,7 @@ class ProductsProportionView(context: Context, attrs: AttributeSet) : FrameLayou
                 view_products_proportion_proteins.setWeight(value.proteins)
             }
             val showLabel = value == null || value.isEmpty()
-            Binder.setVisibleOrGone(view_products_proportion_label, showLabel)
+            Binder.setVisibleOrGone(label, showLabel)
         }
 
     init {

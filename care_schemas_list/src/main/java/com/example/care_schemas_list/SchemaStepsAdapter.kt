@@ -8,12 +8,11 @@ import com.example.corev2.ui.InflateBinding
 
 internal class SchemaStepsAdapter(
     private val context: Context
-) : BaseRecyclerAdapter<CareSchemaStep, ItemSchemaStepBinding>() {
+) : BaseRecyclerAdapter<CareSchemaStep, ItemSchemaStepBinding>(
+    bindingInflater = ItemSchemaStepBinding::inflate
+) {
 
-    override val inflateBinding: InflateBinding<ItemSchemaStepBinding>
-        get() = ItemSchemaStepBinding::inflate
-
-    override fun onBindItemData(binding: ItemSchemaStepBinding, item: CareSchemaStep) {
+    override fun onSetItemData(binding: ItemSchemaStepBinding, item: CareSchemaStep) {
         binding.apply {
             stepOrdinalNumber.text = (item.order + 1).toString()
             stepName.text = context.getString(item.productType.resId)

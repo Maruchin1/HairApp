@@ -13,6 +13,7 @@
         android:theme="@style/ThemeOverlay.AppBar">
 
         <com.example.cares_list.components.ViewCaresHeader
+            android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll" />
@@ -33,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
+        android:orientation="vertical"
         android:paddingTop="24dp"
         android:paddingBottom="128dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"

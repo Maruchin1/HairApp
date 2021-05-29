@@ -8,12 +8,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseRecyclerAdapter<T, VB : ViewBinding> :
-    RecyclerView.Adapter<BaseViewHolder<VB>>() {
+abstract class BaseRecyclerAdapter<T, VB : ViewBinding>(
+    private val bindingInflater: (LayoutInflater, ViewGroup, Boolean) -> VB
+) : RecyclerView.Adapter<BaseViewHolder<VB>>() {
 
     protected val itemsList = mutableListOf<T>()
-
-    protected abstract val inflateBinding: InflateBinding<VB>
 
     private var diffCallback: BaseDiffCallback<T>? = null
 
@@ -48,13 +47,13 @@ abstract class BaseRecyclerAdapter<T, VB : ViewBinding> :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<VB> {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: VB = inflateBinding(inflater, parent, false)
+        val binding: VB = bindingInflater(inflater, parent, false)
         return BaseViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<VB>, position: Int) {
-        onBindItemData(binding = holder.binding, item = itemsList[position])
+        onSetItemData(binding = holder.binding, item = itemsList[position])
     }
 
-    protected abstract fun onBindItemData(binding: VB, item: T)
+    protected abstract fun onSetItemData(binding: VB, item: T)
 }

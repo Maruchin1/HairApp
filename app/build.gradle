@@ -71,6 +71,7 @@ dependencies {
     implementation project(':care_schemas_list')
     implementation project(':edit_care_schema')
     implementation project(':cares_list')
+    implementation project(':care_details')
 
     // Unit tests
     testImplementation 'junit:junit:4.12'

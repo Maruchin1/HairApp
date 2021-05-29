@@ -10,7 +10,6 @@ import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
-    private val appNavigator: AppNavigator by inject()
     private val homeDestination: HomeDestination by inject()
     private lateinit var binding: ActivityMainBinding
 
@@ -18,8 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = bindActivity(R.layout.activity_main, viewModel = null)
 
-//        appNavigator.toDestination(this, HomeDestination())
-        homeDestination.navigate(this, Unit)
+        homeDestination.navigate(this)
     }
 
 }

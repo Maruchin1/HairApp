@@ -15,14 +15,13 @@ import com.example.corev2.ui.setVisibleOrGone
 internal class SchemasAdapter(
     private val context: Context,
     private val stepsAdapter: SchemaStepsAdapter
-) : BaseRecyclerAdapter<CareSchemaWithSteps, ItemSchemaBinding>() {
-
-    override val inflateBinding: InflateBinding<ItemSchemaBinding>
-        get() = ItemSchemaBinding::inflate
+) : BaseRecyclerAdapter<CareSchemaWithSteps, ItemSchemaBinding>(
+    bindingInflater = ItemSchemaBinding::inflate
+) {
 
     var handler: Handler? = null
 
-    override fun onBindItemData(binding: ItemSchemaBinding, item: CareSchemaWithSteps) {
+    override fun onSetItemData(binding: ItemSchemaBinding, item: CareSchemaWithSteps) {
         binding.apply {
             card.setOnClickListener { handler?.onCareSchemaClicked(item.careSchema) }
             schemaName.text = item.careSchema.name

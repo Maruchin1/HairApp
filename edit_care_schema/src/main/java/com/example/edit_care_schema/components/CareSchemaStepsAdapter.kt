@@ -18,10 +18,9 @@ import java.util.*
 internal class CareSchemaStepsAdapter(
     private val context: Context,
     private val careSchemaStepsTouchHelperCallback: CareSchemaStepsTouchHelperCallback
-) : BaseRecyclerAdapter<CareSchemaStep, ItemCareSchemaStepBinding>() {
-
-    override val inflateBinding: InflateBinding<ItemCareSchemaStepBinding>
-        get() = ItemCareSchemaStepBinding::inflate
+) : BaseRecyclerAdapter<CareSchemaStep, ItemCareSchemaStepBinding>(
+    bindingInflater = ItemCareSchemaStepBinding::inflate
+) {
 
     val touchHelper: ItemTouchHelper by lazy {
         careSchemaStepsTouchHelperCallback.setOnMoveListener(this::moveCareProduct)
@@ -54,7 +53,7 @@ internal class CareSchemaStepsAdapter(
         }
     }
 
-    override fun onBindItemData(binding: ItemCareSchemaStepBinding, item: CareSchemaStep) {
+    override fun onSetItemData(binding: ItemCareSchemaStepBinding, item: CareSchemaStep) {
         binding.run {
             stepNumber.text = (item.order + 1).toString()
             stepName.text = context.getString(item.productType.resId)

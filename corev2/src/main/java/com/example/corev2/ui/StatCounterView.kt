@@ -10,4 +10,15 @@ class StatCounterView(context: Context, attrs: AttributeSet) : FrameLayout(conte
 
     private val binding = ViewStatCounterBinding.inflate(LayoutInflater.from(context), this, true)
 
+    var value: Int
+        get() = binding.value.text.toString().toInt()
+        set(value) {
+            binding.value.text = value.toString()
+        }
+
+    var label: String
+        get() = binding.label.text.toString()
+        set(value) {
+            binding.label.text = value
+        }
 }

@@ -1,6 +1,15 @@
 package com.example.corev2.navigation
 
-abstract class ProductFormDestination : Destination<ProductFormDestination.Params>() {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-    data class Params(val editProductId: Long?)
+class ProductFormDestination(override val activityClass: Class<*>) :
+    Destination<ProductFormDestination.Params>() {
+
+    @Parcelize
+    data class Params(val editProductId: Long?) : Parcelable
+
+    companion object {
+        const val ACTIVITY = "product_form_activity"
+    }
 }

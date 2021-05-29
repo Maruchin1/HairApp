@@ -6,12 +6,11 @@ import com.example.corev2.ui.InflateBinding
 import com.example.corev2.ui.setPicassoUri
 import com.example.products_list.databinding.ItemProductBinding
 
-internal class ProductsAdapter : BaseRecyclerAdapter<Product, ItemProductBinding>() {
+internal class ProductsAdapter : BaseRecyclerAdapter<Product, ItemProductBinding>(
+    bindingInflater = ItemProductBinding::inflate
+) {
 
-    override val inflateBinding: InflateBinding<ItemProductBinding>
-        get() = ItemProductBinding::inflate
-
-    override fun onBindItemData(binding: ItemProductBinding, item: Product) {
+    override fun onSetItemData(binding: ItemProductBinding, item: Product) {
         binding.apply {
             image.setPicassoUri(item.photoData)
             productName.text = item.name

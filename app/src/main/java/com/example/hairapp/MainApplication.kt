@@ -1,6 +1,7 @@
 package com.example.hairapp
 
 import android.app.Application
+import com.example.care_details.careDetailsModule
 import com.example.care_schemas_list.careSchemasListModule
 import com.example.cares_list.caresListModule
 import com.example.common.commonModule
@@ -36,7 +37,8 @@ class MainApplication : Application() {
                 homeModule,
                 productFormModule,
                 productsListModule,
-                caresListModule
+                caresListModule,
+                careDetailsModule
             )
         }
 

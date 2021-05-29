@@ -59,7 +59,7 @@
 
         <include
             android:id="@+id/proportion_of_ingredients_bar"
-            layout="@layout/view_proportion_of_ingredients_bar"
+            layout="@layout/view_peh_balance_bar"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_marginHorizontal="16dp"

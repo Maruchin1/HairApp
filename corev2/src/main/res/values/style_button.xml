@@ -26,6 +26,7 @@
     <style name="Button.Text.Dark" parent="Button.Text">
         <item name="android:textColor">@color/color_white</item>
         <item name="iconTint">@color/color_white</item>
+        <item name="rippleColor">@color/color_primary_light</item>
     </style>
 
     <style name="Button.Primary.Dark" parent="Button.Primary">

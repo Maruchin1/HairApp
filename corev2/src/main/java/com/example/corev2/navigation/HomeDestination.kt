@@ -1,3 +1,8 @@
 package com.example.corev2.navigation
 
-abstract class HomeDestination : Destination<Unit>()
+class HomeDestination(override val activityClass: Class<*>) : Destination<Nothing>() {
+
+    companion object {
+        const val ACTIVITY = "home_activity"
+    }
+}
