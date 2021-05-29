@@ -5,6 +5,7 @@ import com.example.corev2.entities.CompositionOfIngredients
 import com.example.corev2.entities.Product
 import com.example.corev2.room_database.HairAppDatabase
 import com.example.hairapp.MainActivity
+import com.example.hairapp.screen.HomeScreen
 import com.example.hairapp.screen.ProductsListScreen
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -23,6 +24,9 @@ abstract class ProductFormTest : KoinTest {
     fun before() {
         database.clearAllTables()
         populateProducts()
+        HomeScreen {
+            productsListButton.click()
+        }
         ProductsListScreen {
             addProductButton.click()
         }

@@ -3,6 +3,8 @@ package com.example.edit_care_schema.components
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.example.corev2.entities.CareSchemaStep
+import com.example.corev2.navigation.Destination
+import com.example.corev2.navigation.EditCareSchemaDestination
 import com.example.corev2.ui.BaseActivity
 import com.example.corev2.ui.InflateActivityBinding
 import com.example.corev2.ui.SystemColors
@@ -15,20 +17,17 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 internal class EditCareSchemaActivity : BaseActivity<ActivityEditCareSchemaBinding>(
     bindingInflater = ActivityEditCareSchemaBinding::inflate
-),
-    CareSchemaStepsAdapter.Handler {
+), CareSchemaStepsAdapter.Handler {
 
-    private val careSchemaId: Long
-        get() = intent.getLongExtra(CARE_SCHEMA_ID, -1)
+    private val params: EditCareSchemaDestination.Params?
+        get() = intent.getParcelableExtra(Destination.EXTRA_PARAMS)
 
     private val viewModel: EditCareSchemaViewModel by viewModel()
     private val stepsAdapter: CareSchemaStepsAdapter by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycleScope.launch {
-            viewModel.selectSchema(careSchemaId)
-        }
+        setupViewModel()
         setupToolbar()
         setupStepsRecycler()
         setupNoStepsInfo()
@@ -38,10 +37,6 @@ internal class EditCareSchemaActivity : BaseActivity<ActivityEditCareSchemaBindi
     override fun onPause() {
         super.onPause()
         saveStepsIfOrderChanged()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     override fun setupSystemColors(systemColors: SystemColors) {
@@ -54,6 +49,14 @@ internal class EditCareSchemaActivity : BaseActivity<ActivityEditCareSchemaBindi
     override fun onStepLongClick(step: CareSchemaStep) {
         lifecycleScope.launch {
             viewModel.deleteStep(this@EditCareSchemaActivity, step)
+        }
+    }
+
+    private fun setupViewModel() {
+        params?.careSchemaId?.let {
+            lifecycleScope.launch {
+                viewModel.selectSchema(it)
+            }
         }
     }
 
