@@ -17,6 +17,7 @@ class CaresListFragment : BaseFragment<FragmentCaresListBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupHeader()
+        setupActions()
         setupCaresRecycler()
     }
 
@@ -26,6 +27,12 @@ class CaresListFragment : BaseFragment<FragmentCaresListBinding>(
         }
         viewModel.daysFromLastCare.observe(viewLifecycleOwner) {
             binding.header.daysFromLastCare = it ?: 0
+        }
+    }
+
+    private fun setupActions() {
+        binding.addCareButton.setOnClickListener {
+            viewModel.onAddCareClick(requireActivity())
         }
     }
 

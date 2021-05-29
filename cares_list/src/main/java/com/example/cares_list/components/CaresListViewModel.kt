@@ -1,5 +1,6 @@
 package com.example.cares_list.components
 
+import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -37,6 +38,10 @@ internal class CaresListViewModel(
     val noCares: LiveData<Boolean> = orderedCaresFlow
         .map { it.isEmpty() }
         .asLiveData()
+
+    fun onAddCareClick(activity: Activity) {
+        careDetailsDestination.navigate(activity, null)
+    }
 
     private fun sortCaresFromNewest(cares: List<Care>): List<Care> {
         return cares.sortedByDescending { it.date }

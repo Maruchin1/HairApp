@@ -8,7 +8,7 @@ class CareDetailsDestination(
 ) : Destination<CareDetailsDestination.Params>() {
 
     @Parcelize
-    data class Params(val careId: Long?) : Parcelable
+    data class Params(val careId: Long) : Parcelable
 
     companion object {
         const val ACTIVITY = "care_details_activity"
