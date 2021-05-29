@@ -2,12 +2,12 @@ package com.example.care_details.components
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asFlow
+import com.example.corev2.dao.CareDao
 import com.example.corev2.dao.CareSchemaDao
-import com.example.corev2.entities.CareSchema
-import com.example.corev2.entities.CareSchemaStep
-import com.example.corev2.entities.CareStep
-import com.example.corev2.entities.Product
+import com.example.corev2.entities.*
 import com.example.corev2.relations.CareSchemaWithSteps
+import com.example.corev2.relations.CareStepWithProduct
+import com.example.corev2.relations.CareWithStepsAndPhotos
 import com.example.corev2.service.ClockService
 import com.example.testing.rules.CoroutinesTestRule
 import com.google.common.truth.Truth.assertThat
@@ -30,9 +30,9 @@ class CareDetailsViewModelTest {
     val coroutinesTestRule = CoroutinesTestRule()
 
     private val clockService: ClockService = mockk()
-    private val careSchemaDao: CareSchemaDao = mockk()
+    private val careDao: CareDao = mockk()
     private val viewModel by lazy {
-        CareDetailsViewModel(clockService, careSchemaDao)
+        CareDetailsViewModel(clockService, careDao)
     }
 
     @Before
@@ -61,49 +61,61 @@ class CareDetailsViewModelTest {
     }
 
     @Test
-    fun onSchemaSelected_ChangeSchemaName_AndApplyStepsInCorrectOrder() = runBlocking {
-        val schemaWithStepsFromDb = CareSchemaWithSteps(
-            careSchema = CareSchema(id = 1, name = "OMO"),
+    fun onCareSelected_ApplyCareData() = runBlocking {
+        val careWithStepsAndPhotosFromDb = CareWithStepsAndPhotos(
+            care = Care(
+                id = 1,
+                schemaName = "OMO",
+                date = LocalDate.now(),
+                notes = "Lorem ipsum"
+            ),
             steps = listOf(
-                CareSchemaStep(
-                    id = 2,
-                    productType = Product.Type.SHAMPOO,
-                    order = 1,
-                    careSchemaId = 1
+                CareStepWithProduct(
+                    careStep = CareStep(
+                        id = 1,
+                        productType = Product.Type.CONDITIONER,
+                        order = 0,
+                        productId = null,
+                        careId = 1
+                    ),
+                    product = null
                 ),
-                CareSchemaStep(
-                    id = 3,
-                    productType = Product.Type.CONDITIONER,
-                    order = 2,
-                    careSchemaId = 1
+                CareStepWithProduct(
+                    careStep = CareStep(
+                        id = 2,
+                        productType = Product.Type.SHAMPOO,
+                        order = 0,
+                        productId = null,
+                        careId = 1
+                    ),
+                    product = null
                 ),
-                CareSchemaStep(
-                    id = 1,
-                    productType = Product.Type.CONDITIONER,
-                    order = 0,
-                    careSchemaId = 1
-                ),
+                CareStepWithProduct(
+                    careStep = CareStep(
+                        id = 3,
+                        productType = Product.Type.CONDITIONER,
+                        order = 0,
+                        productId = null,
+                        careId = 1
+                    ),
+                    product = null
+                )
+            ),
+            photos = listOf(
+                CarePhoto(id = 1, data = "abc", careId = 1)
             )
         )
-        every { careSchemaDao.getById(any()) } returns flowOf(schemaWithStepsFromDb)
+        every { careDao.getById(any()) } returns flowOf(careWithStepsAndPhotosFromDb)
 
-        viewModel.onSchemaSelected(1)
+        viewModel.onCareSelected(1)
         val schemaName = viewModel.schemaName.asFlow().firstOrNull()
-        val careSteps = viewModel.careSteps.asFlow().firstOrNull()
+        val steps = viewModel.steps.asFlow().firstOrNull()
+        val notes = viewModel.notes.asFlow().firstOrNull()
+        val photos = viewModel.photos.asFlow().firstOrNull()
 
-        assertThat(schemaName).isEqualTo(schemaWithStepsFromDb.careSchema.name)
-//        assertThat(careSteps).containsExactly(
-//            CareStep(
-//                id = -1,
-//                productType = Product.Type.CONDITIONER,
-//                order = 0,
-//                productId = null,
-//                careId = -1
-//            ),
-//            CareStep(
-//                id = -1,
-//                prod
-//            )
-//        )
+        assertThat(schemaName).isEqualTo(careWithStepsAndPhotosFromDb.care.schemaName)
+        assertThat(steps).isEqualTo(careWithStepsAndPhotosFromDb.steps)
+        assertThat(notes).isEqualTo(careWithStepsAndPhotosFromDb.care.notes)
+        assertThat(photos).isEqualTo(careWithStepsAndPhotosFromDb.photos)
     }
 }

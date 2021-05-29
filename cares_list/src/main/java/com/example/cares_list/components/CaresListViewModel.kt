@@ -1,13 +1,16 @@
 package com.example.cares_list.components
 
 import android.app.Activity
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.cares_list.use_case.AddNewCareUseCase
 import com.example.corev2.dao.CareDao
 import com.example.corev2.entities.Care
+import com.example.corev2.relations.CareWithStepsAndPhotos
 import com.example.corev2.service.ClockService
 import com.example.corev2.service.daysBetween
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -27,11 +30,11 @@ internal class CaresListViewModel(
 
     val daysFromLastCare: LiveData<Long> = orderedCaresFlow
         .map { it.firstOrNull() }
-        .map { calcDaysFromLastCare(it) }
+        .map { calcDaysFromLastCare(it?.care) }
         .onStart { emit(0) }
         .asLiveData()
 
-    val orderedCares: LiveData<List<Care>> = orderedCaresFlow.asLiveData()
+    val orderedCares: LiveData<List<CareWithStepsAndPhotos>> = orderedCaresFlow.asLiveData()
 
     val noCares: LiveData<Boolean> = orderedCaresFlow
         .map { it.isEmpty() }
@@ -41,8 +44,8 @@ internal class CaresListViewModel(
         addNewCareUseCase(activity)
     }
 
-    private fun sortCaresFromNewest(cares: List<Care>): List<Care> {
-        return cares.sortedByDescending { it.date }
+    private fun sortCaresFromNewest(cares: List<CareWithStepsAndPhotos>): List<CareWithStepsAndPhotos> {
+        return cares.sortedByDescending { it.care.date }
     }
 
     private fun calcDaysFromLastCare(lastCare: Care?): Long {

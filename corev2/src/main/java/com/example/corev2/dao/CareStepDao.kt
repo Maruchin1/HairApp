@@ -2,7 +2,6 @@ package com.example.corev2.dao
 
 import androidx.room.*
 import com.example.corev2.entities.CareStep
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CareStepDao {
@@ -15,7 +14,4 @@ interface CareStepDao {
 
     @Delete
     suspend fun delete(vararg careStep: CareStep)
-
-    @Query("SELECT * FROM CareStep WHERE id = :careId")
-    fun getByCare(careId: Long): Flow<List<CareStep>>
 }

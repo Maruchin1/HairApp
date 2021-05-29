@@ -16,6 +16,8 @@ class PehBalanceBarView(context: Context, attrs: AttributeSet) :
             field = value
             if (value != null) {
                 applyIngredientsWeights(value)
+            } else {
+                hideIngredientsBars()
             }
             updateLabelVisibility(value)
         }
@@ -25,6 +27,13 @@ class PehBalanceBarView(context: Context, attrs: AttributeSet) :
             proteins.setWeight(pehBalance.proteins)
             emollients.setWeight(pehBalance.emollients)
             humectants.setWeight(pehBalance.humectants)
+        }
+    }
+
+    private fun hideIngredientsBars() {
+        binding.apply {
+            arrayOf(proteins, emollients, humectants)
+                .forEach { it.setWeight(0.0) }
         }
     }
 

@@ -4,12 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.corev2.dao.CareSchemaDao
-import com.example.corev2.dao.CareSchemaStepDao
-import com.example.corev2.entities.Care
-import com.example.corev2.entities.CareSchema
-import com.example.corev2.entities.CareSchemaStep
-import com.example.corev2.entities.CareStep
+import com.example.corev2.dao.CareDao
+import com.example.corev2.entities.*
+import com.example.corev2.relations.CareStepWithProduct
 import com.example.corev2.service.ClockService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.firstOrNull
@@ -18,37 +15,34 @@ import java.time.LocalDate
 
 internal class CareDetailsViewModel(
     private val clockService: ClockService,
-    private val careSchemaDao: CareSchemaDao
+    private val careDao: CareDao
 ) : ViewModel() {
 
     private val careDateState = MutableStateFlow(clockService.getNow())
     private val schemaNameState = MutableStateFlow("")
-    private val careStepsState = MutableStateFlow(listOf<CareStep>())
+    private val stepsState = MutableStateFlow(listOf<CareStepWithProduct>())
     private val notesState = MutableStateFlow("")
+    private val photosState = MutableStateFlow(listOf<CarePhoto>())
 
     val careDate: LiveData<LocalDate> = careDateState.asLiveData()
     val schemaName: LiveData<String> = schemaNameState.asLiveData()
-    val careSteps: LiveData<List<CareStep>> = careStepsState.asLiveData()
+    val steps: LiveData<List<CareStepWithProduct>> = stepsState.asLiveData()
     val notes: LiveData<String> = notesState.asLiveData()
+    val photos: LiveData<List<CarePhoto>> = photosState.asLiveData()
 
     fun onCareDateSelected(newDate: LocalDate) = viewModelScope.launch {
         careDateState.emit(newDate)
     }
 
-    fun onSchemaSelected(schemaId: Long) = viewModelScope.launch {
-        careSchemaDao
-            .getById(schemaId)
+    fun onCareSelected(careId: Long) = viewModelScope.launch {
+        careDao
+            .getById(careId)
             .firstOrNull()
-            ?.let { schemaWithSteps ->
-                schemaNameState.emit(schemaWithSteps.careSchema.name)
-                applyStepsFromSchema(schemaWithSteps.steps)
+            ?.let {
+                schemaNameState.emit(it.care.schemaName)
+                stepsState.emit(it.steps)
+                notesState.emit(it.care.notes)
+                photosState.emit(it.photos)
             }
-    }
-
-    private suspend fun applyStepsFromSchema(schemaSteps: List<CareSchemaStep>) {
-        val careSteps = schemaSteps
-            .map { it.toCareStep() }
-            .sortedBy { it.order }
-        careStepsState.emit(careSteps)
     }
 }

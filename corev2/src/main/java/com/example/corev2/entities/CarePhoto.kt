@@ -18,8 +18,7 @@ import java.time.LocalDate
 )
 data class CarePhoto(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: Long = 0,
     val data: String,
-    val date: LocalDate,
     val careId: Long
 )

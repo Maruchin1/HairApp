@@ -6,6 +6,7 @@ import androidx.lifecycle.asFlow
 import com.example.cares_list.use_case.AddNewCareUseCase
 import com.example.corev2.dao.CareDao
 import com.example.corev2.entities.Care
+import com.example.corev2.relations.CareWithStepsAndPhotos
 import com.example.corev2.service.ClockService
 import com.example.testing.rules.CoroutinesTestRule
 import com.google.common.truth.Truth.assertThat
@@ -52,23 +53,35 @@ class CaresListViewModelTest {
     @Test
     fun emitDaysFromLastCare() = runBlocking {
         val caresFromDb = listOf(
-            Care(
-                id = 1,
-                schemaName = "OMO",
-                date = LocalDate.of(2021, 5, 11),
-                notes = ""
+            CareWithStepsAndPhotos(
+                care = Care(
+                    id = 1,
+                    schemaName = "OMO",
+                    date = LocalDate.of(2021, 5, 11),
+                    notes = ""
+                ),
+                steps = listOf(),
+                photos = listOf()
             ),
-            Care(
-                id = 2,
-                schemaName = "OMO",
-                date = LocalDate.of(2021, 5, 20),
-                notes = ""
+            CareWithStepsAndPhotos(
+                care = Care(
+                    id = 2,
+                    schemaName = "OMO",
+                    date = LocalDate.of(2021, 5, 20),
+                    notes = ""
+                ),
+                steps = listOf(),
+                photos = listOf()
             ),
-            Care(
-                id = 3,
-                schemaName = "OMO",
-                date = LocalDate.of(2021, 5, 16),
-                notes = ""
+            CareWithStepsAndPhotos(
+                care = Care(
+                    id = 3,
+                    schemaName = "OMO",
+                    date = LocalDate.of(2021, 5, 16),
+                    notes = ""
+                ),
+                steps = listOf(),
+                photos = listOf()
             )
         )
         val fakeNow = LocalDate.of(2021, 5, 25)
@@ -83,23 +96,35 @@ class CaresListViewModelTest {
     @Test
     fun emitOrderedCares() = runBlocking {
         val caresFromDb = listOf(
-            Care(
-                id = 1,
-                schemaName = "OMO",
-                date = LocalDate.of(2021, 5, 11),
-                notes = ""
+            CareWithStepsAndPhotos(
+                care = Care(
+                    id = 1,
+                    schemaName = "OMO",
+                    date = LocalDate.of(2021, 5, 11),
+                    notes = ""
+                ),
+                steps = listOf(),
+                photos = listOf()
             ),
-            Care(
-                id = 2,
-                schemaName = "OMO",
-                date = LocalDate.of(2021, 5, 20),
-                notes = ""
+            CareWithStepsAndPhotos(
+                care = Care(
+                    id = 2,
+                    schemaName = "OMO",
+                    date = LocalDate.of(2021, 5, 20),
+                    notes = ""
+                ),
+                steps = listOf(),
+                photos = listOf()
             ),
-            Care(
-                id = 3,
-                schemaName = "OMO",
-                date = LocalDate.of(2021, 5, 16),
-                notes = ""
+            CareWithStepsAndPhotos(
+                care = Care(
+                    id = 3,
+                    schemaName = "OMO",
+                    date = LocalDate.of(2021, 5, 16),
+                    notes = ""
+                ),
+                steps = listOf(),
+                photos = listOf()
             )
         )
         every { careDao.getAllCares() } returns flowOf(caresFromDb)
@@ -123,11 +148,15 @@ class CaresListViewModelTest {
     @Test
     fun noCaresIsFalse_WhenCaresAvailableInDb() = runBlocking {
         val caresFromDb = listOf(
-            Care(
-                id = 1,
-                schemaName = "OMO",
-                date = LocalDate.of(2021, 5, 11),
-                notes = ""
+            CareWithStepsAndPhotos(
+                care = Care(
+                    id = 1,
+                    schemaName = "OMO",
+                    date = LocalDate.of(2021, 5, 11),
+                    notes = ""
+                ),
+                steps = listOf(),
+                photos = listOf()
             )
         )
         every { careDao.getAllCares() } returns flowOf(caresFromDb)

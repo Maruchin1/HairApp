@@ -1,5 +1,6 @@
 package com.example.corev2.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
@@ -39,6 +40,7 @@ abstract class BaseRecyclerAdapter<T, VB : ViewBinding>(
             newItemsList?.let { itemsList.addAll(it) }
             diffResult.dispatchUpdatesTo(this)
         }
+        Log.d("MyDebug", "Adapter items: $itemsList")
     }
 
     override fun getItemCount(): Int {

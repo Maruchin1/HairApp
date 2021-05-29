@@ -15,10 +15,10 @@ import org.junit.Test
 class CareSchemaDaoTest {
 
     @get:Rule
-    val hairAppDatabaseTestRule = DatabaseTestRule()
+    val databaseTestRule = DatabaseTestRule()
 
-    private val careSchemaDao by lazy { hairAppDatabaseTestRule.db.careSchemaDao() }
-    private val careSchemaStepDao by lazy { hairAppDatabaseTestRule.db.careSchemaStepDao() }
+    private val careSchemaDao by lazy { databaseTestRule.db.careSchemaDao() }
+    private val careSchemaStepDao by lazy { databaseTestRule.db.careSchemaStepDao() }
 
     private val omoSchema = CareSchema(
         id = 0,
