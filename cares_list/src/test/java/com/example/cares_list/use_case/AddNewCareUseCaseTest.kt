@@ -1,7 +1,9 @@
 package com.example.cares_list.use_case
 
 import android.app.Activity
+import arrow.core.getOrElse
 import arrow.core.getOrHandle
+import arrow.core.handleError
 import com.example.corev2.dao.CareDao
 import com.example.corev2.dao.CareStepDao
 import com.example.corev2.entities.*
@@ -18,11 +20,10 @@ import java.time.LocalDate
 class AddNewCareUseCaseTest {
     private val actions: AddNewCareUseCase.Actions = mockk()
     private val clockService: ClockService = mockk()
-    private val careDetailsDestination: CareDetailsDestination = mockk()
     private val careDao: CareDao = mockk()
     private val careStepDao: CareStepDao = mockk()
     private val addNewCareUseCase by lazy {
-        AddNewCareUseCase(actions, clockService, careDetailsDestination, careDao, careStepDao)
+        AddNewCareUseCase(actions, clockService, careDao, careStepDao)
     }
 
     private val activity: Activity = mockk()
@@ -57,7 +58,6 @@ class AddNewCareUseCaseTest {
         every { clockService.getNow() } returns today
         coEvery { careDao.insert(*anyVararg()) } returns arrayOf(1)
         coJustRun { careStepDao.insert(*anyVararg()) }
-        coJustRun { careDetailsDestination.navigate(any(), any()) }
     }
 
     @Test
@@ -67,9 +67,10 @@ class AddNewCareUseCaseTest {
         val result = addNewCareUseCase(activity)
 
         assertThat(result.isLeft()).isTrue()
-        result.getOrHandle {
+        result.handleError {
             assertThat(it).isInstanceOf(AddNewCareUseCase.Fail.CareSchemaNotSelected::class.java)
         }
+        Unit
     }
 
     @Test
@@ -77,6 +78,7 @@ class AddNewCareUseCaseTest {
         val result = addNewCareUseCase(activity)
 
         assertThat(result.isRight()).isTrue()
+        assertThat(result.getOrElse { -1 }).isEqualTo(1)
         coVerify {
             careDao.insert(
                 Care(schemaName = "OMO", date = today, notes = "")
@@ -86,9 +88,8 @@ class AddNewCareUseCaseTest {
 
     @Test
     fun successfullyAddedCareStepsToDb() = runBlocking {
-        val result = addNewCareUseCase(activity)
+        addNewCareUseCase(activity)
 
-        assertThat(result.isRight()).isTrue()
         coVerify {
             careStepDao.insert(
                 CareStep(
@@ -109,19 +110,6 @@ class AddNewCareUseCaseTest {
                     productId = null,
                     careId = 1
                 )
-            )
-        }
-    }
-
-    @Test
-    fun successfullyNavigatedToCareDetails() = runBlocking {
-        val result = addNewCareUseCase(activity)
-
-        assertThat(result.isRight()).isTrue()
-        verify {
-            careDetailsDestination.navigate(
-                activity,
-                CareDetailsDestination.Params(1)
             )
         }
     }

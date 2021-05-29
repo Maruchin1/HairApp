@@ -3,6 +3,8 @@ package com.example.hairapp.products_list
 import com.example.hairapp.R
 import com.example.hairapp.screen.KProductItem
 import com.example.hairapp.screen.ProductsListScreen
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 
@@ -26,6 +28,7 @@ class DisplayProductsTest : ProductsListTest() {
     @Test
     fun displayProductsFromDb() {
         populateProducts()
+        runBlocking { delay(1000) }
         ProductsListScreen {
             productsRecycler {
                 hasSize(2)

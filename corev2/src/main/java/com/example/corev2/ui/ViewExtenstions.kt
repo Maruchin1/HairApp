@@ -13,6 +13,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.viewbinding.ViewBinding
 import com.example.corev2.entities.Product
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
@@ -39,7 +40,10 @@ fun ImageView.setPicassoUriSource(source: LiveData<Uri?>, lifecycleOwner: Lifecy
     }
 }
 
-fun TextInputEditText.setPicassoUriSource(source: MutableLiveData<String>, lifecycleOwner: LifecycleOwner) {
+fun TextInputEditText.setPicassoUriSource(
+    source: MutableLiveData<String>,
+    lifecycleOwner: LifecycleOwner
+) {
     source.observe(lifecycleOwner) {
         if (text.toString() != it) {
             setText(it)
@@ -65,4 +69,10 @@ fun <VB : ViewBinding> ViewGroup.bindLayout(bindingInflater: (LayoutInflater, Vi
 
 fun View.setWeight(weight: Double) {
     updateLayoutParams<LinearLayout.LayoutParams> { this.weight = weight.toFloat() }
+}
+
+fun MaterialToolbar.setTitleSource(source: LiveData<String>, lifecycleOwner: LifecycleOwner) {
+    source.observe(lifecycleOwner) {
+        title = it
+    }
 }

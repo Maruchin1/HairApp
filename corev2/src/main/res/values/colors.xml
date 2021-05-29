@@ -7,7 +7,7 @@
     <color name="color_accent">#9b0000</color>
 
     <color name="color_background">#fafafa</color>
-    <color name="color_background_darker">#e0e0e0</color>
+    <color name="color_background_darker">#f5f5f5</color>
     <color name="color_background_dark">@android:color/darker_gray</color>
 
     <color name="color_black">#000000</color>

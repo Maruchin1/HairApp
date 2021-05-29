@@ -8,4 +8,10 @@
         android:title="@string/select_date"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/delete"
+        android:icon="@drawable/ic_round_delete_24"
+        android:title="@string/delete_care"
+        app:showAsAction="ifRoom" />
+
 </menu>

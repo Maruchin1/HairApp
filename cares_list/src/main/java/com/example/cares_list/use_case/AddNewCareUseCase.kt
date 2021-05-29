@@ -1,34 +1,30 @@
 package com.example.cares_list.use_case
 
-import android.app.Activity
 import android.content.Context
 import arrow.core.Either
 import arrow.core.computations.either
 import com.example.corev2.dao.CareDao
 import com.example.corev2.dao.CareStepDao
 import com.example.corev2.entities.Care
-import com.example.corev2.entities.CareSchema
 import com.example.corev2.entities.CareStep
-import com.example.corev2.navigation.CareDetailsDestination
 import com.example.corev2.relations.CareSchemaWithSteps
 import com.example.corev2.service.ClockService
 
 internal class AddNewCareUseCase(
     private val actions: Actions,
     private val clockService: ClockService,
-    private val careDetailsDestination: CareDetailsDestination,
     private val careDao: CareDao,
     private val careStepDao: CareStepDao
 ) {
 
-    suspend operator fun invoke(activity: Activity): Either<Fail, Unit> {
+    suspend operator fun invoke(context: Context): Either<Fail, Long> {
         return either {
-            val selectedSchemaWithSteps = selectCareSchema(activity).bind()
+            val selectedSchemaWithSteps = selectCareSchema(context).bind()
             val newCare = createNewCareFromSchema(selectedSchemaWithSteps)
             val newCareId = insertCareToDbAndGetId(newCare)
             val newCareSteps = createNewCareStepsFromSchema(selectedSchemaWithSteps, newCareId)
             insertCareStepsToDb(newCareSteps)
-            openCareDetails(activity, newCareId)
+            newCareId
         }
     }
 
@@ -69,11 +65,6 @@ internal class AddNewCareUseCase(
 
     private suspend fun insertCareStepsToDb(careSteps: List<CareStep>) {
         careStepDao.insert(*careSteps.toTypedArray())
-    }
-
-    private fun openCareDetails(activity: Activity, careId: Long) {
-        val params = CareDetailsDestination.Params(careId)
-        careDetailsDestination.navigate(activity, params)
     }
 
     sealed class Fail {

@@ -23,6 +23,7 @@
             app:title="pt. 28 maja" />
 
         <com.example.corev2.ui.PehBalanceBarView
+            android:id="@+id/peh_balance_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -34,7 +35,9 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:fillViewport="true"
+        android:paddingBottom="128dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout

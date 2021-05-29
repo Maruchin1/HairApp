@@ -3,9 +3,11 @@ package com.example.cares_list.components
 import android.app.Activity
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asFlow
+import arrow.core.Either
 import com.example.cares_list.use_case.AddNewCareUseCase
 import com.example.corev2.dao.CareDao
 import com.example.corev2.entities.Care
+import com.example.corev2.navigation.CareDetailsDestination
 import com.example.corev2.relations.CareWithStepsAndPhotos
 import com.example.corev2.service.ClockService
 import com.example.testing.rules.CoroutinesTestRule
@@ -30,8 +32,9 @@ class CaresListViewModelTest {
     private val careDao: CareDao = mockk()
     private val clockService: ClockService = mockk()
     private val addNewCareUseCase: AddNewCareUseCase = mockk()
+    private val careDetailsDestination: CareDetailsDestination = mockk()
     private val viewModel by lazy {
-        CaresListViewModel(careDao, clockService, addNewCareUseCase)
+        CaresListViewModel(careDao, clockService, addNewCareUseCase, careDetailsDestination)
     }
 
     @Before
@@ -169,12 +172,14 @@ class CaresListViewModelTest {
     @Test
     fun onAddCareClick_InvokeOpenAddNewCareUseCare() = runBlocking {
         val activity: Activity = mockk()
-        coJustRun { addNewCareUseCase(any()) }
+        coEvery { addNewCareUseCase(any()) } returns Either.Right(1)
+        coJustRun { careDetailsDestination.navigate(any(), any()) }
 
         viewModel.onAddCareClick(activity)
 
         coVerify {
             addNewCareUseCase(activity)
+            careDetailsDestination.navigate(activity, CareDetailsDestination.Params(1))
         }
     }
 }

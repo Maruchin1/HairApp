@@ -2,4 +2,6 @@
     <string name="select_date">Wybierz datę</string>
     <string name="add_step">Dodaj krok</string>
     <string name="wybierz_schemat">Wybierz schemat</string>
+    <string name="delete_care">Usuń pielęgnację</string>
+    <string name="product_to_select_message">Dotknij aby wybrać produkt</string>
 </resources>

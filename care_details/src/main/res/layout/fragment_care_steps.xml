@@ -14,10 +14,13 @@
         app:title="OMO" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/steps_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:nestedScrollingEnabled="false"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_care_step" />
 
 </LinearLayout>

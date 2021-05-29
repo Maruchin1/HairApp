@@ -3,9 +3,11 @@ package com.example.cares_list.components
 import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.*
+import arrow.core.computations.either
 import com.example.cares_list.use_case.AddNewCareUseCase
 import com.example.corev2.dao.CareDao
 import com.example.corev2.entities.Care
+import com.example.corev2.navigation.CareDetailsDestination
 import com.example.corev2.relations.CareWithStepsAndPhotos
 import com.example.corev2.service.ClockService
 import com.example.corev2.service.daysBetween
@@ -18,7 +20,8 @@ import java.time.LocalDate
 internal class CaresListViewModel(
     private val careDao: CareDao,
     private val clockService: ClockService,
-    private val addNewCareUseCase: AddNewCareUseCase
+    private val addNewCareUseCase: AddNewCareUseCase,
+    private val careDetailsDestination: CareDetailsDestination
 ) : ViewModel() {
 
     private val orderedCaresFlow = careDao.getAllCares()
@@ -42,6 +45,11 @@ internal class CaresListViewModel(
 
     fun onAddCareClick(activity: Activity) = viewModelScope.launch {
         addNewCareUseCase(activity)
+            .map { navigateToCareDetails(activity, it) }
+    }
+
+    fun onCareClick(activity: Activity, care: CareWithStepsAndPhotos) {
+        navigateToCareDetails(activity, care.care.id)
     }
 
     private fun sortCaresFromNewest(cares: List<CareWithStepsAndPhotos>): List<CareWithStepsAndPhotos> {
@@ -51,5 +59,10 @@ internal class CaresListViewModel(
     private fun calcDaysFromLastCare(lastCare: Care?): Long {
         if (lastCare == null) return 0
         return lastCare.date.daysBetween(clockService.getNow())
+    }
+
+    private fun navigateToCareDetails(activity: Activity, careId: Long) {
+        val params = CareDetailsDestination.Params(careId)
+        careDetailsDestination.navigate(activity, params)
     }
 }

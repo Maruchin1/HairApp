@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.example.care_details.R
 import com.example.care_details.databinding.ActivityCareDetailsBinding
+import com.example.corev2.entities.PehBalance
 import com.example.corev2.navigation.CareDetailsDestination
 import com.example.corev2.navigation.Destination
 import com.example.corev2.service.formatDayOfWeekAndMonth
@@ -26,12 +27,20 @@ class CareDetailsActivity : BaseActivity<ActivityCareDetailsBinding>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupViewModel()
+        setupPehBalanceBar()
         setupToolbar()
     }
 
     override fun setupSystemColors(systemColors: SystemColors) {
         systemColors.apply {
             allLight()
+        }
+    }
+
+    private fun setupViewModel() {
+        params?.careId?.let {
+            viewModel.onCareSelected(it)
         }
     }
 
@@ -47,6 +56,13 @@ class CareDetailsActivity : BaseActivity<ActivityCareDetailsBinding>(
                 }
                 true
             }
+        }
+    }
+
+    private fun setupPehBalanceBar() {
+        viewModel.steps.observe(this) { steps ->
+            val products = steps.mapNotNull { it.product }
+            binding.pehBalanceBar.pehBalance = PehBalance.fromProducts(products)
         }
     }
 

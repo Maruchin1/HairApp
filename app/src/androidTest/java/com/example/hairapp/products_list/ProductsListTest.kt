@@ -4,6 +4,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.example.corev2.entities.Product
 import com.example.corev2.room_database.HairAppDatabase
 import com.example.hairapp.MainActivity
+import com.example.hairapp.screen.HomeScreen
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
@@ -20,6 +21,9 @@ abstract class ProductsListTest : KoinTest {
     @Before
     fun before() {
         database.clearAllTables()
+        HomeScreen {
+            productsListButton.click()
+        }
     }
 
     protected fun populateProducts() = runBlocking {

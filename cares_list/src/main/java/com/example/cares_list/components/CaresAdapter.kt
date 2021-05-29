@@ -11,6 +11,9 @@ import com.example.corev2.ui.BaseRecyclerAdapter
 internal class CaresAdapter : BaseRecyclerAdapter<CareWithStepsAndPhotos, ItemCareBinding>(
     bindingInflater = ItemCareBinding::inflate
 ) {
+
+    var handler: Handler? = null
+
     override fun onSetItemData(binding: ItemCareBinding, item: CareWithStepsAndPhotos) {
         binding.apply {
             dayOfMonth.text = item.care.date.formatDayOfMonth()
@@ -19,6 +22,12 @@ internal class CaresAdapter : BaseRecyclerAdapter<CareWithStepsAndPhotos, ItemCa
 
             val products = item.steps.mapNotNull { it.product }
             pehBalance.pehBalance = PehBalance.fromProducts(products)
+
+            card.setOnClickListener { handler?.onCareClicked(item) }
         }
+    }
+
+    interface Handler {
+        fun onCareClicked(care: CareWithStepsAndPhotos)
     }
 }

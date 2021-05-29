@@ -29,20 +29,20 @@ class CareStepsFragment : Fragment() {
                 viewModel.findProduct(selectedProductId)
             }?.let { selectedProduct ->
                 if (it.position == null) {
-                    adapter.addStep(it.type, selectedProduct)
+//                    adapter.addStep(it.type, selectedProduct)
                 } else {
-                    adapter.setStepProduct(it.position, selectedProduct)
+//                    adapter.setStepProduct(it.position, selectedProduct)
                 }
             }
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private val adapter: CareStepsAdapter = CareStepsAdapter(
-        controller = this,
-        layoutResId = R.layout.item_care_step,
-        dragHandleResId = R.id.item_care_product_edit_drag_handle
-    )
+//    @SuppressLint("ClickableViewAccessibility")
+//    private val adapter: CareStepsAdapter = CareStepsAdapter(
+//        controller = this,
+//        layoutResId = R.layout.item_care_step,
+//        dragHandleResId = R.id.item_care_product_edit_drag_handle
+//    )
 
     fun addStep(type: CareStep.Type) {
         val input = SelectProductContract.Input(null, type)
@@ -55,7 +55,8 @@ class CareStepsFragment : Fragment() {
     }
 
     fun getSteps(): List<CareStep> {
-        return adapter.getAllCareSteps()
+        return listOf()
+//        return adapter.getAllCareSteps()
     }
 
     fun deleteStep(careStep: CareStep) = lifecycleScope.launch {
@@ -65,7 +66,7 @@ class CareStepsFragment : Fragment() {
             message = getString(R.string.care_activity_confirm_delete_step_message)
         )
         if (confirmed) {
-            adapter.removeStep(careStep.order)
+//            adapter.removeStep(careStep.order)
         }
     }
 

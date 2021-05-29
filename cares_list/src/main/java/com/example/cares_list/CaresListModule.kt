@@ -10,13 +10,13 @@ import org.koin.dsl.module
 
 val caresListModule = module {
     viewModel {
-        CaresListViewModel(get(), get(), get())
+        CaresListViewModel(get(), get(), get(), get())
     }
     factory {
         CaresAdapter()
     }
     factory {
-        AddNewCareUseCase(get(), get(), get(), get(), get())
+        AddNewCareUseCase(get(), get(), get(), get())
     }
     factory {
         UseCaseActions(get())
