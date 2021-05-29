@@ -1,3 +1,5 @@
 <resources>
     <string name="select_date">Wybierz datę</string>
+    <string name="add_step">Dodaj krok</string>
+    <string name="wybierz_schemat">Wybierz schemat</string>
 </resources>

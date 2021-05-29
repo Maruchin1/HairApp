@@ -1,13 +1,16 @@
 package com.example.cares_list.components
 
+import android.app.Activity
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asFlow
+import com.example.cares_list.use_case.OpenAddNewCareUseCase
 import com.example.corev2.dao.CareDao
 import com.example.corev2.entities.Care
 import com.example.corev2.service.ClockService
 import com.example.testing.rules.CoroutinesTestRule
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.firstOrNull
@@ -28,8 +31,9 @@ class CaresListViewModelTest {
 
     private val careDao: CareDao = mockk()
     private val clockService: ClockService = mockk()
+    private val openAddNewCareUseCase: OpenAddNewCareUseCase = mockk()
     private val viewModel by lazy {
-        CaresListViewModel(careDao, clockService)
+        CaresListViewModel(careDao, clockService, openAddNewCareUseCase)
     }
 
     @Before
@@ -134,5 +138,16 @@ class CaresListViewModelTest {
         val result = viewModel.noCares.asFlow().firstOrNull()
 
         assertThat(result).isFalse()
+    }
+
+    @Test
+    fun onAddCareClick_InvokeOpenAddNewCareUseCare() = runBlocking {
+        val activity: Activity = mockk()
+
+        viewModel.onAddCareClick(activity)
+
+        coVerify {
+            openAddNewCareUseCase(activity)
+        }
     }
 }

@@ -49,7 +49,7 @@ val corev2Module = module {
         get<HairAppDatabase>().careStepDao()
     }
     factory {
-        DialogService()
+        DialogService(get())
     }
     factory {
         ImagePickerService()

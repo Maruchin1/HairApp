@@ -14,7 +14,6 @@ import com.example.hairapp.R
 import com.example.hairapp.framework.Binder
 import com.example.hairapp.framework.Dialog
 import com.example.hairapp.page_select_product.SelectProductContract
-import kotlinx.android.synthetic.main.fragment_care_steps.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -80,19 +79,19 @@ class CareStepsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        care_steps_recycler.adapter = adapter
-        adapter.touchHelper.attachToRecyclerView(care_steps_recycler)
-
-        viewModel.steps.observe(viewLifecycleOwner) {
-            TransitionManager.beginDelayedTransition(care_steps_recycler, ChangeBounds())
-            adapter.updateItems(it)
-        }
-        viewModel.addProductsProportionSource(adapter.pehBalance)
-
-        adapter.noSteps.observe(viewLifecycleOwner) {
-            Binder.setVisibleOrGone(care_steps_not_steps, it)
-            Binder.setVisibleOrGone(care_steps_recycler, !it)
-        }
+//        care_steps_recycler.adapter = adapter
+//        adapter.touchHelper.attachToRecyclerView(care_steps_recycler)
+//
+//        viewModel.steps.observe(viewLifecycleOwner) {
+//            TransitionManager.beginDelayedTransition(care_steps_recycler, ChangeBounds())
+//            adapter.updateItems(it)
+//        }
+//        viewModel.addProductsProportionSource(adapter.pehBalance)
+//
+//        adapter.noSteps.observe(viewLifecycleOwner) {
+//            Binder.setVisibleOrGone(care_steps_not_steps, it)
+//            Binder.setVisibleOrGone(care_steps_recycler, !it)
+//        }
     }
 
 }

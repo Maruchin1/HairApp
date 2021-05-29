@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/add_step"
+        android:icon="@drawable/ic_round_add_24"
+        android:title="@string/add_step"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/select_schema"
+        android:icon="@drawable/ic_round_list_alt_24"
+        android:title="@string/wybierz_schemat"
+        app:showAsAction="always" />
+</menu>

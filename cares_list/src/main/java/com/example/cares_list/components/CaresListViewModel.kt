@@ -1,10 +1,8 @@
 package com.example.cares_list.components
 
 import android.app.Activity
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
+import com.example.cares_list.use_case.OpenAddNewCareUseCase
 import com.example.corev2.dao.CareDao
 import com.example.corev2.entities.Care
 import com.example.corev2.navigation.CareDetailsDestination
@@ -12,12 +10,13 @@ import com.example.corev2.service.ClockService
 import com.example.corev2.service.daysBetween
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 internal class CaresListViewModel(
     private val careDao: CareDao,
     private val clockService: ClockService,
-    private val careDetailsDestination: CareDetailsDestination
+    private val openAddNewCareUseCase: OpenAddNewCareUseCase
 ) : ViewModel() {
 
     private val orderedCaresFlow = careDao.getAllCares()
@@ -39,8 +38,8 @@ internal class CaresListViewModel(
         .map { it.isEmpty() }
         .asLiveData()
 
-    fun onAddCareClick(activity: Activity) {
-        careDetailsDestination.navigate(activity, null)
+    fun onAddCareClick(activity: Activity) = viewModelScope.launch {
+        openAddNewCareUseCase(activity)
     }
 
     private fun sortCaresFromNewest(cares: List<Care>): List<Care> {

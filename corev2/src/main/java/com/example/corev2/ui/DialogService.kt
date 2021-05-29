@@ -4,10 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import androidx.fragment.app.FragmentManager
 import com.example.corev2.R
+import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.databinding.ViewSingleInputBinding
+import com.example.corev2.entities.CareSchema
 import com.example.corev2.entities.Product
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -15,7 +19,9 @@ import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class DialogService {
+class DialogService(
+    private val careSchemaDao: CareSchemaDao
+) {
 
     suspend fun confirm(
         context: Context,
@@ -100,6 +106,29 @@ class DialogService {
                 it.resume(null)
             }
             show(manager, "DatePicker")
+        }
+    }
+
+    suspend fun selectCareSchema(
+        context: Context,
+    ): CareSchema? {
+        val schemas = careSchemaDao.getAll()
+            .firstOrNull()
+            ?.map { it.careSchema }
+            ?: emptyList()
+        val noSchema = CareSchema(id = -1, name = context.getString(R.string.without_schema))
+        val schemasOptions = schemas + noSchema
+        return suspendCoroutine {
+            val items = schemasOptions.map { it.name }.toTypedArray()
+            MaterialAlertDialogBuilder(context)
+                .setTitle("Schemat pielęgnacji")
+                .setItems(items) { _, which ->
+                    it.resume(schemasOptions[which])
+                }
+                .setOnCancelListener { _ ->
+                    it.resume(null)
+                }
+                .show()
         }
     }
 }

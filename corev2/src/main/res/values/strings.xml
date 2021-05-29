@@ -31,5 +31,6 @@
     <string name="letter_e">E</string>
     <string name="letter_p">P</string>
     <string name="proportion_of_ingredients">Proporcje składników</string>
+    <string name="without_schema">Bez schematu</string>
 
 </resources>
