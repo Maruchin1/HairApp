@@ -17,6 +17,7 @@
       <module name="HairApp.home" target="11" />
       <module name="HairApp.product_form" target="11" />
       <module name="HairApp.products_list" target="11" />
+      <module name="HairApp.select_product" target="11" />
       <module name="HairApp.testing" target="11" />
       <module name="test" target="1.7" />
     </bytecodeTargetLevel>

@@ -6,6 +6,7 @@ import arrow.core.Either
 import com.example.care_details.use_case.ChangeCareDateUseCase
 import com.example.care_details.use_case.ChangeCareNotesUseCase
 import com.example.care_details.use_case.DeleteCareUseCase
+import com.example.care_details.use_case.SelectProductForStepUseCase
 import com.example.corev2.dao.CareDao
 import com.example.corev2.entities.*
 import com.example.corev2.relations.CareStepWithProduct
@@ -33,12 +34,14 @@ class CareDetailsViewModelTest {
     private val careDao: CareDao = mockk()
     private val changeCareDateUseCase: ChangeCareDateUseCase = mockk()
     private val deleteCareUseCase: DeleteCareUseCase = mockk()
+    private val selectProductForStepUseCase: SelectProductForStepUseCase = mockk()
     private val changeCareNotesUseCase: ChangeCareNotesUseCase = mockk()
     private val viewModel by lazy {
         CareDetailsViewModel(
             careDao,
             changeCareDateUseCase,
             deleteCareUseCase,
+            selectProductForStepUseCase,
             changeCareNotesUseCase
         )
     }
@@ -127,6 +130,18 @@ class CareDetailsViewModelTest {
 
         coVerify {
             deleteCareUseCase(careWithStepsAndPhotosFromDb.care)
+        }
+    }
+
+    @Test
+    fun onCareStepClicked_InvokeSelectProductForStepUseCase() = runBlocking {
+        coEvery { selectProductForStepUseCase(any()) } returns Either.Right(Unit)
+        val clickedStep = careWithStepsAndPhotosFromDb.steps[0].careStep
+
+        viewModel.onCareStepClicked(clickedStep)
+
+        coVerify {
+            selectProductForStepUseCase(clickedStep)
         }
     }
 

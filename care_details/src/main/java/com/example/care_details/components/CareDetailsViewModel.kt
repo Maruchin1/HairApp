@@ -6,6 +6,7 @@ import arrow.core.computations.either
 import com.example.care_details.use_case.ChangeCareDateUseCase
 import com.example.care_details.use_case.ChangeCareNotesUseCase
 import com.example.care_details.use_case.DeleteCareUseCase
+import com.example.care_details.use_case.SelectProductForStepUseCase
 import com.example.corev2.dao.CareDao
 import com.example.corev2.entities.*
 import com.example.corev2.relations.CareStepWithProduct
@@ -18,6 +19,7 @@ internal class CareDetailsViewModel(
     private val careDao: CareDao,
     private val changeCareDateUseCase: ChangeCareDateUseCase,
     private val deleteCareUseCase: DeleteCareUseCase,
+    private val selectProductForStepUseCase: SelectProductForStepUseCase,
     private val changeCareNotesUseCase: ChangeCareNotesUseCase
 ) : ViewModel() {
 
@@ -57,6 +59,10 @@ internal class CareDetailsViewModel(
 
     suspend fun onDeleteCareClicked(): Either<DeleteCareUseCase.Fail, Unit> {
         return deleteCareUseCase(careFlow.firstOrNull()?.care)
+    }
+
+    suspend fun onCareStepClicked(step: CareStep): Either<SelectProductForStepUseCase.Fail, Unit> {
+        return selectProductForStepUseCase(step)
     }
 
     fun onEditNotesClicked() = viewModelScope.launch {
