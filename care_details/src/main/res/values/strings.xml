@@ -9,4 +9,6 @@
     <string name="save_notes">Zapisz notatki</string>
     <string name="delete_notes">Usuń notatki</string>
     <string name="notes">Notatki</string>
+    <string name="steps">Kroki</string>
+    <string name="photos">Zdjęcia</string>
 </resources>

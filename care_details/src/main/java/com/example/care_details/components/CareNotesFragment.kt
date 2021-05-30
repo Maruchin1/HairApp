@@ -22,26 +22,9 @@ internal class CareNotesFragment : BaseFragment<FragmentCareNotesBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupToolbar()
         setupNotes()
         observeEditMode()
         observeNotesNotAvailable()
-    }
-
-    private fun setupToolbar() {
-        binding.toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.edit_notes -> viewModel.onEditNotesClicked()
-                R.id.cancel_edition -> viewModel.onCancelNotesEditionClicked()
-                R.id.save_notes -> onSaveNotesClicked()
-            }
-            true
-        }
-    }
-
-    private fun onSaveNotesClicked() = lifecycleScope.launch {
-        val newNotes = binding.notesInput.text?.toString() ?: ""
-        viewModel.onSaveNotesClicked(newNotes)
     }
 
     private fun setupNotes() {
@@ -57,20 +40,7 @@ internal class CareNotesFragment : BaseFragment<FragmentCareNotesBinding>(
 
     private fun observeEditMode() = viewModel.notesEditMode.observe(viewLifecycleOwner) {
         TransitionManager.beginDelayedTransition(careDetailsActivity.binding.root)
-        updateToolbarMenu(it)
         updateNotesVisibility(it)
-    }
-
-    private fun updateToolbarMenu(isEditMode: Boolean) {
-        val menuResId = if (isEditMode) {
-            R.menu.care_notes_context_actions
-        } else {
-            R.menu.care_notes_toolbar
-        }
-        binding.toolbar.apply {
-            menu.clear()
-            inflateMenu(menuResId)
-        }
     }
 
     private fun updateNotesVisibility(isEditMode: Boolean) {

@@ -2,6 +2,8 @@ package com.example.care_details.components
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.map
+import com.example.care_details.R
 import com.example.care_details.databinding.FragmentCareStepsBinding
 import com.example.corev2.ui.BaseFragment
 import com.example.corev2.ui.setTitleSource
@@ -17,12 +19,7 @@ internal class CareStepsFragment : BaseFragment<FragmentCareStepsBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupToolbar()
         setupStepsRecycler()
-    }
-
-    private fun setupToolbar() {
-        binding.toolbar.setTitleSource(viewModel.schemaName, viewLifecycleOwner)
     }
 
     private fun setupStepsRecycler() {

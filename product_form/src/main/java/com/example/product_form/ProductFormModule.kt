@@ -7,7 +7,7 @@ import org.koin.dsl.module
 
 val productFormModule = module {
     viewModel {
-        ProductFormViewModel(get(), get(), get())
+        ProductFormViewModel(get(), get())
     }
     factory(named(ProductFormDestination.ACTIVITY)) {
         ProductFormActivity::class.java

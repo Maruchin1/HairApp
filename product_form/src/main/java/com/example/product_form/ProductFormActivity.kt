@@ -34,10 +34,7 @@ internal class ProductFormActivity : BaseActivity<ActivityProductForm2Binding>(
     }
 
     private fun setupProductPhoto() {
-        binding.productPhoto.let {
-            it.card.setOnClickListener { viewModel.takePhoto(this) }
-            it.image.setPicassoUriSource(viewModel.form.productPhoto, this)
-        }
+        binding.productPhoto.image.setPicassoUriSource(viewModel.form.productPhoto, this)
     }
 
     private fun setupProductFields() {
