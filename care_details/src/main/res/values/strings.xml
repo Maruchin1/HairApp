@@ -4,4 +4,9 @@
     <string name="wybierz_schemat">Wybierz schemat</string>
     <string name="delete_care">Usuń pielęgnację</string>
     <string name="product_to_select_message">Dotknij aby wybrać produkt</string>
+    <string name="care_notes_hint">Tutaj zapisz swoje obserwacje i uwagi</string>
+    <string name="edit_notes">Edytuj notatki</string>
+    <string name="save_notes">Zapisz notatki</string>
+    <string name="delete_notes">Usuń notatki</string>
+    <string name="notes">Notatki</string>
 </resources>

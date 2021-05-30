@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.view.updateLayoutParams
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.LifecycleOwner
@@ -74,5 +75,11 @@ fun View.setWeight(weight: Double) {
 fun MaterialToolbar.setTitleSource(source: LiveData<String>, lifecycleOwner: LifecycleOwner) {
     source.observe(lifecycleOwner) {
         title = it
+    }
+}
+
+fun TextView.setSource(source: LiveData<String>, lifecycleOwner: LifecycleOwner) {
+    source.observe(lifecycleOwner) {
+        text = it
     }
 }

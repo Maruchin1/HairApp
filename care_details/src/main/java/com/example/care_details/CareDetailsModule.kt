@@ -5,6 +5,7 @@ import com.example.care_details.components.CareDetailsViewModel
 import com.example.care_details.components.CareStepsAdapter
 import com.example.care_details.components.UseCaseActions
 import com.example.care_details.use_case.ChangeCareDateUseCase
+import com.example.care_details.use_case.ChangeCareNotesUseCase
 import com.example.care_details.use_case.DeleteCareUseCase
 import com.example.corev2.navigation.CareDetailsDestination
 import org.koin.android.ext.koin.androidContext
@@ -28,6 +29,9 @@ val careDetailsModule = module {
     }
     factory {
         DeleteCareUseCase(get(), get())
+    }
+    factory {
+        ChangeCareNotesUseCase(get())
     }
     single {
         UseCaseActions(get())

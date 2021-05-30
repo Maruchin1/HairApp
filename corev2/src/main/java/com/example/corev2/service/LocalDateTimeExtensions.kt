@@ -14,6 +14,10 @@ fun LocalDateTime.formatDayOfWeekAndMonth(): String {
     return format(DateTimeFormatter.ofPattern("EE dd MMMM"))
 }
 
+fun LocalDateTime.formatDayAndMonth(): String {
+    return format(DateTimeFormatter.ofPattern("dd MMMM"))
+}
+
 fun LocalDateTime.formatDayOfMonth(): String {
     return format(DateTimeFormatter.ofPattern("dd"))
 }

@@ -23,8 +23,7 @@ internal class ChangeCareDateUseCase(
 
     private suspend fun askForNewDate(care: Care): Either<Fail, LocalDateTime> {
         return actions.askForNewDate(care.date)
-            ?.let { Either.Right(it) }
-            ?: Either.Left(Fail.NewDateNotSelected)
+            .rightIfNotNull { Fail.NewDateNotSelected }
     }
 
     private suspend fun updateCareInDb(update: Care) {

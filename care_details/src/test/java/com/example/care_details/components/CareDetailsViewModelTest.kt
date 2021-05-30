@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asFlow
 import arrow.core.Either
 import com.example.care_details.use_case.ChangeCareDateUseCase
+import com.example.care_details.use_case.ChangeCareNotesUseCase
 import com.example.care_details.use_case.DeleteCareUseCase
 import com.example.corev2.dao.CareDao
 import com.example.corev2.entities.*
@@ -29,12 +30,17 @@ class CareDetailsViewModelTest {
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
 
-    private val clockService: ClockService = mockk()
     private val careDao: CareDao = mockk()
     private val changeCareDateUseCase: ChangeCareDateUseCase = mockk()
     private val deleteCareUseCase: DeleteCareUseCase = mockk()
+    private val changeCareNotesUseCase: ChangeCareNotesUseCase = mockk()
     private val viewModel by lazy {
-        CareDetailsViewModel(clockService, careDao, changeCareDateUseCase, deleteCareUseCase)
+        CareDetailsViewModel(
+            careDao,
+            changeCareDateUseCase,
+            deleteCareUseCase,
+            changeCareNotesUseCase
+        )
     }
 
     private val careWithStepsAndPhotosFromDb = CareWithStepsAndPhotos(
@@ -83,18 +89,7 @@ class CareDetailsViewModelTest {
 
     @Before
     fun before() {
-        every { clockService.getNow() } returns LocalDateTime.now()
         every { careDao.getById(1) } returns flowOf(careWithStepsAndPhotosFromDb)
-    }
-
-    @Test
-    fun careDate_IsCurrentDateByDefault() = runBlocking {
-        val fakeNow = LocalDateTime.now()
-        every { clockService.getNow() } returns fakeNow
-
-        val result = viewModel.careDate.asFlow().firstOrNull()
-
-        assertThat(result).isEqualTo(fakeNow)
     }
 
     @Test
@@ -132,6 +127,41 @@ class CareDetailsViewModelTest {
 
         coVerify {
             deleteCareUseCase(careWithStepsAndPhotosFromDb.care)
+        }
+    }
+
+    @Test
+    fun onEditNotesClicked_ChangeNotesEditModeToTrue() = runBlocking {
+        val editModeBefore = viewModel.notesEditMode.asFlow().firstOrNull()
+        viewModel.onEditNotesClicked()
+        val editModeAfter = viewModel.notesEditMode.asFlow().firstOrNull()
+
+        assertThat(editModeBefore).isFalse()
+        assertThat(editModeAfter).isTrue()
+    }
+
+    @Test
+    fun onCancelNotesEditionClicked_ChangeNotesEditModeToFalse() = runBlocking {
+        viewModel.onEditNotesClicked()
+        val editModeBefore = viewModel.notesEditMode.asFlow().firstOrNull()
+        viewModel.onCancelNotesEditionClicked()
+        val editModeAfter = viewModel.notesEditMode.asFlow().firstOrNull()
+
+        assertThat(editModeBefore).isTrue()
+        assertThat(editModeAfter).isFalse()
+    }
+
+    @Test
+    fun onSaveNotesClicked_CallChangeCareNotesUseCase() = runBlocking {
+        val newNotes = "Lorem ipsum"
+        coEvery { changeCareNotesUseCase(any(), any()) } returns Either.Right(Unit)
+
+        viewModel.onCareSelected(1)
+        val result = viewModel.onSaveNotesClicked(newNotes)
+
+        assertThat(result.isRight()).isTrue()
+        coVerify {
+            changeCareNotesUseCase(careWithStepsAndPhotosFromDb.care, newNotes)
         }
     }
 }

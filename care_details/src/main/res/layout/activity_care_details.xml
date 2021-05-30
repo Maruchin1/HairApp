@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/root_container"
     tools:context=".components.CareDetailsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -52,6 +53,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 tools:layout="@layout/fragment_care_steps" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/care_notes"
+                android:name="com.example.care_details.components.CareNotesFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                tools:layout="@layout/fragment_care_notes" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

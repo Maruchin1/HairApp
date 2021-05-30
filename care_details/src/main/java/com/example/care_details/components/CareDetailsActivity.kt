@@ -8,6 +8,7 @@ import com.example.care_details.databinding.ActivityCareDetailsBinding
 import com.example.corev2.entities.PehBalance
 import com.example.corev2.navigation.CareDetailsDestination
 import com.example.corev2.navigation.Destination
+import com.example.corev2.service.formatDayAndMonth
 import com.example.corev2.service.formatDayOfWeekAndMonth
 import com.example.corev2.ui.BaseActivity
 import com.example.corev2.ui.SystemColors
@@ -47,7 +48,7 @@ class CareDetailsActivity : BaseActivity<ActivityCareDetailsBinding>(
 
     private fun setupToolbar() {
         viewModel.careDate.observe(this) {
-            binding.toolbar.title = it.formatDayOfWeekAndMonth()
+            binding.toolbar.title = it.formatDayAndMonth()
         }
         binding.toolbar.apply {
             setNavigationOnClickListener { finish() }
