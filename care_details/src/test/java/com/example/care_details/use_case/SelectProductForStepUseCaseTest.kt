@@ -27,17 +27,17 @@ class SelectProductForStepUseCaseTest {
         productId = null,
         careId = 1
     )
-    private val selectedProduct = Product(id = 1, name = "Super shampoo")
+    private val selectedProductId = 2L
 
     @Before
     fun before() {
-        coEvery { actions.askForProduct(any()) } returns selectedProduct
+        coEvery { actions.askForProductId(any()) } returns selectedProductId
         coJustRun { careStepDao.update(*anyVararg()) }
     }
 
     @Test
     fun productNotSelected() = runBlocking {
-        coEvery { actions.askForProduct(any()) } returns null
+        coEvery { actions.askForProductId(any()) } returns null
 
         val result = selectProductForStepUseCase(careStepToUpdate)
 
@@ -56,7 +56,7 @@ class SelectProductForStepUseCaseTest {
 
         assertThat(result.isRight()).isTrue()
         coVerify {
-            careStepDao.update(careStepToUpdate.copy(productId = 1))
+            careStepDao.update(careStepToUpdate.copy(productId = selectedProductId))
         }
     }
 }

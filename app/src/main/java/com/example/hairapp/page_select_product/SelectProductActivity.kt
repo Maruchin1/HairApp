@@ -8,12 +8,10 @@ import com.example.core.domain.CareStep
 import com.example.core.domain.Product
 import com.example.hairapp.R
 import com.example.hairapp.common.ProductItemController
-import com.example.hairapp.databinding.ActivitySelectProductBinding
 import com.example.hairapp.framework.BindingRecyclerAdapter
 import com.example.hairapp.framework.SystemColors
 import com.example.hairapp.framework.bindActivity
 import com.example.hairapp.page_product_form.ProductFormActivity
-import kotlinx.android.synthetic.main.activity_select_product.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SelectProductActivity : AppCompatActivity(), ProductItemController {
@@ -27,7 +25,6 @@ class SelectProductActivity : AppCompatActivity(), ProductItemController {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bindActivity<ActivitySelectProductBinding>(R.layout.activity_select_product, viewModel)
         SystemColors(this).allDark()
         setupAdapter()
         selectProductApplicationType()
@@ -40,13 +37,13 @@ class SelectProductActivity : AppCompatActivity(), ProductItemController {
     }
 
     private fun setupAdapter() {
-        recycler.adapter = BindingRecyclerAdapter<Product>(
-            controller = this,
-            layoutResId = R.layout.item_product
-        ).apply {
-            setSource(viewModel.products, this@SelectProductActivity)
-            setItemComparator { it.id }
-        }
+//        recycler.adapter = BindingRecyclerAdapter<Product>(
+//            controller = this,
+//            layoutResId = R.layout.item_product
+//        ).apply {
+//            setSource(viewModel.products, this@SelectProductActivity)
+//            setItemComparator { it.id }
+//        }
     }
 
     private fun selectProductApplicationType() {

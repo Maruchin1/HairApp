@@ -2,10 +2,7 @@ package com.example.corev2
 
 import androidx.room.Room
 import com.example.corev2.data_store.InitializationCompletionStore
-import com.example.corev2.navigation.CareDetailsDestination
-import com.example.corev2.navigation.EditCareSchemaDestination
-import com.example.corev2.navigation.HomeDestination
-import com.example.corev2.navigation.ProductFormDestination
+import com.example.corev2.navigation.*
 import com.example.corev2.room_database.DatabaseInitializer
 import com.example.corev2.room_database.DatabaseInitializerImpl
 import com.example.corev2.room_database.HairAppDatabase
@@ -76,6 +73,11 @@ val corev2Module = module {
     factory {
         ProductFormDestination(
             activityClass = get(named(ProductFormDestination.ACTIVITY))
+        )
+    }
+    factory {
+        SelectProductDestination(
+            activityClass = get(named(SelectProductDestination.ACTIVITY))
         )
     }
 }

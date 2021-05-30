@@ -24,29 +24,37 @@ internal class CareDetailsViewModel(
 ) : ViewModel() {
 
     private val careIdState = MutableStateFlow<Long?>(null)
+
     private val careFlow = careIdState
         .filterNotNull()
         .flatMapLatest { careDao.getById(it) }
         .filterNotNull()
+
     private val notesEditModeState = MutableStateFlow(false)
 
     val careDate: LiveData<LocalDateTime> = careFlow
         .mapLatest { it.care.date }
         .asLiveData()
+
     val schemaName: LiveData<String> = careFlow
         .mapLatest { it.care.schemaName }
         .asLiveData()
+
     val steps: LiveData<List<CareStepWithProduct>> = careFlow
         .mapLatest { it.steps }
         .asLiveData()
+
     val notes: LiveData<String> = careFlow
         .mapLatest { it.care.notes }
         .asLiveData()
+
     val notesNotAvailable: LiveData<Boolean> = notes
         .map { it.isEmpty() }
+
     val photos: LiveData<List<CarePhoto>> = careFlow
         .mapLatest { it.photos }
         .asLiveData()
+
     val notesEditMode: LiveData<Boolean> = notesEditModeState.asLiveData()
 
     fun onCareSelected(careId: Long) = viewModelScope.launch {

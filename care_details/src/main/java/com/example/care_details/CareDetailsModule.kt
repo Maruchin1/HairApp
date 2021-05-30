@@ -34,7 +34,7 @@ val careDetailsModule = module {
         SelectProductForStepUseCase(get(), get())
     }
     single {
-        UseCaseActions(get())
+        UseCaseActions(get(), get())
     } binds arrayOf(
         ChangeCareDateUseCase.Actions::class,
         DeleteCareUseCase.Actions::class,

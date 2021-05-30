@@ -1,17 +1,18 @@
 package com.example.care_details.components
 
 import androidx.appcompat.app.AppCompatActivity
-import arrow.core.computations.nullable
 import com.example.care_details.use_case.ChangeCareDateUseCase
 import com.example.care_details.use_case.DeleteCareUseCase
 import com.example.care_details.use_case.SelectProductForStepUseCase
 import com.example.corev2.entities.Product
+import com.example.corev2.navigation.SelectProductDestination
 import com.example.corev2.ui.DialogService
 import java.lang.ref.WeakReference
 import java.time.LocalDateTime
 
 internal class UseCaseActions(
-    private val dialogService: DialogService
+    private val dialogService: DialogService,
+    private val selectProductDestination: SelectProductDestination
 ) : ChangeCareDateUseCase.Actions,
     DeleteCareUseCase.Actions,
     SelectProductForStepUseCase.Actions {
@@ -23,9 +24,8 @@ internal class UseCaseActions(
     }
 
     override suspend fun askForNewDate(selectedDate: LocalDateTime): LocalDateTime? {
-        return nullable {
-            val activity = activityRef.get().bind()
-            dialogService.selectDateTime(activity.supportFragmentManager, selectedDate).bind()
+        return activityRef.get()?.let {
+            dialogService.selectDateTime(it.supportFragmentManager, selectedDate)
         }
     }
 
@@ -38,7 +38,10 @@ internal class UseCaseActions(
         } ?: false
     }
 
-    override suspend fun askForProduct(type: Product.Type): Product? {
-        return null
+    override suspend fun askForProductId(type: Product.Type): Long? {
+        return activityRef.get()?.let {
+            val params = SelectProductDestination.Params(type)
+            selectProductDestination.navigate(it, params)
+        }
     }
 }
