@@ -3,10 +3,7 @@ package com.example.care_details.components
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asFlow
 import arrow.core.Either
-import com.example.care_details.use_case.ChangeCareDateUseCase
-import com.example.care_details.use_case.ChangeCareNotesUseCase
-import com.example.care_details.use_case.DeleteCareUseCase
-import com.example.care_details.use_case.SelectProductForStepUseCase
+import com.example.care_details.use_case.*
 import com.example.corev2.dao.CareDao
 import com.example.corev2.entities.*
 import com.example.corev2.relations.CareStepWithProduct
@@ -36,13 +33,15 @@ class CareDetailsViewModelTest {
     private val deleteCareUseCase: DeleteCareUseCase = mockk()
     private val selectProductForStepUseCase: SelectProductForStepUseCase = mockk()
     private val changeCareNotesUseCase: ChangeCareNotesUseCase = mockk()
+    private val addCarePhotoUseCase: AddCarePhotoUseCase = mockk()
     private val viewModel by lazy {
         CareDetailsViewModel(
             careDao,
             changeCareDateUseCase,
             deleteCareUseCase,
             selectProductForStepUseCase,
-            changeCareNotesUseCase
+            changeCareNotesUseCase,
+            addCarePhotoUseCase
         )
     }
 
@@ -142,6 +141,18 @@ class CareDetailsViewModelTest {
 
         coVerify {
             selectProductForStepUseCase(clickedStep)
+        }
+    }
+
+    @Test
+    fun onAddNewPhotoClicked_InvokeAddCarePhotoUseCase() = runBlocking {
+        coEvery { addCarePhotoUseCase(any()) } returns Either.Right(Unit)
+
+        viewModel.onCareSelected(1)
+        viewModel.onAddNewPhotoClicked()
+
+        coVerify {
+            addCarePhotoUseCase(careWithStepsAndPhotosFromDb.care)
         }
     }
 
