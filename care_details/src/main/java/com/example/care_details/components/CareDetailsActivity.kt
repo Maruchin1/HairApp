@@ -89,7 +89,12 @@ class CareDetailsActivity : BaseActivity<ActivityCareDetailsBinding>(
             getTabAt(1)?.setIcon(R.drawable.ic_round_photo_library_24)
             getTabAt(2)?.setIcon(R.drawable.ic_round_notes_24)
         }
-        PagerFabMediator(binding.fab, binding.pager)
+        PagerFabMediator(
+            fab = binding.fab,
+            pager = binding.pager,
+            onAddStepClicked = {},
+            onAddPhotoClicked = { onAddNewPhotoClicked() }
+        )
     }
 
     private fun onChangeDateClicked() = lifecycleScope.launch {
@@ -99,6 +104,10 @@ class CareDetailsActivity : BaseActivity<ActivityCareDetailsBinding>(
     private fun onDeleteCareClicked() = lifecycleScope.launch {
         viewModel.onDeleteCareClicked()
             .map { finish() }
+    }
+
+    private fun onAddNewPhotoClicked() = lifecycleScope.launch {
+        viewModel.onAddNewPhotoClicked()
     }
 
     private inner class PagesAdapter : FragmentStatePagerAdapter(supportFragmentManager) {

@@ -3,6 +3,8 @@ package com.example.care_details.components
 import androidx.lifecycle.*
 import arrow.core.Either
 import arrow.core.computations.either
+import com.example.care_details.use_case.*
+import com.example.care_details.use_case.AddCarePhotoUseCase
 import com.example.care_details.use_case.ChangeCareDateUseCase
 import com.example.care_details.use_case.ChangeCareNotesUseCase
 import com.example.care_details.use_case.DeleteCareUseCase
@@ -20,7 +22,8 @@ internal class CareDetailsViewModel(
     private val changeCareDateUseCase: ChangeCareDateUseCase,
     private val deleteCareUseCase: DeleteCareUseCase,
     private val selectProductForStepUseCase: SelectProductForStepUseCase,
-    private val changeCareNotesUseCase: ChangeCareNotesUseCase
+    private val changeCareNotesUseCase: ChangeCareNotesUseCase,
+    private val addCarePhotoUseCase: AddCarePhotoUseCase
 ) : ViewModel() {
 
     private val careIdState = MutableStateFlow<Long?>(null)
@@ -71,6 +74,10 @@ internal class CareDetailsViewModel(
 
     suspend fun onCareStepClicked(step: CareStep): Either<SelectProductForStepUseCase.Fail, Unit> {
         return selectProductForStepUseCase(step)
+    }
+
+    suspend fun onAddNewPhotoClicked(): Either<AddCarePhotoUseCase.Fail, Unit> {
+        return addCarePhotoUseCase(careFlow.firstOrNull()?.care)
     }
 
     fun onEditNotesClicked() = viewModelScope.launch {

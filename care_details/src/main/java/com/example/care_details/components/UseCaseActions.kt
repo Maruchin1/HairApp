@@ -1,10 +1,12 @@
 package com.example.care_details.components
 
 import androidx.appcompat.app.AppCompatActivity
+import com.example.care_details.use_case.AddCarePhotoUseCase
 import com.example.care_details.use_case.ChangeCareDateUseCase
 import com.example.care_details.use_case.DeleteCareUseCase
 import com.example.care_details.use_case.SelectProductForStepUseCase
 import com.example.corev2.entities.Product
+import com.example.corev2.navigation.CaptureCarePhotoDestination
 import com.example.corev2.navigation.SelectProductDestination
 import com.example.corev2.ui.DialogService
 import java.lang.ref.WeakReference
@@ -12,10 +14,12 @@ import java.time.LocalDateTime
 
 internal class UseCaseActions(
     private val dialogService: DialogService,
-    private val selectProductDestination: SelectProductDestination
+    private val selectProductDestination: SelectProductDestination,
+    private val captureCarePhotoDestination: CaptureCarePhotoDestination
 ) : ChangeCareDateUseCase.Actions,
     DeleteCareUseCase.Actions,
-    SelectProductForStepUseCase.Actions {
+    SelectProductForStepUseCase.Actions,
+    AddCarePhotoUseCase.Actions {
 
     private lateinit var activityRef: WeakReference<AppCompatActivity>
 
@@ -42,6 +46,12 @@ internal class UseCaseActions(
         return activityRef.get()?.let {
             val params = SelectProductDestination.Params(type)
             selectProductDestination.navigate(it, params)
+        }
+    }
+
+    override suspend fun captureNewCarePhoto(): String? {
+        return activityRef.get()?.let {
+            captureCarePhotoDestination.navigate(it)
         }
     }
 }

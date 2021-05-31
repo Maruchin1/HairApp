@@ -3,6 +3,8 @@ package com.example.care_details
 import com.example.care_details.components.CareDetailsActivity
 import com.example.care_details.components.CareDetailsViewModel
 import com.example.care_details.components.UseCaseActions
+import com.example.care_details.use_case.*
+import com.example.care_details.use_case.AddCarePhotoUseCase
 import com.example.care_details.use_case.ChangeCareDateUseCase
 import com.example.care_details.use_case.ChangeCareNotesUseCase
 import com.example.care_details.use_case.DeleteCareUseCase
@@ -16,7 +18,7 @@ import org.koin.dsl.module
 
 val careDetailsModule = module {
     viewModel {
-        CareDetailsViewModel(get(), get(), get(), get(), get())
+        CareDetailsViewModel(get(), get(), get(), get(), get(), get())
     }
     factory(named(CareDetailsDestination.ACTIVITY)) {
         CareDetailsActivity::class.java
@@ -33,11 +35,15 @@ val careDetailsModule = module {
     factory {
         SelectProductForStepUseCase(get(), get())
     }
+    factory {
+        AddCarePhotoUseCase(get(), get())
+    }
     single {
-        UseCaseActions(get(), get())
+        UseCaseActions(get(), get(), get())
     } binds arrayOf(
         ChangeCareDateUseCase.Actions::class,
         DeleteCareUseCase.Actions::class,
-        SelectProductForStepUseCase.Actions::class
+        SelectProductForStepUseCase.Actions::class,
+        AddCarePhotoUseCase.Actions::class
     )
 }

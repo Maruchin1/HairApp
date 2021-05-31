@@ -80,4 +80,7 @@ val corev2Module = module {
             activityClass = get(named(SelectProductDestination.ACTIVITY))
         )
     }
+    factory {
+        CaptureCarePhotoDestination()
+    }
 }
