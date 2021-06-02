@@ -15,7 +15,7 @@ class SelectProductDestination(
     }
 
     @Parcelize
-    data class Params(val productType: Product.Type) : Parcelable
+    data class Params(val productType: Product.Type?) : Parcelable
 
     companion object {
         const val ACTIVITY = "select_product_activity"

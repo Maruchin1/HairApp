@@ -18,18 +18,23 @@ internal class SelectProductViewModel(
     private val allProductsFlow = productDao.getAll()
 
     private val productsOfSelectedTypeFlow = selectedProductTypeState
-        .filterNotNull()
-        .combine(allProductsFlow) { type, products -> getFilteredByType(products, type) }
+        .combine(allProductsFlow) { type, products -> getFilteredByOptionalType(products, type) }
         .map { getSortedAlphabetically(it) }
 
-    val selectedProductType: LiveData<Product.Type> = selectedProductTypeState
-        .filterNotNull()
+    val selectedProductType: LiveData<Product.Type?> = selectedProductTypeState
         .asLiveData()
 
-    val productsOfSelectedType: LiveData<List<Product>> = productsOfSelectedTypeFlow.asLiveData()
+    val products: LiveData<List<Product>> = productsOfSelectedTypeFlow.asLiveData()
 
-    fun onProductTypeSelected(type: Product.Type) = viewModelScope.launch {
+    fun onProductTypeSelected(type: Product.Type?) = viewModelScope.launch {
         selectedProductTypeState.emit(type)
+    }
+
+    private fun getFilteredByOptionalType(
+        products: List<Product>,
+        type: Product.Type?
+    ): List<Product> {
+        return type?.let { getFilteredByType(products, it) } ?: products
     }
 
     private fun getFilteredByType(products: List<Product>, type: Product.Type): List<Product> {

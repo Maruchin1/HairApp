@@ -9,6 +9,7 @@ import com.example.corev2.navigation.SelectProductDestination
 import com.example.corev2.ui.BaseActivity
 import com.example.corev2.ui.BaseRecyclerAdapter
 import com.example.corev2.ui.SystemColors
+import com.example.select_product.R
 import com.example.select_product.databinding.ActivitySelectProductBinding
 import com.example.select_product.databinding.ItemProductBinding
 import org.koin.android.ext.android.inject
@@ -44,7 +45,7 @@ internal class SelectProductActivity : BaseActivity<ActivitySelectProductBinding
 
     private fun setupToolbar() {
         viewModel.selectedProductType.observe(this) {
-            binding.toolbar.setTitle(it.resId)
+            binding.toolbar.setTitle(it?.resId ?: R.string.products)
         }
         binding.toolbar.setNavigationOnClickListener { finish() }
     }
@@ -52,7 +53,7 @@ internal class SelectProductActivity : BaseActivity<ActivitySelectProductBinding
     private fun setupProductsRecycler() {
         binding.productsRecycler.adapter = productsAdapter
         productsAdapter.apply {
-            addSource(viewModel.productsOfSelectedType, this@SelectProductActivity)
+            addSource(viewModel.products, this@SelectProductActivity)
             setItemComparator { oldItem, newItem -> oldItem.id == newItem.id }
         }
     }

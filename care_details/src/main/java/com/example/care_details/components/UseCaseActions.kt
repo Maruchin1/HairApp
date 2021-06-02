@@ -1,7 +1,8 @@
 package com.example.care_details.components
 
 import androidx.appcompat.app.AppCompatActivity
-import com.example.care_details.use_case.AddCarePhotoUseCase
+import com.example.care_details.use_case.*
+import com.example.care_details.use_case.AddCareStepUseCase
 import com.example.care_details.use_case.ChangeCareDateUseCase
 import com.example.care_details.use_case.DeleteCareUseCase
 import com.example.care_details.use_case.SelectProductForStepUseCase
@@ -19,6 +20,7 @@ internal class UseCaseActions(
 ) : ChangeCareDateUseCase.Actions,
     DeleteCareUseCase.Actions,
     SelectProductForStepUseCase.Actions,
+    AddCareStepUseCase.Actions,
     AddCarePhotoUseCase.Actions {
 
     private lateinit var activityRef: WeakReference<AppCompatActivity>
@@ -45,6 +47,13 @@ internal class UseCaseActions(
     override suspend fun askForProductId(type: Product.Type): Long? {
         return activityRef.get()?.let {
             val params = SelectProductDestination.Params(type)
+            selectProductDestination.navigate(it, params)
+        }
+    }
+
+    override suspend fun askForProductId(): Long? {
+        return activityRef.get()?.let {
+            val params = SelectProductDestination.Params(null)
             selectProductDestination.navigate(it, params)
         }
     }

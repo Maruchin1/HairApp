@@ -64,7 +64,8 @@ internal class CareStepsFragment : BaseFragment<FragmentCareStepsBinding>(
         ) {
             binding.apply {
                 productPhoto.setPicassoUri(product.photoData)
-                productType.text = requireContext().getString(careStep.productType.resId)
+                productType.text = careStep.productType
+                    ?.let { requireContext().getString(it.resId) }
                 productName.text = product.name
                 manufacturer.text = product.manufacturer
             }
@@ -72,7 +73,8 @@ internal class CareStepsFragment : BaseFragment<FragmentCareStepsBinding>(
 
         private fun setupProductToSelect(binding: ItemCareStepBinding, careStep: CareStep) {
             binding.apply {
-                productToSelectType.text = requireContext().getString(careStep.productType.resId)
+                productToSelectType.text = careStep.productType
+                    ?.let { requireContext().getString(it.resId) }
             }
         }
 

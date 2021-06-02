@@ -36,6 +36,21 @@ class SelectProductForStepUseCaseTest {
     }
 
     @Test
+    fun careStepWithoutType() = runBlocking {
+        val careStepToUpdateWithoutType = careStepToUpdate.copy(productType = null)
+
+        val result = selectProductForStepUseCase(careStepToUpdateWithoutType)
+
+        assertThat(result.isLeft()).isTrue()
+        result.handleError {
+            assertThat(it).isInstanceOf(SelectProductForStepUseCase.Fail.CareStepWithoutType::class.java)
+        }
+        coVerify(exactly = 0) {
+            careStepDao.update(*anyVararg())
+        }
+    }
+
+    @Test
     fun productNotSelected() = runBlocking {
         coEvery { actions.askForProductId(any()) } returns null
 

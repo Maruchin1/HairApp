@@ -61,10 +61,22 @@ class SelectProductViewModelTest {
         val selectedType = Product.Type.SHAMPOO
 
         viewModel.onProductTypeSelected(selectedType)
-        val result = viewModel.productsOfSelectedType.asFlow().firstOrNull()
+        val result = viewModel.products.asFlow().firstOrNull()
 
         assertThat(result).containsExactly(
             productsFromDb[2],
+            productsFromDb[0]
+        ).inOrder()
+    }
+
+    @Test
+    fun emitAllProducts_InAlphabeticalOrder_WhenSelectedTypeIsNull() = runBlocking {
+        viewModel.onProductTypeSelected(null)
+        val result = viewModel.products.asFlow().firstOrNull()
+
+        assertThat(result).containsExactly(
+            productsFromDb[2],
+            productsFromDb[1],
             productsFromDb[0]
         ).inOrder()
     }

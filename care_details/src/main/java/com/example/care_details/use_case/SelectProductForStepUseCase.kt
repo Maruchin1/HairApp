@@ -14,10 +14,16 @@ internal class SelectProductForStepUseCase(
 
     suspend operator fun invoke(careStepToUpdate: CareStep): Either<Fail, Unit> {
         return either {
-            val selectedProductId = askForProductId(careStepToUpdate.productType).bind()
+            val productType = getProductType(careStepToUpdate).bind()
+            val selectedProductId = askForProductId(productType).bind()
             val update = careStepToUpdate.copy(productId = selectedProductId)
             updateStepInDb(update)
         }
+    }
+
+    private fun getProductType(careStepToUpdate: CareStep): Either<Fail, Product.Type> {
+        return careStepToUpdate.productType
+            .rightIfNotNull { Fail.CareStepWithoutType }
     }
 
     private suspend fun askForProductId(type: Product.Type): Either<Fail, Long> {
@@ -30,6 +36,7 @@ internal class SelectProductForStepUseCase(
     }
 
     sealed class Fail {
+        object CareStepWithoutType : Fail()
         object ProductNotSelected : Fail()
     }
 
