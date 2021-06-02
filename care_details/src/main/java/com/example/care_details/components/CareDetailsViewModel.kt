@@ -24,6 +24,7 @@ internal class CareDetailsViewModel(
     private val selectProductForStepUseCase: SelectProductForStepUseCase,
     private val deleteCareStepUseCase: DeleteCareStepUseCase,
     private val addCareStepUseCase: AddCareStepUseCase,
+    private val updateCareStepsOrderUseCase: UpdateCareStepsOrderUseCase,
     private val addCarePhotoUseCase: AddCarePhotoUseCase,
     private val changeCareNotesUseCase: ChangeCareNotesUseCase
 ) : ViewModel() {
@@ -84,6 +85,10 @@ internal class CareDetailsViewModel(
 
     suspend fun onAddNewCareStepClicked(): Either<AddCareStepUseCase.Fail, Unit> {
         return addCareStepUseCase(careFlow.firstOrNull())
+    }
+
+    suspend fun onCareStepsOrderChanged(steps: List<CareStep>) {
+        updateCareStepsOrderUseCase(steps)
     }
 
     suspend fun onAddNewPhotoClicked(): Either<AddCarePhotoUseCase.Fail, Unit> {

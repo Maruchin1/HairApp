@@ -34,6 +34,7 @@ class CareDetailsViewModelTest {
     private val selectProductForStepUseCase = mockk<SelectProductForStepUseCase>()
     private val deleteCareStepUseCase = mockk<DeleteCareStepUseCase>()
     private val addCareStepUseCase = mockk<AddCareStepUseCase>()
+    private val updateCareStepsOrderUseCase = mockk<UpdateCareStepsOrderUseCase>()
     private val addCarePhotoUseCase = mockk<AddCarePhotoUseCase>()
     private val changeCareNotesUseCase = mockk<ChangeCareNotesUseCase>()
     private val viewModel by lazy {
@@ -44,6 +45,7 @@ class CareDetailsViewModelTest {
             selectProductForStepUseCase,
             deleteCareStepUseCase,
             addCareStepUseCase,
+            updateCareStepsOrderUseCase,
             addCarePhotoUseCase,
             changeCareNotesUseCase
         )
@@ -171,6 +173,34 @@ class CareDetailsViewModelTest {
 
         coVerify {
             addCareStepUseCase(careWithStepsAndPhotosFromDb)
+        }
+    }
+
+    @Test
+    fun onCareStepsOrderChanged_InvokeUpdateCareStepsOrderUseCase() = runBlocking {
+        coJustRun { updateCareStepsOrderUseCase(any()) }
+        val steps = listOf(
+            CareStep(
+                id = 2,
+                productType = Product.Type.SHAMPOO,
+                order = 2,
+                productId = null,
+                careId = 1
+            ),
+            CareStep(
+                id = 1,
+                productType = Product.Type.CONDITIONER,
+                order = 1,
+                productId = null,
+                careId = 1
+            ),
+        )
+
+        viewModel.onCareSelected(1)
+        viewModel.onCareStepsOrderChanged(steps)
+
+        coVerify {
+            updateCareStepsOrderUseCase(steps)
         }
     }
 

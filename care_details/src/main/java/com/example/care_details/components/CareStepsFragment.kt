@@ -54,6 +54,10 @@ internal class CareStepsFragment : BaseFragment<FragmentCareStepsBinding>(
                     productToSelectMessage
                 ).forEach { it.setVisibleOrGone(!productSelected) }
                 card.setOnClickListener { onCareStepClicked(item.careStep) }
+                card.setOnLongClickListener {
+                    onCareStepLongClicked(item.careStep)
+                    true
+                }
             }
         }
 
@@ -80,6 +84,10 @@ internal class CareStepsFragment : BaseFragment<FragmentCareStepsBinding>(
 
         private fun onCareStepClicked(step: CareStep) = lifecycleScope.launch {
             viewModel.onCareStepClicked(step)
+        }
+
+        private fun onCareStepLongClicked(step: CareStep) = lifecycleScope.launch {
+            viewModel.onCareStepLongClicked(step)
         }
     }
 }

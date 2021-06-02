@@ -92,7 +92,7 @@ class CareDetailsActivity : BaseActivity<ActivityCareDetailsBinding>(
         PagerFabMediator(
             fab = binding.fab,
             pager = binding.pager,
-            onAddStepClicked = {},
+            onAddStepClicked = { onAddNewStepClicked() },
             onAddPhotoClicked = { onAddNewPhotoClicked() }
         )
     }
@@ -104,6 +104,10 @@ class CareDetailsActivity : BaseActivity<ActivityCareDetailsBinding>(
     private fun onDeleteCareClicked() = lifecycleScope.launch {
         viewModel.onDeleteCareClicked()
             .map { finish() }
+    }
+
+    private fun onAddNewStepClicked() = lifecycleScope.launch {
+        viewModel.onAddNewPhotoClicked()
     }
 
     private fun onAddNewPhotoClicked() = lifecycleScope.launch {
@@ -130,7 +134,7 @@ class CareDetailsActivity : BaseActivity<ActivityCareDetailsBinding>(
                 0 -> getString(R.string.steps)
                 1 -> getString(R.string.photos)
                 2 -> getString(R.string.notes)
-                else -> throw IllegalStateException("Invalid page position: $position")
+                else -> null
             }
         }
     }

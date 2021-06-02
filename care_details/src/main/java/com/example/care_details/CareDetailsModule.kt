@@ -18,7 +18,7 @@ import org.koin.dsl.module
 
 val careDetailsModule = module {
     viewModel {
-        CareDetailsViewModel(get(), get(), get(), get(), get(), get(), get(), get())
+        CareDetailsViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get())
     }
     factory(named(CareDetailsDestination.ACTIVITY)) {
         CareDetailsActivity::class.java
@@ -43,6 +43,9 @@ val careDetailsModule = module {
     }
     factory {
         AddCarePhotoUseCase(get(), get())
+    }
+    factory {
+        UpdateCareStepsOrderUseCase(get())
     }
     single {
         UseCaseActions(get(), get(), get())
