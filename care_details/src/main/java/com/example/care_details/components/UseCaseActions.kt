@@ -21,6 +21,7 @@ internal class UseCaseActions(
     DeleteCareUseCase.Actions,
     SelectProductForStepUseCase.Actions,
     AddCareStepUseCase.Actions,
+    DeleteCareStepUseCase.Actions,
     AddCarePhotoUseCase.Actions {
 
     private lateinit var activityRef: WeakReference<AppCompatActivity>
@@ -56,6 +57,15 @@ internal class UseCaseActions(
             val params = SelectProductDestination.Params(null)
             selectProductDestination.navigate(it, params)
         }
+    }
+
+    override suspend fun confirmCareStepDeletion(): Boolean {
+        return activityRef.get()?.let {
+            dialogService.confirm(
+                context = it,
+                title = "usunąć wybrany krok z pielęgnacji?"
+            )
+        } ?: false
     }
 
     override suspend fun captureNewCarePhoto(): String? {

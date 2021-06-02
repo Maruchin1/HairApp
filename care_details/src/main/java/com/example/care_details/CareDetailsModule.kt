@@ -39,6 +39,9 @@ val careDetailsModule = module {
         AddCareStepUseCase(get(), get())
     }
     factory {
+        DeleteCareUseCase(get(), get())
+    }
+    factory {
         AddCarePhotoUseCase(get(), get())
     }
     single {
@@ -48,6 +51,7 @@ val careDetailsModule = module {
         DeleteCareUseCase.Actions::class,
         SelectProductForStepUseCase.Actions::class,
         AddCareStepUseCase.Actions::class,
+        DeleteCareStepUseCase.Actions::class,
         AddCarePhotoUseCase.Actions::class
     )
 }
