@@ -22,8 +22,10 @@ internal class CareDetailsViewModel(
     private val changeCareDateUseCase: ChangeCareDateUseCase,
     private val deleteCareUseCase: DeleteCareUseCase,
     private val selectProductForStepUseCase: SelectProductForStepUseCase,
-    private val changeCareNotesUseCase: ChangeCareNotesUseCase,
-    private val addCarePhotoUseCase: AddCarePhotoUseCase
+    private val deleteCareStepUseCase: DeleteCareStepUseCase,
+    private val addCareStepUseCase: AddCareStepUseCase,
+    private val addCarePhotoUseCase: AddCarePhotoUseCase,
+    private val changeCareNotesUseCase: ChangeCareNotesUseCase
 ) : ViewModel() {
 
     private val careIdState = MutableStateFlow<Long?>(null)
@@ -74,6 +76,14 @@ internal class CareDetailsViewModel(
 
     suspend fun onCareStepClicked(step: CareStep): Either<SelectProductForStepUseCase.Fail, Unit> {
         return selectProductForStepUseCase(step)
+    }
+
+    suspend fun onCareStepLongClicked(step: CareStep): Either<DeleteCareStepUseCase.Fail, Unit> {
+        return deleteCareStepUseCase(step)
+    }
+
+    suspend fun onAddNewCareStepClicked(): Either<AddCareStepUseCase.Fail, Unit> {
+        return addCareStepUseCase(careFlow.firstOrNull())
     }
 
     suspend fun onAddNewPhotoClicked(): Either<AddCarePhotoUseCase.Fail, Unit> {

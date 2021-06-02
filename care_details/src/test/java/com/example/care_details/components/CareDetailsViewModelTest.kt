@@ -28,20 +28,24 @@ class CareDetailsViewModelTest {
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
 
-    private val careDao: CareDao = mockk()
-    private val changeCareDateUseCase: ChangeCareDateUseCase = mockk()
-    private val deleteCareUseCase: DeleteCareUseCase = mockk()
-    private val selectProductForStepUseCase: SelectProductForStepUseCase = mockk()
-    private val changeCareNotesUseCase: ChangeCareNotesUseCase = mockk()
-    private val addCarePhotoUseCase: AddCarePhotoUseCase = mockk()
+    private val careDao = mockk<CareDao>()
+    private val changeCareDateUseCase = mockk<ChangeCareDateUseCase>()
+    private val deleteCareUseCase = mockk<DeleteCareUseCase>()
+    private val selectProductForStepUseCase = mockk<SelectProductForStepUseCase>()
+    private val deleteCareStepUseCase = mockk<DeleteCareStepUseCase>()
+    private val addCareStepUseCase = mockk<AddCareStepUseCase>()
+    private val addCarePhotoUseCase = mockk<AddCarePhotoUseCase>()
+    private val changeCareNotesUseCase = mockk<ChangeCareNotesUseCase>()
     private val viewModel by lazy {
         CareDetailsViewModel(
             careDao,
             changeCareDateUseCase,
             deleteCareUseCase,
             selectProductForStepUseCase,
-            changeCareNotesUseCase,
-            addCarePhotoUseCase
+            deleteCareStepUseCase,
+            addCareStepUseCase,
+            addCarePhotoUseCase,
+            changeCareNotesUseCase
         )
     }
 
@@ -137,10 +141,36 @@ class CareDetailsViewModelTest {
         coEvery { selectProductForStepUseCase(any()) } returns Either.Right(Unit)
         val clickedStep = careWithStepsAndPhotosFromDb.steps[0].careStep
 
+        viewModel.onCareSelected(1)
         viewModel.onCareStepClicked(clickedStep)
 
         coVerify {
             selectProductForStepUseCase(clickedStep)
+        }
+    }
+
+    @Test
+    fun onCareStepLongClicked_InvokeDeleteCareStepUseCase() = runBlocking {
+        coEvery { deleteCareStepUseCase(any()) } returns Either.Right(Unit)
+        val clickedStep = careWithStepsAndPhotosFromDb.steps[0].careStep
+
+        viewModel.onCareSelected(1)
+        viewModel.onCareStepLongClicked(clickedStep)
+
+        coVerify {
+            deleteCareStepUseCase(clickedStep)
+        }
+    }
+
+    @Test
+    fun onAddNewCareStepClicked_InvokeAddCareStepUseCase() = runBlocking {
+        coEvery { addCareStepUseCase(any()) } returns Either.Right(Unit)
+
+        viewModel.onCareSelected(1)
+        viewModel.onAddNewCareStepClicked()
+
+        coVerify {
+            addCareStepUseCase(careWithStepsAndPhotosFromDb)
         }
     }
 

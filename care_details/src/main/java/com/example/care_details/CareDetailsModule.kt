@@ -18,7 +18,7 @@ import org.koin.dsl.module
 
 val careDetailsModule = module {
     viewModel {
-        CareDetailsViewModel(get(), get(), get(), get(), get(), get())
+        CareDetailsViewModel(get(), get(), get(), get(), get(), get(), get(), get())
     }
     factory(named(CareDetailsDestination.ACTIVITY)) {
         CareDetailsActivity::class.java
