@@ -3,14 +3,13 @@ package com.example.edit_care_schema.components
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.example.corev2.entities.CareSchemaStep
-import com.example.corev2.navigation.Destination
-import com.example.corev2.navigation.EditCareSchemaDestination
 import com.example.corev2.ui.BaseActivity
-import com.example.corev2.ui.InflateActivityBinding
 import com.example.corev2.ui.SystemColors
 import com.example.corev2.ui.setVisibleOrGoneSource
 import com.example.edit_care_schema.R
 import com.example.edit_care_schema.databinding.ActivityEditCareSchemaBinding
+import com.example.navigation.CareSchemaDetailsParams
+import com.example.navigation.destinationParams
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,11 +18,9 @@ internal class EditCareSchemaActivity : BaseActivity<ActivityEditCareSchemaBindi
     bindingInflater = ActivityEditCareSchemaBinding::inflate
 ), CareSchemaStepsAdapter.Handler {
 
-    private val params: EditCareSchemaDestination.Params?
-        get() = intent.getParcelableExtra(Destination.EXTRA_PARAMS)
-
-    private val viewModel: EditCareSchemaViewModel by viewModel()
-    private val stepsAdapter: CareSchemaStepsAdapter by inject()
+    private val params by destinationParams<CareSchemaDetailsParams>()
+    private val viewModel by viewModel<EditCareSchemaViewModel>()
+    private val stepsAdapter by inject<CareSchemaStepsAdapter>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -2,13 +2,17 @@ package com.example.hairapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.corev2.navigation.HomeDestination
+import androidx.lifecycle.lifecycleScope
 import com.example.hairapp.databinding.ActivityMainBinding
+import com.example.navigation.DestinationType
+import com.example.navigation.HomeDestination
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.core.qualifier.named
 
 class MainActivity : AppCompatActivity() {
 
-    private val homeDestination: HomeDestination by inject()
+    private val homeDestination: HomeDestination by inject(named(DestinationType.HOME))
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +20,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        homeDestination.navigate(this)
+        lifecycleScope.launch {
+            homeDestination.navigate(this@MainActivity)
+        }
     }
 
 }

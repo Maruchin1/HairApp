@@ -7,9 +7,10 @@ import com.example.care_details.use_case.ChangeCareDateUseCase
 import com.example.care_details.use_case.DeleteCareUseCase
 import com.example.care_details.use_case.SelectProductForStepUseCase
 import com.example.corev2.entities.Product
-import com.example.corev2.navigation.CaptureCarePhotoDestination
-import com.example.corev2.navigation.SelectProductDestination
 import com.example.corev2.ui.DialogService
+import com.example.navigation.CaptureCarePhotoDestination
+import com.example.navigation.SelectProductDestination
+import com.example.navigation.SelectProductParams
 import java.lang.ref.WeakReference
 import java.time.LocalDateTime
 
@@ -47,15 +48,15 @@ internal class UseCaseActions(
 
     override suspend fun askForProductId(type: Product.Type): Long? {
         return activityRef.get()?.let {
-            val params = SelectProductDestination.Params(type)
-            selectProductDestination.navigate(it, params)
+            val params = SelectProductParams(type)
+            selectProductDestination.navigate(it, params).selectedProductId
         }
     }
 
     override suspend fun askForProductId(): Long? {
         return activityRef.get()?.let {
-            val params = SelectProductDestination.Params(null)
-            selectProductDestination.navigate(it, params)
+            val params = SelectProductParams(null)
+            selectProductDestination.navigate(it, params).selectedProductId
         }
     }
 
@@ -70,7 +71,7 @@ internal class UseCaseActions(
 
     override suspend fun captureNewCarePhoto(): String? {
         return activityRef.get()?.let {
-            captureCarePhotoDestination.navigate(it)
+            captureCarePhotoDestination.navigate(it).photoData
         }
     }
 }

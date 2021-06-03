@@ -50,6 +50,7 @@ android {
 
 dependencies {
     implementation project(':corev2')
+    implementation project(':navigation')
     implementation kotlinCore
     implementation androidCore
     implementation viewModel

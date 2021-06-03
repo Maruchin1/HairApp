@@ -1,14 +1,11 @@
 package com.example.select_product.components
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import com.example.corev2.entities.Product
-import com.example.corev2.navigation.DestinationWithResult
-import com.example.corev2.navigation.SelectProductDestination
 import com.example.corev2.ui.BaseActivity
 import com.example.corev2.ui.BaseRecyclerAdapter
 import com.example.corev2.ui.SystemColors
+import com.example.navigation.*
 import com.example.select_product.R
 import com.example.select_product.databinding.ActivitySelectProductBinding
 import com.example.select_product.databinding.ItemProductBinding
@@ -18,11 +15,10 @@ internal class SelectProductActivity : BaseActivity<ActivitySelectProductBinding
     bindingInflater = ActivitySelectProductBinding::inflate
 ) {
 
-    private val params: SelectProductDestination.Params?
-        get() = intent.getParcelableExtra(DestinationWithResult.EXTRA_PARAMS)
-
+    private val params by destinationParams<SelectProductParams>()
     private val viewModel by inject<SelectProductViewModel>()
     private val productsAdapter by lazy { ProductsAdapter() }
+    private var result by destinationResult<SelectProductResult>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +55,7 @@ internal class SelectProductActivity : BaseActivity<ActivitySelectProductBinding
     }
 
     private fun onProductSelected(product: Product) {
-        val resultData = Intent()
-            .putExtra(SelectProductDestination.SELECTED_PRODUCT_ID, product.id)
-        setResult(Activity.RESULT_OK, resultData)
+        result = SelectProductResult(product.id)
         finish()
     }
 

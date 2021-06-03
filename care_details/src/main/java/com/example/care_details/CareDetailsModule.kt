@@ -9,8 +9,7 @@ import com.example.care_details.use_case.ChangeCareDateUseCase
 import com.example.care_details.use_case.ChangeCareNotesUseCase
 import com.example.care_details.use_case.DeleteCareUseCase
 import com.example.care_details.use_case.SelectProductForStepUseCase
-import com.example.corev2.navigation.CareDetailsDestination
-import org.koin.android.ext.koin.androidContext
+import com.example.navigation.DestinationType
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.binds
@@ -18,37 +17,73 @@ import org.koin.dsl.module
 
 val careDetailsModule = module {
     viewModel {
-        CareDetailsViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get())
+        CareDetailsViewModel(
+            careDao = get(),
+            changeCareDateUseCase = get(),
+            deleteCareUseCase = get(),
+            selectProductForStepUseCase = get(),
+            deleteCareStepUseCase = get(),
+            addCareStepUseCase = get(),
+            updateCareStepsOrderUseCase = get(),
+            addCarePhotoUseCase = get(),
+            changeCareNotesUseCase = get()
+        )
     }
-    factory(named(CareDetailsDestination.ACTIVITY)) {
+    factory(named(DestinationType.CARE_DETAILS)) {
         CareDetailsActivity::class.java
     }
     factory {
-        ChangeCareDateUseCase(get(), get())
+        ChangeCareDateUseCase(
+            actions = get(),
+            careDao = get()
+        )
     }
     factory {
-        DeleteCareUseCase(get(), get())
+        DeleteCareUseCase(
+            actions = get(),
+            careDao = get()
+        )
     }
     factory {
-        ChangeCareNotesUseCase(get())
+        ChangeCareNotesUseCase(
+            careDao = get()
+        )
     }
     factory {
-        SelectProductForStepUseCase(get(), get())
+        SelectProductForStepUseCase(
+            actions = get(),
+            careStepDao = get()
+        )
     }
     factory {
-        AddCareStepUseCase(get(), get())
+        AddCareStepUseCase(
+            actions = get(),
+            careStepDao = get()
+        )
     }
     factory {
-        DeleteCareStepUseCase(get(), get())
+        DeleteCareStepUseCase(
+            actions = get(),
+            careStepDao = get()
+        )
     }
     factory {
-        AddCarePhotoUseCase(get(), get())
+        AddCarePhotoUseCase(
+            actions = get(),
+            carePhotoDao = get()
+        )
     }
     factory {
-        UpdateCareStepsOrderUseCase(get())
+        UpdateCareStepsOrderUseCase(
+            careStepDao = get()
+        )
     }
     single {
-        UseCaseActions(get(), get(), get())
+        UseCaseActions(
+            dialogService = get(),
+            selectProductDestination = get(named(DestinationType.SELECT_PRODUCT)),
+            captureCarePhotoDestination = get(named(DestinationType.CAPTURE_CARE_PHOTO))
+        )
     } binds arrayOf(
         ChangeCareDateUseCase.Actions::class,
         DeleteCareUseCase.Actions::class,

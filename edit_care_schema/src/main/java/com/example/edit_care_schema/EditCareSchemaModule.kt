@@ -1,6 +1,5 @@
 package com.example.edit_care_schema
 
-import com.example.corev2.navigation.EditCareSchemaDestination
 import com.example.edit_care_schema.components.CareSchemaStepsAdapter
 import com.example.edit_care_schema.components.CareSchemaStepsTouchHelperCallback
 import com.example.edit_care_schema.components.EditCareSchemaActivity
@@ -11,6 +10,7 @@ import com.example.edit_care_schema.use_case.ChangeSchemaNameUseCase
 import com.example.edit_care_schema.use_case.DeleteSchemaStepUseCase
 import com.example.edit_care_schema.use_case.DeleteSchemaUseCase
 import com.example.edit_care_schema.use_case.UpdateStepsOrderUseCase
+import com.example.navigation.DestinationType
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -19,34 +19,61 @@ import org.koin.dsl.module
 
 val editCareSchemaModule = module {
     viewModel {
-        EditCareSchemaViewModel(get(), get(), get(), get(), get(), get())
+        EditCareSchemaViewModel(
+            careSchemaDao = get(),
+            careSchemaStepDao = get(),
+            changeSchemaNameUseCase = get(),
+            deleteSchemaUseCase = get(),
+            addSchemaStepUseCase = get(),
+            deleteSchemaStepUseCase = get()
+        )
     }
-    factory(named(EditCareSchemaDestination.ACTIVITY)) {
+    factory(named(DestinationType.CARE_SCHEMA_DETAILS)) {
         EditCareSchemaActivity::class.java
     }
     factory {
-        CareSchemaStepsAdapter(androidContext(), get())
+        CareSchemaStepsAdapter(
+            context = androidContext(),
+            careSchemaStepsTouchHelperCallback = get()
+        )
     }
     factory {
         CareSchemaStepsTouchHelperCallback()
     }
     factory {
-        ChangeSchemaNameUseCase(get(), get())
+        ChangeSchemaNameUseCase(
+            actions = get(),
+            careSchemaDao = get()
+        )
     }
     factory {
-        DeleteSchemaUseCase(get(), get())
+        DeleteSchemaUseCase(
+            actions = get(),
+            careSchemaDao = get()
+        )
     }
     factory {
-        AddSchemaStepUseCase(get(), get())
+        AddSchemaStepUseCase(
+            actions = get(),
+            careSchemaStepDao = get()
+        )
     }
     factory {
-        DeleteSchemaStepUseCase(get(), get(), get())
+        DeleteSchemaStepUseCase(
+            actions = get(),
+            careSchemaStepDao = get(),
+            updateStepsOrderUseCase = get()
+        )
     }
     factory {
-        UpdateStepsOrderUseCase(get())
+        UpdateStepsOrderUseCase(
+            careSchemaStepDao = get()
+        )
     }
     factory {
-        UseCaseActions(get())
+        UseCaseActions(
+            dialogService = get()
+        )
     } binds arrayOf(
         AddSchemaStepUseCase.Actions::class,
         ChangeSchemaNameUseCase.Actions::class,

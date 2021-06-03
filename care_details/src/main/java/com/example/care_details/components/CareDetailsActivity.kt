@@ -4,18 +4,14 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.lifecycleScope
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import arrow.core.computations.either
 import com.example.care_details.R
 import com.example.care_details.databinding.ActivityCareDetailsBinding
 import com.example.corev2.entities.PehBalance
-import com.example.corev2.navigation.CareDetailsDestination
-import com.example.corev2.navigation.Destination
-import com.example.corev2.service.formatDayAndMonth
 import com.example.corev2.service.formatDayOfWeekAndMonth
 import com.example.corev2.ui.BaseActivity
 import com.example.corev2.ui.SystemColors
-import com.google.android.material.tabs.TabLayoutMediator
+import com.example.navigation.CareDetailsParams
+import com.example.navigation.destinationParams
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,11 +20,9 @@ class CareDetailsActivity : BaseActivity<ActivityCareDetailsBinding>(
     bindingInflater = ActivityCareDetailsBinding::inflate
 ) {
 
-    private val params: CareDetailsDestination.Params?
-        get() = intent.getParcelableExtra(Destination.EXTRA_PARAMS)
-
-    private val viewModel: CareDetailsViewModel by viewModel()
-    private val useCaseActions: UseCaseActions by inject()
+    private val params by destinationParams<CareDetailsParams>()
+    private val viewModel by viewModel<CareDetailsViewModel>()
+    private val useCaseActions by inject<UseCaseActions>()
     private val pagesAdapter by lazy { PagesAdapter() }
     private val stepsFragment = CareStepsFragment()
     private val photosFragment = PhotosFragment()
@@ -50,7 +44,7 @@ class CareDetailsActivity : BaseActivity<ActivityCareDetailsBinding>(
     }
 
     private fun setupViewModel() {
-        params?.careId?.let {
+        params.careId.let {
             viewModel.onCareSelected(it)
         }
     }

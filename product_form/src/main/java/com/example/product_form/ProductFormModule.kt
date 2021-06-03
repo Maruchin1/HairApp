@@ -1,15 +1,18 @@
 package com.example.product_form
 
-import com.example.corev2.navigation.ProductFormDestination
+import com.example.navigation.DestinationType
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val productFormModule = module {
     viewModel {
-        ProductFormViewModel(get(), get())
+        ProductFormViewModel(
+            form = get(),
+            productDao = get()
+        )
     }
-    factory(named(ProductFormDestination.ACTIVITY)) {
+    factory(named(DestinationType.PRODUCT_DETAILS)) {
         ProductFormActivity::class.java
     }
     factory {

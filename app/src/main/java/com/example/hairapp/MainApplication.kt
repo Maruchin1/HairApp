@@ -8,6 +8,7 @@ import com.example.corev2.corev2Module
 import com.example.corev2.room_database.DatabaseInitializer
 import com.example.edit_care_schema.editCareSchemaModule
 import com.example.home.homeModule
+import com.example.navigation.navigationModule
 import com.example.product_form.productFormModule
 import com.example.products_list.productsListModule
 import com.example.select_product.selectProductModule
@@ -19,6 +20,7 @@ class MainApplication : Application() {
 
     private val modules = arrayOf(
         corev2Module,
+        navigationModule,
         editCareSchemaModule,
         careSchemasListModule,
         homeModule,

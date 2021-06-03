@@ -1,21 +1,18 @@
 package com.example.cares_list.components
 
 import android.app.Activity
-import android.util.Log
 import androidx.lifecycle.*
-import arrow.core.computations.either
 import com.example.cares_list.use_case.AddNewCareUseCase
 import com.example.corev2.dao.CareDao
 import com.example.corev2.entities.Care
-import com.example.corev2.navigation.CareDetailsDestination
 import com.example.corev2.relations.CareWithStepsAndPhotos
 import com.example.corev2.service.ClockService
 import com.example.corev2.service.daysBetween
+import com.example.navigation.CareDetailsDestination
+import com.example.navigation.CareDetailsParams
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 internal class CaresListViewModel(
@@ -62,8 +59,8 @@ internal class CaresListViewModel(
         return lastCare.date.daysBetween(clockService.getNow())
     }
 
-    private fun navigateToCareDetails(activity: Activity, careId: Long) {
-        val params = CareDetailsDestination.Params(careId)
+    private fun navigateToCareDetails(activity: Activity, careId: Long) = viewModelScope.launch {
+        val params = CareDetailsParams(careId)
         careDetailsDestination.navigate(activity, params)
     }
 }

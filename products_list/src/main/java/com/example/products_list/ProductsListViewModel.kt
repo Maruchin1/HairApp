@@ -4,14 +4,17 @@ import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.corev2.dao.ProductDao
 import com.example.corev2.entities.Product
-import com.example.corev2.navigation.ProductFormDestination
+import com.example.navigation.ProductDetailsDestination
+import com.example.navigation.ProductDetailsParams
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 internal class ProductsListViewModel(
     private val productDao: ProductDao,
-    private val productFormDestination: ProductFormDestination
+    private val productDetailsDestination: ProductDetailsDestination
 ) : ViewModel() {
 
     private val allProductsFlow = productDao.getAll()
@@ -24,10 +27,10 @@ internal class ProductsListViewModel(
         .map { it.isEmpty() }
         .asLiveData()
 
-    fun onAddProductClick(activity: Activity) {
-        productFormDestination.navigate(
+    fun onAddProductClick(activity: Activity) = viewModelScope.launch {
+        productDetailsDestination.navigate(
             originActivity = activity,
-            params = ProductFormDestination.Params(null)
+            params = ProductDetailsParams(-1)
         )
     }
 

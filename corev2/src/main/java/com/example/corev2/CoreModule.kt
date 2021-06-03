@@ -2,7 +2,6 @@ package com.example.corev2
 
 import androidx.room.Room
 import com.example.corev2.data_store.InitializationCompletionStore
-import com.example.corev2.navigation.*
 import com.example.corev2.room_database.DatabaseInitializer
 import com.example.corev2.room_database.DatabaseInitializerImpl
 import com.example.corev2.room_database.HairAppDatabase
@@ -10,7 +9,6 @@ import com.example.corev2.service.ClockService
 import com.example.corev2.ui.DialogService
 import com.example.corev2.ui.ImagePickerService
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val corev2Module = module {
@@ -53,34 +51,5 @@ val corev2Module = module {
     }
     factory {
         ClockService()
-    }
-    // Navigation
-    factory {
-        CareDetailsDestination(
-            activityClass = get(named(CareDetailsDestination.ACTIVITY))
-        )
-    }
-    factory {
-        EditCareSchemaDestination(
-            activityClass = get(named(EditCareSchemaDestination.ACTIVITY))
-        )
-    }
-    factory {
-        HomeDestination(
-            activityClass = get(named(HomeDestination.ACTIVITY))
-        )
-    }
-    factory {
-        ProductFormDestination(
-            activityClass = get(named(ProductFormDestination.ACTIVITY))
-        )
-    }
-    factory {
-        SelectProductDestination(
-            activityClass = get(named(SelectProductDestination.ACTIVITY))
-        )
-    }
-    factory {
-        CaptureCarePhotoDestination()
     }
 }
