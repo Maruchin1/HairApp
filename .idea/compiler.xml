@@ -1,27 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8">
+    <bytecodeTargetLevel target="11">
       <module name="core" target="1.7" />
-      <module name="HairApp.app" target="11" />
-      <module name="HairApp.care_details" target="11" />
       <module name="HairApp.care_schema_details_dynamic" target="11" />
-      <module name="HairApp.care_schemas_list" target="11" />
-      <module name="HairApp.cares_list" target="11" />
       <module name="HairApp.common" target="11" />
-      <module name="HairApp.corev2" target="11" />
       <module name="HairApp.data" target="11" />
       <module name="HairApp.e2e" target="11" />
       <module name="HairApp.e2e_test" target="11" />
-      <module name="HairApp.edit_care_schema" target="11" />
-      <module name="HairApp.home" target="11" />
-      <module name="HairApp.peh_balance" target="11" />
-      <module name="HairApp.photo_preview" target="11" />
-      <module name="HairApp.photos_gallery" target="11" />
-      <module name="HairApp.product_form" target="11" />
-      <module name="HairApp.products_list" target="11" />
-      <module name="HairApp.select_product" target="11" />
-      <module name="HairApp.testing" target="11" />
       <module name="test" target="1.7" />
     </bytecodeTargetLevel>
   </component>

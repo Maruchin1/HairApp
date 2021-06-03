@@ -1,9 +1,6 @@
-include ':data'
-include ':core'
 include ':app'
 rootProject.name = "HairApp"
 include ':edit_care_schema'
-include ':common'
 include ':testing'
 include ':home'
 include ':corev2'

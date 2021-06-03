@@ -45,8 +45,6 @@ android {
 }
 
 dependencies {
-    implementation project(':common')
-    implementation project(':core')
     implementation project(':corev2')
     implementation project(':cares_list')
     implementation project(':products_list')

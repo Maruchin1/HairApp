@@ -2,7 +2,6 @@ package com.example.photos_gallery
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.example.hairapp.R
 
 //class GalleryAdapter(
 //    controller: Any

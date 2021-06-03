@@ -4,11 +4,8 @@ import android.app.Application
 import com.example.care_details.careDetailsModule
 import com.example.care_schemas_list.careSchemasListModule
 import com.example.cares_list.caresListModule
-import com.example.common.commonModule
-import com.example.core.coreModule
 import com.example.corev2.corev2Module
 import com.example.corev2.room_database.DatabaseInitializer
-import com.example.data.dataModule
 import com.example.edit_care_schema.editCareSchemaModule
 import com.example.home.homeModule
 import com.example.product_form.productFormModule
@@ -20,6 +17,18 @@ import org.koin.core.context.startKoin
 
 class MainApplication : Application() {
 
+    private val modules = arrayOf(
+        corev2Module,
+        editCareSchemaModule,
+        careSchemasListModule,
+        homeModule,
+        productFormModule,
+        productsListModule,
+        caresListModule,
+        careDetailsModule,
+        selectProductModule
+    )
+
     private val databaseInitializer: DatabaseInitializer by inject()
 
     override fun onCreate() {
@@ -27,17 +36,7 @@ class MainApplication : Application() {
 
         startKoin {
             androidContext(applicationContext)
-            modules(
-                corev2Module,
-                editCareSchemaModule,
-                careSchemasListModule,
-                homeModule,
-                productFormModule,
-                productsListModule,
-                caresListModule,
-                careDetailsModule,
-                selectProductModule
-            )
+            modules(*modules)
         }
 
         databaseInitializer.checkIfInitialized()

@@ -62,10 +62,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
 
     // Project
-    implementation project(':core')
     implementation project(':corev2')
-    implementation project(':data')
-    implementation project(':common')
     implementation project(':home')
     implementation project(':products_list')
     implementation project(':product_form')
