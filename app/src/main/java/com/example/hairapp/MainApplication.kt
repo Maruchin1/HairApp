@@ -28,10 +28,6 @@ class MainApplication : Application() {
         startKoin {
             androidContext(applicationContext)
             modules(
-                appModule,
-                coreModule,
-                dataModule,
-                commonModule,
                 corev2Module,
                 editCareSchemaModule,
                 careSchemasListModule,

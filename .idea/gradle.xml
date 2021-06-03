@@ -21,6 +21,9 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/edit_care_schema" />
             <option value="$PROJECT_DIR$/home" />
+            <option value="$PROJECT_DIR$/peh_balance" />
+            <option value="$PROJECT_DIR$/photo_preview" />
+            <option value="$PROJECT_DIR$/photos_gallery" />
             <option value="$PROJECT_DIR$/product_form" />
             <option value="$PROJECT_DIR$/products_list" />
             <option value="$PROJECT_DIR$/select_product" />

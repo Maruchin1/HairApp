@@ -2,9 +2,7 @@ package com.example.hairapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.common.navigation.AppNavigator
 import com.example.corev2.navigation.HomeDestination
-import com.example.hairapp.framework.bindActivity
 import com.example.hairapp.databinding.ActivityMainBinding
 import org.koin.android.ext.android.inject
 
@@ -15,7 +13,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = bindActivity(R.layout.activity_main, viewModel = null)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         homeDestination.navigate(this)
     }

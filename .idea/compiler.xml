@@ -15,6 +15,9 @@
       <module name="HairApp.e2e_test" target="11" />
       <module name="HairApp.edit_care_schema" target="11" />
       <module name="HairApp.home" target="11" />
+      <module name="HairApp.peh_balance" target="11" />
+      <module name="HairApp.photo_preview" target="11" />
+      <module name="HairApp.photos_gallery" target="11" />
       <module name="HairApp.product_form" target="11" />
       <module name="HairApp.products_list" target="11" />
       <module name="HairApp.select_product" target="11" />

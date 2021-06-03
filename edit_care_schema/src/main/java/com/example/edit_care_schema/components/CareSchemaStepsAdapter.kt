@@ -2,6 +2,7 @@ package com.example.edit_care_schema.components
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.MotionEvent
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.corev2.entities.CareSchemaStep
@@ -76,7 +77,7 @@ internal class CareSchemaStepsAdapter(
             }
         }
         notifyItemMoved(fromPosition, toPosition)
-        updateStepsOrderDelayed()
+//        updateStepsOrderDelayed()
     }
 
     private fun updateStepsOrderDelayed() {

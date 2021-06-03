@@ -107,7 +107,7 @@ class CareDetailsActivity : BaseActivity<ActivityCareDetailsBinding>(
     }
 
     private fun onAddNewStepClicked() = lifecycleScope.launch {
-        viewModel.onAddNewPhotoClicked()
+        viewModel.onAddNewCareStepClicked()
     }
 
     private fun onAddNewPhotoClicked() = lifecycleScope.launch {

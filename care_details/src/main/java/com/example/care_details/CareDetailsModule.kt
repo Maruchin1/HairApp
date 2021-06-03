@@ -39,7 +39,7 @@ val careDetailsModule = module {
         AddCareStepUseCase(get(), get())
     }
     factory {
-        DeleteCareUseCase(get(), get())
+        DeleteCareStepUseCase(get(), get())
     }
     factory {
         AddCarePhotoUseCase(get(), get())

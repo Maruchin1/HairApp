@@ -11,7 +11,7 @@ internal class PagerFabMediator(
     private val onAddPhotoClicked: () -> Unit
 ) : ViewPager.SimpleOnPageChangeListener() {
 
-    private var currentPosition = -1
+    private var currentPosition = 0
 
     init {
         pager.addOnPageChangeListener(this)
