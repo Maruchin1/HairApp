@@ -29,6 +29,7 @@ class ChangeProductBasicInfoUseCaseTest {
 
     @Before
     fun before() {
+        every { productDao.getById(any()) } returns flowOf(null)
         every { productDao.getById(2) } returns flowOf(productToUpdate)
         coJustRun { productDao.update(*anyVararg()) }
     }

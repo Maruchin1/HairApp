@@ -4,6 +4,7 @@ import com.example.corev2.dao.ProductDao
 import com.example.corev2.entities.Product
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
+import io.mockk.coJustRun
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
@@ -20,6 +21,7 @@ class AddNewProductUseCaseTest {
     @Before
     fun before() {
         coEvery { productDao.insert(*anyVararg()) } returns arrayOf(2)
+        coJustRun { actions.openProductDetails(any()) }
     }
 
     @Test

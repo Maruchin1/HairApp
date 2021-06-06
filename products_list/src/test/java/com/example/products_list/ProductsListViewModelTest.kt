@@ -2,10 +2,12 @@ package com.example.products_list
 
 import android.app.Activity
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import arrow.core.Either
 import com.example.corev2.dao.ProductDao
 import com.example.corev2.entities.Product
 import com.example.navigation.ProductDetailsDestination
 import com.example.navigation.ProductDetailsParams
+import com.example.products_list.model.AddNewProductUseCase
 import com.example.products_list.model.ProductsListViewModel
 import com.example.testing.rules.CoroutinesTestRule
 import com.google.common.truth.Truth.*
@@ -19,15 +21,13 @@ import org.junit.Test
 class ProductsListViewModelTest {
 
     @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
-
-    @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
 
-    private val productDao: ProductDao = mockk()
-    private val productFormDestination = mockk<ProductDetailsDestination>()
+    private val productDao = mockk<ProductDao>()
+    private val actions = mockk<ProductsListViewModel.Actions>()
+    private val addNewProductUseCase = mockk<AddNewProductUseCase>()
     private val viewModel by lazy {
-        ProductsListViewModel(productDao, productFormDestination)
+        ProductsListViewModel(productDao, actions, addNewProductUseCase)
     }
 
     @Before
@@ -44,7 +44,7 @@ class ProductsListViewModelTest {
         )
         every { productDao.getAll() } returns flowOf(productsFromDb)
 
-        val result = viewModel.products.asFlow().firstOrNull()
+        val result = viewModel.state.value.products
 
         assertThat(result).containsExactly(
             productsFromDb[1],
@@ -55,7 +55,7 @@ class ProductsListViewModelTest {
 
     @Test
     fun noProducts_EmitTrue_WhenNoProductsInDb() = runBlocking {
-        val result = viewModel.noProducts.asFlow().firstOrNull()
+        val result = viewModel.state.value.noProducts
 
         assertThat(result).isTrue()
     }
@@ -67,23 +67,19 @@ class ProductsListViewModelTest {
         )
         every { productDao.getAll() } returns flowOf(productsFromDb)
 
-        val result = viewModel.noProducts.asFlow().firstOrNull()
+        val result = viewModel.state.value.noProducts
 
         assertThat(result).isFalse()
     }
 
     @Test
-    fun onAddProductClick_NavigateToProductForm() {
-        coJustRun { productFormDestination.navigate(any(), any()) }
-        val activity: Activity = mockk()
+    fun onAddProductClick_InvokeAddNewProductUseCase() {
+        coEvery { addNewProductUseCase() } returns Either.Right(Unit)
 
-        viewModel.onAddProductClicked(activity)
+        viewModel.onAddProductClicked()
 
         coVerify {
-            productFormDestination.navigate(
-                originActivity = activity,
-                params = ProductDetailsParams(-1)
-            )
+            addNewProductUseCase()
         }
     }
 }
