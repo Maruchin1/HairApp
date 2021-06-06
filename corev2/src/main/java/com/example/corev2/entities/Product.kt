@@ -12,15 +12,15 @@ data class Product(
     val id: Long = 0,
 
     @Embedded
-    val compositionOfIngredients: CompositionOfIngredients = CompositionOfIngredients(),
+    val ingredients: Ingredients = Ingredients(),
 
-    var name: String = "",
+    val name: String = "",
 
-    var manufacturer: String = "",
+    val manufacturer: String = "",
 
-    var applications: Set<Application> = setOf(),
+    val applications: Set<Application> = setOf(),
 
-    var photoData: String? = null
+    val photoData: String? = null
 ) {
 
     enum class Type(val resId: Int, val applications: Array<Application>) {

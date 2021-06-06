@@ -2,7 +2,7 @@ package com.example.product_form
 
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
-import com.example.corev2.entities.CompositionOfIngredients
+import com.example.corev2.entities.Ingredients
 import com.example.corev2.entities.Product
 
 internal class ProductForm {
@@ -21,7 +21,7 @@ internal class ProductForm {
     fun createProduct() = Product(
         name = productName.value!!,
         manufacturer = manufacturer.value!!,
-        compositionOfIngredients = CompositionOfIngredients(
+        ingredients = Ingredients(
             proteins = proteins.value!!,
             emollients = emollients.value!!,
             humectants = humectants.value!!

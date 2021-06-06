@@ -1,7 +1,7 @@
 package com.example.hairapp.product_form
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import com.example.corev2.entities.CompositionOfIngredients
+import com.example.corev2.entities.Ingredients
 import com.example.corev2.entities.Product
 import com.example.corev2.room_database.HairAppDatabase
 import com.example.hairapp.MainActivity
@@ -37,7 +37,7 @@ abstract class ProductFormTest : KoinTest {
             Product(
                 name = "Super szampon",
                 manufacturer = "Producent testowy",
-                compositionOfIngredients = CompositionOfIngredients(
+                ingredients = Ingredients(
                     proteins = true
                 ),
                 applications = setOf(Product.Application.MEDIUM_SHAMPOO)

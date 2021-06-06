@@ -9,6 +9,12 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/remove_product_photo"
+        android:icon="@drawable/ic_round_no_photography_24"
+        android:title="@string/delete_photo"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/delete_product"
         android:icon="@drawable/ic_round_delete_24"
         android:title="@string/delete_product"

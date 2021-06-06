@@ -50,7 +50,7 @@
 
             <fragment
                 android:id="@+id/composition_of_ingredients"
-                android:name="com.example.product_details.ui.CompositionOfIngredientsFragment"
+                android:name="com.example.product_details.ui.IngredientsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout="@layout/fragment_ingredients" />

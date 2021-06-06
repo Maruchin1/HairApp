@@ -1,6 +1,7 @@
 package com.example.product_details.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
@@ -14,7 +15,6 @@ import com.example.product_details.model.ProductDetailsViewModel
 import com.example.product_details.model.SectionMode
 import com.example.shared_ui.extensions.setTextIfChanged
 import kotlinx.coroutines.flow.collectLatest
-import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 internal class ProductBasicInfoFragment : BaseFragment<FragmentProductBasicInfoBinding>(
@@ -25,23 +25,28 @@ internal class ProductBasicInfoFragment : BaseFragment<FragmentProductBasicInfoB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupEditSaveButton()
+        setupEditConfirmButton()
         setupNoBasicInfo()
         setupInputs()
         observeState()
     }
 
-    private fun setupEditSaveButton() {
+    private fun setupEditConfirmButton() {
         binding.header.apply {
             onEditClicked = {
                 beginTransitions()
-                viewModel.onEditBasicInfoClicked()
+                viewModel.onEditBasicInfo()
             }
             onAcceptClicked = {
                 beginTransitions()
-                viewModel.onConfirmBasicInfoClicked()
+                viewModel.onConfirmBasicInfo()
             }
         }
+    }
+
+    private fun beginTransitions() {
+        val activity = requireActivity() as ProductDetailsActivity
+        TransitionManager.beginDelayedTransition(activity.binding.root)
     }
 
     private fun setupNoBasicInfo() = binding.apply {
@@ -60,18 +65,14 @@ internal class ProductBasicInfoFragment : BaseFragment<FragmentProductBasicInfoB
         }
     }
 
-    private fun observeState() = lifecycleScope.launchWhenResumed {
+    private fun observeState() = lifecycleScope.launchWhenStarted {
         viewModel.state.collectLatest {
+            Log.d("MyDebug", "BasicInfo state changed")
             updateHeaderMode(it)
             updateLayoutsVisibility(it)
             updateDisplayedData(it)
             updateInputs(it)
         }
-    }
-
-    private fun beginTransitions() {
-        val activity = requireActivity() as ProductDetailsActivity
-        TransitionManager.beginDelayedTransition(activity.binding.root)
     }
 
     private fun updateHeaderMode(state: PageState) {
@@ -98,8 +99,8 @@ internal class ProductBasicInfoFragment : BaseFragment<FragmentProductBasicInfoB
 
     private fun updateInputs(state: PageState) {
         binding.apply {
-            productNameInput.setTextIfChanged(state.basicInfoForm.productName)
-            manufacturerInput.setTextIfChanged(state.basicInfoForm.manufacturer)
+            productNameInput.setTextIfChanged(state.product?.name)
+            manufacturerInput.setTextIfChanged(state.product?.manufacturer)
         }
     }
 }

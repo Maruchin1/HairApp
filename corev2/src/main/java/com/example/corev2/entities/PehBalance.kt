@@ -33,10 +33,10 @@ data class PehBalance(
 
         private fun countIngredient(
             products: List<Product>,
-            selectIngredient: (CompositionOfIngredients) -> Boolean
+            selectIngredient: (Ingredients) -> Boolean
         ): Double {
             return products
-                .count { selectIngredient(it.compositionOfIngredients) }
+                .count { selectIngredient(it.ingredients) }
                 .toDouble()
         }
     }

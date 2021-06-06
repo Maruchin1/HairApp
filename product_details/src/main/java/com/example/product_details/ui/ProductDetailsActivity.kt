@@ -19,7 +19,7 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(
 
     private val params by destinationParams<ProductDetailsParams>()
     private val viewModel by viewModel<ProductDetailsViewModel>()
-    private val useCaseActions by inject<UseCaseActions>()
+    private val useCaseActions by inject<ActionsHandler>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,14 +37,15 @@ class ProductDetailsActivity : BaseActivity<ActivityProductDetailsBinding>(
         binding.toolbar.setNavigationOnClickListener { finish() }
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.product_photo -> viewModel.onCapturePhotoClicked()
-                R.id.delete_product -> Unit
+                R.id.product_photo -> viewModel.onCapturePhoto()
+                R.id.remove_product_photo -> viewModel.onRemoveProductPhoto()
+                R.id.delete_product -> viewModel.onDeleteProduct()
             }
             true
         }
     }
 
-    private fun observeState() = lifecycleScope.launchWhenResumed {
+    private fun observeState() = lifecycleScope.launchWhenStarted {
         viewModel.state.collectLatest {
             finishWhenDeleted(it.productDeleted)
         }

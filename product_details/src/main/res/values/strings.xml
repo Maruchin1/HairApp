@@ -1,10 +1,13 @@
 <resources>
     <string name="product_photo">Zdjęcie produktu</string>
-    <string name="delete_product">Usuń produkt</string>
     <string name="name_and_manufacturer">Nazwa i producent</string>
     <string name="composition_of_ingredients">Kompozycja składników</string>
     <string name="product_name">Nazwa produktu</string>
     <string name="manufacturer">Producent</string>
     <string name="edit">Edytuj</string>
     <string name="no_basic_info_message">Podaj nazwę produktu i producenta</string>
+    <string name="no_ingredients_message">Podaj skład produktu</string>
+    <string name="delete_photo">Usuń zdjecie</string>
+    <string name="delete_product_photo">Usuń zdjęcie produktu</string>
+    <string name="delete_product">Usuń produkt</string>
 </resources>

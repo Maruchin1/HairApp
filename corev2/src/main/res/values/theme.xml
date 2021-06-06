@@ -11,7 +11,7 @@
         <item name="android:colorBackground">@color/color_background</item>
         <item name="materialButtonStyle">@style/Button.Primary</item>
         <item name="materialCardViewStyle">@style/Card</item>
-        <item name="chipStyle">@style/Chip.Choice</item>
+        <item name="chipStyle">@style/Chip</item>
         <item name="textInputStyle">@style/TextInput</item>
         <item name="floatingActionButtonStyle">@style/FloatingActionButton</item>
         <item name="extendedFloatingActionButtonStyle">@style/ExtendedFloatingActionButton</item>
