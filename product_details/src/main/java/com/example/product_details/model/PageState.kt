@@ -15,4 +15,11 @@ internal data class PageState(
 
     val hasIngredients: Boolean
         get() = product?.ingredients?.run { proteins || emollients || humectants } ?: false
+
+    val hasApplications: Boolean
+        get() = product?.applications?.isNotEmpty() ?: false
+
+    fun hasApplicationSelected(application: Product.Application): Boolean {
+        return product?.applications?.contains(application) ?: false
+    }
 }

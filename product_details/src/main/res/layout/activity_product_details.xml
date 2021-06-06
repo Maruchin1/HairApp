@@ -32,7 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="16dp">
+            android:paddingTop="16dp"
+            android:paddingBottom="128dp">
 
             <fragment
                 android:id="@+id/product_photo_card"
@@ -49,11 +50,18 @@
                 tools:layout="@layout/fragment_product_basic_info" />
 
             <fragment
-                android:id="@+id/composition_of_ingredients"
+                android:id="@+id/ingredients"
                 android:name="com.example.product_details.ui.IngredientsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout="@layout/fragment_ingredients" />
+
+            <fragment
+                android:id="@+id/applications"
+                android:name="com.example.product_details.ui.ProductApplicationsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/fragment_product_applications" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

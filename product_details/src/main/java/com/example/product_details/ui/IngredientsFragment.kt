@@ -23,13 +23,13 @@ internal class IngredientsFragment : BaseFragment<FragmentIngredientsBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupEditSaveConfirmButton()
+        setupEditConfirmButton()
         setupNoIngredients()
         setupChoiceChips()
         observeState()
     }
 
-    private fun setupEditSaveConfirmButton() = binding.header.apply {
+    private fun setupEditConfirmButton() = binding.header.apply {
         onEditClicked = {
             beginTransitions()
             viewModel.onEditIngredients()

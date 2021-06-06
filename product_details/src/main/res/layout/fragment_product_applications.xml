@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="32dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.example.product_details.views.SectionHeaderView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:sectionIcon="@drawable/ic_round_bathtub_24"
+        app:sectionTitle="@string/application" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/applications_choice_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:singleSelection="false" />
+
+    <include
+        android:id="@+id/no_applications"
+        layout="@layout/view_no_content_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/applications_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:singleSelection="false" />
+</LinearLayout>

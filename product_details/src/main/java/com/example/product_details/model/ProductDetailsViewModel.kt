@@ -113,6 +113,30 @@ internal class ProductDetailsViewModel(
         }
     }
 
+    fun onEditApplications() = viewModelScope.launch {
+        reduce { it.copy(productApplicationsMode = SectionMode.EDIT) }
+    }
+
+    fun onConfirmApplications() = viewModelScope.launch {
+        reduce { it.copy(productApplicationsMode = SectionMode.DISPLAY) }
+        updateProductInDb()
+    }
+
+    fun onApplicationSelectionChanged(
+        application: Product.Application,
+        selected: Boolean
+    ) = viewModelScope.launch {
+        reduce {
+            val selectedApplications = it.product?.applications ?: return@reduce it
+            val newSelectedApplications = when {
+                selectedApplications.contains(application) && !selected -> selectedApplications - application
+                !selectedApplications.contains(application) && selected -> selectedApplications + application
+                else -> selectedApplications
+            }
+            it.copy(product = it.product.copy(applications = newSelectedApplications))
+        }
+    }
+
     private suspend fun updateProductInDb() {
         state.value.product?.let {
             productDao.update(it)

@@ -10,4 +10,6 @@
     <string name="delete_photo">Usuń zdjecie</string>
     <string name="delete_product_photo">Usuń zdjęcie produktu</string>
     <string name="delete_product">Usuń produkt</string>
+    <string name="application">Zastosowanie</string>
+    <string name="no_applications_message">Wybierz zastosowania produktu</string>
 </resources>
