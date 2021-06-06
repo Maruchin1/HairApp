@@ -10,7 +10,6 @@ import com.example.edit_care_schema.editCareSchemaModule
 import com.example.home.homeModule
 import com.example.navigation.navigationModule
 import com.example.product_details.productDetailsModule
-import com.example.product_form.productFormModule
 import com.example.products_list.productsListModule
 import com.example.select_product.selectProductModule
 import org.koin.android.ext.android.inject

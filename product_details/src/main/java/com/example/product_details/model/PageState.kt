@@ -18,8 +18,4 @@ internal data class PageState(
 
     val hasApplications: Boolean
         get() = product?.applications?.isNotEmpty() ?: false
-
-    fun hasApplicationSelected(application: Product.Application): Boolean {
-        return product?.applications?.contains(application) ?: false
-    }
 }
