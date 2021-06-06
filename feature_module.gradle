@@ -51,6 +51,7 @@ android {
 dependencies {
     implementation project(':corev2')
     implementation project(':navigation')
+    implementation project(':shared_ui')
     implementation kotlinCore
     implementation androidCore
     implementation viewModel

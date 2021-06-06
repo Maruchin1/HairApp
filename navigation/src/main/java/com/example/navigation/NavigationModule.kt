@@ -1,7 +1,6 @@
 package com.example.navigation
 
 import com.example.navigation.intent_builders.ActivityIntentBuilder
-import com.example.navigation.intent_builders.CaptureCarePhotoIntentBuilder
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -57,9 +56,17 @@ val navigationModule = module {
         )
     }
     factory(named(DestinationType.CAPTURE_CARE_PHOTO)) {
-        CaptureCarePhotoDestination(
-            defaultResult = CaptureCarePhotoResult(photoData = null),
-            intentBuilder = CaptureCarePhotoIntentBuilder()
-        )
+        CaptureCarePhotoDestination {
+            crop(x = 3f, y = 4f)
+            compress(maxSize = 1024)
+            maxResultSize(width = 1080, height = 1440)
+        }
+    }
+    factory(named(DestinationType.CAPTURE_PRODUCT_PHOTO)) {
+        CaptureProductPhotoDestination {
+            crop(x = 1f, y = 1f)
+            compress(maxSize = 1024)
+            maxResultSize(width = 1080, height = 1080)
+        }
     }
 }

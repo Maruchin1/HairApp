@@ -2,12 +2,10 @@ package com.example.cares_list.use_case
 
 import android.app.Activity
 import arrow.core.getOrElse
-import arrow.core.getOrHandle
 import arrow.core.handleError
 import com.example.corev2.dao.CareDao
 import com.example.corev2.dao.CareStepDao
 import com.example.corev2.entities.*
-import com.example.corev2.navigation.CareDetailsDestination
 import com.example.corev2.relations.CareSchemaWithSteps
 import com.example.corev2.service.ClockService
 import com.google.common.truth.Truth.assertThat
@@ -15,7 +13,6 @@ import io.mockk.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 class AddNewCareUseCaseTest {

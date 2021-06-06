@@ -71,7 +71,7 @@ internal class UseCaseActions(
 
     override suspend fun captureNewCarePhoto(): String? {
         return activityRef.get()?.let {
-            captureCarePhotoDestination.navigate(it).photoData
+            captureCarePhotoDestination.navigate(it)
         }
     }
 }

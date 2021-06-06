@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface ProductDao {
 
     @Insert
-    suspend fun insert(vararg product: Product)
+    suspend fun insert(vararg product: Product): Array<Long>
 
     @Update
     suspend fun update(vararg product: Product)
@@ -18,4 +18,7 @@ interface ProductDao {
 
     @Query("SELECT * FROM Product")
     fun getAll(): Flow<List<Product>>
+
+    @Query("SELECT * FROM Product WHERE id = :productId")
+    fun getById(productId: Long): Flow<Product?>
 }

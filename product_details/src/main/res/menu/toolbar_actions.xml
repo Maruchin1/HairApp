@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/product_photo"
+        android:icon="@drawable/ic_round_photo_camera_24"
+        android:title="@string/product_photo"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/delete_product"
+        android:icon="@drawable/ic_round_delete_24"
+        android:title="@string/delete_product"
+        app:showAsAction="ifRoom" />
+
+</menu>

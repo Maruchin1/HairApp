@@ -5,8 +5,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.asFlow
 import com.example.corev2.dao.CareSchemaDao
 import com.example.corev2.entities.CareSchema
-import com.example.corev2.navigation.EditCareSchemaDestination
 import com.example.corev2.relations.CareSchemaWithSteps
+import com.example.navigation.CareSchemaDetailsDestination
+import com.example.navigation.CareSchemaDetailsParams
 import com.example.testing.rules.CoroutinesTestRule
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coJustRun
@@ -29,7 +30,7 @@ class CareSchemasListViewModelTest {
     val coroutinesTestRule = CoroutinesTestRule()
 
     private val careSchemaDao: CareSchemaDao = mockk()
-    private val editCareSchemaDestination: EditCareSchemaDestination = mockk()
+    private val editCareSchemaDestination = mockk<CareSchemaDetailsDestination>()
     private val viewModel by lazy {
         CareSchemasListViewModel(careSchemaDao, editCareSchemaDestination)
     }
@@ -98,7 +99,7 @@ class CareSchemasListViewModelTest {
         coVerify {
             editCareSchemaDestination.navigate(
                 activity,
-                EditCareSchemaDestination.Params(1)
+                CareSchemaDetailsParams(1)
             )
         }
     }

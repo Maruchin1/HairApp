@@ -2,10 +2,8 @@ package com.example.navigation
 
 import android.os.Parcelable
 import com.example.corev2.entities.Product
-import com.example.navigation.base.Destination
-import com.example.navigation.base.DestinationWithParams
-import com.example.navigation.base.DestinationWithParamsAndResult
-import com.example.navigation.base.DestinationWithResult
+import com.example.navigation.base.*
+import com.example.navigation.base.ImagePickerDestination
 import kotlinx.parcelize.Parcelize
 
 const val EXTRA_DESTINATION_PARAMS = "extra_destination_params"
@@ -46,7 +44,6 @@ typealias CareSchemaDetailsDestination = DestinationWithParams<CareSchemaDetails
 @Parcelize
 data class CareSchemaDetailsParams(val careSchemaId: Long) : Parcelable
 
-typealias CaptureCarePhotoDestination = DestinationWithResult<CaptureCarePhotoResult>
+typealias CaptureCarePhotoDestination = ImagePickerDestination
 
-@Parcelize
-data class CaptureCarePhotoResult(val photoData: String?) : Parcelable
+typealias CaptureProductPhotoDestination = ImagePickerDestination

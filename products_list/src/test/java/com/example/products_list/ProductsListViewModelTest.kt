@@ -2,17 +2,14 @@ package com.example.products_list
 
 import android.app.Activity
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.asFlow
 import com.example.corev2.dao.ProductDao
 import com.example.corev2.entities.Product
-import com.example.corev2.navigation.ProductFormDestination
+import com.example.navigation.ProductDetailsDestination
+import com.example.navigation.ProductDetailsParams
+import com.example.products_list.model.ProductsListViewModel
 import com.example.testing.rules.CoroutinesTestRule
 import com.google.common.truth.Truth.*
-import io.mockk.every
-import io.mockk.justRun
-import io.mockk.mockk
-import io.mockk.verify
-import kotlinx.coroutines.flow.firstOrNull
+import io.mockk.*
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -28,7 +25,7 @@ class ProductsListViewModelTest {
     val coroutinesTestRule = CoroutinesTestRule()
 
     private val productDao: ProductDao = mockk()
-    private val productFormDestination: ProductFormDestination = mockk()
+    private val productFormDestination = mockk<ProductDetailsDestination>()
     private val viewModel by lazy {
         ProductsListViewModel(productDao, productFormDestination)
     }
@@ -77,15 +74,15 @@ class ProductsListViewModelTest {
 
     @Test
     fun onAddProductClick_NavigateToProductForm() {
-        justRun { productFormDestination.navigate(any(), any()) }
+        coJustRun { productFormDestination.navigate(any(), any()) }
         val activity: Activity = mockk()
 
-        viewModel.onAddProductClick(activity)
+        viewModel.onAddProductClicked(activity)
 
-        verify {
+        coVerify {
             productFormDestination.navigate(
                 originActivity = activity,
-                params = ProductFormDestination.Params(null)
+                params = ProductDetailsParams(-1)
             )
         }
     }

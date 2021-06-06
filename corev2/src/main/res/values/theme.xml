@@ -16,6 +16,8 @@
         <item name="floatingActionButtonStyle">@style/FloatingActionButton</item>
         <item name="extendedFloatingActionButtonStyle">@style/ExtendedFloatingActionButton</item>
         <item name="toolbarNavigationButtonStyle">@style/ToolbarButton</item>
+        <item name="appBarLayoutStyle">@style/AppBar</item>
+        <item name="toolbarStyle">@style/Toolbar</item>
 
     </style>
 

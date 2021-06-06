@@ -7,9 +7,10 @@ import arrow.core.Either
 import com.example.cares_list.use_case.AddNewCareUseCase
 import com.example.corev2.dao.CareDao
 import com.example.corev2.entities.Care
-import com.example.corev2.navigation.CareDetailsDestination
 import com.example.corev2.relations.CareWithStepsAndPhotos
 import com.example.corev2.service.ClockService
+import com.example.navigation.CareDetailsDestination
+import com.example.navigation.CareDetailsParams
 import com.example.testing.rules.CoroutinesTestRule
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
@@ -19,7 +20,6 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 class CaresListViewModelTest {
@@ -33,7 +33,7 @@ class CaresListViewModelTest {
     private val careDao: CareDao = mockk()
     private val clockService: ClockService = mockk()
     private val addNewCareUseCase: AddNewCareUseCase = mockk()
-    private val careDetailsDestination: CareDetailsDestination = mockk()
+    private val careDetailsDestination = mockk<CareDetailsDestination>()
     private val viewModel by lazy {
         CaresListViewModel(careDao, clockService, addNewCareUseCase, careDetailsDestination)
     }
@@ -180,7 +180,7 @@ class CaresListViewModelTest {
 
         coVerify {
             addNewCareUseCase(activity)
-            careDetailsDestination.navigate(activity, CareDetailsDestination.Params(1))
+            careDetailsDestination.navigate(activity, CareDetailsParams(1))
         }
     }
 }

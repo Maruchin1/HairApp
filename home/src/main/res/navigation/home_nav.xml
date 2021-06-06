@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/productsListFragment"
-        android:name="com.example.products_list.ProductsListFragment"
+        android:name="com.example.products_list.ui.ProductsListFragment"
         android:label="ProductsListFragment"
         tools:layout="@layout/fragment_products_list" />
 
