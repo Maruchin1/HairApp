@@ -6,6 +6,11 @@
         <item name="titleTextAppearance">@style/TextAppearance.MaterialComponents.Headline4</item>
     </style>
 
+    <style name="Toolbar.Dark" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="navigationIconTint">@color/color_white</item>
+        <item name="titleTextAppearance">@style/TextAppearance.MaterialComponents.Headline4</item>
+    </style>
+
     <style name="ToolbarOverlay" parent="">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryVariant">@color/color_primary_dark</item>

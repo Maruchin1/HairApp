@@ -12,4 +12,5 @@
     <string name="delete_product">Usuń produkt</string>
     <string name="application">Zastosowanie</string>
     <string name="no_applications_message">Wybierz zastosowania produktu</string>
+    <string name="edit_product">Edytuj produkt</string>
 </resources>

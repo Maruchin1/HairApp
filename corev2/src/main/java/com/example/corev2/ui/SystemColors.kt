@@ -65,7 +65,7 @@ class SystemColors(private val activity: Activity) {
         return this
     }
 
-    internal fun apply() {
+    fun apply() {
         statusBarColor?.let {
             setStatusBarColor(it.colorResId)
             setUiVisibility(it, View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)

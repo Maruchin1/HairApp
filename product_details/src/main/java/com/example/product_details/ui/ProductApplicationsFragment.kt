@@ -1,20 +1,18 @@
 package com.example.product_details.ui
 
 import android.os.Bundle
-import android.view.ContextThemeWrapper
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import androidx.transition.TransitionManager
-import com.airbnb.paris.extensions.style
 import com.example.corev2.entities.Product
 import com.example.corev2.ui.BaseFragment
 import com.example.corev2.ui.setVisibleOrGone
 import com.example.product_details.R
 import com.example.product_details.databinding.FragmentProductApplicationsBinding
-import com.example.product_details.model.PageState
 import com.example.product_details.model.ProductDetailsViewModel
+import com.example.product_details.model.PageMode
 import com.example.product_details.model.SectionMode
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.flow.collectLatest
@@ -28,26 +26,9 @@ internal class ProductApplicationsFragment : BaseFragment<FragmentProductApplica
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupEditConfirmButton()
         setupApplicationsChips()
         setupNoApplications()
         observeState()
-    }
-
-    private fun setupEditConfirmButton() = binding.header.apply {
-        onEditClicked = {
-            beginTransitions()
-            viewModel.onEditApplications()
-        }
-        onAcceptClicked = {
-            beginTransitions()
-            viewModel.onConfirmApplications()
-        }
-    }
-
-    private fun beginTransitions() {
-        val activity = requireActivity() as ProductDetailsActivity
-        TransitionManager.beginDelayedTransition(activity.binding.root)
     }
 
     private fun setupApplicationsChips() = binding.applicationsChoiceChipGroup.apply {
@@ -68,29 +49,31 @@ internal class ProductApplicationsFragment : BaseFragment<FragmentProductApplica
         message.setText(R.string.no_applications_message)
     }
 
-    private fun observeState() = lifecycleScope.launchWhenStarted {
-        viewModel.state.collectLatest {
-            updateHeaderMode(it)
-            updateLayoutsVisibility(it)
-            updateDisplayedChips(it)
-            updateSelectedChoiceChips(it)
+    private fun observeState() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.applicationsSectionMode.collectLatest {
+                updateLayoutsVisibility(it)
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.applications.collectLatest {
+                updateDisplayedChips(it)
+                updateSelectedChoiceChips(it)
+            }
         }
     }
 
-    private fun updateHeaderMode(state: PageState) {
-        binding.header.mode = state.productApplicationsMode
+    private fun updateLayoutsVisibility(sectionMode: SectionMode) = binding.apply {
+        applicationsChipGroup.isVisible = sectionMode == SectionMode.DISPLAY
+        noApplications.root.isVisible = sectionMode == SectionMode.NO_CONTENT
+        applicationsChoiceChipGroup.isVisible = sectionMode == SectionMode.EDIT
     }
 
-    private fun updateLayoutsVisibility(state: PageState) = binding.apply {
-        val mode = state.productApplicationsMode
-        applicationsChipGroup.setVisibleOrGone(mode == SectionMode.DISPLAY && state.hasApplications)
-        noApplications.root.setVisibleOrGone(mode == SectionMode.DISPLAY && !state.hasApplications)
-        applicationsChoiceChipGroup.setVisibleOrGone(mode == SectionMode.EDIT)
-    }
-
-    private fun updateDisplayedChips(state: PageState) = binding.applicationsChipGroup.apply {
+    private fun updateDisplayedChips(
+        applications: Set<Product.Application>
+    ) = binding.applicationsChipGroup.apply {
         removeAllViews()
-        state.product?.applications?.forEach { application ->
+        applications.forEach { application ->
             val chip = Chip(context).apply {
                 setText(application.resId)
                 isCheckable = false
@@ -102,15 +85,13 @@ internal class ProductApplicationsFragment : BaseFragment<FragmentProductApplica
     }
 
     private fun updateSelectedChoiceChips(
-        state: PageState
+        applications: Set<Product.Application>
     ) = binding.applicationsChoiceChipGroup.apply {
         children.forEach { view ->
             val chip = view as Chip
-            chip.isChecked = state.product
-                ?.applications
-                ?.map { getString(it.resId) }
-                ?.contains(chip.text)
-                ?: false
+            chip.isChecked = applications
+                .map { getString(it.resId) }
+                .contains(chip.text)
         }
     }
 }

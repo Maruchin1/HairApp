@@ -1,17 +1,16 @@
 package com.example.product_details.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
-import androidx.transition.TransitionManager
 import com.example.corev2.ui.BaseFragment
 import com.example.corev2.ui.setVisibleOrGone
 import com.example.product_details.R
 import com.example.product_details.databinding.FragmentProductBasicInfoBinding
-import com.example.product_details.model.PageState
 import com.example.product_details.model.ProductDetailsViewModel
+import com.example.product_details.model.PageMode
 import com.example.product_details.model.SectionMode
 import com.example.shared_ui.extensions.setTextIfChanged
 import kotlinx.coroutines.flow.collectLatest
@@ -25,28 +24,9 @@ internal class ProductBasicInfoFragment : BaseFragment<FragmentProductBasicInfoB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupEditConfirmButton()
         setupNoBasicInfo()
         setupInputs()
         observeState()
-    }
-
-    private fun setupEditConfirmButton() {
-        binding.header.apply {
-            onEditClicked = {
-                beginTransitions()
-                viewModel.onEditBasicInfo()
-            }
-            onAcceptClicked = {
-                beginTransitions()
-                viewModel.onConfirmBasicInfo()
-            }
-        }
-    }
-
-    private fun beginTransitions() {
-        val activity = requireActivity() as ProductDetailsActivity
-        TransitionManager.beginDelayedTransition(activity.binding.root)
     }
 
     private fun setupNoBasicInfo() = binding.apply {
@@ -54,53 +34,48 @@ internal class ProductBasicInfoFragment : BaseFragment<FragmentProductBasicInfoB
         noBasicInfo.message.setText(R.string.no_basic_info_message)
     }
 
-    private fun setupInputs() {
-        binding.apply {
-            productNameInput.doAfterTextChanged {
-                viewModel.onProductNameInputChanged(it.toString())
+    private fun setupInputs() = binding.apply {
+        productNameInput.doAfterTextChanged {
+            viewModel.onProductNameInputChanged(it.toString())
+        }
+        manufacturerInput.doAfterTextChanged {
+            viewModel.onManufacturerInputChanged(it.toString())
+        }
+    }
+
+    private fun observeState() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.basicInfoSectionMode.collectLatest {
+                updateLayoutsVisibility(it)
             }
-            manufacturerInput.doAfterTextChanged {
-                viewModel.onManufacturerInputChanged(it.toString())
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.productName.collectLatest {
+                updateProductName(it)
+            }
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.manufacturer.collectLatest {
+                updateManufacturer(it)
             }
         }
     }
 
-    private fun observeState() = lifecycleScope.launchWhenStarted {
-        viewModel.state.collectLatest {
-            Log.d("MyDebug", "BasicInfo state changed")
-            updateHeaderMode(it)
-            updateLayoutsVisibility(it)
-            updateDisplayedData(it)
-            updateInputs(it)
-        }
+    private fun updateLayoutsVisibility(sectionMode: SectionMode) = binding.apply {
+        productName.isVisible = sectionMode == SectionMode.DISPLAY
+        manufacturer.isVisible = sectionMode == SectionMode.DISPLAY
+        noBasicInfo.root.isVisible = sectionMode == SectionMode.NO_CONTENT
+        productNameInputLayout.isVisible = sectionMode == SectionMode.EDIT
+        manufacturerInputLayout.isVisible = sectionMode == SectionMode.EDIT
     }
 
-    private fun updateHeaderMode(state: PageState) {
-        binding.header.mode = state.basicInfoMode
+    private fun updateProductName(productName: String) {
+        binding.productName.text = productName
+        binding.productNameInput.setText(productName)
     }
 
-    private fun updateLayoutsVisibility(state: PageState) {
-        val mode = state.basicInfoMode
-        binding.apply {
-            productName.setVisibleOrGone(mode == SectionMode.DISPLAY && state.hasBasicInfo)
-            manufacturer.setVisibleOrGone(mode == SectionMode.DISPLAY && state.hasBasicInfo)
-            noBasicInfo.root.setVisibleOrGone(mode == SectionMode.DISPLAY && !state.hasBasicInfo)
-            productNameInputLayout.setVisibleOrGone(mode == SectionMode.EDIT)
-            manufacturerInputLayout.setVisibleOrGone(mode == SectionMode.EDIT)
-        }
-    }
-
-    private fun updateDisplayedData(state: PageState) {
-        binding.apply {
-            productName.text = state.product?.name
-            manufacturer.text = state.product?.manufacturer
-        }
-    }
-
-    private fun updateInputs(state: PageState) {
-        binding.apply {
-            productNameInput.setTextIfChanged(state.product?.name)
-            manufacturerInput.setTextIfChanged(state.product?.manufacturer)
-        }
+    private fun updateManufacturer(manufacturer: String) {
+        binding.manufacturer.text = manufacturer
+        binding.manufacturerInput.setText(manufacturer)
     }
 }

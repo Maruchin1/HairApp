@@ -19,6 +19,15 @@
             app:menu="@menu/toolbar_actions"
             app:navigationIcon="@drawable/ic_round_arrow_back_ios_24"
             app:title="Produkty" />
+
+        <com.google.android.material.appbar.MaterialToolbar
+            style="@style/Toolbar.Dark"
+            android:id="@+id/edit_mode_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/toolbar_edit_actions"
+            app:title="@string/edit"
+            app:navigationIcon="@drawable/ic_round_close_24"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView

@@ -1,15 +1,13 @@
 package com.example.product_details.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import androidx.transition.TransitionManager
+import com.example.corev2.entities.Ingredients
 import com.example.corev2.ui.BaseFragment
-import com.example.corev2.ui.setVisibleOrGone
 import com.example.product_details.R
 import com.example.product_details.databinding.FragmentIngredientsBinding
-import com.example.product_details.model.PageState
 import com.example.product_details.model.ProductDetailsViewModel
 import com.example.product_details.model.SectionMode
 import kotlinx.coroutines.flow.collectLatest
@@ -23,26 +21,21 @@ internal class IngredientsFragment : BaseFragment<FragmentIngredientsBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupEditConfirmButton()
-        setupNoIngredients()
         setupChoiceChips()
+        setupNoIngredients()
         observeState()
     }
 
-    private fun setupEditConfirmButton() = binding.header.apply {
-        onEditClicked = {
-            beginTransitions()
-            viewModel.onEditIngredients()
+    private fun setupChoiceChips() = binding.apply {
+        proteinsChoiceChip.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.onProteinsSelectionChanged(isChecked)
         }
-        onAcceptClicked = {
-            beginTransitions()
-            viewModel.onConfirmIngredients()
+        emollientsChoiceChip.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.onEmollientsSelectionChanged(isChecked)
         }
-    }
-
-    private fun beginTransitions() {
-        val activity = requireActivity() as ProductDetailsActivity
-        TransitionManager.beginDelayedTransition(activity.binding.root)
+        humectantsChoiceChip.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.onHumectantsSelectionChanged(isChecked)
+        }
     }
 
     private fun setupNoIngredients() = binding.noIngredients.apply {
@@ -50,50 +43,35 @@ internal class IngredientsFragment : BaseFragment<FragmentIngredientsBinding>(
         message.setText(R.string.no_ingredients_message)
     }
 
-    private fun setupChoiceChips() = binding.apply {
-        proteinsChoiceChip.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.onProteinsSelectedChanged(isChecked)
+    private fun observeState() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.ingredientsSectionMode.collectLatest {
+                updateVisibility(it)
+            }
         }
-        emollientsChoiceChip.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.onEmollientsSelectedChanged(isChecked)
-        }
-        humectantsChoiceChip.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.onHumectantsSelectedChanged(isChecked)
-        }
-    }
-
-    private fun observeState() = lifecycleScope.launchWhenStarted {
-        viewModel.state.collectLatest {
-            Log.d("MyDebug", "Ingredients state changed")
-            updateHeaderMode(it)
-            updateLayoutsVisibility(it)
-            updateDisplayedChips(it)
-            updateSelectedChoiceChips(it)
+        lifecycleScope.launchWhenStarted {
+            viewModel.ingredients.collectLatest {
+                updateDisplayedChips(it)
+                updateSelectedChoiceChips(it)
+            }
         }
     }
 
-    private fun updateHeaderMode(state: PageState) {
-        binding.header.mode = state.ingredientsMode
+    private fun updateVisibility(sectionMode: SectionMode) = binding.apply {
+        ingredientsChipGroup.isVisible = sectionMode == SectionMode.DISPLAY
+        noIngredients.root.isVisible = sectionMode == SectionMode.NO_CONTENT
+        ingredientsChoiceChipGroup.isVisible = sectionMode == SectionMode.EDIT
     }
 
-    private fun updateLayoutsVisibility(state: PageState) = binding.apply {
-        val mode = state.ingredientsMode
-        ingredientsChipGroup.setVisibleOrGone(mode == SectionMode.DISPLAY && state.hasIngredients)
-        noIngredients.root.setVisibleOrGone(mode == SectionMode.DISPLAY && !state.hasIngredients)
-        ingredientsChoiceChipGroup.setVisibleOrGone(mode == SectionMode.EDIT)
+    private fun updateDisplayedChips(ingredients: Ingredients) = binding.apply {
+        proteinsChip.isVisible = ingredients.proteins
+        emollientsChip.isVisible = ingredients.emollients
+        humectantsChip.isVisible = ingredients.humectants
     }
 
-    private fun updateDisplayedChips(state: PageState) = binding.apply {
-        val ingredients = state.product?.ingredients
-        proteinsChip.setVisibleOrGone(ingredients?.proteins == true)
-        emollientsChip.setVisibleOrGone(ingredients?.emollients == true)
-        humectantsChip.setVisibleOrGone(ingredients?.humectants == true)
-    }
-
-    private fun updateSelectedChoiceChips(state: PageState) = binding.apply {
-        val ingredients = state.product?.ingredients
-        proteinsChoiceChip.isChecked = ingredients?.proteins == true
-        emollientsChoiceChip.isChecked = ingredients?.emollients == true
-        humectantsChoiceChip.isChecked = ingredients?.humectants == true
+    private fun updateSelectedChoiceChips(ingredients: Ingredients) = binding.apply {
+        proteinsChoiceChip.isChecked = ingredients.proteins
+        emollientsChoiceChip.isChecked = ingredients.emollients
+        humectantsChoiceChip.isChecked = ingredients.humectants
     }
 }
